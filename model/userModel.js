@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const userSchema = new mongoose.Schema({
-    name : {
+    name : {    
         type : String,
         required : true
     },
@@ -18,6 +18,10 @@ const userSchema = new mongoose.Schema({
         type : String,
         required : true
     },
+    isBlocked : {
+        type : Boolean,
+        default : false
+    }
 },{
     versionKey : false
 })

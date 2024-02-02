@@ -24,7 +24,7 @@ ${otp}`
     
     transporter.sendMail(mailOptions , (error , info)=>{
         if(error){
-            console.log("OTP not send");
+            console.log("OTP not send" , error);
         }else{
             console.log("OTP send to mail" , info.response);
         }

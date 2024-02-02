@@ -1,15 +1,12 @@
-const express = require('express');
 const User = require("../model/userModel");
 const GenerateOTP = require("../controller/OTP controller/GenerateOTP");
 const sendOTPmail = require("../controller/OTP controller/sendOTP");
-const session = require('express-session');
-
 
 //========================================= Render default page ==============================================
 
 const userhomeGET = (req, res) => {
     try {
-        res.render("userHome");
+        res.render("user/userHome");
     } catch (error) {
         console.log(error);
     }
@@ -19,10 +16,10 @@ const userhomeGET = (req, res) => {
 
 const userLogin = (req, res) => {
     try {
-        if (req.session.user) {
-            res.render("userProfile");
+        if (req.session.useremail) {
+            res.render("user/userProfile");
         } else {
-            res.render("userLogin")
+            res.render("user/userLogin")
         }
     } catch (error) {
         console.log(error);
@@ -33,21 +30,26 @@ const userLogin = (req, res) => {
 
 const userLoginpost = async (req, res) => {
     try {
-        const userloginemail = req.body.userloginemail;
-        const userloginpassword = req.body.userloginpassword;
-        const userinfo = await User.findOne({ email: userloginemail })
-        if (userinfo) {
-            if (userinfo.password === userloginpassword) {
-                req.session.user = userloginemail;
-                res.redirect('/');
-                console.log(`${userloginemail} Entered in the home page`);
+        const ajaxEmail = req.body.useremail;
+        const ajaxPass = req.body.userpass;
+        const loginUser = await User.findOne({ email: ajaxEmail });
+        if (loginUser) {
+            if (ajaxPass === loginUser.password) {
+                if (loginUser.isBlocked === false) {
+                    console.log(`${ajaxEmail} Entering to home page`);
+                    req.session.useremail = ajaxEmail;
+                    res.json({ status: true })
+                } else {
+                    console.log("Admin blocked this user");
+                    res.json({status : "userBlock"})
+                }
             } else {
-                console.log("password is wrong");
-                res.status(500).json("password is wrong")
+                console.log("ENtered password is wrong");
+                res.json({ status: "passwordwrong" })
             }
         } else {
-            console.log("user not fount");
-            res.status(500).json("user not fount")
+            console.log("email not found");
+            res.json({ status: false })
         }
     } catch (error) {
         console.log(error);
@@ -61,7 +63,7 @@ const userRegister = (req, res) => {
         if (req.session.user) {
             res.redirect("/userLogin")
         } else {
-            res.render('userRegister')
+            res.render('user/userRegister')
         }
     } catch (error) {
         console.log(error);
@@ -72,39 +74,47 @@ const userRegister = (req, res) => {
 
 const userRegisterpost = async (req, res) => {
     try {
-        if (req.session.user) {
-            res.redirect("/userLogin")
-        } else {
-            const { registerusername, email, registeruserphone, registeruserpass, registeruserconfpass } = req.body;
-
-            const checkemail = await User.findOne({ email: email });
-            if (!checkemail) {                                               // checking this email already existed
-                if (registeruserpass.length >= 8) {                        // checking password length >= 8;
-                    if (registeruserpass === registeruserconfpass) {       // checking password and confirm password are same
-                        if (registeruserphone.length === 10) {             //checking phone number length is 10
+        const registerusername = req.body.registername;
+        const email = req.body.registeremail;
+        const registeruserphone = req.body.registernumber;
+        const registeruserpass = req.body.registerpassword;
+        const registeruserconfpass = req.body.registerconfpass;
+        const checkemail = await User.findOne({ email: email });
+        if (!checkemail) {
+            if (registeruserphone.length >= 10) {
+                const checkphone = await User.findOne({ phone: registeruserphone });
+                if (!checkphone) {
+                    if (registeruserpass.length >= 8) {
+                        if (registeruserpass === registeruserconfpass) {
                             const serverSideOTP = GenerateOTP();
-                            const serverSideEmail = sendOTPmail(email, serverSideOTP)
+                            sendOTPmail(email, serverSideOTP);
                             req.session.tempuserDetail = {
                                 registerusername,
                                 email,
                                 registeruserphone,
                                 registeruserpass,
-                                serverSideOTP
+                                serverOTP: serverSideOTP
                             }
-                            res.render('userRegisterOTP')
+                            res.json({ status: true });
                         } else {
-                            console.log("enter valid phone number");
+                            console.log("Both password is not match");
+                            res.json({ status: "confpass" });
                         }
                     } else {
-                        console.log("enter correct password both password are not match");
+                        console.log("Password must need morethan 8 charecter");
+                        res.json({ status: "passlength" });
                     }
                 } else {
-                    console.log("password must need morethan 8 character");
+                    console.log("Phone number already existed");
+                    res.json({ status: "numberexist" })
                 }
             } else {
-                console.log("this email already existed");
-                res.json("this email already existed")
+                console.log("Enter valid number");
+                res.json({ status: "numberlength" })
             }
+        } else {
+            console.log("this email already existed");
+            res.json({ status: "existEmail" });
         }
     } catch (error) {
         console.log(error);
@@ -113,31 +123,39 @@ const userRegisterpost = async (req, res) => {
 
 //======================================================== Check OTP is correct and valid ======================================================================
 
+const userRegisterOTP = (req, res) => {
+    try {
+        res.render("user/userRegisterOTP")
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+//======================================================== user Register OTP page render ======================================================================
+
 const userRegisterOTPpost = async (req, res) => {
     try {
-        if (req.session.user) {
-            res.redirect("/userLogin")
-        } else {
-            const serverSideOTP = req.session.tempuserDetail.serverSideOTP;
-            const userSideOTP = req.body.registerOTP;
-            const UserData = {
-                name: req.session.tempuserDetail.registerusername,
-                email: req.session.tempuserDetail.email,
-                phone: req.session.tempuserDetail.registeruserphone,
-                password: req.session.tempuserDetail.registeruserpass
-            }
-            if (serverSideOTP === userSideOTP) {
-                try {
-                    const newUser = await User.create(UserData);
-                    console.log("new user registration successfully");
-                    res.redirect('/userLogin')
-                } catch (error) {
-                    console.log(error);
+        const serverOTP = req.session.tempuserDetail.serverOTP;
+        console.log(serverOTP);
+        const userSideOTP = req.body.userSideOTP;
+        if (serverOTP === userSideOTP) {
+            try {
+                const UserData = {
+                    name: req.session.tempuserDetail.registerusername,
+                    email: req.session.tempuserDetail.email,
+                    phone: req.session.tempuserDetail.registeruserphone,
+                    password: req.session.tempuserDetail.registeruserpass
                 }
-            } else {
-                res.json("Enter valid OTP")
-                console.log("Enter Valid OTP");
+                const newUser = await User.create(UserData);
+                console.log("new user registration successfully");
+                delete req.session.tempuserDetail;
+                res.json({ status: true })
+            } catch (error) {
+                console.log(error);
             }
+        } else {
+            res.json({ status: false })
+            console.log("Enter Valid OTP");
         }
     } catch (error) {
         console.log(error);
@@ -148,15 +166,11 @@ const userRegisterOTPpost = async (req, res) => {
 
 const userRegisterResentOTPpost = (req, res) => {
     try {
-        if (req.session.user) {
-            res.redirect("/userLogin")
-        } else {
-            const email = req.session.tempuserDetail.email;
-            const serverSideOTP = GenerateOTP();
-            req.session.tempuserDetail.serverSideOTP = serverSideOTP;
-            sendOTPmail(email, serverSideOTP)
-            res.render("userRegisterOTP");
-        }
+        const email = req.session.tempuserDetail.email;
+        const serverSideOTP = GenerateOTP();
+        req.session.tempuserDetail.serverOTP = serverSideOTP;
+        sendOTPmail(email, serverSideOTP)
+        res.json({ status: true })
     } catch (error) {
         console.log(error);
     }
@@ -166,11 +180,7 @@ const userRegisterResentOTPpost = (req, res) => {
 
 const userForgetPassword = (req, res) => {
     try {
-        if (req.session.user) {
-            res.redirect("/userLogin")
-        } else {
-            res.render('userForgetPass')
-        }
+        res.render('user/userForgetPass')
     } catch (error) {
         console.log(error);
     }
@@ -180,34 +190,33 @@ const userForgetPassword = (req, res) => {
 
 const userForgetPasswordpost = async (req, res) => {
     try {
-        if (req.session.user) {
-            res.redirect("/userLogin")
-        } else {
-            const { forgetemail, forgetpassword, forgetconfpassword } = req.body;
-            const forgetUserinfo = await User.findOne({ email: forgetemail });
-            if (forgetUserinfo) {
-                if (forgetpassword.length >= 8) {
-                    if (forgetpassword === forgetconfpassword) {
-                        const newforgetOTP = GenerateOTP();
-                        const frogetOTP_mail = sendOTPmail(forgetemail, newforgetOTP);
-                        req.session.tempforgetpassdetails = {
-                            forgetemail: forgetemail,
-                            forgetpassword: forgetpassword,
-                            serverOTP: newforgetOTP
-                        }
-                        res.redirect('/userForgetOTP')
-                    } else {
-                        console.log("check password both password are same");
-                        res.json("check password both password are same")
+        const { forgetemail, forgetpassword, forgetconfpassword } = req.body;
+        const forgetUserinfo = await User.findOne({ email: forgetemail });
+        if (forgetUserinfo) {
+            if (forgetpassword.length >= 8) {
+                if (forgetpassword === forgetconfpassword) {
+                    const newforgetOTP = GenerateOTP();
+                    const frogetOTP_mail = sendOTPmail(forgetemail, newforgetOTP);
+
+                    req.session.userforgetTEMP = {
+                        email: forgetemail,
+                        registeruserpass: forgetpassword,
+                        OTPserverSide: newforgetOTP
                     }
+
+
+                    res.json({ status: true })
                 } else {
-                    console.log("forget password must need more that 8 character");
-                    res.json("forget password must need more that 8 character")
+                    console.log("check password both password are same");
+                    res.json({ status: "passwrong" })
                 }
             } else {
-                console.log("gmai not found");
-                res.json("gmail not found");
+                console.log("forget password must need more that 8 character");
+                res.json({ status: "passlength" })
             }
+        } else {
+            console.log("gmai not found");
+            res.json({ status: "gmailnotfound" });
         }
     } catch (error) {
         console.log(error);
@@ -218,11 +227,7 @@ const userForgetPasswordpost = async (req, res) => {
 
 const userForgetOTP = (req, res) => {
     try {
-        if (req.session.user) {
-            res.redirect("/userLogin")
-        } else {
-            res.render("userForgetOTP");
-        }
+        res.render("user/userForgetOTP");
     } catch (error) {
         console.log(error);
     }
@@ -232,22 +237,18 @@ const userForgetOTP = (req, res) => {
 
 const userForgetOTPpost = async (req, res) => {
     try {
-        if (req.session.user) {
-            res.redirect("/userLogin")
-        } else {
-            const userEnterOTP = req.body.forgetOTP;
-            const serverOTP = req.session.tempforgetpassdetails.serverOTP
-            if (userEnterOTP === serverOTP) {
-                try {
-                    const updatePass = await User.updateOne({ email: req.session.tempforgetpassdetails.forgetemail }, { password: req.session.tempforgetpassdetails.forgetpassword });
-                    console.log(req.session.tempforgetpassdetails.forgetemail, " Changed old password");
-                    res.redirect("/userLogin");
-                } catch (error) {
-                    console.log(error);
-                }
-            } else {
-                res.json("wrong OTP")
+        const userEnterOTP = req.body.userSideOTP;
+        if (userEnterOTP === req.session.userforgetTEMP.OTPserverSide) {
+            try {
+                const updatePass = await User.updateOne({ email: req.session.userforgetTEMP.email }, { password: req.session.userforgetTEMP.registeruserpass });
+                console.log(req.session.userforgetTEMP.email, " Changed old password");
+                res.json({ status: true })
+            } catch (error) {
+                console.log(error);
             }
+        } else {
+            console.log("OTP is wrong");
+            res.json({ status: false });
         }
     } catch (error) {
         console.log(error);
@@ -258,15 +259,11 @@ const userForgetOTPpost = async (req, res) => {
 
 const userforgetResentOTPpost = (req, res) => {
     try {
-        if (req.session.user) {
-            res.redirect("/userLogin")
-        } else {
-            const email = req.session.tempforgetpassdetails.forgetemail;
-            const resendForgetOTP = GenerateOTP();
-            req.session.tempforgetpassdetails.serverOTP = resendForgetOTP;
-            sendOTPmail(email, resendForgetOTP);
-            res.render("userForgetOTP");
-        }
+        const resendForgetOTP = GenerateOTP();
+        req.session.userforgetTEMP.OTPserverSide = resendForgetOTP;
+        sendOTPmail(req.session.userforgetTEMP.email, req.session.userforgetTEMP.OTPserverSide);
+        console.log(req.session.userforgetTEMP);
+        res.json({ status: true })
     } catch (error) {
         console.log(error);
     }
@@ -276,8 +273,8 @@ const userforgetResentOTPpost = (req, res) => {
 
 const userLogout = (req, res) => {
     try {
-        if (req.session.user) {
-            req.session.destroy();
+        if (req.session.useremail) {
+            req.session.destroy();;
             res.redirect("/");
         } else {
             res.redirect("/");
@@ -295,6 +292,7 @@ module.exports = {
     userLoginpost,
     userRegister,
     userRegisterpost,
+    userRegisterOTP,
     userRegisterOTPpost,
     userForgetPassword,
     userForgetPasswordpost,
