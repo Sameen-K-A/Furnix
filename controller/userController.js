@@ -1,12 +1,14 @@
 const User = require("../model/userModel");
+const Product = require("../model/productModel");
 const GenerateOTP = require("../controller/OTP controller/GenerateOTP");
 const sendOTPmail = require("../controller/OTP controller/sendOTP");
 
 //========================================= Render default page ==============================================
 
-const userhomeGET = (req, res) => {
+const userhomeGET = async (req, res) => {
     try {
-        res.render("user/userHome");
+        const productDetails = await Product.find({ isBlocked: false });
+        res.render("user/userHome", { productDetails });
     } catch (error) {
         console.log(error);
     }
@@ -16,6 +18,7 @@ const userhomeGET = (req, res) => {
 
 const userLogin = (req, res) => {
     try {
+
         if (req.session.useremail) {
             res.render("user/userProfile");
         } else {
@@ -41,7 +44,7 @@ const userLoginpost = async (req, res) => {
                     res.json({ status: true })
                 } else {
                     console.log("Admin blocked this user");
-                    res.json({status : "userBlock"})
+                    res.json({ status: "userBlock" })
                 }
             } else {
                 console.log("ENtered password is wrong");
@@ -269,6 +272,18 @@ const userforgetResentOTPpost = (req, res) => {
     }
 }
 
+//========================================= user watch product details  ==============================================
+
+const productDetailspage = async (req, res) => {
+    try {
+        const productID = req.query.id;
+        const productDetails = await Product.findOne({ _id: productID });
+        res.render("user/productDetails", { productDetails })
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 //========================================= user Logout area ==============================================
 
 const userLogout = (req, res) => {
@@ -300,5 +315,6 @@ module.exports = {
     userForgetOTP,
     userForgetOTPpost,
     userforgetResentOTPpost,
-    userLogout
+    userLogout,
+    productDetailspage
 }

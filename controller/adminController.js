@@ -168,78 +168,6 @@ const adminEditPOST = async (req, res) => {
     }
 }
 
-//========================================= rendering product page ==============================================
-
-const productPage = (req, res) => {
-    try {
-        res.render("admin/productPage")
-    } catch (error) {
-        console.log(error);
-    }
-}
-
-//========================================= Add new product page rendering ==============================================
-
-const addProduct = (req, res) => {
-    try {
-        res.render("admin/addProduct")
-    } catch (error) {
-        console.log(error);
-    }
-}
-
-//========================================= Add new product post to server ==============================================
-
-const addProductPOST = (req, res) => {
-    try {
-            // name,
-            // description,
-            // categorySelect,
-            // regularPrice,
-            // capacity,
-            // material,
-            // stock,
-            // color
-        const name = req.body.name;
-        const description = req.body.description;
-        const category = req.body.categorySelect;
-        const regularPrice = parseInt(req.body.regularPrice)
-        const capacity = parseInt(req.body.capacity)
-        const material = req.body.material;
-        const stock = parseInt(req.body.stock);
-        const color = req.body.color
-
-        if (regularPrice >= 1000) {
-            if (regularPrice <= 99999) {
-                if (stock >= 1) {
-                    if (capacity >= 1) {
-                        if (capacity <= 8) {
-                            console.log(name , description , category , regularPrice , capacity , material , stock , color);
-                        } else {
-                            console.log("capacity cannot support more than 8");
-                            res.json({ status: "capacityMax" })
-                        }
-                    } else {
-                        console.log("capacity cannot support less than 1");
-                        res.json({ status: "capacityMin" })
-                    }
-                } else {
-                    console.log("stock cannot support less than 1");
-                    res.json({ status: "stockMin" })
-                }
-            } else {
-                console.log("regular price can not support mor than 99,999");
-                res.json({ status: "regularMax" })
-            }
-        } else {
-            console.log("regular price must need morethan 999");
-            res.json({ status: "regularMin" })
-        }
-    } catch (error) {
-        console.log(error);
-    }
-}
-
 //========================================= Export all modules ==============================================
 
 module.exports = {
@@ -255,7 +183,6 @@ module.exports = {
     UnblockCategory,
     editcategory,
     adminEditPOST,
-    productPage,
-    addProduct,
-    addProductPOST
 }
+
+

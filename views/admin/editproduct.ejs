@@ -1,0 +1,400 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Evara Dashboard</title>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:title" content="">
+    <meta property="og:type" content="">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="/admin-assets/imgs/theme/favicon.svg">
+    <!-- Template CSS -->
+    <link href="/admin-assets/css/main.css" rel="stylesheet" type="text/css" />
+</head>
+<style>
+    .custom-button1 {
+        width: 100px;
+        height: 40px;
+        padding: 5px;
+        background-color: rgb(255, 255, 255);
+        color: rgb(0, 0, 0);
+        font-size: 14px;
+        border-radius: 50px;
+    }
+
+    .custom-button2 {
+        width: 100px;
+        height: 40px;
+        padding: 5px;
+        background-color: rgb(0, 0, 0);
+        color: rgb(255, 255, 255);
+        font-size: 14px;
+        border-radius: 50px;
+    }
+</style>
+
+<body>
+    <header class="main-header navbar">
+        <div class="col-nav">
+            <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside"> <i
+                    class="material-icons md-apps"></i> </button>
+            <ul class="nav">
+                <li class="dropdown nav-item">
+                    <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount"
+                        aria-expanded="false"> <img class="img-xs rounded-circle"
+                            src="/admin-assets/imgs/people/profile.jpg" alt="User"></a>
+                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
+                        <a class="dropdown-item text-danger" href="#"><i
+                                class="material-icons md-exit_to_app"></i>Logout</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </header>
+    <section class="content-main">
+        <form action="/admin/editProductPOST" method="post" enctype="multipart/form-data">
+            <div class="row justify-content-center">
+                <div class="content-header">
+                    <h2 class="content-title fw-bold" style="margin: auto;">Edit Product</h2>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h4>Details</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-4">
+                                <label for="product_name" class="form-label">Name</label>
+                                <input type="text" placeholder="Enter product name" class="form-control"
+                                    id="product_name" onkeyup="namValidation()" name="name"
+                                    value="<%= productDetails.name %>">
+                            </div>
+                            <p class="text-danger text-center mb-15 " id="minName"></p>
+                            <div class="mb-4">
+                                <label class="form-label">Description</label>
+                                <textarea placeholder="Enter product description" class="form-control" rows="4"
+                                    id="product_description" onkeyup="desValidation()"
+                                    name="description"><%= productDetails.description %></textarea>
+                            </div>
+                            <p class="text-danger text-center mb-15 " id="descriptionError"></p>
+                            <div class="row">
+                                <div class="col-lg-12 mb-30">
+                                    <label class="form-label">Category</label>
+                                    <select class="form-select " id="categorySelect" name="category">
+                                        <option>
+                                            <%= productDetails.category %>
+                                        </option>
+                                        <% catDetails.forEach(element=> { %>
+                                            <% if (productDetails.category !==element.name) { %>
+                                                <option>
+                                                    <%= element.name %>
+                                                </option>
+                                                <% } %>
+                                                    <% }) %>
+
+                                    </select>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="mb-4">
+                                        <label class="form-label">Regular price</label>
+                                        <div class="row gx-2">
+                                            <input placeholder="₹" type="text" class="form-control" id="product_regular"
+                                                onkeyup="regValidation()" name="regularPrice"
+                                                value="<%= productDetails.regularPrice %>">
+                                        </div>
+                                        <p class="text-danger text-center mb-15 " id="regularError"></p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label class="form-label">Seating capacity</label>
+                                    <input type="text" placeholder="Enter seating capacity" class="form-control"
+                                        id="product_capacity" onkeyup="capValidation()" name="capacity"
+                                        value="<%= productDetails.capacity %>">
+                                    <p class="text-danger text-center mb-15 " id="capacityError"></p>
+                                </div>
+                                <div class="col-lg-6 mb-30">
+                                    <label class="form-label">Upholstery material</label>
+                                    <input type="text" placeholder="Enter Upholstery material" class="form-control"
+                                        id="product_material" onkeyup="matValidation()" name="material"
+                                        value="<%= productDetails.material %>">
+                                    <p class="text-danger text-center mb-15 " id="materialError"></p>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label class="form-label">Item stock</label>
+                                    <input type="text" placeholder="Enter Upholstery material" class="form-control"
+                                        id="product_stock" onkeyup="stockValidation()" name="stock"
+                                        value="<%= productDetails.stock %>">
+                                    <p class="text-danger text-center mb-15 " id="stockError"></p>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label class="form-label">Product color</label>
+                                    <input type="text" placeholder="Enter product color" class="form-control"
+                                        id="product_color" onkeyup="colorValidation()" name="color"
+                                        value="<%= productDetails.color %>">
+                                    <p class="text-danger text-center mb-15 " id="colorError"></p>
+                                </div>
+                                <div class="col-lg-12 mt-15">
+                                    <label class="form-label">Product Images</label>
+                                    <img alt="">
+                                    <input class="form-control" type="file" multiple accept=".png, .jpeg, .jpg"
+                                        onkeyup="imageValidation()" name="image">
+                                    <p class="text-danger text-center mb-15 mt-15" id="imageError"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-50 text-center">
+                    <button class="custom-button1" onclick="cancel()">Cancel</button>
+                    <button class="custom-button2" type="submit" id="add">Add</button>
+                </div>
+            </div>
+        </form>
+    </section>
+    </main>
+    <script src="/admin-assets/js/vendors/jquery-3.6.0.min.js"></script>
+    <script src="/admin-assets/js/vendors/bootstrap.bundle.min.js"></script>
+    <script src="/admin-assets/js/vendors/select2.min.js"></script>
+    <script src="/admin-assets/js/vendors/perfect-scrollbar.js"></script>
+    <script src="/admin-assets/js/vendors/jquery.fullscreen.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="/admin-assets/js/main.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</body>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const form = document.querySelector('form');
+        const nameError = document.getElementById("minName");
+        const descriptionError = document.getElementById("descriptionError");
+        const regularError = document.getElementById("regularError");
+        const capacityError = document.getElementById("capacityError");
+        const upoError = document.getElementById("materialError");
+        const stockError = document.getElementById("stockError");
+        const colorError = document.getElementById("colorError")
+
+        nameError.textContent = "";
+        descriptionError.textContent = "";
+        regularError.textContent = "";
+        capacityError.textContent = "";
+        upoError.textContent = "";
+        stockError.textContent = "";
+        colorError.textContent = "";
+
+        //      name validation 
+        function namValidation() {
+            const name = document.getElementById("product_name").value;
+            if (name.trim() === "") {
+                nameError.textContent = "Please enter valid name"
+                return false
+            } else if (name.length <= 3) {
+                nameError.textContent = "Name must need atleast 3 character"
+                return false
+            } else if (name.length >= 20) {
+                nameError.textContent = "Name can't exceed 20 character"
+                return false
+            } else if ((!/^[A-Za-z\s]+$/.test(name))) {
+                nameError.textContent = "Name can't contain characters other than alphabets, underscore and &"
+                return false
+            }
+            nameError.textContent = "";
+            return true
+        }
+
+        // description validation 
+        function desValidation() {
+            const description = document.getElementById("product_description").value;
+            if (description.trim() === "") {
+                descriptionError.textContent = "Please enter valid description"
+                return false
+            } else if (description.length <= 10) {
+                descriptionError.textContent = "Desciption must need more than 10 character"
+                return false
+            } else if (description.length >= 50) {
+                descriptionError.textContent = "Desciption can't exceed 50 character"
+                return false
+            }
+            descriptionError.textContent = "";
+            return true
+        }
+
+        // regular price validation
+        function regValidation() {
+            const regular = document.getElementById("product_regular").value;
+            if (regular.trim() === "") {
+                regularError.textContent = "Please enter valid amount"
+                return false
+            } else if (/^\d+$/.test(regular)) {
+                const regNumber = parseInt(regular);
+                if (regNumber < 1000) {
+                    regularError.textContent = "Regular price need more than 1000 amount"
+                    return false
+                } else if (regNumber > 100000) {
+                    regularError.textContent = "Regular price can't accept more than 1,00,000 amount"
+                    return false
+                }
+            } else {
+                regularError.textContent = "Price can't contain characters other numbers"
+                return false
+            }
+            regularError.textContent = "";
+            return true
+        }
+
+        // capacity validation
+        function capValidation() {
+            const capacity = document.getElementById("product_capacity").value;
+            if (capacity.trim() === "") {
+                capacityError.textContent = "Please enter valid seating capacity"
+                return false
+            } else if (/^\d+$/.test(capacity)) {
+                const capNumber = parseInt(capacity);
+                if (capNumber < 1) {
+                    capacityError.textContent = "Capacity need minimum 1"
+                    return false
+                } else if (capNumber > 8) {
+                    capacityError.textContent = "Capacity can't accept more than 8"
+                    return false
+                }
+            } else {
+                capacityError.textContent = "Capacity can't contain characters other numbers"
+                return false
+            }
+            capacityError.textContent = "";
+            return true
+        }
+
+        // material validation
+        function matValidation() {
+            const material = document.getElementById("product_material").value;
+            if (material.trim() === "") {
+                upoError.textContent = "Please enter valid material name";
+                return false
+            } else if (material.length <= 3) {
+                upoError.textContent = "Material name must need more than 3 character"
+                return false
+            } else if (material.length >= 20) {
+                upoError.textContent = "material name can't exceed 20 character"
+                return false
+            } else if (!/^[A-Za-z\s]+$/.test(material)) {
+                upoError.textContent = "material can't contain characters other than alphabets, space"
+                return false
+            }
+            upoError.textContent = "";
+            return true
+        }
+
+        // stock validation
+        function stockValidation() {
+            const stock = document.getElementById("product_stock").value;
+            if (stock.trim() === "") {
+                stockError.textContent = "Please enter valid product stock";
+                return false;
+            } else if (/^\d+$/.test(stock)) {
+                const stockNumber = parseInt(stock);
+                if (stockNumber < 1) {
+                    stockError.textContent = "Product needs minimum 1 stock";
+                    return false;
+                } else {
+                    stockError.textContent = ""; // Clear the error message here
+                    return true; // Return true for valid input
+                }
+            } else {
+                stockError.textContent = "Stock amount can't contain characters other than numbers";
+                return false;
+            }
+        }
+
+
+        // color validation
+        function colorValidation() {
+            const color = document.getElementById("product_color").value;
+            if (color.trim() === "") {
+                colorError.textContent = "Please enter valid color"
+                return false
+            } else if (color.length <= 3) {
+                colorError.textContent = "Color name must need more than 3 character"
+                return false
+            } else if (color.length >= 20) {
+                colorError.textContent = "Color name can't exceed 20 character"
+                return false
+            } else if (!/^[A-Za-z]+$/.test(color)) {
+                colorError.textContent = "Color can't contain characters other than alphabets"
+                return false
+            }
+            colorError.textContent = "";
+            return true
+        }
+        function allValidation(event) {
+            event.preventDefault()
+            const nameValid = namValidation();
+            const descriptionValid = desValidation();
+            const regularValid = regValidation();
+            const capacityValid = capValidation();
+            const materialValid = matValidation();
+            const stockValid = stockValidation();
+            const colorValid = colorValidation();
+            if (nameValid && descriptionValid && regularValid && capacityValid && materialValid && stockValid && colorValid) {
+                form.submit();
+                return true;
+            } else {
+                return false;
+            }
+        }
+        form.addEventListener("submit", allValidation);
+        form.addEventListener("keyup", function (event) {
+            if (event.target.id === "product_name") {
+                namValidation();
+            } else if (event.target.id === "product_description") {
+                desValidation();
+            } else if (event.target.id === "product_regular") {
+                regValidation();
+            } else if (event.target.id === "product_capacity") {
+                capValidation();
+            } else if (event.target.id === "product_material") {
+                matValidation();
+            } else if (event.target.id === "product_stock") {
+                stockValidation();
+            } else if (event.target.id === "product_color") {
+                colorValidation();
+            }
+        });
+
+    });
+
+
+    function cancel() {
+        const name = document.getElementById("product_name").value;
+        const description = document.getElementById("product_description").value;
+        const regularPrice = document.getElementById("product_regular").value;
+        const capacity = document.getElementById("product_capacity").value;
+        const material = document.getElementById("product_material").value;
+        const stock = document.getElementById("product_stock").value;
+        const color = document.getElementById("product_color").value;
+        if (name.trim() === "" && description.trim() === "" && regularPrice.trim() === "" && capacity.trim() === "" && material.trim() === "" && stock.trim() === "" && color.trim() === "") {
+            window.location.href = "http://localhost:5000/admin/productPage";
+        } else {
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You want to discard all changes?",
+                showCancelButton: true,
+                confirmButtonColor: "#000000",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Discard"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "http://localhost:5000/admin/productPage"
+                }
+            });
+        }
+    }
+</script>
+
+</html>

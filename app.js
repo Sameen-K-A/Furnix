@@ -10,6 +10,7 @@ dotenv.config();
 
 app.use(express.static("public"));
 app.use(express.static("views"));
+app.use(express.static("uploads"));
 app.use(express.urlencoded({extended : true}));
 
 app.use(session({
@@ -27,13 +28,13 @@ app.use("/admin" , adminRouter);
 
 app.use(nocache())
 
-app.use("*",(req,res)=>{
-    res.status(404).render("user/page-404")
-});
+// app.use("*",(req,res)=>{
+//     res.status(404).render("user/page-404")
+// });
 
-app.use((err,req,res,next)=>{
-    res.status(500).render("user/page-404")
-})
+// app.use((err,req,res,next)=>{
+//     res.status(500).render("user/page-404")
+// })
 
 
 app.listen(process.env.PORT, console.log(`Server strated at 5000 port number`));

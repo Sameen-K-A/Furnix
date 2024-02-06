@@ -18,7 +18,8 @@ router.post('/userForgetPasswordpost' , userController.userForgetPasswordpost)
 router.get("/userForgetOTP" , userController.userForgetOTP)
 router.post("/userForgetOTPpost" , userController.userForgetOTPpost);
 router.post("/userforgetResentOTPpost" , userController.userforgetResentOTPpost);
-router.get("/userLogout" , userController.userLogout)
+router.get("/userLogout" , userController.userLogout);
+router.get("/productDetailspage" , userController.productDetailspage)
 
 
 

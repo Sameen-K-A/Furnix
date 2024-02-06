@@ -129,30 +129,30 @@
 
 								<div class="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-12 header-right">
 									<div class="header-page-link">
-										
+
 										<!-- Search -->
 										<div class="search-box">
 											<div class="search-toggle"><i class="icon-search"></i></div>
 										</div>
-										
+
 										<!-- Wishlist -->
 										<div class="wishlist-box">
 											<a href="shop-wishlist.html"><i class="icon-heart"></i></a>
 										</div>
-										
+
 										<!-- Cart -->
 										<div class="mini-cart top-cart wishlist-box">
 											<a class="cart-icon" href="shop-wishlist.html">
 												<div class="icons-cart"><i class="icon-large-paper-bag"></i>
-												</a>
-											</div>
-											
+											</a>
 										</div>
-										
-										<!-- profile -->
-										<div class="wishlist-box">
-											<a href="/userLogin"><i class="wpb-icon-user"></i></a>
-										</div>
+
+									</div>
+
+									<!-- profile -->
+									<div class="wishlist-box">
+										<a href="/userLogin"><i class="wpb-icon-user"></i></a>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -331,7 +331,7 @@
 										<div class="block-content">
 											<div class="products-list grid">
 												<div class="row">
-													<div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
+													<!-- <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
 														<div class="items">
 															<div class="products-entry clearfix product-wapper">
 																<div class="products-thumb">
@@ -380,62 +380,59 @@
 																</div>
 															</div>
 														</div>
-													</div>
-													<div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
-														<div class="items">
-															<div class="products-entry clearfix product-wapper">
-																<div class="products-thumb">
-																	<div class="product-lable">
-																		<div class="onsale">-33%</div>
-																	</div>
-																	<div class="product-thumb-hover">
-																		<a href="shop-details.html">
-																			<img width="600" height="600"
-																				src="media/product/4.jpg"
-																				class="post-image" alt="">
-																			<img width="600" height="600"
-																				src="media/product/4-2.jpg"
-																				class="hover-image back" alt="">
-																		</a>
-																	</div>
-																	<div class="product-button">
-																		<div class="btn-add-to-cart"
-																			data-title="Add to cart">
-																			<a rel="nofollow" href="#"
-																				class="product-btn button">Add to
-																				cart</a>
+													</div> -->
+													<% for( let i = 0; i < productDetails.length; i++ ) { %>
+													
+													
+														<div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
+															<div class="items">
+																<div class="products-entry clearfix product-wapper">
+																	<div class="products-thumb">
+																		<div class="product-thumb-hover">
+																			<a href="/productDetailspage?id=<%= productDetails[i]._id %>">
+																				<img width="600" height="600"
+																					src="/uploads/<%= productDetails[i].images[0]%>"
+																					class="post-image" alt="">
+																				<img width="600" height="600"
+																					src="/uploads/<%= productDetails[i].images[3]%>"
+																					class="hover-image back" alt="">
+																			</a>
 																		</div>
-																		<div class="btn-wishlist" data-title="Wishlist">
-																			<button class="product-btn">Add to
-																				wishlist</button>
+																		<div class="product-button">
+																			<div class="btn-add-to-cart"
+																				data-title="Add to cart">
+																				<a rel="nofollow" href="#"
+																					class="product-btn button">Add to
+																					cart</a>
+																			</div>
+																			<div class="btn-wishlist"
+																				data-title="Wishlist">
+																				<button class="product-btn">Add to
+																					wishlist</button>
+																			</div>
+																			<span class="product-quickview"
+																				data-title="Quick View">
+																				<a href="#"
+																					class="quickview quickview-button">Quick
+																					View <i class="icon-search"></i></a>
+																			</span>
 																		</div>
-																		<div class="btn-compare" data-title="Compare">
-																			<button class="product-btn">Compare</button>
-																		</div>
-																		<span class="product-quickview"
-																			data-title="Quick View">
-																			<a href="#"
-																				class="quickview quickview-button">Quick
-																				View <i class="icon-search"></i></a>
-																		</span>
 																	</div>
-																</div>
-																<div class="products-content">
-																	<div class="contents text-center">
-																		<h3 class="product-title"><a
-																				href="shop-details.html">Pillar Dining
-																				Table Round</a></h3>
-																		<span class="price">
-																			<del
-																				aria-hidden="true"><span>$150.00</span></del>
-																			<ins><span>$100.00</span></ins>
-																		</span>
+																	<div class="products-content">
+																		<div class="contents text-center">
+																			<h3 class="product-title"><%= productDetails[i].name %></h3>
+																			<span class="price">
+																				<del
+																					aria-hidden="true"><span>₹<%= productDetails[i].regularPrice %></span></del>
+																				<ins><span>₹<%= productDetails[i].regularPrice %></span></ins>
+																			</span>
+																		</div>
 																	</div>
 																</div>
 															</div>
 														</div>
-													</div>
-													<div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
+														<% } %>
+															<!-- <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
 														<div class="items">
 															<div class="products-entry clearfix product-wapper">
 																<div class="products-thumb">
@@ -959,9 +956,9 @@
 															</div>
 														</div>
 													</div>
+												</div> -->
 												</div>
-											</div>
-											<div class="products-loadmore">
+												<!-- <div class="products-loadmore">
 												<div class="btn button-outline loadmore">
 													<div class="lds-ellipsis">
 														<div></div>
@@ -972,11 +969,11 @@
 													<span>Load more</span>
 													<i class="icon-arrow-down" aria-hidden="true"></i>
 												</div>
+											</div> -->
 											</div>
 										</div>
 									</div>
 								</div>
-							</div>
 						</section>
 
 						<section class="section section-padding m-b-70">
