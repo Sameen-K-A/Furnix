@@ -39,7 +39,11 @@
 </style>
 
 <body>
+
+
     <header class="main-header navbar">
+        <div class="col-search">
+        </div>
         <div class="col-nav">
             <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside"> <i
                     class="material-icons md-apps"></i> </button>
@@ -57,10 +61,10 @@
         </div>
     </header>
     <section class="content-main">
-        <form action="/admin/editProductPOST" method="post" enctype="multipart/form-data">
+        <form action="/admin/addProductPOST" method="post" enctype="multipart/form-data">
             <div class="row justify-content-center">
                 <div class="content-header">
-                    <h2 class="content-title fw-bold" style="margin: auto;">Edit Product</h2>
+                    <h2 class="content-title fw-bold" style="margin: auto;">Add new Product</h2>
                 </div>
                 <div class="col-lg-6">
                     <div class="card mb-4">
@@ -68,44 +72,39 @@
                             <h4>Details</h4>
                         </div>
                         <div class="card-body">
+
                             <div class="mb-4">
                                 <label for="product_name" class="form-label">Name</label>
                                 <input type="text" placeholder="Enter product name" class="form-control"
-                                    id="product_name" onkeyup="namValidation()" name="name"
-                                    value="<%= productDetails.name %>">
+                                    id="product_name" onkeyup="namValidation()" name="name" value="<%= productDetails.name %>">
                             </div>
                             <p class="text-danger text-center mb-15 " id="minName"></p>
                             <div class="mb-4">
                                 <label class="form-label">Description</label>
                                 <textarea placeholder="Enter product description" class="form-control" rows="4"
-                                    id="product_description" onkeyup="desValidation()"
-                                    name="description"><%= productDetails.description %></textarea>
+                                    id="product_description" onkeyup="desValidation()" name="description"></textarea>
                             </div>
                             <p class="text-danger text-center mb-15 " id="descriptionError"></p>
                             <div class="row">
                                 <div class="col-lg-12 mb-30">
                                     <label class="form-label">Category</label>
                                     <select class="form-select " id="categorySelect" name="category">
-                                        <option>
-                                            <%= productDetails.category %>
-                                        </option>
-                                        <% catDetails.forEach(element=> { %>
-                                            <% if (productDetails.category !==element.name) { %>
-                                                <option>
-                                                    <%= element.name %>
-                                                </option>
-                                                <% } %>
-                                                    <% }) %>
+                                        <% categories.forEach(element=> { %>
+                                            <option>
+                                                <%= element.name %>
+                                            </option>
+                                            <% }) %>
 
                                     </select>
+
                                 </div>
+
                                 <div class="col-lg-6">
                                     <div class="mb-4">
                                         <label class="form-label">Regular price</label>
                                         <div class="row gx-2">
                                             <input placeholder="₹" type="text" class="form-control" id="product_regular"
-                                                onkeyup="regValidation()" name="regularPrice"
-                                                value="<%= productDetails.regularPrice %>">
+                                                onkeyup="regValidation()" name="regularPrice">
                                         </div>
                                         <p class="text-danger text-center mb-15 " id="regularError"></p>
                                     </div>
@@ -113,38 +112,36 @@
                                 <div class="col-lg-6">
                                     <label class="form-label">Seating capacity</label>
                                     <input type="text" placeholder="Enter seating capacity" class="form-control"
-                                        id="product_capacity" onkeyup="capValidation()" name="capacity"
-                                        value="<%= productDetails.capacity %>">
+                                        id="product_capacity" onkeyup="capValidation()" name="capacity">
                                     <p class="text-danger text-center mb-15 " id="capacityError"></p>
                                 </div>
                                 <div class="col-lg-6 mb-30">
                                     <label class="form-label">Upholstery material</label>
                                     <input type="text" placeholder="Enter Upholstery material" class="form-control"
-                                        id="product_material" onkeyup="matValidation()" name="material"
-                                        value="<%= productDetails.material %>">
+                                        id="product_material" onkeyup="matValidation()" name="material">
                                     <p class="text-danger text-center mb-15 " id="materialError"></p>
                                 </div>
                                 <div class="col-lg-6">
                                     <label class="form-label">Item stock</label>
                                     <input type="text" placeholder="Enter Upholstery material" class="form-control"
-                                        id="product_stock" onkeyup="stockValidation()" name="stock"
-                                        value="<%= productDetails.stock %>">
+                                        id="product_stock" onkeyup="stockValidation()" name="stock">
                                     <p class="text-danger text-center mb-15 " id="stockError"></p>
+
                                 </div>
                                 <div class="col-lg-6">
                                     <label class="form-label">Product color</label>
                                     <input type="text" placeholder="Enter product color" class="form-control"
-                                        id="product_color" onkeyup="colorValidation()" name="color"
-                                        value="<%= productDetails.color %>">
+                                        id="product_color" onkeyup="colorValidation()" name="color">
                                     <p class="text-danger text-center mb-15 " id="colorError"></p>
                                 </div>
                                 <div class="col-lg-12 mt-15">
                                     <label class="form-label">Product Images</label>
                                     <img alt="">
                                     <input class="form-control" type="file" multiple accept=".png, .jpeg, .jpg"
-                                        onkeyup="imageValidation()" name="image">
-                                    <p class="text-danger text-center mb-15 mt-15" id="imageError"></p>
+                                        onkeyup="imageValidation()" name="image" id="product_images">
+                                    <p class="text-danger text-center mb-15 mt-15 " id="imageError"></p>
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -170,8 +167,10 @@
 </body>
 
 <script>
+
     document.addEventListener("DOMContentLoaded", function () {
         const form = document.querySelector('form');
+
         const nameError = document.getElementById("minName");
         const descriptionError = document.getElementById("descriptionError");
         const regularError = document.getElementById("regularError");
@@ -189,6 +188,7 @@
         colorError.textContent = "";
 
         //      name validation 
+
         function namValidation() {
             const name = document.getElementById("product_name").value;
             if (name.trim() === "") {
@@ -209,6 +209,7 @@
         }
 
         // description validation 
+
         function desValidation() {
             const description = document.getElementById("product_description").value;
             if (description.trim() === "") {
@@ -226,6 +227,7 @@
         }
 
         // regular price validation
+
         function regValidation() {
             const regular = document.getElementById("product_regular").value;
             if (regular.trim() === "") {
@@ -249,6 +251,7 @@
         }
 
         // capacity validation
+
         function capValidation() {
             const capacity = document.getElementById("product_capacity").value;
             if (capacity.trim() === "") {
@@ -272,6 +275,7 @@
         }
 
         // material validation
+
         function matValidation() {
             const material = document.getElementById("product_material").value;
             if (material.trim() === "") {
@@ -292,6 +296,7 @@
         }
 
         // stock validation
+
         function stockValidation() {
             const stock = document.getElementById("product_stock").value;
             if (stock.trim() === "") {
@@ -314,6 +319,7 @@
 
 
         // color validation
+
         function colorValidation() {
             const color = document.getElementById("product_color").value;
             if (color.trim() === "") {
@@ -332,6 +338,23 @@
             colorError.textContent = "";
             return true
         }
+
+        // image validation
+        function imageValidation() {
+            const selectImages = document.getElementById("product_images").files;
+            const imageError = document.getElementById("imageError");
+
+            if (selectImages.length !== 5) {
+                imageError.textContent = "Images must need exactly 5 images";
+                return false;
+            }
+            imageError.textContent = "";
+            return true;
+        }
+
+
+
+
         function allValidation(event) {
             event.preventDefault()
             const nameValid = namValidation();
@@ -341,13 +364,15 @@
             const materialValid = matValidation();
             const stockValid = stockValidation();
             const colorValid = colorValidation();
-            if (nameValid && descriptionValid && regularValid && capacityValid && materialValid && stockValid && colorValid) {
+            const imgValid = imageValidation();
+            if (nameValid && descriptionValid && regularValid && capacityValid && materialValid && stockValid && colorValid && imgValid) {
                 form.submit();
                 return true;
             } else {
                 return false;
             }
         }
+
         form.addEventListener("submit", allValidation);
         form.addEventListener("keyup", function (event) {
             if (event.target.id === "product_name") {
@@ -364,10 +389,14 @@
                 stockValidation();
             } else if (event.target.id === "product_color") {
                 colorValidation();
+            } else if (event.target.id === "product_images") {
+                imageValidation();
             }
         });
 
     });
+
+
 
 
     function cancel() {
