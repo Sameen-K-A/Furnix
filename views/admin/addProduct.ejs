@@ -53,7 +53,7 @@
                         aria-expanded="false"> <img class="img-xs rounded-circle"
                             src="/admin-assets/imgs/people/profile.jpg" alt="User"></a>
                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
-                        <a class="dropdown-item text-danger" href="#"><i
+                        <a class="dropdown-item text-danger" href="/admin/adminLogout"><i
                                 class="material-icons md-exit_to_app"></i>Logout</a>
                     </div>
                 </li>
@@ -147,7 +147,7 @@
                     </div>
                 </div>
                 <div class="mb-50 text-center">
-                    <button class="custom-button1" onclick="cancel()">Cancel</button>
+                    <button class="custom-button1" onclick="cancel(event)">Cancel</button>
                     <button class="custom-button2" type="submit" id="add">Add</button>
                 </div>
             </div>
@@ -399,7 +399,8 @@
 
 
 
-    function cancel() {
+    function cancel(event) {
+        event.preventDefault()
         const name = document.getElementById("product_name").value;
         const description = document.getElementById("product_description").value;
         const regularPrice = document.getElementById("product_regular").value;

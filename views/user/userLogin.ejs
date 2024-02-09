@@ -38,7 +38,7 @@
 		rel="stylesheet">
 </head>
 <style>
-	.page-title{
+	.page-title {
 		background: url("public/media/site-header.jpg") !important;
 	}
 </style>
@@ -142,6 +142,14 @@
 							</div>
 
 						</div>
+
+						
+						<% if (locals.message) { %>
+							<h3 id="blockerror" style="color: red;">
+								<%= message %>
+							</h3>
+							<% } %>
+
 					</div>
 
 					<div id="content" class="site-content text-center" role="main">
@@ -152,7 +160,9 @@
 										<div class="col-lg-12 col-md-12 col-sm-12 sm-m-b-50">
 											<div class="box-form-login">
 												<h2>Login</h2>
+
 												<div class="box-content">
+
 													<div class="form-login">
 														<div class="username text-left">
 
@@ -161,17 +171,17 @@
 																Please fill all the fields
 															</div>
 															<p class="text-danger text-center" id="blockuser"
-															style="display: none;">User blocked</p>
+																style="display: none;">User blocked</p>
 
 															<label>email address</label>
-															<input type="text" class="input-text" name="userloginemail"
+															<input type="text" class="input-text" name="userloginemail" value="sameensameen60@gmail.com"
 																id="userloginemail">
 														</div>
 														<p class="text-danger text-center" id="emailwrong"
 															style="display: none;">Email not found</p>
 														<div class="password text-left">
 															<label for="password">Password</label>
-															<input class="input-text" type="password"
+															<input class="input-text" type="password" value="123123123"
 																name="userloginpassword" id="userloginpassword">
 														</div>
 														<p class="text-danger text-center" id="passwordwrong"
@@ -324,7 +334,6 @@
 
 
 
-
 	<!-- Page Loader -->
 	<div class="page-preloader">
 		<div class="loader">
@@ -388,11 +397,12 @@
 						setTimeout(() => {
 							document.getElementById("blockuser").style.display = "none"
 						}, 2000);
-					} 
+					}
 				}
 			})
 		}
 	}
+
 </script>
 
 <!-- Mirrored from caketheme.com/html/ruper/page-login.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 26 Jan 2024 08:53:12 GMT -->

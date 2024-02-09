@@ -5,6 +5,9 @@ const Category = require("../model/categoryModel");
 
 const adminLogin = (req, res) => {
     try {
+        if (req.session.admin) {
+            return res.redirect("/admin/adminHome")
+        }
         res.render("admin/adminLogin");
     } catch (error) {
         console.log(error);
@@ -15,14 +18,14 @@ const adminLogin = (req, res) => {
 
 const adminLoginPOST = async (req, res) => {
     try {
-        const adminEmail = "sameen@gmail.com";
-        const adminPassword = "000";
+        const adminEmail = process.env.adminEmail;
+        const adminPassword = process.env.adminPassword;
         const ajaxEmail = req.body.useremail;
         const ajaxPass = req.body.userpass;
         if (adminEmail === ajaxEmail) {
             if (ajaxPass === adminPassword) {
                 console.log(`${ajaxEmail} Entering to home page`);
-                req.session.useremail = ajaxEmail;
+                req.session.admin = adminEmail;
                 res.json({ status: true })
             } else {
                 console.log("Entered password is wrong");
@@ -156,13 +159,30 @@ const editcategory = async (req, res) => {
 
 //========================================= Edit category details changing ==============================================
 
-const adminEditPOST = async (req, res) => {
+const catEditPOST = async (req, res) => {
     try {
-        const editName = req.body.name;
+        const editName = req.body.name
         const editDescription = req.body.description;
-        const editProcess = await Category.updateOne({ _id: req.session.editCatDetails }, { name: editName, description: editDescription })
-        console.log("edit done");
-        res.json({ status: true })
+        const nameExist = await Category.findOne({ name: editName });
+        if (!nameExist) {
+            const editProcess = await Category.updateOne({ _id: req.session.editCatDetails }, { name: editName, description: editDescription })
+            res.json({ status: true });
+            console.log("edit done");
+        } else {
+            res.json({ status: false });
+            console.log("name already existed");
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+//========================================= Admin logout side ==============================================
+
+const adminLogout = (req, res) => {
+    try {
+        delete req.session.admin;
+        res.redirect("/admin")
     } catch (error) {
         console.log(error);
     }
@@ -182,7 +202,8 @@ module.exports = {
     blockCategory,
     UnblockCategory,
     editcategory,
-    adminEditPOST,
+    catEditPOST,
+    adminLogout
 }
 
 

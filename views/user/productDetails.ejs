@@ -220,52 +220,26 @@
 														<div class="col-md-2">
 															<div class="content-thumbnail-scroll">
 																<div class="image-thumbnail slick-carousel slick-vertical" data-asnavfor=".image-additional" data-centermode="true" data-focusonselect="true" data-columns4="5" data-columns3="4" data-columns2="4" data-columns1="4" data-columns="4" data-nav="true" data-vertical="&quot;true&quot;" data-verticalswiping="&quot;true&quot;">
-																	<div class="img-item slick-slide">
-																		<span class="img-thumbnail-scroll">
-																			<img width="600" height="600" src="/uploads/<%= productDetails.images[0]%>" alt="">
-																		</span>
-																	</div>
-																	<div class="img-item slick-slide">
-																		<span class="img-thumbnail-scroll">
-																			<img width="600" height="600" src="/uploads/<%= productDetails.images[1]%>" alt="">
-																		</span>
-																	</div>
-																	<div class="img-item slick-slide">
-																		<span class="img-thumbnail-scroll">
-																			<img width="600" height="600" src="/uploads/<%= productDetails.images[2]%>" alt="">
-																		</span>
-																	</div>
-																	<div class="img-item slick-slide">
-																		<span class="img-thumbnail-scroll">
-																			<img width="600" height="600" src="/uploads/<%= productDetails.images[3]%>" alt="">
-																		</span>
-																	</div>
-																	<div class="img-item slick-slide">
-																		<span class="img-thumbnail-scroll">
-																			<img width="600" height="600" src="/uploads/<%= productDetails.images[4]%>" alt="">
-																		</span>
-																	</div>
+
+
+																	<% for (let i = 0; i < productDetails.images.length; i++) { %>
+																		<div class="img-item slick-slide">
+																			<span class="img-thumbnail-scroll">
+																				<img width="600" height="600" src="/uploads/<%= productDetails.images[i] %>" alt="">
+																			</span>
+																		</div>
+																	<% } %>
 																</div>
 															</div>
 														</div>
 														<div class="col-md-10">
 															<div class="scroll-image main-image">
 																<div class="image-additional slick-carousel" data-asnavfor=".image-thumbnail" data-fade="true" data-columns4="1" data-columns3="1" data-columns2="1" data-columns1="1" data-columns="1" data-nav="true">
-																	<div class="img-item slick-slide">
-																		<img width="900" height="900" src="/uploads/<%= productDetails.images[0]%>" alt="" title="">
-																	</div>
-																	<div class="img-item slick-slide">
-																		<img width="900" height="900" src="/uploads/<%= productDetails.images[1]%>" alt="" title="">
-																	</div>
-																	<div class="img-item slick-slide">
-																		<img width="900" height="900" src="/uploads/<%= productDetails.images[2]%>" alt="" title="">
-																	</div>
-																	<div class="img-item slick-slide">
-																		<img width="900" height="900" src="/uploads/<%= productDetails.images[3]%>" alt="" title="">
-																	</div>
-																	<div class="img-item slick-slide">
-																		<img width="900" height="900" src="/uploads/<%= productDetails.images[4]%>" alt="" title="">
-																	</div>
+																	<% for (let i = 0; i < productDetails.images.length; i++) { %>
+																		<div class="img-item slick-slide">
+																			<img width="900" height="900" src="/uploads/<%= productDetails.images[i] %>" alt="" title="">
+																		</div>
+																	<% } %>
 																</div>
 															</div>
 														</div>

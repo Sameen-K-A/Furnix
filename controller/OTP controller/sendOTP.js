@@ -1,7 +1,9 @@
 const nodemailer = require("nodemailer");
+const dotenv = require("dotenv")
+dotenv.config();
 
-const ServerEmail = "sameensameen60@gmail.com";
-const ServerPassword = "hqbz ljxt oitc zrzv"
+const ServerEmail = process.env.ServerEmail;
+const ServerPassword = process.env.ServerPassword;
 
 const sendOTPmail = function(email ,  otp){
     const transporter = nodemailer.createTransport({

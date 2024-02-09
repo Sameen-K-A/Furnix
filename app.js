@@ -19,6 +19,7 @@ app.use(session({
     saveUninitialized : true
 }))
 
+app.use(nocache())
 
 app.set('view engine' , 'ejs');
 app.use('/' , userRouter);
@@ -26,15 +27,15 @@ app.use("/admin" , adminRouter);
 
 
 
-app.use(nocache())
 
-// app.use("*",(req,res)=>{
-//     res.status(404).render("user/page-404")
-// });
 
-// app.use((err,req,res,next)=>{
-//     res.status(500).render("user/page-404")
-// })
+app.use("*",(req,res)=>{
+    res.status(404).render("user/page-404")
+});
+
+app.use((err,req,res,next)=>{
+    res.status(500).render("user/page-404")
+})
 
 
 app.listen(process.env.PORT, console.log(`Server strated at 5000 port number`));

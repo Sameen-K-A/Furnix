@@ -212,7 +212,7 @@
                             <a class="dropdown-item" href="#"><i class="material-icons md-receipt"></i>Billing</a>
                             <a class="dropdown-item" href="#"><i class="material-icons md-help_outline"></i>Help center</a>
                             <div class="dropdown-divider"></div> -->
-                            <a class="dropdown-item text-danger" href="#"><i
+                            <a class="dropdown-item text-danger" href="/admin/adminLogout"><i
                                     class="material-icons md-exit_to_app"></i>Logout</a>
                         </div>
                     </li>
@@ -237,6 +237,9 @@
                             </div>
                             <p class="text-danger text-center mb-15" id="wrong" style="display: none;">Oops network is
                                 busy ! . . .
+                            </p>
+                            <p class="text-danger text-center mb-15" id="alreadyexist" style="display: none;">Name
+                                already existed
                             </p>
                             <p class="text-danger text-center mb-15" id="minName" style="display: none;">Name must need
                                 more than 3 character
@@ -273,7 +276,7 @@
                                 Please fill all the fields
                             </div>
                             <div class="d-grid d-flex gap-2 justify-content-center" style="margin: auto;">
-                                <a href="/admin/category"> <button class="custom-butto1">Cancel</button> </a>
+                                <button class="custom-butto1" onclick="cancel()">Cancel</button>
                                 <button class="custom-button" onclick="catValidate()">Confirm</button>
                             </div>
 
@@ -363,7 +366,12 @@
                         setTimeout(() => {
                             window.location.href = "http://localhost:5000/admin/category";
                         }, 1500);
-                        
+
+                    } else if (response.status === false) {
+                        document.getElementById("alreadyexist").style.display = "block";
+                        setTimeout(() => {
+                            document.getElementById("alreadyexist").style.display = "none";
+                        }, 2000);
                     } else {
                         document.getElementById("wrong").style.display = "block";
                         setTimeout(() => {
@@ -373,6 +381,21 @@
                 }
             })
         }
+    }
+
+    function cancel(event) {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You want to discard all changes?",
+            showCancelButton: true,
+            confirmButtonColor: "#000000",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Discard"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "http://localhost:5000/admin/category"
+            }
+        })
     }
 </script>
 

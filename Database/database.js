@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
-const mongo = mongoose.connect("mongodb://localhost:27017/FURNIX");
+const dotenv = require("dotenv")
+dotenv.config();
+const mongo = mongoose.connect(process.env.mongoDB);
 mongo.then(()=>{
     console.log("mongoDB connected");
 })

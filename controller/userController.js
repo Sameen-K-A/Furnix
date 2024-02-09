@@ -18,11 +18,19 @@ const userhomeGET = async (req, res) => {
 
 const userLogin = (req, res) => {
     try {
+        res.render("user/userLogin")
+    } catch (error) {
+        console.log(error);
+    }
+}
 
-        if (req.session.useremail) {
+
+const userProfile = (req, res) => {
+    try {
+        if(req.session.user){
             res.render("user/userProfile");
-        } else {
-            res.render("user/userLogin")
+        }else{
+            res.redirect("/userLogin");
         }
     } catch (error) {
         console.log(error);
@@ -40,7 +48,7 @@ const userLoginpost = async (req, res) => {
             if (ajaxPass === loginUser.password) {
                 if (loginUser.isBlocked === false) {
                     console.log(`${ajaxEmail} Entering to home page`);
-                    req.session.useremail = ajaxEmail;
+                    req.session.user = ajaxEmail
                     res.json({ status: true })
                 } else {
                     console.log("Admin blocked this user");
@@ -58,6 +66,7 @@ const userLoginpost = async (req, res) => {
         console.log(error);
     }
 }
+
 
 //========================================= Render user register page ==============================================
 
@@ -99,6 +108,7 @@ const userRegisterpost = async (req, res) => {
                                 serverOTP: serverSideOTP
                             }
                             res.json({ status: true });
+
                         } else {
                             console.log("Both password is not match");
                             res.json({ status: "confpass" });
@@ -288,12 +298,8 @@ const productDetailspage = async (req, res) => {
 
 const userLogout = (req, res) => {
     try {
-        if (req.session.useremail) {
-            req.session.destroy();;
-            res.redirect("/");
-        } else {
-            res.redirect("/");
-        }
+        delete req.session.user;
+        res.redirect("/");
     } catch (error) {
         console.log(error);
     }
@@ -305,6 +311,7 @@ module.exports = {
     userhomeGET,
     userLogin,
     userLoginpost,
+    userProfile,
     userRegister,
     userRegisterpost,
     userRegisterOTP,

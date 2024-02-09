@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Evara Dashboard</title>
+    <title>Furnix</title>
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -36,6 +36,16 @@
         font-size: 14px;
         border-radius: 50px;
     }
+
+    .custom-button3 {
+        width: 170px;
+        height: 30px;
+        background-color: rgb(255, 255, 255);
+        color: rgb(0, 0, 0);
+        font-size: 14px;
+        border-radius: 10px;
+        border-color: rgb(255, 0, 0);
+    }
 </style>
 
 <body>
@@ -45,15 +55,14 @@
         <div class="col-search">
         </div>
         <div class="col-nav">
-            <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside"> <i
-                    class="material-icons md-apps"></i> </button>
+            <button class="btn btn-icon btn-mobile me-auto"></button>
             <ul class="nav">
                 <li class="dropdown nav-item">
                     <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount"
                         aria-expanded="false"> <img class="img-xs rounded-circle"
                             src="/admin-assets/imgs/people/profile.jpg" alt="User"></a>
                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
-                        <a class="dropdown-item text-danger" href="#"><i
+                        <a class="dropdown-item text-danger" href="/admin/adminLogout"><i
                                 class="material-icons md-exit_to_app"></i>Logout</a>
                     </div>
                 </li>
@@ -61,10 +70,10 @@
         </div>
     </header>
     <section class="content-main">
-        <form action="/admin/addProductPOST" method="post" enctype="multipart/form-data">
+        <form action="/admin/editProductPOST?id=<%= productDetails._id %>" method="post" enctype="multipart/form-data">
             <div class="row justify-content-center">
                 <div class="content-header">
-                    <h2 class="content-title fw-bold" style="margin: auto;">Add new Product</h2>
+                    <h2 class="content-title fw-bold" style="margin: auto;">Edit product details</h2>
                 </div>
                 <div class="col-lg-6">
                     <div class="card mb-4">
@@ -76,25 +85,31 @@
                             <div class="mb-4">
                                 <label for="product_name" class="form-label">Name</label>
                                 <input type="text" placeholder="Enter product name" class="form-control"
-                                    id="product_name" onkeyup="namValidation()" name="name" value="<%= productDetails.name %>">
+                                    id="product_name" onkeyup="namValidation()" name="name"
+                                    value="<%= productDetails.name %>">
                             </div>
                             <p class="text-danger text-center mb-15 " id="minName"></p>
                             <div class="mb-4">
                                 <label class="form-label">Description</label>
                                 <textarea placeholder="Enter product description" class="form-control" rows="4"
-                                    id="product_description" onkeyup="desValidation()" name="description"></textarea>
+                                    id="product_description" onkeyup="desValidation()"
+                                    name="description"><%= productDetails.description %></textarea>
                             </div>
                             <p class="text-danger text-center mb-15 " id="descriptionError"></p>
                             <div class="row">
                                 <div class="col-lg-12 mb-30">
                                     <label class="form-label">Category</label>
                                     <select class="form-select " id="categorySelect" name="category">
-                                        <% categories.forEach(element=> { %>
-                                            <option>
-                                                <%= element.name %>
-                                            </option>
-                                            <% }) %>
-
+                                        <option>
+                                            <%= productDetails.category %>
+                                        </option>
+                                        <% catDetails.forEach(element=> { %>
+                                            <% if (element.name !==productDetails.category) { %>
+                                                <option>
+                                                    <%= element.name %>
+                                                </option>
+                                                <% } %>
+                                                    <% }) %>
                                     </select>
 
                                 </div>
@@ -104,7 +119,8 @@
                                         <label class="form-label">Regular price</label>
                                         <div class="row gx-2">
                                             <input placeholder="₹" type="text" class="form-control" id="product_regular"
-                                                onkeyup="regValidation()" name="regularPrice">
+                                                onkeyup="regValidation()" name="regularPrice"
+                                                value="<%= productDetails.regularPrice %>">
                                         </div>
                                         <p class="text-danger text-center mb-15 " id="regularError"></p>
                                     </div>
@@ -112,44 +128,80 @@
                                 <div class="col-lg-6">
                                     <label class="form-label">Seating capacity</label>
                                     <input type="text" placeholder="Enter seating capacity" class="form-control"
-                                        id="product_capacity" onkeyup="capValidation()" name="capacity">
+                                        id="product_capacity" onkeyup="capValidation()" name="capacity"
+                                        value="<%= productDetails.capacity %>">
                                     <p class="text-danger text-center mb-15 " id="capacityError"></p>
                                 </div>
                                 <div class="col-lg-6 mb-30">
                                     <label class="form-label">Upholstery material</label>
                                     <input type="text" placeholder="Enter Upholstery material" class="form-control"
-                                        id="product_material" onkeyup="matValidation()" name="material">
+                                        id="product_material" onkeyup="matValidation()" name="material"
+                                        value="<%= productDetails.material %>">
                                     <p class="text-danger text-center mb-15 " id="materialError"></p>
                                 </div>
                                 <div class="col-lg-6">
                                     <label class="form-label">Item stock</label>
                                     <input type="text" placeholder="Enter Upholstery material" class="form-control"
-                                        id="product_stock" onkeyup="stockValidation()" name="stock">
+                                        id="product_stock" onkeyup="stockValidation()" name="stock"
+                                        value="<%= productDetails.stock %>">
                                     <p class="text-danger text-center mb-15 " id="stockError"></p>
 
                                 </div>
                                 <div class="col-lg-6">
                                     <label class="form-label">Product color</label>
                                     <input type="text" placeholder="Enter product color" class="form-control"
-                                        id="product_color" onkeyup="colorValidation()" name="color">
+                                        id="product_color" onkeyup="colorValidation()" name="color"
+                                        value="<%= productDetails.color %>">
                                     <p class="text-danger text-center mb-15 " id="colorError"></p>
                                 </div>
-                                <div class="col-lg-12 mt-15">
+                                <!-- <div class="col-lg-12 mt-15">
                                     <label class="form-label">Product Images</label>
                                     <img alt="">
                                     <input class="form-control" type="file" multiple accept=".png, .jpeg, .jpg"
                                         onkeyup="imageValidation()" name="image" id="product_images">
                                     <p class="text-danger text-center mb-15 mt-15 " id="imageError"></p>
-                                </div>
+                                </div> -->
 
+
+
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="col-lg-6">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h4>Images</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="row gap-3 justify-content-center mb-40">
+                                <% for (let i=0; i < productDetails.images.length; i++) { %>
+                                    <div class="col-2 mb-30 mt-30"
+                                        style="position: relative; width: 200px; height: 200px; background-color: rgba(220, 220, 220, 0);">
+                                        <img src="/uploads/<%= productDetails.images[i] %>" alt="Product Image"
+                                            style="width: 100%; height: 100%; object-fit: fill;">
+                                        <button class="custom-button3"
+                                            style="position: absolute; bottom: -40px; right: 15px;"
+                                            onclick=" replace(event); document.getElementById('fileInput<%= i %>').click();">Replace
+                                            Image</button>
+                                        <input type="file" id="fileInput<%= i %>" accept=".png, .jpeg, .jpg"
+                                            style="display: none;" name="image">
+                                    </div>
+                                    <% } %>
                             </div>
                         </div>
                     </div>
+
                 </div>
                 <div class="mb-50 text-center">
-                    <button class="custom-button1" onclick="cancel()">Cancel</button>
+                    <button class="custom-button1" onclick="cancel(event)">Cancel</button>
                     <button class="custom-button2" type="submit" id="add">Add</button>
                 </div>
+
             </div>
         </form>
     </section>
@@ -339,19 +391,6 @@
             return true
         }
 
-        // image validation
-        function imageValidation() {
-            const selectImages = document.getElementById("product_images").files;
-            const imageError = document.getElementById("imageError");
-
-            if (selectImages.length !== 5) {
-                imageError.textContent = "Images must need exactly 5 images";
-                return false;
-            }
-            imageError.textContent = "";
-            return true;
-        }
-
 
 
 
@@ -364,8 +403,8 @@
             const materialValid = matValidation();
             const stockValid = stockValidation();
             const colorValid = colorValidation();
-            const imgValid = imageValidation();
-            if (nameValid && descriptionValid && regularValid && capacityValid && materialValid && stockValid && colorValid && imgValid) {
+            // const imgValid = imageValidation();
+            if (nameValid && descriptionValid && regularValid && capacityValid && materialValid && stockValid && colorValid) {
                 form.submit();
                 return true;
             } else {
@@ -389,17 +428,32 @@
                 stockValidation();
             } else if (event.target.id === "product_color") {
                 colorValidation();
-            } else if (event.target.id === "product_images") {
-                imageValidation();
             }
+            //  else if (event.target.id === "product_images") {
+            //     imageValidation();
+            // }
         });
 
     });
 
 
+    function replace(event) {
+        event.preventDefault();
+        let fileInput = event.target.nextElementSibling;
+        fileInput.onchange = function () {
+            let file = this.files[0];
+            if (file) {
+                let img = event.target.previousElementSibling;
+                img.src = URL.createObjectURL(file);
+            }
+        }
+    }
 
 
-    function cancel() {
+    function cancel(event) {
+
+        event.preventDefault()
+
         const name = document.getElementById("product_name").value;
         const description = document.getElementById("product_description").value;
         const regularPrice = document.getElementById("product_regular").value;

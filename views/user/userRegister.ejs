@@ -159,12 +159,14 @@
 															<label>Name</label>
 															<input type="text" class="input-text"
 																name="registerusername" id="registerusername">
+															<p id="alphName" class="text-danger text-center"></p>
 														</div>
 														<div class="username text-left">
 															<label>Email address</label>
 															<input type="email" class="input-text" name="email"
 																id="registeruseremail">
 														</div>
+														
 														<p class="text-danger text-center" id="existEmail"
 															style="display: none;">Email already existed</p>
 														<div class="phonenumber text-left">
@@ -172,6 +174,7 @@
 															<input type="number" class="input-text"
 																name="registeruserphone" id="registeruserphone">
 														</div>
+														<p id="phoneregex" class="text-danger text-center"></p>
 														<p class="text-danger text-center" id="numberlength"
 															style="display: none;">Enter valid phone number</p>
 														<p class="text-danger text-center" id="numberexist"
@@ -362,9 +365,6 @@
 
 <script>
 	function registervalidation() {
-
-
-
 		const registername = document.getElementById("registerusername").value;
 		const registeremail = document.getElementById("registeruseremail").value;
 		const registernumber = document.getElementById("registeruserphone").value;
@@ -374,6 +374,16 @@
 			document.getElementById("formAlert").style.display = "block"
 			setTimeout(() => {
 				document.getElementById("formAlert").style.display = "none"
+			}, 2000);
+		} else if (!/^[A-Za-z]+$/.test(registername)) {
+			document.getElementById("alphName").innerHTML = "Name can't contain characters other than alphabets"
+			setTimeout(() => {
+				document.getElementById("alphName").innerHTML = ""
+			}, 2000);
+		} else if (registername.length < 3 || registername.length > 20) {
+			document.getElementById("alphName").innerHTML = "Name must be between 3 and 20 characters long";
+			setTimeout(() => {
+				document.getElementById("alphName").innerHTML = "";
 			}, 2000);
 		} else {
 			$.ajax({

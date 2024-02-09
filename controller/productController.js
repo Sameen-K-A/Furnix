@@ -62,6 +62,32 @@ const editproduct = async (req, res) => {
     }
 }
 
+
+
+const editproductPOST = async (req, res) => {
+    try {
+        const productID = req.query.id;
+        const newImages = req.files.map(elems => elems.originalname)
+        if (newImages) {
+            const updateImgStage = await Product.updateOne({ _id: productID }, { $push: { images: { $each: newImages } } })
+        }
+        const { name, description, category, regularPrice, capacity, material, stock, color } = req.body;
+        const editProDetails = {
+            name: name,
+            description: description,
+            category: category,
+            regularPrice: regularPrice,
+            capacity: capacity,
+            material: material,
+            stock: stock,
+            color: color,
+        }
+        const updateDetails = await Product.updateOne({_id : productID} , editProDetails)
+        res.redirect("/admin/productPage");
+    } catch (error) {
+        console.log(error);
+    }
+}
 //========================================= product list and unlist side ==============================================
 
 const unlistproduct = async (req, res) => {
@@ -90,6 +116,7 @@ module.exports = {
     addProduct,
     addProductPOST,
     editproduct,
+    editproductPOST,
     unlistproduct,
     listproduct
 }
