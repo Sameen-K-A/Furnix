@@ -2,6 +2,7 @@ const User = require("../model/userModel");
 const Product = require("../model/productModel");
 const GenerateOTP = require("../controller/OTP controller/GenerateOTP");
 const sendOTPmail = require("../controller/OTP controller/sendOTP");
+const bcrypt = require("bcrypt");
 
 //========================================= Render default page ==============================================
 
@@ -24,11 +25,13 @@ const userLogin = (req, res) => {
     }
 }
 
+//========================================= Render user profile page ==============================================
 
-const userProfile = (req, res) => {
+const userProfilePage = async (req , res) => {
     try {
         if(req.session.user){
-            res.render("user/userProfile");
+            const userData = await User.findOne({email : req.session.user});
+            res.render("user/userProfile" , {userData});
         }else{
             res.redirect("/userLogin");
         }
@@ -45,7 +48,8 @@ const userLoginpost = async (req, res) => {
         const ajaxPass = req.body.userpass;
         const loginUser = await User.findOne({ email: ajaxEmail });
         if (loginUser) {
-            if (ajaxPass === loginUser.password) {
+            const comparePassword = await bcrypt.compare(ajaxPass , loginUser.password)
+            if (comparePassword) {
                 if (loginUser.isBlocked === false) {
                     console.log(`${ajaxEmail} Entering to home page`);
                     req.session.user = ajaxEmail
@@ -81,6 +85,16 @@ const userRegister = (req, res) => {
         console.log(error);
     }
 }
+//========================================= Password hashing function ==============================================
+
+const hashPassword = async (password) => {
+    try {
+        const hashed = await bcrypt.hash(password , 10);
+        return hashed;
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 //========================================= Checking user register body details is correct ==============================================
 
@@ -100,11 +114,12 @@ const userRegisterpost = async (req, res) => {
                         if (registeruserpass === registeruserconfpass) {
                             const serverSideOTP = GenerateOTP();
                             sendOTPmail(email, serverSideOTP);
+                            const secretPass = await hashPassword(registeruserpass)
                             req.session.tempuserDetail = {
                                 registerusername,
                                 email,
                                 registeruserphone,
-                                registeruserpass,
+                                secretPass,
                                 serverOTP: serverSideOTP
                             }
                             res.json({ status: true });
@@ -157,7 +172,7 @@ const userRegisterOTPpost = async (req, res) => {
                     name: req.session.tempuserDetail.registerusername,
                     email: req.session.tempuserDetail.email,
                     phone: req.session.tempuserDetail.registeruserphone,
-                    password: req.session.tempuserDetail.registeruserpass
+                    password: req.session.tempuserDetail.secretPass
                 }
                 const newUser = await User.create(UserData);
                 console.log("new user registration successfully");
@@ -311,7 +326,7 @@ module.exports = {
     userhomeGET,
     userLogin,
     userLoginpost,
-    userProfile,
+    userProfilePage,
     userRegister,
     userRegisterpost,
     userRegisterOTP,

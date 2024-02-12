@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from caketheme.com/html/ruper/page-my-account.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 26 Jan 2024 08:52:33 GMT -->
+
+<head>
+    <!-- Meta Data -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>My Account | Ruper</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="media/favicon.png">
+
+    <!-- Dependency Styles -->
+    <link rel="stylesheet" href="libs/bootstrap/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="libs/feather-font/css/iconfont.css" type="text/css">
+    <link rel="stylesheet" href="libs/icomoon-font/css/icomoon.css" type="text/css">
+    <link rel="stylesheet" href="libs/font-awesome/css/font-awesome.css" type="text/css">
+    <link rel="stylesheet" href="libs/wpbingofont/css/wpbingofont.css" type="text/css">
+    <link rel="stylesheet" href="libs/elegant-icons/css/elegant.css" type="text/css">
+    <link rel="stylesheet" href="libs/slick/css/slick.css" type="text/css">
+    <link rel="stylesheet" href="libs/slick/css/slick-theme.css" type="text/css">
+    <link rel="stylesheet" href="libs/mmenu/css/mmenu.min.css" type="text/css">
+    <link rel="stylesheet" href="libs/slider/css/jslider.css">
+
+    <!-- Site Stylesheet -->
+    <link rel="stylesheet" href="assets/css/app.css" type="text/css">
+    <link rel="stylesheet" href="assets/css/responsive.css" type="text/css">
+
+    <!-- Google Web Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@100;200;300;400;500;600;700&amp;display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css?family=EB+Garamond:100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic&amp;display=swap"
+        rel="stylesheet">
+</head>
+<style>
+    .addaddress {
+        background-color: black;
+        color: white;
+        width: 100%;
+        height: 40px;
+    }
+
+    .addbtn {
+        background-color: black;
+        color: white;
+        width: 150px;
+        height: 40px;
+    }
+
+    .cancelbtn {
+        background-color: rgb(255, 255, 255);
+        color: rgb(0, 0, 0);
+        border: 1px solid black;
+        width: 150px;
+        height: 40px;
+    }
+
+    .swal-custom {
+        background: linear-gradient(94deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.8240546218487395) 26%, rgba(0, 0, 0, 1) 53%, rgba(0, 0, 0, 0.8492647058823529) 79%, rgba(227, 227, 227, 0) 100%);
+        color: #ffffff;
+        width: 100%;
+    }
+
+    .swal-custom-ok-btn {
+        color: black !important;
+    }
+</style>
+
+<body class="blog">
+    <div id="page" class="hfeed page-wrapper">
+        <header id="site-header" class="site-header header-v2">
+
+
+            <div class="header-mobile">
+                <div class="section-padding">
+                    <div class="section-container large">
+                        <div class="row">
+                            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-3 col-3 header-left">
+                                <div class="navbar-header">
+                                    <button type="button" id="show-megamenu" class="navbar-toggle"></button>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 header-center">
+                                <div class="site-logo">
+                                    <a href="index2.html">
+                                        <img width="400" height="79" src="media/logo.png"
+                                            alt="Ruper – Furniture HTML Theme" />
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="header-mobile-fixed">
+                    <!-- Shop -->
+                    <div class="shop-page">
+                        <a href="shop-grid-left.html"><i class="wpb-icon-shop"></i></a>
+                    </div>
+
+                    <!-- Login -->
+                    <div class="my-account">
+                        <div class="login-header">
+                            <a href="page-my-account.html"><i class="wpb-icon-user"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- Search -->
+                    <div class="search-box">
+                        <div class="search-toggle"><i class="wpb-icon-magnifying-glass"></i></div>
+                    </div>
+
+                    <!-- Wishlist -->
+                    <div class="wishlist-box">
+                        <a href="shop-wishlist.html"><i class="wpb-icon-heart"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="header-desktop"
+                style="background: linear-gradient(94deg, rgba(226,226,226,1) 0%, rgba(255,255,255,1) 53%, rgba(227,227,227,1) 100%);">
+                <div class="header-wrapper">
+                    <div class="section-padding">
+                        <div class="section-container large p-l-r">
+                            <div class="row">
+                                <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-12 header-left">
+                                    <div class="site-navigation">
+                                        <nav id="main-navigation">
+                                            <ul id="menu-main-menu" class="menu">
+                                                <li class="level-0 menu-item">
+                                                    <a href="/"><span class="menu-item-text">home</span></a>
+                                                </li>
+                                                <li class="level-0 menu-item">
+                                                    <a href="page-contact.html"><span
+                                                            class="menu-item-text">hot</span></a>
+                                                </li>
+                                                <li class="level-0 menu-item">
+                                                    <a href="page-contact.html"><span class="menu-item-text">about us
+                                                        </span></a>
+                                                </li>
+                                                <li class="level-0 menu-item">
+                                                    <a href="page-contact.html"><span
+                                                            class="menu-item-text">Contact</span></a>
+                                                </li>
+
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-12 text-center header-center">
+                                    <div class="site-logo">
+                                        <a href="index2.html">
+                                            <img width="400" height="79" src="media/logo.png"
+                                                alt="Ruper – Furniture HTML Theme" />
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-12 header-right">
+                                    <div class="header-page-link">
+
+                                        <!-- Search -->
+                                        <div class="search-box">
+                                            <div class="search-toggle"><i class="icon-search"></i></div>
+                                        </div>
+
+                                        <!-- Wishlist -->
+                                        <div class="wishlist-box">
+                                            <a href="shop-wishlist.html"><i class="icon-heart"></i></a>
+                                        </div>
+
+                                        <!-- Cart -->
+                                        <div class="mini-cart top-cart wishlist-box">
+                                            <a class="cart-icon" href="shop-wishlist.html">
+                                                <div class="icons-cart"><i class="icon-large-paper-bag"></i>
+                                            </a>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div id="site-main" class="site-main">
+            <div id="main-content" class="main-content">
+                <div id="primary" class="content-area">
+                    <div id="content" class="site-content" role="main">
+                        <div class="section-padding">
+                            <div class="section-container p-l-r">
+                                <div class="page-my-account col-lg-12">
+                                    <div class="my-account-wrap clearfix" style="margin-top: 100px;">
+                                        <div
+                                            class="my-account-account-details d-flex justify-content-center align-items-center">
+                                            <div class="edit-account col-lg-8">
+                                                <div class="form-row row hidden" id="addressForm"
+                                                    style="margin-top: 30px;">
+                                                    <b>
+                                                        <p style="color:  red;" class="text-center" id="fillerror"></p>
+                                                    </b>
+                                                    <div class="col-lg-6">
+                                                        <label for="name">Name</label>
+                                                        <input type="text" name="name" id="name" style="width: 100%;"
+                                                            value="<%= editingAddress.name %>" onclick="nameClear()">
+                                                        <b>
+                                                            <p style="color:  red;" class="text-center" id="nameError">
+                                                            </p>
+                                                        </b>
+                                                        </p>
+                                                    </div>
+                                                    <div class="col-lg-6 m-b-20">
+                                                        <label for="phone">Phone number</label>
+                                                        <input type="text" style="width: 100%;" id="number" name="phone"
+                                                            onclick="phoneClear()" value="<%= editingAddress.number %>">
+                                                        <b>
+                                                            <p style="color:  red;" class="text-center" id="phoneError">
+                                                            </p>
+                                                        </b>
+                                                    </div>
+                                                    <div class="col-lg-12 m-b-20">
+                                                        <label for="Address">Address</label>
+                                                        <textarea name="Address" id="address" class="col-lg-12"
+                                                            onclick="addressClear()"><%= editingAddress.address %></textarea>
+                                                        <b>
+                                                            <p style="color:  red;" class="text-center"
+                                                                id="addressError"></p>
+                                                        </b>
+                                                    </div>
+                                                    <div class="col-lg-6 m-b-20">
+                                                        <label for="PIN">PIN code</label>
+                                                        <input type="text" id="pin" style="width: 100%;" name="PIN"
+                                                            onclick="pinClear()" value="<%= editingAddress.pin %>">
+                                                        <b>
+                                                            <p style="color:  red;" class="text-center" id="pinError">
+                                                            </p>
+                                                        </b>
+                                                    </div>
+
+                                                    <div class="col-lg-6 m-b-20">
+                                                        <label for="District">City / Town /
+                                                            District</label>
+                                                        <input type="text" id="district" style="width: 100%;"
+                                                            name="District" onclick="districtClear()"
+                                                            value="<%= editingAddress.district %>">
+                                                        <b>
+                                                            <p style="color:  red;" class="text-center"
+                                                                id="districtError"></p>
+                                                        </b>
+                                                    </div>
+                                                    <div class="col-lg-6 m-b-20">
+                                                        <label for="State">State</label>
+                                                        <select id="state" style="width: 100%;" name="State"
+                                                            onchange="stateClear()">
+                                                            <option>
+                                                                <%= editingAddress.state %>
+                                                            </option>
+                                                            <option value="Andhra Pradesh">
+                                                                Andhra Pradesh</option>
+                                                            <option value="Arunachal Pradesh">
+                                                                Arunachal Pradesh
+                                                            </option>
+                                                            <option value="Assam">Assam</option>
+                                                            <option value="Bihar">Bihar</option>
+                                                            <option value="Chhattisgarh">
+                                                                Chhattisgarh</option>
+                                                            <option value="Goa">Goa</option>
+                                                            <option value="Gujarat">Gujarat
+                                                            </option>
+                                                            <option value="Haryana">Haryana
+                                                            </option>
+                                                            <option value="Himachal Pradesh">
+                                                                Himachal Pradesh
+                                                            </option>
+                                                            <option value="Jharkhand">Jharkhand
+                                                            </option>
+                                                            <option value="Karnataka">Karnataka
+                                                            </option>
+                                                            <option value="Kerala">Kerala
+                                                            </option>
+                                                            <option value="Madhya Pradesh">
+                                                                Madhya Pradesh</option>
+                                                            <option value="Maharashtra">
+                                                                Maharashtra</option>
+                                                            <option value="Manipur">Manipur
+                                                            </option>
+                                                            <option value="Meghalaya">Meghalaya
+                                                            </option>
+                                                            <option value="Mizoram">Mizoram
+                                                            </option>
+                                                            <option value="Nagaland">Nagaland
+                                                            </option>
+                                                            <option value="Odisha">Odisha
+                                                            </option>
+                                                            <option value="Punjab">Punjab
+                                                            </option>
+                                                            <option value="Rajasthan">Rajasthan
+                                                            </option>
+                                                            <option value="Sikkim">Sikkim
+                                                            </option>
+                                                            <option value="Tamil Nadu">Tamil
+                                                                Nadu</option>
+                                                            <option value="Telangana">Telangana
+                                                            </option>
+                                                            <option value="Tripura">Tripura
+                                                            </option>
+                                                            <option value="Uttar Pradesh">Uttar
+                                                                Pradesh</option>
+                                                            <option value="Uttarakhand">
+                                                                Uttarakhand</option>
+                                                            <option value="West Bengal">West
+                                                                Bengal</option>
+                                                        </select>
+                                                        <b>
+                                                            <p style="color:  red;" class="text-center" id="stateError">
+                                                            </p>
+                                                        </b>
+                                                        </p>
+                                                    </div>
+                                                    <div class="col-lg-6 m-b-20">
+                                                        <label for="Address-type">Address
+                                                            type</label>
+                                                        <select name="Address-type" id="Address-type"
+                                                            style="width: 100%;">
+                                                            <option value="Home">Home</option>
+                                                            <option value="Work">Work</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-lg-6 m-b-20">
+                                                        <label for="Landmark">Landmark</label>
+                                                        <input type="text" id="Landmark" style="width: 100%;"
+                                                            name="Landmark" onclick="landClear()"
+                                                            value="<%= editingAddress.landmark %>">
+                                                        <b>
+                                                            <p style="color:  red;" class="text-center" id="landError">
+                                                            </p>
+                                                        </b>
+                                                    </div>
+                                                    <div class="col-lg-6 m-b-20" style="margin-bottom: 50px;">
+                                                        <label for="District">Alternate
+                                                            Phone</label>
+                                                        <input type="text" id="altNumber" style="width: 100%;"
+                                                            name="District" onclick="altClear()"
+                                                            value="<%= editingAddress.alternateNumber %>">
+                                                        <b>
+                                                            <p style="color:  red;" class="text-center" id="altError">
+                                                            </p>
+                                                        </b>
+                                                    </div>
+                                                    <div class="col-lg-6 d-flex justify-content-center"
+                                                        style="margin: auto;">
+                                                        <button class="cancelbtn mr-2" id="cancel"
+                                                            onclick="cancel()">Cancel</button>
+                                                        <button class="addbtn" id="add"
+                                                            onclick="confirmAddress()">Add</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- #content -->
+                </div><!-- #primary -->
+            </div><!-- #main-content -->
+        </div>
+
+        <footer id="site-footer" class="site-footer background">
+            <div class="footer">
+                <div class="section-padding">
+                    <div class="section-container">
+                        <div class="block-widget-wrap">
+                            <div class="row">
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="block block-menu m-b-20">
+                                        <h2 class="block-title">Contact Us</h2>
+                                        <div class="block-content">
+                                            <ul>
+                                                <li>
+                                                    <a href="page-contact.html">616.774.0561</a>
+                                                </li>
+                                                <li>
+                                                    <a href="page-contact.html">866.453.4748</a>
+                                                </li>
+                                                <li>
+                                                    <a href="page-contact.html">HR Fax: 810.222.5439</a>
+                                                </li>
+                                                <li>
+                                                    <a href="page-contact.html">sales@ruperfurniture.com</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="block block-social">
+                                        <ul class="social-link">
+                                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-behance"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="block block-menu">
+                                        <h2 class="block-title">Showroom</h2>
+                                        <div class="block-content">
+                                            <p>1000 84th Street SW , Byron Center, MI 49315</p>
+                                            <p>AmericasMart Bldg. #1</p>
+                                            <p>Suite 5C-1, Atlanta, GA 30303</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="block block-menu">
+                                        <h2 class="block-title">Services</h2>
+                                        <div class="block-content">
+                                            <ul>
+                                                <li>
+                                                    <a href="page-about.html">Sale</a>
+                                                </li>
+                                                <li>
+                                                    <a href="page-about.html">Quick Ship</a>
+                                                </li>
+                                                <li>
+                                                    <a href="page-about.html">New Designs</a>
+                                                </li>
+                                                <li>
+                                                    <a href="page-about.html">Accidental Fabric Protection</a>
+                                                </li>
+                                                <li>
+                                                    <a href="page-about.html">Furniture Care</a>
+                                                </li>
+                                                <li>
+                                                    <a href="page-about.html">Gift Cards</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="block block-newsletter">
+                                        <h2 class="block-title">Newsletter</h2>
+                                        <div class="block-content">
+                                            <div class="newsletter-text">Enter your email below to be the first to know
+                                                about new collections and product launches.</div>
+                                            <form action="#" method="post" class="newsletter-form">
+                                                <input type="email" class="bg-white" name="your-email" value=""
+                                                    size="40" placeholder="Email address">
+                                                <span class="btn-submit">
+                                                    <input type="submit" value="Subscribe">
+                                                </span>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div class="block block-image">
+                                        <img width="309" height="32" src="media/payments.png" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="section-padding">
+                    <div class="section-container">
+                        <div class="block-widget-wrap">
+                            <p class="copyright text-center">Copyright © 2022. All Right Reserved</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Back Top button -->
+    <div class="back-top button-show">
+        <i class="arrow_carrot-up"></i>
+    </div>
+
+    <!-- Search -->
+    <div class="search-overlay">
+        <div class="close-search"></div>
+        <div class="wrapper-search">
+            <form role="search" method="get" class="search-from ajax-search" action="#">
+                <div class="search-box">
+                    <button id="searchsubmit" class="btn" type="submit">
+                        <i class="icon-search"></i>
+                    </button>
+                    <input id="myInput" type="text" autocomplete="off" value="" name="s" class="input-search s"
+                        placeholder="Search...">
+                    <div class="search-top">
+                        <div class="close-search">Cancel</div>
+                    </div>
+                    <div class="content-menu_search">
+                        <label>Suggested</label>
+                        <ul id="menu_search" class="menu">
+                            <li><a href="#">Furniture</a></li>
+                            <li><a href="#">Home Décor</a></li>
+                            <li><a href="#">Industrial</a></li>
+                            <li><a href="#">Kitchen</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+    <!-- Page Loader -->
+    <!-- <div class="page-preloader">
+	    	<div class="loader">
+	    		<div></div>
+	    		<div></div>
+	    	</div>
+	    </div> -->
+
+    <!-- Dependency Scripts -->
+    <script src="libs/popper/js/popper.min.js"></script>
+    <script src="libs/jquery/js/jquery.min.js"></script>
+    <script src="libs/bootstrap/js/bootstrap.min.js"></script>
+    <script src="libs/slick/js/slick.min.js"></script>
+    <script src="libs/countdown/js/jquery.countdown.min.js"></script>
+    <script src="libs/mmenu/js/jquery.mmenu.all.min.js"></script>
+    <script src="libs/slider/js/tmpl.js"></script>
+    <script src="libs/slider/js/jquery.dependClass-0.1.js"></script>
+    <script src="libs/slider/js/draggable-0.1.js"></script>
+    <script src="libs/slider/js/jquery.slider.js"></script>
+    <script src="assets/js/app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</body>
+
+<script>
+
+    // function validation
+    function confirmAddress() {
+        // Inputs
+        const name = document.getElementById("name").value.trim();
+        const number = document.getElementById("number").value.trim();
+        const address = document.getElementById("address").value.trim();
+        const pin = document.getElementById("pin").value.trim();
+        const state = document.getElementById("state").value.trim();
+        const district = document.getElementById("district").value.trim();
+        const AddressType = document.getElementById("Address-type").value.trim();
+        const Landmark = document.getElementById("Landmark").value.trim();
+        const altNumber = document.getElementById("altNumber").value.trim();
+
+        // Errors
+        const fillerror = document.getElementById("fillerror");
+        const nameError = document.getElementById("nameError");
+        const phoneError = document.getElementById("phoneError");
+        const addressError = document.getElementById("addressError");
+        const pinError = document.getElementById("pinError");
+        const stateError = document.getElementById("stateError");
+        const districtError = document.getElementById("districtError");
+        const landError = document.getElementById("landError");
+        const altError = document.getElementById("altError");
+
+        // Reset all error messages
+        fillerror.textContent = "";
+        nameError.textContent = "";
+        phoneError.textContent = "";
+        addressError.textContent = "";
+        pinError.textContent = "";
+        stateError.textContent = "";
+        districtError.textContent = "";
+        landError.textContent = "";
+        altError.textContent = "";
+
+        // Check individual field validations
+        if (name === "") {
+            nameError.textContent = "Name is required";
+        } else if (name.length < 3) {
+            nameError.textContent = "Name must have at least 3 characters";
+        } else if (!/^[A-Za-z\s]+$/.test(name)) {
+            nameError.textContent = "Name can only contain alphabets and spaces";
+        }
+
+        if (number === "") {
+            phoneError.textContent = "Phone number is required";
+        } else if (!/^\d+$/.test(number)) {
+            phoneError.textContent = "Phone number must contain only numbers";
+        } else if (number.length !== 10) {
+            phoneError.textContent = "Phone number must be 10 digits";
+        }
+
+        if (address === "") {
+            addressError.textContent = "Address is required";
+        } else if (!/^[a-zA-Z0-9\s,'-]+$/.test(address)) {
+            addressError.textContent = "Enter a valid address";
+        }
+
+        if (pin === "") {
+            pinError.textContent = "PIN code is required";
+        } else if (!/^\d+$/.test(pin)) {
+            pinError.textContent = "PIN code must contain only numbers";
+        } else if (pin.length !== 6) {
+            pinError.textContent = "PIN code must be 6 digits";
+        }
+
+        if (district === "") {
+            districtError.textContent = "District is required";
+        } else if (!/^[a-zA-Z0-9\s,'-]+$/.test(district)) {
+            districtError.textContent = "Enter a valid district name";
+        }
+
+        if (Landmark === "") {
+            landError.textContent = "Landmark is required";
+        } else if (!/^[a-zA-Z0-9\s,'-]+$/.test(Landmark)) {
+            landError.textContent = "Enter a valid landmark";
+        }
+
+        if (altNumber === "") {
+            altError.textContent = "Alternate phone number is required";
+        } else if (!/^\d+$/.test(altNumber)) {
+            altError.textContent = "Alternate phone number must contain only numbers";
+        } else if (altNumber.length !== 10) {
+            altError.textContent = "Alternate phone number must be 10 digits";
+        }
+
+
+        if (nameError.textContent !== "" || phoneError.textContent !== "" || addressError.textContent !== "" || pinError.textContent !== "" || districtError.textContent !== "" || landError.textContent !== "" || altError.textContent !== "") {
+            fillerror.textContent = "Fill all fields correctly . . .";
+            setTimeout(() => {
+                fillerror.textContent = "";
+            }, 3000);
+        } else {
+            $.ajax({
+                url: "/address",
+                method: "patch",
+                data: {
+                    name,
+                    number,
+                    address,
+                    pin,
+                    state,
+                    district,
+                    AddressType,
+                    Landmark,
+                    altNumber
+                },
+                // success: (response) => {
+                //     if (response.status === "success") {
+                //         Swal.fire({
+                //             icon: "success",
+                //             title: "Changes saved successfully",
+                //             showConfirmButton: false,
+                //             customClass: {
+                //                 popup: 'swal-custom',
+                //             },
+                //             timer: 1500
+                //         });
+                //         setTimeout(() => {
+                //             window.location.href = "http://localhost:5000/address";
+                //         }, 1500);
+                //     } else if (response.status === "wrong") {
+                //         Swal.fire({
+                //             icon: "success",
+                //             title: "Changes saved successfully",
+                //             showConfirmButton: false,
+                //             customClass: {
+                //                 popup: 'swal-custom',
+                //             },
+                //             timer: 1500
+                //         });
+                //         setTimeout(() => {
+                //             window.location.href = "http://localhost:5000/address";
+                //         }, 1500);
+                //     }
+                // }
+            })
+        }
+
+        // input box clear functions
+
+        function nameClear() {
+            document.getElementById("nameError").innerHTML = ""
+        }
+        function phoneClear() {
+            document.getElementById("phoneError").innerHTML = ""
+        }
+        function addressClear() {
+            document.getElementById("addressError").innerHTML = ""
+        }
+        function pinClear() {
+            document.getElementById("pinError").innerHTML = ""
+        }
+        function stateClear() {
+            document.getElementById("stateError").innerHTML = ""
+        }
+        function districtClear() {
+            document.getElementById("districtError").innerHTML = ""
+        }
+        function landClear() {
+            document.getElementById("landError").innerHTML = ""
+        }
+        function altClear() {
+            document.getElementById("altError").innerHTML = ""
+        }
+
+
+        // cancel add address div closing
+        function cancel() {
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You want to discard this details?",
+                showCancelButton: true,
+                confirmButtonColor: "#FF0000",
+                cancelButtonColor: "#ffffff",
+                confirmButtonText: "Discard",
+                customClass: {
+                    popup: 'swal-custom',
+                    cancelButton: 'swal-custom-ok-btn'
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "/address"
+                }
+            });
+
+        }
+    }
+
+</script>
+
+</html>

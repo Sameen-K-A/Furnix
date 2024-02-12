@@ -101,17 +101,27 @@ const categoryAdd = async (req, res) => {
     try {
         const Cat = req.body.name;
         const Description = req.body.description;
-        const newCat = {
-            name: Cat,
-            description: Description
+
+        const existCatDeatils = await Category.find({});
+        const names = existCatDeatils.map((elems) => elems.name);
+        let unique = false;
+
+        for (let i = 0; i < names.length; i++) {
+            if (Cat.toLowerCase() === names[i].toLowerCase()) {
+                console.log("Name already existed");
+                unique = true
+                res.json({ status: false });
+                break;
+            }
         }
-        const alreadyName = await Category.findOne({ name: newCat.name });
-        if (alreadyName) {
-            console.log("Name already existed");
-            res.json({ status: false })
-        } else {
+        if (unique === false) {
+            const newCat = {
+                name : Cat,
+                description : Description
+            }
             const setCat = await Category.create(newCat);
-            res.json({ status: true });
+            res.json({ status : true });
+            console.log('done');
         }
     } catch (error) {
         console.log(error);
@@ -150,7 +160,7 @@ const editcategory = async (req, res) => {
     try {
         const editCatID = req.query._id;
         const catDet = await Category.findOne({ _id: editCatID });
-        req.session.editCatDetails = editCatID;
+        req.session.editCatDetails = catDet.name;
         res.render("admin/editCategory", { catDet });
     } catch (error) {
         console.log(error);
@@ -163,15 +173,47 @@ const catEditPOST = async (req, res) => {
     try {
         const editName = req.body.name
         const editDescription = req.body.description;
-        const nameExist = await Category.findOne({ name: editName });
-        if (!nameExist) {
-            const editProcess = await Category.updateOne({ _id: req.session.editCatDetails }, { name: editName, description: editDescription })
-            res.json({ status: true });
-            console.log("edit done");
-        } else {
-            res.json({ status: false });
-            console.log("name already existed");
+
+        const existCatDeatils = await Category.find({});
+        const names = existCatDeatils.map((elems) => elems.name);
+        let unique = false;
+
+        for (let i = 0; i < names.length; i++) {
+            if (editName.toLowerCase() === names[i].toLowerCase()) {
+                console.log("Name already existed");
+                unique = true
+                break;
+            }
         }
+
+        if(editName === req.session.editCatDetails){
+            unique = false
+        }
+
+
+        if(unique === true) {
+            res.json({status : false})
+        }else{
+            const newCat = {
+                name : editName,
+                description : editDescription
+            }
+            const setCat = await Category.create(newCat);
+            res.json({ status : true });
+            console.log('done');
+        }
+
+
+
+        // const nameExist = await Category.findOne({ name: editName });
+        // if (!nameExist) {
+        //     const editProcess = await Category.updateOne({ _id: req.session.editCatDetails }, { name: editName, description: editDescription })
+        //     res.json({ status: true });
+        //     console.log("edit done");
+        // } else {
+        //     res.json({ status: false });
+        //     console.log("name already existed");
+        // }
     } catch (error) {
         console.log(error);
     }

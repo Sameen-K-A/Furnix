@@ -329,11 +329,6 @@
 </body>
 <script>
 
-
-
-
-
-
 	function registerOTPvalidation() {
 		const registerOTP = document.getElementById("registerOTP").value;
 		if (registerOTP.trim() === "") {
@@ -365,9 +360,6 @@
 		}
 	};
 
-
-	
-
 	function registerOTPresendvalidation() {
 		$.ajax({
 			url: "/userforgetResentOTPpost",
@@ -379,15 +371,6 @@
 			}
 		})
 	}
-
-
-
-
-
-
-
-
-
 
 	function updateCountdown() {
 		var countdownElement = document.getElementById('countdown');
@@ -412,15 +395,11 @@
 		} else {
 			seconds--;
 		}
-
-		// Add leading zeros if necessary
 		var minutesStr = minutes < 10 ? '0' + minutes : minutes;
 		var secondsStr = seconds < 10 ? '0' + seconds : seconds;
 
 		countdownElement.innerText = minutesStr + ':' + secondsStr;
 	}
-
-	// Call the updateCountdown function every second
 	var timer = setInterval(updateCountdown, 1000);
 
 

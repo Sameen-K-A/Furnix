@@ -14,7 +14,18 @@ const isAdmin = (req, res, next) => {
     }
 }
 
-
+// when user is logged time
+const isUser = async (req , res , next) => {
+    try {
+        if(req.session.user){
+            next();
+        }else{
+            res.redirect("/")
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 // blocked user
 const isBlocked = async (req , res , next) => {
@@ -69,6 +80,7 @@ const isProductBlocked = async (req , res , next) => {
 
 module.exports = {
     isAdmin,
+    isUser,
     isBlocked,
     isNoUser,
     isProductBlocked

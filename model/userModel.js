@@ -21,7 +21,36 @@ const userSchema = new mongoose.Schema({
     isBlocked : {
         type : Boolean,
         default : false
-    }
+    },
+    address : [{
+        name : {
+            type : String
+        },
+        number : {
+            type : Number
+        },
+        address : {
+            type : String
+        },
+        pin : {
+            type : Number
+        },
+        district : {
+            type : String
+        },
+        state : {
+            type : String
+        },
+        addressType : {
+            type : String
+        },
+        landmark : {
+            type : String
+        },
+        alternateNumber : {
+            type : Number
+        },
+    }]
 },{
     versionKey : false
 })
