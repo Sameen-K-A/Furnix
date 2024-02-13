@@ -360,11 +360,33 @@ const nameascending = async (req, res) => {
     }
 }
 
-//========================================= Sort product based on name Decsending order ==============================================
+//========================================= Sort product based on name ascending order ==============================================
 
 const namedescending = async (req, res) => {
     try {
         const productDetails = await Product.find({}).sort({ name: -1 })
+        res.render("user/userAllProduct", { productDetails })
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+//========================================= Sort product based on name ascending order ==============================================
+
+const leatest = async (req, res) => {
+    try {
+        const productDetails = await Product.find({}).sort({ _id: -1 })
+        res.render("user/userAllProduct", { productDetails })
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+//========================================= Sort product based on name ascending order ==============================================
+
+const oldest = async (req, res) => {
+    try {
+        const productDetails = await Product.find({}).sort({ _id: 1 })
         res.render("user/userAllProduct", { productDetails })
     } catch (error) {
         console.log(error);
@@ -394,5 +416,7 @@ module.exports = {
     pricehightolow,
     pricelowtohigh,
     nameascending,
-    namedescending
+    namedescending,
+    leatest,
+    oldest
 }

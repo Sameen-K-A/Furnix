@@ -23,13 +23,15 @@ router.post("/userforgetResentOTPpost" , isNoUser , userController.userforgetRes
 router.get("/userLogout" , userController.userLogout);
 router.get("/productDetailspage" , isProductBlocked  ,isBlocked,  userController.productDetailspage);
 
-//user all product page
+//user all product page and sorting
 
 router.get("/allproduct" ,isBlocked, userController.allproduct);
 router.get("/pricehightolow" ,isBlocked, userController.pricehightolow);
 router.get("/pricelowtohigh" ,isBlocked, userController.pricelowtohigh);
 router.get("/nameascending" ,isBlocked, userController.nameascending);
 router.get("/namedescending" ,isBlocked, userController.namedescending);
+router.get("/leatest" ,isBlocked, userController.leatest);
+router.get("/oldest" ,isBlocked, userController.oldest);
 
 // user change passwords area
 
