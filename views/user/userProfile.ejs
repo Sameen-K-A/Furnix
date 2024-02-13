@@ -37,6 +37,17 @@
 		href="https://fonts.googleapis.com/css?family=EB+Garamond:100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic&amp;display=swap"
 		rel="stylesheet">
 </head>
+<style>
+	.swal-custom {
+        background: linear-gradient(94deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.8240546218487395) 26%, rgba(0, 0, 0, 1) 53%, rgba(0, 0, 0, 0.8492647058823529) 79%, rgba(227, 227, 227, 0) 100%);
+        color: #ffffff;
+        width: 100%;
+    }
+
+    .swal-custom-ok-btn {
+        color: black !important;
+    }
+</style>
 
 <body class="blog">
 	<div id="page" class="hfeed page-wrapper">
@@ -103,7 +114,7 @@
 												</li>
 												<li class="level-0 menu-item">
 													<a href="page-contact.html"><span
-															class="menu-item-text">hot</span></a>
+															class="menu-item-text">All</span></a>
 												</li>
 												<li class="level-0 menu-item">
 													<a href="page-contact.html"><span class="menu-item-text">about us
@@ -185,7 +196,7 @@
 													<a class="nav-link" href="/changepassword">Change password</a>
 												</li>
 												<li class="nav-item">
-													<a class="nav-link" href="/userLogout">Logout</a>
+													<a class="nav-link text-dark" onclick="logout()">Logout</a>
 												</li>
 											</ul>
 										</nav>
@@ -374,5 +385,26 @@
 	<script src="libs/slider/js/draggable-0.1.js"></script>
 	<script src="libs/slider/js/jquery.slider.js"></script>
 	<script src="assets/js/app.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
+<script>
+	 function logout() {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You want to Logout from FURNIX?",
+            showCancelButton: true,
+            confirmButtonColor: "#FF0000",
+            cancelButtonColor: "#ffffff",
+            confirmButtonText: "Logout",
+            customClass: {
+                popup: 'swal-custom',
+                cancelButton: 'swal-custom-ok-btn'
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "/userLogout"
+            }
+        });
+    }
+</script>
 </html>

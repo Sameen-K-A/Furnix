@@ -240,7 +240,7 @@
                                                     <a class="nav-link" href="/changepassword">Change password</a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a class="nav-link" href="/userLogout">Logout</a>
+                                                    <a class="nav-link text-dark" onclick="logout()">Logout</a>
                                                 </li>
                                             </ul>
                                         </nav>
@@ -854,7 +854,7 @@
 
                     } else if (response.status === "wrong") {
                         Swal.fire({
-                            icon: "success",
+                            icon: "error",
                             title: "Changes saved successfully",
                             showConfirmButton: false,
                             customClass: {
@@ -923,6 +923,25 @@
             }
         });
 
+    }
+
+    function logout() {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You want to Logout from FURNIX?",
+            showCancelButton: true,
+            confirmButtonColor: "#FF0000",
+            cancelButtonColor: "#ffffff",
+            confirmButtonText: "Logout",
+            customClass: {
+                popup: 'swal-custom',
+                cancelButton: 'swal-custom-ok-btn'
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "/userLogout"
+            }
+        });
     }
 
 </script>

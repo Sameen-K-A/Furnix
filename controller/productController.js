@@ -62,14 +62,14 @@ const editproduct = async (req, res) => {
     }
 }
 
-
+//========================================= Update Edited details of product ==============================================
 
 const editproductPOST = async (req, res) => {
     try {
         const productID = req.query.id;
         const newImages = req.files.map(elems => elems.originalname)
         if (newImages) {
-            const updateImgStage = await Product.updateOne({ _id: productID }, { $push: { images: { $each: newImages } } })
+            await Product.updateOne({ _id: productID }, { $push: { images: { $each: newImages } } })
         }
         const { name, description, category, regularPrice, capacity, material, stock, color } = req.body;
         const editProDetails = {
@@ -82,27 +82,31 @@ const editproductPOST = async (req, res) => {
             stock: stock,
             color: color,
         }
-        const updateDetails = await Product.updateOne({_id : productID} , editProDetails)
+        await Product.updateOne({ _id: productID }, editProDetails)
         res.redirect("/admin/productPage");
     } catch (error) {
         console.log(error);
     }
 }
-//========================================= product list and unlist side ==============================================
+
+//========================================= product Unlist side ==============================================
 
 const unlistproduct = async (req, res) => {
     try {
         const unlistProID = req.query.id;
-        const details = await Product.updateOne({ _id: unlistProID }, { isBlocked: true });
+        await Product.updateOne({ _id: unlistProID }, { isBlocked: true });
         res.redirect("/admin/productPage");
     } catch (error) {
         console.log(error);
     }
 }
+
+//========================================= product list side ==============================================
+
 const listproduct = async (req, res) => {
     try {
         const listProID = req.query.id;
-        const details = await Product.updateOne({ _id: listProID }, { isBlocked: false });
+        await Product.updateOne({ _id: listProID }, { isBlocked: false });
         res.redirect("/admin/productPage");
     } catch (error) {
         console.log(error);

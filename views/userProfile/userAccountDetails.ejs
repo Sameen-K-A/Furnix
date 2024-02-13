@@ -37,6 +37,58 @@
         href="https://fonts.googleapis.com/css?family=EB+Garamond:100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic&amp;display=swap"
         rel="stylesheet">
 </head>
+<style>
+    .cancelbtn {
+        background-color: rgb(0, 0, 0);
+        color: rgb(255, 255, 255);
+        border: 1px solid black;
+        width: 150px;
+        height: 40px;
+    }
+
+    /* .input-radio {
+        display: none;
+    }
+
+    .input-radio+label:before {
+        content: "";
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        border: 1px solid black;
+        margin-right: 5px;
+    }
+
+    .input-radio:checked+label:before {
+        background-color: black;
+    } */
+
+    .addbtn {
+        background-color: black;
+        color: white;
+        width: 150px;
+        height: 40px;
+    }
+
+    .cancelbtn2 {
+        background-color: rgb(255, 255, 255);
+        color: rgb(0, 0, 0);
+        border: 1px solid black;
+        width: 150px;
+        height: 40px;
+    }
+
+    .swal-custom {
+        background: linear-gradient(94deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.8240546218487395) 26%, rgba(0, 0, 0, 1) 53%, rgba(0, 0, 0, 0.8492647058823529) 79%, rgba(227, 227, 227, 0) 100%);
+        color: #ffffff;
+        width: 100%;
+    }
+
+    .swal-custom-ok-btn {
+        color: black !important;
+    }
+</style>
 
 <body class="blog">
     <div id="page" class="hfeed page-wrapper">
@@ -184,7 +236,7 @@
                                                     <a class="nav-link" href="/changepassword">Change password</a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a class="nav-link" href="/userLogout">Logout</a>
+                                                    <a class="nav-link text-dark" onclick="logout()">Logout</a>
                                                 </li>
                                             </ul>
                                         </nav>
@@ -193,29 +245,36 @@
                                                 class="my-account-account-details d-flex justify-content-center align-items-center">
                                                 <div class="edit-account col-lg-8 ">
                                                     <p class="form-row" style="margin-top: -17px;">
-                                                        <div style="width: 100%; height: auto; background-color: rgb(241, 241, 241); padding: 20px;">
-                                                        <h1>lknsvlk</h1></div>
+                                                    <div id="detailsDiv"
+                                                        style="width: 100%; height: auto; background-color: rgb(241, 241, 241); padding: 20px; border: 1px solid black; display: block;">
+                                                        Name : <h5 style="margin-bottom: 15px;"><b>
+                                                                <%= userDetails.name %>
+                                                            </b></h5>
+                                                        Email : <h5 style="margin-bottom: 15px;"><b>
+                                                                <%= userDetails.email%>
+                                                            </b></h5>
+                                                        Phone number : <h5 style="margin-bottom: 15px;"><b>
+                                                                <%= userDetails.phone %>
+                                                            </b></h5>
+                                                        <% if (userDetails.gender) { %>
+                                                            Gender : <h5 style="margin-bottom: 15px;"><b>
+                                                                    <%= userDetails.gender %>
+                                                                </b></h5>
+                                                            <% } %>
+                                                                <% if (userDetails.DateOfBirth) { %>
+                                                                    Date of Birth : <h5 style="margin-bottom: 15px;"><b>
+                                                                            <%= userDetails.DateOfBirth %>
+                                                                        </b></h5>
+                                                                    <% } %>
+                                                    </div>
                                                     </p>
-                                                    <p class="form-row">
-                                                        <label for="account_first_name">First name <span
-                                                                class="required">*</span></label>
-                                                        <input type="text" class="input-text" name="account_first_name">
-                                                    </p>
-                                                    <p class="form-row">
-                                                        <label>Last name <span class="required">*</span></label>
-                                                        <input type="text" class="input-text" name="account_last_name">
-                                                    </p>
-                                                    <div class="clear"></div>
-                                                    <p class="form-row">
-                                                        <label>Display name <span class="required">*</span></label>
-                                                        <input type="text" class="input-text"
-                                                            name="account_display_name">
-                                                    </p>
-                                                    <div class="clear"></div>
-                                                    <p class="form-row">
-                                                        <label>Email address <span class="required">*</span></label>
-                                                        <input type="email" class="input-text" name="account_email">
-                                                    </p>
+                                                    <div class="col-lg-6 d-flex justify-content-center"
+                                                        style="margin: auto;">
+                                                        <a href="/editdetails"><button class="cancelbtn mr-2" id="Edit"
+                                                                style="display: block;">Add
+                                                                & Edit</button></a>
+                                                    </div>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -471,11 +530,32 @@
     <script src="libs/slider/js/jquery.dependClass-0.1.js"></script>
     <script src="libs/slider/js/draggable-0.1.js"></script>
     <script src="libs/slider/js/jquery.slider.js"></script>
-
-    <!-- Site Scripts -->
     <script src="assets/js/app.js"></script>
-</body>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-<!-- Mirrored from caketheme.com/html/ruper/page-my-account.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 26 Jan 2024 08:52:33 GMT -->
+</body>
+<script>
+    function logout() {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You want to Logout from FURNIX?",
+            showCancelButton: true,
+            confirmButtonColor: "#FF0000",
+            cancelButtonColor: "#ffffff",
+            confirmButtonText: "Logout",
+            customClass: {
+                popup: 'swal-custom',
+                cancelButton: 'swal-custom-ok-btn'
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "/userLogout"
+            }
+        });
+    }
+</script>
 
 </html>

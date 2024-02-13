@@ -116,11 +116,11 @@ const categoryAdd = async (req, res) => {
         }
         if (unique === false) {
             const newCat = {
-                name : Cat,
-                description : Description
+                name: Cat,
+                description: Description
             }
             const setCat = await Category.create(newCat);
-            res.json({ status : true });
+            res.json({ status: true });
             console.log('done');
         }
     } catch (error) {
@@ -133,7 +133,7 @@ const categoryAdd = async (req, res) => {
 const blockCategory = async (req, res) => {
     try {
         const categoryID = req.query._id;
-        const blockProcess = await Category.updateOne({ _id: categoryID }, { isBlocked: true });
+        await Category.updateOne({ _id: categoryID }, { isBlocked: true });
         console.log("Blocked is done");
         res.redirect("/admin/category")
     } catch (error) {
@@ -146,7 +146,7 @@ const blockCategory = async (req, res) => {
 const UnblockCategory = async (req, res) => {
     try {
         const categoryID = req.query._id;
-        const UnblockProcess = await Category.updateOne({ _id: categoryID }, { isBlocked: false });
+        await Category.updateOne({ _id: categoryID }, { isBlocked: false });
         console.log("Unlocked is done");
         res.redirect("/admin/category")
     } catch (error) {
@@ -185,35 +185,20 @@ const catEditPOST = async (req, res) => {
                 break;
             }
         }
-
-        if(editName === req.session.editCatDetails){
+        if (editName === req.session.editCatDetails) {
             unique = false
         }
-
-
-        if(unique === true) {
-            res.json({status : false})
-        }else{
+        if (unique === true) {
+            res.json({ status: false })
+        } else {
             const newCat = {
-                name : editName,
-                description : editDescription
+                name: editName,
+                description: editDescription
             }
-            const setCat = await Category.create(newCat);
-            res.json({ status : true });
+            await Category.create(newCat);
+            res.json({ status: true });
             console.log('done');
         }
-
-
-
-        // const nameExist = await Category.findOne({ name: editName });
-        // if (!nameExist) {
-        //     const editProcess = await Category.updateOne({ _id: req.session.editCatDetails }, { name: editName, description: editDescription })
-        //     res.json({ status: true });
-        //     console.log("edit done");
-        // } else {
-        //     res.json({ status: false });
-        //     console.log("name already existed");
-        // }
     } catch (error) {
         console.log(error);
     }

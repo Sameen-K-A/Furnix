@@ -8,7 +8,7 @@ const bcrypt = require("bcrypt");
 
 const userhomeGET = async (req, res) => {
     try {
-        const productDetails = await Product.find({ isBlocked: false });
+        const productDetails = await Product.find({ isBlocked: false }).limit(4).sort({ _id: -1 });
         res.render("user/userHome", { productDetails });
     } catch (error) {
         console.log(error);
@@ -27,12 +27,12 @@ const userLogin = (req, res) => {
 
 //========================================= Render user profile page ==============================================
 
-const userProfilePage = async (req , res) => {
+const userProfilePage = async (req, res) => {
     try {
-        if(req.session.user){
-            const userData = await User.findOne({email : req.session.user});
-            res.render("user/userProfile" , {userData});
-        }else{
+        if (req.session.user) {
+            const userData = await User.findOne({ email: req.session.user });
+            res.render("user/userProfile", { userData });
+        } else {
             res.redirect("/userLogin");
         }
     } catch (error) {
@@ -48,7 +48,7 @@ const userLoginpost = async (req, res) => {
         const ajaxPass = req.body.userpass;
         const loginUser = await User.findOne({ email: ajaxEmail });
         if (loginUser) {
-            const comparePassword = await bcrypt.compare(ajaxPass , loginUser.password)
+            const comparePassword = await bcrypt.compare(ajaxPass, loginUser.password)
             if (comparePassword) {
                 if (loginUser.isBlocked === false) {
                     console.log(`${ajaxEmail} Entering to home page`);
@@ -71,7 +71,6 @@ const userLoginpost = async (req, res) => {
     }
 }
 
-
 //========================================= Render user register page ==============================================
 
 const userRegister = (req, res) => {
@@ -85,11 +84,12 @@ const userRegister = (req, res) => {
         console.log(error);
     }
 }
+
 //========================================= Password hashing function ==============================================
 
 const hashPassword = async (password) => {
     try {
-        const hashed = await bcrypt.hash(password , 10);
+        const hashed = await bcrypt.hash(password, 10);
         return hashed;
     } catch (error) {
         console.log(error);
@@ -123,7 +123,6 @@ const userRegisterpost = async (req, res) => {
                                 serverOTP: serverSideOTP
                             }
                             res.json({ status: true });
-
                         } else {
                             console.log("Both password is not match");
                             res.json({ status: "confpass" });
@@ -225,14 +224,11 @@ const userForgetPasswordpost = async (req, res) => {
                 if (forgetpassword === forgetconfpassword) {
                     const newforgetOTP = GenerateOTP();
                     const frogetOTP_mail = sendOTPmail(forgetemail, newforgetOTP);
-
                     req.session.userforgetTEMP = {
                         email: forgetemail,
                         registeruserpass: forgetpassword,
                         OTPserverSide: newforgetOTP
                     }
-
-
                     res.json({ status: true })
                 } else {
                     console.log("check password both password are same");
@@ -320,6 +316,61 @@ const userLogout = (req, res) => {
     }
 }
 
+//========================================= All product page rendering ==============================================
+
+const allproduct = async (req, res) => {
+    try {
+        const productDetails = await Product.find({ isBlocked: false });
+        res.render("user/userAllProduct", { productDetails });
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+//========================================= Sort product based on price Secsending order ==============================================
+
+const pricehightolow = async (req, res) => {
+    try {
+        const productDetails = await Product.find({}).sort({ regularPrice: -1 })
+        res.render("user/userAllProduct", { productDetails })
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+//========================================= Sort product based on price Ascending order ==============================================
+
+const pricelowtohigh = async (req, res) => {
+    try {
+        const productDetails = await Product.find({}).sort({ regularPrice: 1 })
+        res.render("user/userAllProduct", { productDetails })
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+//========================================= Sort product based on name Ascending order ==============================================
+
+const nameascending = async (req, res) => {
+    try {
+        const productDetails = await Product.find({}).sort({ name: 1 })
+        res.render("user/userAllProduct", { productDetails })
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+//========================================= Sort product based on name Decsending order ==============================================
+
+const namedescending = async (req, res) => {
+    try {
+        const productDetails = await Product.find({}).sort({ name: -1 })
+        res.render("user/userAllProduct", { productDetails })
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 //========================================= Export all modules ==============================================
 
 module.exports = {
@@ -338,5 +389,10 @@ module.exports = {
     userForgetOTPpost,
     userforgetResentOTPpost,
     userLogout,
-    productDetailspage
+    productDetailspage,
+    allproduct,
+    pricehightolow,
+    pricelowtohigh,
+    nameascending,
+    namedescending
 }

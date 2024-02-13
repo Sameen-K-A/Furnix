@@ -23,16 +23,31 @@ router.post("/userforgetResentOTPpost" , isNoUser , userController.userforgetRes
 router.get("/userLogout" , userController.userLogout);
 router.get("/productDetailspage" , isProductBlocked  ,isBlocked,  userController.productDetailspage);
 
-// user profile information
+//user all product page
+
+router.get("/allproduct" ,isBlocked, userController.allproduct);
+router.get("/pricehightolow" ,isBlocked, userController.pricehightolow);
+router.get("/pricelowtohigh" ,isBlocked, userController.pricelowtohigh);
+router.get("/nameascending" ,isBlocked, userController.nameascending);
+router.get("/namedescending" ,isBlocked, userController.namedescending);
+
+// user change passwords area
+
 router.get("/changepassword" , isUser , isBlocked , userProfileController.changepassword);
 router.patch("/changepassword" , isUser , isBlocked , userProfileController.changepasswordPost);
-router.get("/accountDetails" ,  isUser , isBlocked , userProfileController.accountDetails);
 
-// user address side
+// user account details
+
+router.get("/accountDetails" ,  isUser , isBlocked , userProfileController.accountDetails);
+router.get("/editdetails" ,isUser , isBlocked, userProfileController.editdetails)
+router.post("/editdetails" ,isUser , isBlocked , userProfileController.editdetailspost)
+
+// user address area
+
 router.get("/address" ,  isUser , isBlocked , userProfileController.addressGet);
 router.post("/address" ,  isUser , isBlocked , userProfileController.addressPOST);
 router.delete("/address" , isUser , isBlocked , userProfileController.deleteAddress);
-router.get("/addressedit" , isUser , isBlocked , userProfileController.editAddressget)
+router.get("/addressedit" , isUser , isBlocked , userProfileController.editAddressget);
 router.patch("/address" , isUser , isBlocked , userProfileController.editAddress);
 
 

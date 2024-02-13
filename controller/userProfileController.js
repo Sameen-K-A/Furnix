@@ -1,7 +1,8 @@
 const User = require("../model/userModel");
 const Product = require("../model/productModel");
-const { ObjectId } = require('mongoose').Types;
 const bcrypt = require("bcrypt");
+
+//========================================= inside user profile page change password session rendering ==============================================
 
 const changepassword = (req, res) => {
     try {
@@ -10,6 +11,8 @@ const changepassword = (req, res) => {
         console.log(error);
     }
 }
+
+//========================================= Password updating area ==============================================
 
 const changepasswordPost = async (req, res) => {
     try {
@@ -37,15 +40,52 @@ const changepasswordPost = async (req, res) => {
     }
 }
 
+//========================================= Render user account details  ==============================================
 
-const accountDetails = (req, res) => {
+const accountDetails = async (req, res) => {
     try {
-        res.render("userProfile/userAccountDetails")
+        const userDetails = await User.findOne({ email: req.session.user })
+        res.render("userProfile/userAccountDetails", { userDetails })
     } catch (error) {
         console.log(error);
     }
 }
 
+//========================================= editing user details page rendering ==============================================
+
+const editdetails = async (req, res) => {
+    try {
+        const userDetails = await User.findOne({ email: req.session.user });
+        res.render("userProfile/editAccountDetails", { userDetails });
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+//========================================= Update user details editing area==============================================
+
+const editdetailspost = async (req, res) => {
+    try {
+        const { name, number, selectedDateOfBirth } = req.body;
+        const data = {
+            name: name,
+            phone: number,
+            DateOfBirth: selectedDateOfBirth
+        }
+        const updateProcess = await User.updateOne({ email: req.session.user }, data);
+        if (updateProcess.matchedCount === 1 && updateProcess.modifiedCount == 1) {
+            res.json({ status: "success" })
+        } else if (updateProcess.matchedCount === 1 && updateProcess.modifiedCount == 0) {
+            res.json({ status: "nochange" })
+        } else {
+            res.json({ status: "wrong" })
+        }
+    } catch (error) {
+
+    }
+}
+
+//========================================= Render user address page ==============================================
 
 const addressGet = async (req, res) => {
     try {
@@ -55,6 +95,8 @@ const addressGet = async (req, res) => {
         console.log();
     }
 }
+
+//========================================= Adding new user address ==============================================
 
 const addressPOST = async (req, res) => {
     try {
@@ -82,6 +124,8 @@ const addressPOST = async (req, res) => {
     }
 }
 
+//========================================= Delete user address side ==============================================
+
 const deleteAddress = async (req, res) => {
     try {
         const addressID = req.body.ID;
@@ -98,6 +142,8 @@ const deleteAddress = async (req, res) => {
     }
 }
 
+//========================================= Editing user address area ==============================================
+
 const editAddressget = async (req, res) => {
     try {
         const addressID = req.query.id;
@@ -110,36 +156,47 @@ const editAddressget = async (req, res) => {
     }
 }
 
+//========================================= Update edited address area ==============================================
+
 const editAddress = async (req, res) => {
     try {
         const { name, number, address, pin, state, district, AddressType, Landmark, altNumber } = req.body;
-        const addressID = req.session.editAddressID;
-        const userDetails = await User.findOne({ email: req.session.user });
-        const editingAddress = userDetails.address.find(elems => elems._id == addressID);
-        const editedAddress = {
-            name: name,
-            number: number,
-            address: address,
-            pin: pin,
-            district: district,
-            state: state,
-            addressType: AddressType,
-            landmark: Landmark,
-            alternateNumber: altNumber
+        const address_id = req.session.editAddressID;
+        const updateProcess = await User.findOneAndUpdate({ email: req.session.user, 'address._id': address_id },
+            {
+                $set: {
+                    'address.$.name': name,
+                    'address.$.number': number,
+                    'address.$.address': address,
+                    'address.$.pin': pin,
+                    'address.$.district': district,
+                    'address.$.state': state,
+                    'address.$.addressType': AddressType,
+                    'address.$.landmark': Landmark,
+                    'address.$.alternateNumber': altNumber
+                }
+            });
+        if (updateProcess) {
+            res.json({ status: "success" })
+        } else {
+            res.status({ status: "wrong" })
         }
     } catch (error) {
         console.log(error);
     }
 }
 
+//========================================= Exporting all modules ==============================================
 
 module.exports = {
     changepassword,
     changepasswordPost,
     accountDetails,
+    editdetails,
     addressGet,
     addressPOST,
     deleteAddress,
     editAddress,
-    editAddressget
+    editAddressget,
+    editdetailspost
 }

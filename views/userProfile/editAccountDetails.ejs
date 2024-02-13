@@ -231,147 +231,39 @@
                                         <p style="color:  red;" class="text-center" id="fillerror"></p>
                                     </b>
                                     <div class="form-row row hidden" id="addressForm" style="margin-top: 30px;">
-                                        <div class="col-lg-6">
+                                        <div class="col-lg-12">
                                             <label for="name">Name</label>
                                             <input type="text" name="name" id="name" style="width: 100%;"
-                                                onclick="nameClear()" value="<%= editingAddress.name %>">
+                                                onclick="nameClear()" value="<%= userDetails.name %>">
                                             <b>
                                                 <p style="color:  red;" class="text-center" id="nameError"></p>
                                             </b>
                                             </p>
                                         </div>
-                                        <div class="col-lg-6 m-b-20">
+                                        <div class="col-lg-12 m-b-20">
                                             <label for="phone">Phone number</label>
                                             <input type="text" style="width: 100%;" id="number" name="phone"
-                                                onclick="phoneClear()" value="<%= editingAddress.number %>">
+                                                onclick="phoneClear()" value="<%= userDetails.phone %>">
                                             <b>
                                                 <p style="color:  red;" class="text-center" id="phoneError">
                                                 </p>
                                             </b>
                                         </div>
                                         <div class="col-lg-12 m-b-20">
-                                            <label for="Address">Address</label>
-                                            <textarea name="Address" id="address" class="col-lg-12"
-                                                onclick="addressClear()"><%= editingAddress.address %></textarea>
+                                            <label for="date_of_birth">Date of Birth ( optional
+                                                )</label>
+                                            <input type="date" class="input-text col-lg-12" name="date_of_birth"
+                                                id="date_of_birth" value="<%= userDetails.DateOfBirth %>">
                                             <b>
-                                                <p style="color:  red;" class="text-center" id="addressError"></p>
-                                            </b>
-                                        </div>
-                                        <div class="col-lg-6 m-b-20">
-                                            <label for="PIN">PIN code</label>
-                                            <input type="text" id="pin" style="width: 100%;" name="PIN"
-                                                onclick="pinClear()" value="<%= editingAddress.pin %>">
-                                            <b>
-                                                <p style="color:  red;" class="text-center" id="pinError">
+                                                <p style="color:  red;" class="text-center" id="phoneError">
                                                 </p>
                                             </b>
                                         </div>
 
-                                        <div class="col-lg-6 m-b-20">
-                                            <label for="District">City / Town /
-                                                District</label>
-                                            <input type="text" id="district" style="width: 100%;" name="District"
-                                                onclick="districtClear()" value="<%= editingAddress.district %>">
-                                            <b>
-                                                <p style="color:  red;" class="text-center" id="districtError"></p>
-                                            </b>
-                                        </div>
-                                        <div class="col-lg-6 m-b-20">
-                                            <label for="State">State</label>
-                                            <select id="state" style="width: 100%;" name="State"
-                                                onchange="stateClear()">
-                                                <option value="Andhra Pradesh">
-                                                    Andhra Pradesh</option>
-                                                <option value="Arunachal Pradesh">
-                                                    Arunachal Pradesh
-                                                </option>
-                                                <option value="Assam">Assam</option>
-                                                <option value="Bihar">Bihar</option>
-                                                <option value="Chhattisgarh">
-                                                    Chhattisgarh</option>
-                                                <option value="Goa">Goa</option>
-                                                <option value="Gujarat">Gujarat
-                                                </option>
-                                                <option value="Haryana">Haryana
-                                                </option>
-                                                <option value="Himachal Pradesh">
-                                                    Himachal Pradesh
-                                                </option>
-                                                <option value="Jharkhand">Jharkhand
-                                                </option>
-                                                <option value="Karnataka">Karnataka
-                                                </option>
-                                                <option value="Kerala">Kerala
-                                                </option>
-                                                <option value="Madhya Pradesh">
-                                                    Madhya Pradesh</option>
-                                                <option value="Maharashtra">
-                                                    Maharashtra</option>
-                                                <option value="Manipur">Manipur
-                                                </option>
-                                                <option value="Meghalaya">Meghalaya
-                                                </option>
-                                                <option value="Mizoram">Mizoram
-                                                </option>
-                                                <option value="Nagaland">Nagaland
-                                                </option>
-                                                <option value="Odisha">Odisha
-                                                </option>
-                                                <option value="Punjab">Punjab
-                                                </option>
-                                                <option value="Rajasthan">Rajasthan
-                                                </option>
-                                                <option value="Sikkim">Sikkim
-                                                </option>
-                                                <option value="Tamil Nadu">Tamil
-                                                    Nadu</option>
-                                                <option value="Telangana">Telangana
-                                                </option>
-                                                <option value="Tripura">Tripura
-                                                </option>
-                                                <option value="Uttar Pradesh">Uttar
-                                                    Pradesh</option>
-                                                <option value="Uttarakhand">
-                                                    Uttarakhand</option>
-                                                <option value="West Bengal">West
-                                                    Bengal</option>
-                                            </select>
-                                            <b>
-                                                <p style="color:  red;" class="text-center" id="stateError"></p>
-                                            </b>
-                                            </p>
-                                        </div>
-                                        <div class="col-lg-6 m-b-20">
-                                            <label for="Address-type">Address
-                                                type</label>
-                                            <select name="Address-type" id="Address-type" style="width: 100%;">
-                                                <option value="Home">Home</option>
-                                                <option value="Work">Work</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-lg-6 m-b-20">
-                                            <label for="Landmark">Landmark</label>
-                                            <input type="text" id="Landmark" style="width: 100%;" name="Landmark"
-                                                onclick="landClear()" value="<%= editingAddress.landmark %>">
-                                            <b>
-                                                <p style="color:  red;" class="text-center" id="landError">
-                                                </p>
-                                            </b>
-                                        </div>
-                                        <div class="col-lg-6 m-b-20" style="margin-bottom: 50px;">
-                                            <label for="District">Alternate
-                                                Phone</label>
-                                            <input type="text" id="altNumber" style="width: 100%;" name="District"
-                                                onclick="altClear()" value="<%= editingAddress.alternateNumber %>">
-                                            <b>
-                                                <p style="color:  red;" class="text-center" id="altError">
-                                                </p>
-                                            </b>
-                                        </div>
                                         <div class="col-lg-6 d-flex justify-content-center" style="margin: auto;">
                                             <button class="cancelbtn mr-2" id="cancel"
                                                 onclick="cancel()">Cancel</button>
-                                            <button class="addbtn" id="add" onclick="addAddress()">Add</button>
+                                            <button class="addbtn" id="add" onclick="editDetails()">Add</button>
                                         </div>
                                     </div>
                                 </div>
@@ -556,47 +448,29 @@
 <script>
 
     // add address button
-    function addAddress() {
+    function editDetails() {
         // Inputs
         const name = document.getElementById("name").value.trim();
         const number = document.getElementById("number").value.trim();
-        const address = document.getElementById("address").value.trim();
-        const pin = document.getElementById("pin").value.trim();
-        const state = document.getElementById("state").value.trim();
-        const district = document.getElementById("district").value.trim();
-        const AddressType = document.getElementById("Address-type").value.trim();
-        const Landmark = document.getElementById("Landmark").value.trim();
-        const altNumber = document.getElementById("altNumber").value.trim();
+        const selectedDateOfBirth = document.querySelector('input[name="date_of_birth"]').value.trim();
 
         // Errors
         const fillerror = document.getElementById("fillerror");
         const nameError = document.getElementById("nameError");
         const phoneError = document.getElementById("phoneError");
-        const addressError = document.getElementById("addressError");
-        const pinError = document.getElementById("pinError");
-        const stateError = document.getElementById("stateError");
-        const districtError = document.getElementById("districtError");
-        const landError = document.getElementById("landError");
-        const altError = document.getElementById("altError");
 
         // Reset all error messages
         fillerror.textContent = "";
         nameError.textContent = "";
         phoneError.textContent = "";
-        addressError.textContent = "";
-        pinError.textContent = "";
-        stateError.textContent = "";
-        districtError.textContent = "";
-        landError.textContent = "";
-        altError.textContent = "";
 
         // Check individual field validations
         if (name === "") {
             nameError.textContent = "Name is required";
         } else if (name.length < 3) {
             nameError.textContent = "Name must have at least 3 characters";
-        } else if (!/^[A-Za-z\s]+$/.test(name)) {
-            nameError.textContent = "Name can only contain alphabets and spaces";
+        } else if (!/^[A-Za-z]+$/.test(name)) {
+            nameError.textContent = "Name can only contain alphabets";
         }
 
         if (number === "") {
@@ -607,60 +481,19 @@
             phoneError.textContent = "Phone number must be 10 digits";
         }
 
-        if (address === "") {
-            addressError.textContent = "Address is required";
-        } else if (!/^[a-zA-Z0-9\s,'-]+$/.test(address)) {
-            addressError.textContent = "Enter a valid address";
-        }
-
-        if (pin === "") {
-            pinError.textContent = "PIN code is required";
-        } else if (!/^\d+$/.test(pin)) {
-            pinError.textContent = "PIN code must contain only numbers";
-        } else if (pin.length !== 6) {
-            pinError.textContent = "PIN code must be 6 digits";
-        }
-
-        if (district === "") {
-            districtError.textContent = "District is required";
-        } else if (!/^[a-zA-Z0-9\s,'-]+$/.test(district)) {
-            districtError.textContent = "Enter a valid district name";
-        }
-
-        if (Landmark === "") {
-            landError.textContent = "Landmark is required";
-        } else if (!/^[a-zA-Z0-9\s,'-]+$/.test(Landmark)) {
-            landError.textContent = "Enter a valid landmark";
-        }
-
-        if (altNumber === "") {
-            altError.textContent = "Alternate phone number is required";
-        } else if (!/^\d+$/.test(altNumber)) {
-            altError.textContent = "Alternate phone number must contain only numbers";
-        } else if (altNumber.length !== 10) {
-            altError.textContent = "Alternate phone number must be 10 digits";
-        }
-
-
-        if (nameError.textContent !== "" || phoneError.textContent !== "" || addressError.textContent !== "" || pinError.textContent !== "" || districtError.textContent !== "" || landError.textContent !== "" || altError.textContent !== "") {
+        if (nameError.textContent !== "" || phoneError.textContent !== "") {
             fillerror.textContent = "Fill all fields correctly . . .";
             setTimeout(() => {
                 fillerror.textContent = "";
             }, 3000);
         } else {
             $.ajax({
-                url: "/address",
-                method: "patch",
+                url: "/editdetails",
+                method: "post",
                 data: {
                     name,
                     number,
-                    address,
-                    pin,
-                    state,
-                    district,
-                    AddressType,
-                    Landmark,
-                    altNumber
+                    selectedDateOfBirth
                 },
                 success: (response) => {
                     if (response.status === "success") {
@@ -674,7 +507,7 @@
                             timer: 1500
                         });
                         setTimeout(() => {
-                            window.location.href = "http://localhost:5000/address";
+                            window.location.href = "/accountDetails";
                         }, 1500);
 
                     } else if (response.status === "wrong") {
@@ -688,7 +521,21 @@
                             timer: 1500
                         });
                         setTimeout(() => {
-                            window.location.href = "http://localhost:5000/address";
+                            window.location.href = "/accountDetails";
+                        }, 1500);
+
+                    } else if (response.status === "nochange") {
+                        Swal.fire({
+                            icon: "error",
+                            title: "No changes found",
+                            showConfirmButton: false,
+                            customClass: {
+                                popup: 'swal-custom',
+                            },
+                            timer: 1500
+                        });
+                        setTimeout(() => {
+                            window.location.href = "/editdetails";
                         }, 1500);
                     }
                 }
@@ -704,24 +551,6 @@
     }
     function phoneClear() {
         document.getElementById("phoneError").textContent = ""
-    }
-    function addressClear() {
-        document.getElementById("addressError").textContent = ""
-    }
-    function pinClear() {
-        document.getElementById("pinError").textContent = ""
-    }
-    function stateClear() {
-        document.getElementById("stateError").textContent = ""
-    }
-    function districtClear() {
-        document.getElementById("districtError").textContent = ""
-    }
-    function landClear() {
-        document.getElementById("landError").textContent = ""
-    }
-    function altClear() {
-        document.getElementById("altError").textContent = ""
     }
 
 
@@ -740,11 +569,19 @@
             }
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = "/address"
+                window.location.href = "/accountDetails"
             }
         });
 
     }
+
+    // date of birth limit
+    const currentDate = new Date();
+    const minDate = new Date(currentDate.getFullYear() - 70, currentDate.getMonth(), currentDate.getDate());
+    const maxDate = new Date();
+
+    document.getElementById("date_of_birth").setAttribute("min", minDate.toISOString().split('T')[0]);
+    document.getElementById("date_of_birth").setAttribute("max", maxDate.toISOString().split('T')[0]);
 
 </script>
 
