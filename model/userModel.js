@@ -53,6 +53,15 @@ const userSchema = new mongoose.Schema({
         alternateNumber: {
             type: Number
         },
+    }],
+    cart : [{
+        productID : {
+            type : String
+        },
+        qty : {
+            type : Number,
+            default : 1
+        }
     }]
 }, {
     versionKey: false

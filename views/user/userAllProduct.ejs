@@ -43,9 +43,10 @@
         left: 0;
         width: 100%;
         height: 50px;
-        background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255, 239, 239, 0.824) 18%, rgb(255, 236, 236) 53%, rgba(255, 239, 239, 0.877) 82%, rgba(255,255,255,0) 100%);
+        background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 239, 239, 0.824) 18%, rgb(255, 236, 236) 53%, rgba(255, 239, 239, 0.877) 82%, rgba(255, 255, 255, 0) 100%);
         z-index: 9998;
     }
+
     .outofstockbackground {
         position: absolute;
         width: 100%;
@@ -59,8 +60,6 @@
 <body class="home home-2 title-2">
     <div id="page" class="hfeed page-wrapper">
         <header id="site-header" class="site-header header-v2">
-
-
             <div class="header-mobile">
                 <div class="section-padding">
                     <div class="section-container large">
@@ -130,12 +129,10 @@
                                                     <a href="page-contact.html"><span
                                                             class="menu-item-text">Contact</span></a>
                                                 </li>
-
                                             </ul>
                                         </nav>
                                     </div>
                                 </div>
-
                                 <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-12 text-center header-center">
                                     <div class="site-logo">
                                         <a href="index2.html">
@@ -144,29 +141,24 @@
                                         </a>
                                     </div>
                                 </div>
-
                                 <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-12 header-right">
                                     <div class="header-page-link">
-
                                         <!-- Search -->
                                         <div class="search-box">
                                             <div class="search-toggle"><i class="icon-search"></i></div>
                                         </div>
-
                                         <!-- Wishlist -->
                                         <div class="wishlist-box">
                                             <a href="shop-wishlist.html"><i class="icon-heart"></i></a>
                                         </div>
-
                                         <!-- Cart -->
                                         <div class="mini-cart top-cart wishlist-box">
-                                            <a class="cart-icon" href="shop-wishlist.html">
+                                            <a class="cart-icon" href="/cart">
                                                 <div class="icons-cart"><i class="icon-large-paper-bag"></i>
                                             </a>
                                         </div>
 
                                     </div>
-
                                     <!-- profile -->
                                     <div class="wishlist-box">
                                         <a href="/userprofilepage"><i class="wpb-icon-user"></i></a>
@@ -247,7 +239,8 @@
 
                         <div class="col-lg-12">
                             <div class="row  d-flex justify-content-center" style="gap: 50px;">
-                                <div class="col-lg-2 " style="background-color: rgb(244, 244, 244); padding: 20px; margin-left: 20px; margin-bottom: 20px;">
+                                <div class="col-lg-2 "
+                                    style="background-color: rgb(244, 244, 244); padding: 20px; margin-left: 20px; margin-bottom: 20px;">
                                     <h3 class="text-center">Filter</h3>
                                     <hr>
                                     <p class="text-dark text-center" style="margin-top: 30px;">Price range</p>
@@ -301,49 +294,60 @@
                                                         <div class="row">
                                                             <% for( let i=0; i < productDetails.length; i++ ) { %>
                                                                 <div class="col-xl-4 col-lg-4 col-md-5 col-sm-6">
-                                                                    
+
                                                                     <div class="items">
-                                                                        
+
                                                                         <div
-                                                                        class="products-entry clearfix product-wapper">
-                                                                        <div class="products-thumb">
-                                                                            
-                                                                            <% if (productDetails[i].stock === 0) { %>
-                                                                                <a href="/productDetailspage?id=<%= productDetails[i]._id %>">
-                                                                                <div class="outofstockbackground">
-                                                                                    <div class="outofstock text-danger d-flex justify-content-center align-items-center">
-                                                                                        Out of stock
-                                                                                    </div>
-                                                                                </div>
-                                                                            </a>
-                                                                            <% } %>
-                                                                                <div class="product-thumb-hover">
-                                                                                    
-                                                                                    <a href="/productDetailspage?id=<%= productDetails[i]._id %>">
-                                                                                        <img width="600" height="600"
-                                                                                            src="/uploads/<%= productDetails[i].images[0]%>"
-                                                                                            class="post-image" alt="">
-                                                                                        <img width="600" height="600"
-                                                                                            src="/uploads/<%= productDetails[i].images[3]%>"
-                                                                                            class="hover-image back"
-                                                                                            alt="">
+                                                                            class="products-entry clearfix product-wapper">
+                                                                            <div class="products-thumb">
+
+                                                                                <% if (productDetails[i].stock===0) { %>
+                                                                                    <a
+                                                                                        href="/productDetailspage?id=<%= productDetails[i]._id %>">
+                                                                                        <div
+                                                                                            class="outofstockbackground">
+                                                                                            <div
+                                                                                                class="outofstock text-danger d-flex justify-content-center align-items-center">
+                                                                                                Out of stock
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </a>
+                                                                                    <% } %>
+                                                                                        <div
+                                                                                            class="product-thumb-hover">
+
+                                                                                            <a
+                                                                                                href="/productDetailspage?id=<%= productDetails[i]._id %>">
+                                                                                                <img width="600"
+                                                                                                    height="600"
+                                                                                                    src="/uploads/<%= productDetails[i].images[0]%>"
+                                                                                                    class="post-image"
+                                                                                                    alt="">
+                                                                                                <img width="600"
+                                                                                                    height="600"
+                                                                                                    src="/uploads/<%= productDetails[i].images[3]%>"
+                                                                                                    class="hover-image back"
+                                                                                                    alt="">
                                                                                             </a>
-                                                                                </div>
-                                                                                <div class="product-button" style="z-index: 9999;">
-                                                                                    <div class="btn-add-to-cart"
-                                                                                        data-title="Add to cart">
-                                                                                        <a rel="nofollow" href="#"
-                                                                                            class="product-btn button">Add
-                                                                                            to
-                                                                                            cart</a>
-                                                                                    </div>
-                                                                                    <div class="btn-wishlist"
-                                                                                        data-title="Wishlist">
-                                                                                        <button class="product-btn">Add
-                                                                                            to
-                                                                                            wishlist</button>
-                                                                                    </div>
-                                                                                </div>
+                                                                                        </div>
+                                                                                        <div class="product-button"
+                                                                                            style="z-index: 9999;">
+                                                                                            <div class="btn-add-to-cart"
+                                                                                                data-title="Add to cart">
+                                                                                                <a rel="nofollow"
+                                                                                                    href="#"
+                                                                                                    class="product-btn button">Add
+                                                                                                    to
+                                                                                                    cart</a>
+                                                                                            </div>
+                                                                                            <div class="btn-wishlist"
+                                                                                                data-title="Wishlist">
+                                                                                                <button
+                                                                                                    class="product-btn">Add
+                                                                                                    to
+                                                                                                    wishlist</button>
+                                                                                            </div>
+                                                                                        </div>
                                                                             </div>
                                                                             <div class="products-content">
                                                                                 <div class="contents text-center">

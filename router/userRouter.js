@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const userController = require("../controller/userController.js");
 const userProfileController = require("../controller/userProfileController.js");
+const cartController = require("../controller/cartController.js");
 const { isBlocked ,isUser , isNoUser , isProductBlocked} = require("../Middleware/isLogged.js");
 
 
@@ -52,7 +53,9 @@ router.delete("/address" , isUser , isBlocked , userProfileController.deleteAddr
 router.get("/addressedit" , isUser , isBlocked , userProfileController.editAddressget);
 router.patch("/address" , isUser , isBlocked , userProfileController.editAddress);
 
-
+// user cart side 
+router.get("/cart" , isBlocked , cartController.cartpage)
+router.post("/cart" , isBlocked , cartController.cartpagepost)
 
 
 module.exports = router;
