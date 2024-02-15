@@ -51,19 +51,15 @@ const userLoginpost = async (req, res) => {
             const comparePassword = await bcrypt.compare(ajaxPass, loginUser.password)
             if (comparePassword) {
                 if (loginUser.isBlocked === false) {
-                    console.log(`${ajaxEmail} Entering to home page`);
                     req.session.user = ajaxEmail
                     res.json({ status: true })
                 } else {
-                    console.log("Admin blocked this user");
                     res.json({ status: "userBlock" })
                 }
             } else {
-                console.log("ENtered password is wrong");
                 res.json({ status: "passwordwrong" })
             }
         } else {
-            console.log("email not found");
             res.json({ status: false })
         }
     } catch (error) {
@@ -124,23 +120,18 @@ const userRegisterpost = async (req, res) => {
                             }
                             res.json({ status: true });
                         } else {
-                            console.log("Both password is not match");
                             res.json({ status: "confpass" });
                         }
                     } else {
-                        console.log("Password must need morethan 8 charecter");
                         res.json({ status: "passlength" });
                     }
                 } else {
-                    console.log("Phone number already existed");
                     res.json({ status: "numberexist" })
                 }
             } else {
-                console.log("Enter valid number");
                 res.json({ status: "numberlength" })
             }
         } else {
-            console.log("this email already existed");
             res.json({ status: "existEmail" });
         }
     } catch (error) {
@@ -163,7 +154,6 @@ const userRegisterOTP = (req, res) => {
 const userRegisterOTPpost = async (req, res) => {
     try {
         const serverOTP = req.session.tempuserDetail.serverOTP;
-        console.log(serverOTP);
         const userSideOTP = req.body.userSideOTP;
         if (serverOTP === userSideOTP) {
             try {
@@ -174,7 +164,6 @@ const userRegisterOTPpost = async (req, res) => {
                     password: req.session.tempuserDetail.secretPass
                 }
                 const newUser = await User.create(UserData);
-                console.log("new user registration successfully");
                 delete req.session.tempuserDetail;
                 res.json({ status: true })
             } catch (error) {
@@ -182,7 +171,6 @@ const userRegisterOTPpost = async (req, res) => {
             }
         } else {
             res.json({ status: false })
-            console.log("Enter Valid OTP");
         }
     } catch (error) {
         console.log(error);
@@ -231,15 +219,12 @@ const userForgetPasswordpost = async (req, res) => {
                     }
                     res.json({ status: true })
                 } else {
-                    console.log("check password both password are same");
                     res.json({ status: "passwrong" })
                 }
             } else {
-                console.log("forget password must need more that 8 character");
                 res.json({ status: "passlength" })
             }
         } else {
-            console.log("gmai not found");
             res.json({ status: "gmailnotfound" });
         }
     } catch (error) {
@@ -265,13 +250,11 @@ const userForgetOTPpost = async (req, res) => {
         if (userEnterOTP === req.session.userforgetTEMP.OTPserverSide) {
             try {
                 const updatePass = await User.updateOne({ email: req.session.userforgetTEMP.email }, { password: req.session.userforgetTEMP.registeruserpass });
-                console.log(req.session.userforgetTEMP.email, " Changed old password");
                 res.json({ status: true })
             } catch (error) {
                 console.log(error);
             }
         } else {
-            console.log("OTP is wrong");
             res.json({ status: false });
         }
     } catch (error) {
@@ -286,7 +269,6 @@ const userforgetResentOTPpost = (req, res) => {
         const resendForgetOTP = GenerateOTP();
         req.session.userforgetTEMP.OTPserverSide = resendForgetOTP;
         sendOTPmail(req.session.userforgetTEMP.email, req.session.userforgetTEMP.OTPserverSide);
-        console.log(req.session.userforgetTEMP);
         res.json({ status: true })
     } catch (error) {
         console.log(error);
@@ -298,8 +280,9 @@ const userforgetResentOTPpost = (req, res) => {
 const productDetailspage = async (req, res) => {
     try {
         const productID = req.query.id;
+        const userData = await User.findOne({email : req.session.user});
         const productDetails = await Product.findOne({ _id: productID });
-        res.render("user/productDetails", { productDetails })
+        res.render("user/productDetails", { productDetails , userData})
     } catch (error) {
         console.log(error);
     }

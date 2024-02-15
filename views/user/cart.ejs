@@ -182,141 +182,148 @@
 									
 
 									<% } else { %>
-										<div class="shop-cart">
-											<div class="row">
-												<div class="col-xl-8 col-lg-12 col-md-12 col-12">
-													<form class="cart-form" action="#" method="post">
-														<div class="table-responsive">
-															<table class="cart-items table" cellspacing="0">
-																<thead>
-																	<tr>
-																		<th class="product-thumbnail">Product</th>
-																		<th class="product-price">Price</th>
-																		<th class="product-quantity text-center">Quantity</th>
-																		<th class="product-subtotal">Subtotal</th>
-																		<th class="product-subtotal">Remove</th>
-																	</tr>
-																</thead>
-																<tbody>
-																	<tr class="cart-item">
-																		<td class="product-thumbnail">
-																			<a href="shop-details.html">
-																				<img width="600" height="600"
-																					src="media/product/3.jpg"
-																					class="product-image" alt="">
-																			</a>
-																			<div class="product-name">
-																				<a href="shop-details.html">Chair Oak
-																					Matt Lacquered</a>
-																			</div>
-																		</td>
-																		<td class="product-price">
-																			<span class="price">$150.00</span>
-																		</td>
-																		<td class="product-quantity">
-																			<div class="quantity">
-																				<button type="button"
-																					class="minus">-</button>
-																				<input type="number" class="qty" readonly min="0" max="1" name="quantity" value="1"
-																					title="Qty" size="4" inputmode="numeric" autocomplete="off">
-																				<button type="button"
-																					class="plus">+</button>
-																			</div>
-																		</td>
-																		<td class="product-subtotal">
-																			<span>$300.00</span>
-																		</td>
-																		<td class="product-remove">
-																			<a href="#" class="remove">×</a>
-																		</td>
-																	</tr>
-
-																	<tr>
-																		<td colspan="6" class="actions">
-																			<div class="bottom-cart">
-																				<div class="coupon">
-																					<input type="text"
-																						name="coupon_code"
-																						class="input-text"
-																						id="coupon-code" value=""
-																						placeholder="Coupon code">
-																					<button type="submit"
-																						name="apply_coupon"
-																						class="button"
-																						value="Apply coupon">Apply
-																						coupon</button>
-																				</div>
-																				<h2><a href="shop-grid-left.html">Continue
-																						Shopping</a></h2>
-																				<button type="submit" name="update_cart"
-																					class="button"
-																					value="Update cart">Update
-																					cart</button>
-																			</div>
-																		</td>
-																	</tr>
-																</tbody>
-															</table>
-														</div>
-													</form>
+										<% if (userData.cart.length === 0) { %>
+											<div class="justify-content-center d-flex align-center" style="margin-bottom: 20px;">
+												<div class="col-lg-8" style="width: 100%; height: 100px; background-color:
+																	rgb(255, 255, 255); display: flex; justify-content: center;
+																	align-items: center; border: 1px solid black;">
+													<p style="color: black; margin-top: 10px;">Your cart is empty. No items found</p>
 												</div>
-												<div class="col-xl-4 col-lg-12 col-md-12 col-12">
-													<div class="cart-totals">
-														<h2>Cart totals</h2>
-														<div>
-															<div class="cart-subtotal">
-																<div class="title">Subtotal</div>
-																<div><span>$480.00</span></div>
+											</div>
+											<div class="justify-content-center d-flex align-center" style="margin-bottom: 100px;">
+												<a href="/allproduct"><button class="btn text-light" style="background-color: black; width: 200px; height: 40px; padding: 5px;" >Go to product page</button></a>
+											</div>
+											
+										<% } else { %>
+											<div class="shop-cart">
+												<div class="row">
+													<div class="col-xl-8 col-lg-12 col-md-12 col-12">
+														<form class="cart-form" action="#" method="post">
+															<div class="table-responsive">
+																<table class="cart-items table" cellspacing="0">
+																	<thead>
+																		<tr>
+																			<th class="product-thumbnail">Product</th>
+																			<th class="product-price">Price</th>
+																			<th class="product-quantity text-center">Quantity</th>
+																			<th class="product-subtotal">Subtotal</th>
+																			<th class="product-subtotal">Remove</th>
+																		</tr>
+																	</thead>
+																	<tbody>
+																		<% for( let i = 0; i < userCartproducts.length; i++ ) { %>
+																			<tr class="cart-item align-right">
+																				<td class="product-thumbnail">
+																					<a><img width="600" height="600"
+																							src="/uploads/"
+																							class="product-image" alt="">
+																					</a>
+																					<div class="product-name">
+																						<a><%= userCartproducts[i].name %></a>
+																					</div>
+																				</td>
+																				<td class="product-price">
+																					<span class="price">₹<%= userCartproducts[i].regularPrice %></span>
+																				</td>
+																				<td class="product-quantity">
+																					<div class="quantity">
+																						<button type="button"
+																							class="minus">-</button>
+																						<input type="number" class="qty" readonly min="0" max="1" name="quantity" value="1"
+																							title="Qty" size="4" inputmode="numeric" autocomplete="off">
+																						<button type="button"
+																							class="plus">+</button>
+																					</div>
+																				</td>
+																				<td class="product-subtotal">
+																					<span>$300.00</span>
+																				</td>
+																				<td class="product-remove">
+																					<a href="#" class="remove">×</a>
+																				</td>
+																			</tr>
+																		<% } %>
+																		<tr>
+																			<td colspan="6" class="actions">
+																				<div class="bottom-cart">
+																					<div class="coupon">
+																						<input type="text"
+																							name="coupon_code"
+																							class="input-text"
+																							id="coupon-code" value=""
+																							placeholder="Coupon code">
+																						<button type="submit"
+																							name="apply_coupon"
+																							class="button"
+																							value="Apply coupon">Apply
+																							coupon</button>
+																					</div>
+																				</div>
+																			</td>
+																		</tr>
+																	</tbody>
+																</table>
 															</div>
-															<div class="shipping-totals">
-																<div class="title">Shipping</div>
-																<div>
-																	<ul class="shipping-methods custom-radio">
-																		<li>
-																			<input type="radio" name="shipping_method"
-																				data-index="0" value="free_shipping"
-																				class="shipping_method"
-																				checked="checked"><label>Free
-																				shipping</label>
-																		</li>
-																		<li>
-																			<input type="radio" name="shipping_method"
-																				data-index="0" value="flat_rate"
-																				class="shipping_method"><label>Flat
-																				rate</label>
-																		</li>
-																	</ul>
-																	<p class="shipping-desc">
-																		Shipping options will be updated during
-																		checkout.
-																	</p>
+														</form>
+													</div>
+													<div class="col-xl-4 col-lg-12 col-md-12 col-12">
+														<div class="cart-totals">
+															<h2>Cart totals</h2>
+															<div>
+																<div class="cart-subtotal">
+																	<div class="title">Subtotal</div>
+																	<div><span>$480.00</span></div>
+																</div>
+																<div class="shipping-totals">
+																	<div class="title">Shipping</div>
+																	<div>
+																		<ul class="shipping-methods custom-radio">
+																			<li>
+																				<input type="radio" name="shipping_method"
+																					data-index="0" value="free_shipping"
+																					class="shipping_method"
+																					checked="checked"><label>Free
+																					shipping</label>
+																			</li>
+																			<li>
+																				<input type="radio" name="shipping_method"
+																					data-index="0" value="flat_rate"
+																					class="shipping_method"><label>Flat
+																					rate</label>
+																			</li>
+																		</ul>
+																		<p class="shipping-desc">
+																			Shipping options will be updated during
+																			checkout.
+																		</p>
+																	</div>
+																</div>
+																<div class="order-total">
+																	<div class="title">Total</div>
+																	<div><span>$480.00</span></div>
 																</div>
 															</div>
-															<div class="order-total">
-																<div class="title">Total</div>
-																<div><span>$480.00</span></div>
+															<div class="proceed-to-checkout">
+																<a href="shop-checkout.html" class="checkout-button button">
+																	Proceed to checkout
+																</a>
 															</div>
-														</div>
-														<div class="proceed-to-checkout">
-															<a href="shop-checkout.html" class="checkout-button button">
-																Proceed to checkout
-															</a>
 														</div>
 													</div>
 												</div>
 											</div>
-										</div>
-										<div class="shop-cart-empty">
-											<div class="notices-wrapper">
-												<p class="cart-empty">Your cart is currently empty.</p>
+											<div class="shop-cart-empty">
+												<div class="notices-wrapper">
+													<p class="cart-empty">Your cart is currently empty.</p>
+												</div>
+												<div class="return-to-shop">
+													<a class="button" href="shop-grid-left.html">
+														Return to shop
+													</a>
+												</div>
 											</div>
-											<div class="return-to-shop">
-												<a class="button" href="shop-grid-left.html">
-													Return to shop
-												</a>
-											</div>
-										</div>
 										<% } %>
+									<% } %>
 							</div>
 						</div>
 					</div><!-- #content -->

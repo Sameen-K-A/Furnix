@@ -56,11 +56,28 @@
 		z-index: 9997;
 		margin-top: -25px;
 	}
+
+	.swal-custom {
+		background: linear-gradient(94deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.8240546218487395) 26%, rgba(0, 0, 0, 1) 53%, rgba(0, 0, 0, 0.8492647058823529) 79%, rgba(227, 227, 227, 0) 100%);
+		color: #ffffff;
+		width: 100%;
+	}
+
+	.swal-custom-ok-btn {
+		color: black !important;
+	}
+
+	.swal2-container {
+		z-index: 99999 !important;
+	}
 </style>
 
 <body class="shop">
+	
 	<div id="page" class="hfeed page-wrapper">
-		<header id="site-header" class="site-header header-v2">
+		<header id="site-header" class="site-header header-v2" style="z-index: 9998;">
+
+
 			<div class="header-mobile">
 				<div class="section-padding">
 					<div class="section-container large">
@@ -107,7 +124,8 @@
 				</div>
 			</div>
 
-			<div class="header-desktop">
+			<div class="header-desktop"
+				style="background: linear-gradient(94deg, rgba(226,226,226,1) 0%, rgba(255,255,255,1) 53%, rgba(227,227,227,1) 100%);">
 				<div class="header-wrapper">
 					<div class="section-padding">
 						<div class="section-container large p-l-r">
@@ -264,7 +282,7 @@
 												</div>
 												<div class="variations">
 													<table cellspacing="0">
-														<!-- <tbody> -->
+														
 														<div class="product-meta">
 															<span class="posted-in">Description: <b
 																	style="color: black;">
@@ -290,73 +308,76 @@
 																</div>
 															</div>
 														</div>
-														<!-- <tr>
-																	<td class="label">Size</td>
-																	<td class="attributes">
-																		<ul class="text">
-																			<li><span>L</span></li>
-																			<li><span>M</span></li>
-																			<li><span>S</span></li>
-																		</ul>
-																	</td>
-																</tr>
-																<tr>
-																	<td class="label">Color</td>
-																	<td class="attributes"><p><%= productDetails.color %></p></td>
-																</tr> -->
-
-														<!-- </tbody> -->
 													</table>
 
 												</div>
 												<div class="buttons">
 
-													<% if (productDetails.stock===0) { %>
-														<div style="width: 100%; height: 50px; background-color: black; font-size: 20px;"
-															class="align-items-center justify-content-center d-flex text-light">
-															Unavailable
-														</div>
+													<% if (userData) { %>
+														<% if (productDetails.stock === 0) { %>
+															<div style="width: 100%; height: 50px; background-color: black; font-size: 20px;"
+																class="align-items-center justify-content-center d-flex text-light">
+																Out of Stock
+															</div>
+														<% } else { %>
+															<% if (userData.cart.length != 0) { %>
+																<% let productFound = false; %>
+																<% for (let i = 0; i < userData.cart.length; i++) { %>
+																	<% const productIDString = userData.cart[i].productID.toString(); %>
+																	<% const productDetailsIDString = productDetails._id.toString(); %>
+																	<% if (productDetailsIDString === productIDString) { %>
+																		<a href="/cart" style="width: 100%; height: 50px; background-color: black; font-size: 20px;"
+																			class="d-flex justify-content-center align-items-center text-light">
+																			View Cart
+																		</a>
+																			<div class="btn-quick-buy" data-title="Wishlist">
+																			<button class="product-btn">Buy It Now</button>
+																		</div>
+																		<% productFound = true; %>
+																	<% } %>
+																<% } %>
+																<% if (!productFound) { %>
+																	<div class="add-to-cart-wrap">
+																		<div class="btn-add-to-cart"
+																			onclick="addtocart('<%= productDetails._id %>')">
+																			<a id="addtocarttext">add to cart</a>
+																		</div>
+																	</div>
+																	<div class="btn-quick-buy" data-title="Wishlist">
+																		<button class="product-btn">Buy It Now</button>
+																	</div>
+																<% } %>
+
+																<% } else { %>
+																	<div class="add-to-cart-wrap">
+																		<div class="btn-add-to-cart"
+																			onclick="addtocart('<%= productDetails._id %>')">
+																			<a id="addtocarttext">add to cart</a>
+																		</div>
+																	</div>
+																	<div class="btn-quick-buy" data-title="Wishlist">
+																		<button class="product-btn">Buy It Now</button>
+																	</div>
+																<% } %>
+														<% } %>
+													<% } else { %>
+														<% if (productDetails.stock === 0) { %>
+															<div style="width: 100%; height: 50px; background-color: black; font-size: 20px;"
+																class="align-items-center justify-content-center d-flex text-light">
+																Out of Stock
+															</div>
 														<% } else { %>
 															<div class="add-to-cart-wrap">
-																<div class="quantity">
-
-																	<button type="button" class="plus">+</button>
-
-																	<input readonly class="qty" step="1" min="0" max=""
-																		name="quantity" value="1" title="Qty" size="4"
-																		placeholder="" inputmode="numeric"
-																		autocomplete="off">
-
-																	<button type="button" class="minus">-</button>
-
-																</div>
 																<div class="btn-add-to-cart"
 																	onclick="addtocart('<%= productDetails._id %>')">
-																	<a id="addtocarttext"> add to cart</a>
+																	<a id="addtocarttext">add to cart</a>
 																</div>
 															</div>
-
 															<div class="btn-quick-buy" data-title="Wishlist">
 																<button class="product-btn">Buy It Now</button>
 															</div>
-															<% } %>
-
-
-
-
-																<!-- <div class="btn-wishlist" data-title="Wishlist">
-															<button class="product-btn">Add to wishlist</button>
-														</div>
-														<div class="btn-compare" data-title="Compare">
-															<button class="product-btn">Compare</button>
-														</div> -->
-												</div>
-
-												<!-- <div class="social-share">
-														<a href="#" title="Facebook" class="share-facebook" target="_blank"><i class="fa fa-facebook"></i>Facebook</a>
-														<a href="#" title="Twitter" class="share-twitter"><i class="fa fa-twitter"></i>Twitter</a>
-														<a href="#" title="Pinterest" class="share-pinterest"><i class="fa fa-pinterest"></i>Pinterest</a>
-													</div>					 -->
+														<% } %>
+													<% } %>
 											</div>
 										</div>
 									</div>
@@ -371,9 +392,6 @@
 													<a class="nav-link active" data-toggle="tab" href="#description"
 														role="tab">Description</a>
 												</li>
-												<!-- <li class="nav-item">
-														<a class="nav-link" data-toggle="tab" href="#additional-information" role="tab">Additional information</a>
-													</li> -->
 												<li class="nav-item">
 													<a class="nav-link" data-toggle="tab" href="#reviews"
 														role="tab">Reviews (1)</a>
@@ -399,16 +417,6 @@
 														non numquam eius modi tempora incidunt ut labore et dolore
 														magnam aliquam quaerat voluptatem.</p>
 												</div>
-												<!-- <div class="tab-pane fade" id="additional-information" role="tabpanel">
-														<table class="product-attributes">
-															<tbody>
-																<tr class="attribute-item">
-																	<th class="attribute-label">Color</th>
-																	<td class="attribute-value">Black, Blue, Green</td>
-																</tr>
-															</tbody>
-														</table>
-													</div> -->
 												<div class="tab-pane fade" id="reviews" role="tabpanel">
 													<div id="reviews" class="product-reviews">
 														<div id="comments">
@@ -730,177 +738,15 @@
 		</div>
 	</div>
 
-	<!-- Compare -->
-	<div class="compare-popup">
-		<div class="compare-popup-inner">
-			<div class="compare-table">
-				<div class="compare-table-inner">
-					<a href="#" id="compare-table-close" class="compare-table-close">
-						<span class="compare-table-close-icon"></span>
-					</a>
-					<div class="compare-table-items">
-						<table id="product-table" class="product-table">
-							<thead>
-								<tr>
-									<th>
-										<a href="#" class="compare-table-settings">Settings</a>
-									</th>
-									<th>
-										<a href="shop-details.html">Chair Oak Matt Lacquered</a> <span
-											class="remove">remove</span>
-									</th>
-									<th>
-										<a href="shop-details.html">Zunkel Schwarz</a> <span
-											class="remove">remove</span>
-									</th>
-									<th>
-										<a href="shop-details.html">Namaste Vase</a> <span class="remove">remove</span>
-									</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr class="tr-image">
-									<td class="td-label">Image</td>
-									<td>
-										<a href="shop-details.html">
-											<img width="600" height="600" src="media/product/3.jpg" alt="">
-										</a>
-									</td>
-									<td>
-										<a href="shop-details.html">
-											<img width="600" height="600" src="media/product/1.jpg" alt="">
-										</a>
-									</td>
-									<td>
-										<a href="shop-details.html">
-											<img width="600" height="600" src="media/product/2.jpg" alt="">
-										</a>
-									</td>
-								</tr>
-								<tr class="tr-sku">
-									<td class="td-label">SKU</td>
-									<td>VN00189</td>
-									<td></td>
-									<td>D1116</td>
-								</tr>
-								<tr class="tr-rating">
-									<td class="td-label">Rating</td>
-									<td>
-										<div class="star-rating">
-											<span style="width:80%"></span>
-										</div>
-									</td>
-									<td>
-										<div class="star-rating">
-											<span style="width:100%"></span>
-										</div>
-									</td>
-									<td></td>
-								</tr>
-								<tr class="tr-price">
-									<td class="td-label">Price</td>
-									<td><span class="amount">$150.00</span></td>
-									<td><del><span class="amount">$150.00</span></del> <ins><span
-												class="amount">$100.00</span></ins></td>
-									<td><span class="amount">$200.00</span></td>
-								</tr>
-								<tr class="tr-add-to-cart">
-									<td class="td-label">Add to cart</td>
-									<td>
-										<div data-title="Add to cart">
-											<a href="#" class="button">Add to cart</a>
-										</div>
-									</td>
-									<td>
-										<div data-title="Add to cart">
-											<a href="#" class="button">Add to cart</a>
-										</div>
-									</td>
-									<td>
-										<div data-title="Add to cart">
-											<a href="#" class="button">Add to cart</a>
-										</div>
-									</td>
-								</tr>
-								<tr class="tr-description">
-									<td class="td-label">Description</td>
-									<td>Phasellus sed volutpat orci. Fusce eget lore mauris vehicula elementum gravida
-										nec dui. Aenean aliquam varius ipsum, non ultricies tellus sodales eu. Donec
-										dignissim viverra nunc, ut aliquet magna posuere eget.</td>
-									<td>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-										incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-										nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-										Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-										fugiat nulla pariatur.</td>
-									<td>The EcoSmart Fleece Hoodie full-zip hooded jacket provides medium weight fleece
-										comfort all year around. Feel better in this sweatshirt because Hanes keeps
-										plastic bottles of landfills by using recycled polyester.7.8 ounce fleece
-										sweatshirt made with up to 5 percent polyester created from recycled plastic.
-									</td>
-								</tr>
-								<tr class="tr-content">
-									<td class="td-label">Content</td>
-									<td>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-										incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-										nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-										Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-										fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-										culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde
-										omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam
-										rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto
-										beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
-										aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui
-										ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum
-										quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi
-										tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</td>
-									<td>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-										incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-										nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-										Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-										fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-										culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde
-										omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam
-										rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto
-										beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
-										aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui
-										ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum
-										quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi
-										tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</td>
-									<td>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-										incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-										nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-										Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-										fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-										culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde
-										omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam
-										rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto
-										beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
-										aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui
-										ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum
-										quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi
-										tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</td>
-								</tr>
-								<tr class="tr-dimensions">
-									<td class="td-label">Dimensions</td>
-									<td>N/A</td>
-									<td>N/A</td>
-									<td>N/A</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+	
 
-	<!-- Page Loader -->
+	<!-- Page Loader 
 	<div class="page-preloader">
 		<div class="loader">
 			<div></div>
 			<div></div>
 		</div>
-	</div>
+	</div>-->
 
 	<!-- Dependency Scripts -->
 	<script src="libs/popper/js/popper.min.js"></script>
@@ -918,6 +764,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
 		integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
 		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 
 <script>
@@ -930,10 +777,34 @@
 			},
 			success: (response) => {
 				if (response.status === "okay") {
-					document.getElementById("addtocarttext").innerHTML = "view cart";
+					Swal.fire({
+						icon: "success",
+						title: "Product added into your cart",
+						showConfirmButton: false,
+						customClass: {
+							popup: 'swal-custom',
+						},
+						timer: 1500
+					});
 					setTimeout(() => {
-						document.getElementById("addtocarttext").innerHTML = "add to cart";
-					}, 3000);
+						window.location.href = "/cart"
+					}, 1000);
+				} else if (response.status === "notlogin") {
+					Swal.fire({
+						title: "Please login",
+						showCancelButton: true,
+						confirmButtonColor: "#39e75f",
+						cancelButtonColor: "#ffffff",
+						confirmButtonText: "Go to login page",
+						customClass: {
+							popup: 'swal-custom',
+							cancelButton: 'swal-custom-ok-btn'
+						}
+					}).then((result) => {
+						if (result.isConfirmed) {
+							window.location.href = "/userLogin"
+						}
+					});
 				}
 			}
 		})
