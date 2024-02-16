@@ -540,14 +540,22 @@
 						<i class="icon-search"></i>
 					</button>
 					<input id="myInput" type="text" autocomplete="off" value="" name="s" class="input-search s"
-						placeholder="Search...">
+						placeholder="Search..." onkeyup="search()">
 					<div class="search-top">
 						<div class="close-search">Cancel</div>
 					</div>
-					<div class="">
-						<h1>hello</h1>
-						<hr>
-					</div>
+                    <% for( let i = 0; i < productDetails.length; i++ ) { %>
+                        <div class="d-flex align-items-center">
+                            <div id="imageDiv" style="width: 80px; height: 80px; background-color: rgb(255, 255, 255); margin-right: 30px;">
+                                <img src="/uploads/bd43f791-3c4c-4822-8f51-5093de8f372c.jpg" alt="product image">
+                            </div>
+                            <div style="display: flex; flex-direction: column; justify-content: center;">
+                                <h5 style="margin: 0;">Product name</h5>
+                                <p style="margin: 0;">Product price</p>
+                            </div>
+                        </div>                                       
+                        <hr>
+                    <% } %>
 				</div>
 			</form>
 		</div>
@@ -568,6 +576,27 @@
     <script src="libs/countdown/js/jquery.countdown.min.js"></script>
     <script src="libs/mmenu/js/jquery.mmenu.all.min.js"></script>
     <script src="assets/js/app.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+		integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </body>
-
+<script>
+    function search(){
+        const searchValue = document.getElementById("myInput").value;
+        $.ajax({
+			url: "/search",
+			method: "post",
+			data: {
+				searchValue
+			},
+			success: (response) => {
+				if (response.status === "okay") {
+					
+				} else {
+					
+				}
+			}
+		})
+    }
+</script>
 </html>

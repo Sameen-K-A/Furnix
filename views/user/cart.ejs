@@ -37,6 +37,17 @@
 		href="https://fonts.googleapis.com/css?family=EB+Garamond:100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic&amp;display=swap"
 		rel="stylesheet">
 </head>
+<style>
+	.swal-custom {
+		background: linear-gradient(94deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.8240546218487395) 26%, rgba(0, 0, 0, 1) 53%, rgba(0, 0, 0, 0.8492647058823529) 79%, rgba(227, 227, 227, 0) 100%);
+		color: #ffffff;
+		width: 100%;
+	}
+
+	.swal-custom-ok-btn {
+		color: black !important;
+	}
+</style>
 
 <body class="shop">
 	<div id="page" class="hfeed page-wrapper">
@@ -143,7 +154,7 @@
 
 										<!-- Cart -->
 										<div class="mini-cart top-cart wishlist-box">
-											<a class="cart-icon" href="shop-wishlist.html">
+											<a class="cart-icon" href="/cart">
 												<div class="icons-cart"><i class="icon-large-paper-bag"></i>
 											</a>
 										</div>
@@ -169,161 +180,220 @@
 						<div class="section-padding" style="margin-top: 100px;">
 							<div class="section-container p-l-r">
 								<% if (!userData) { %>
-									<div class="justify-content-center d-flex align-center" style="margin-bottom: 20px;">
+									<div class="justify-content-center d-flex align-center"
+										style="margin-bottom: 20px;">
 										<div class="col-lg-8" style="width: 100%; height: 100px; background-color:
                                                             rgb(255, 255, 255); display: flex; justify-content: center;
                                                             align-items: center; border: 1px solid black;">
 											<p style="color: black; margin-top: 10px;">Please login</p>
 										</div>
 									</div>
-									<div class="justify-content-center d-flex align-center" style="margin-bottom: 100px;">
-										<a href="/userLogin"><button class="btn text-light" style="background-color: black; width: 200px; height: 40px; padding: 5px;" >Go to login page</button></a>
+									<div class="justify-content-center d-flex align-center"
+										style="margin-bottom: 100px;">
+										<a href="/userLogin"><button class="btn text-light"
+												style="background-color: black; width: 200px; height: 40px; padding: 5px;">Go
+												to login page</button></a>
 									</div>
-									
+
 
 									<% } else { %>
-										<% if (userData.cart.length === 0) { %>
-											<div class="justify-content-center d-flex align-center" style="margin-bottom: 20px;">
+										<% if (userData.cart.length===0) { %>
+											<div class="justify-content-center d-flex align-center"
+												style="margin-bottom: 20px;">
 												<div class="col-lg-8" style="width: 100%; height: 100px; background-color:
 																	rgb(255, 255, 255); display: flex; justify-content: center;
 																	align-items: center; border: 1px solid black;">
-													<p style="color: black; margin-top: 10px;">Your cart is empty. No items found</p>
+													<p style="color: black; margin-top: 10px;">Your cart is empty. No
+														items found</p>
 												</div>
 											</div>
-											<div class="justify-content-center d-flex align-center" style="margin-bottom: 100px;">
-												<a href="/allproduct"><button class="btn text-light" style="background-color: black; width: 200px; height: 40px; padding: 5px;" >Go to product page</button></a>
+											<div class="justify-content-center d-flex align-center"
+												style="margin-bottom: 100px;">
+												<a href="/allproduct"><button class="btn text-light"
+														style="background-color: black; width: 200px; height: 40px; padding: 5px;">Go
+														to product page</button></a>
 											</div>
-											
-										<% } else { %>
-											<div class="shop-cart">
-												<div class="row">
-													<div class="col-xl-8 col-lg-12 col-md-12 col-12">
-														<form class="cart-form" action="#" method="post">
+
+											<% } else { %>
+												<div class="shop-cart">
+													<div class="row">
+														<div class="col-xl-8 col-lg-12 col-md-12 col-12">
 															<div class="table-responsive">
 																<table class="cart-items table" cellspacing="0">
 																	<thead>
 																		<tr>
-																			<th class="product-thumbnail">Product</th>
-																			<th class="product-price">Price</th>
-																			<th class="product-quantity text-center">Quantity</th>
-																			<th class="product-subtotal">Subtotal</th>
-																			<th class="product-subtotal">Remove</th>
+																			<th class="product-thumbnail">Product
+																			</th>
+																			<th class="product-price text-center">
+																				Price</th>
+																			<th class="product-quantity text-center">
+																				Quantity</th>
+																			<th class="product-subtotal text-center">
+																				Subtotal</th>
+																			<th class="product-subtotal text-center">
+																				Remove</th>
 																		</tr>
 																	</thead>
 																	<tbody>
-																		<% for( let i = 0; i < userCartproducts.length; i++ ) { %>
+																		<% for( let i=0; i < userCartproducts.length;
+																			i++ ) { %>
 																			<tr class="cart-item align-right">
-																				<td class="product-thumbnail">
+																				<td
+																					class="product-thumbnail text-center">
 																					<a><img width="600" height="600"
-																							src="/uploads/"
-																							class="product-image" alt="">
-																					</a>
+																							src="/uploads/<%= userCartproducts[i].images[0] %>"
+																							class="product-image"
+																							alt=""></a>
 																					<div class="product-name">
-																						<a><%= userCartproducts[i].name %></a>
+																						<a>
+																							<%= userCartproducts[i].name
+																								%>
+																						</a>
 																					</div>
 																				</td>
-																				<td class="product-price">
-																					<span class="price">₹<%= userCartproducts[i].regularPrice %></span>
+																				<td class="product-price text-center">
+																					<span class="price">₹<%=
+																							userCartproducts[i].regularPrice
+																							%></span>
 																				</td>
+
 																				<td class="product-quantity">
-																					<div class="quantity">
-																						<button type="button"
-																							class="minus">-</button>
-																						<input type="number" class="qty" readonly min="0" max="1" name="quantity" value="1"
-																							title="Qty" size="4" inputmode="numeric" autocomplete="off">
-																						<button type="button"
-																							class="plus">+</button>
+																					<div
+																						class="center d-flex justify-content-center align-items-center">
+																						<div class="quantity">
+																							<button type="button"
+																								class="btn btn-secondary minus">-</button>
+																							<input type="number" readonly class="qty form-control"
+																								value="<%= userData.cart[i].qty %>" style="background-color: rgb(255, 255, 255); z-index: 9999;">
+																								<button type="button"
+																								class="btn btn-secondary plus" id="plusbtn">+</button>
+																						</div>
 																					</div>
 																				</td>
-																				<td class="product-subtotal">
-																					<span>$300.00</span>
+
+
+																				<!-- <td
+																					class="product-quantity text-center">
+																					<div class="quantity d-flex align-items-center justify-content-center"
+																						style="height: 50px; width: 100px; border: 1px solid black;">
+																						<button type="button"
+																							class="border-0 bg-transparent mr-auto"><b>-</b></button>
+																						<button type="button"
+																							class="border-0 bg-transparent ml-auto"
+																							onclick="plus('<%= userCartproducts[i]._id %>', '<%= userCartproducts[i].regularPrice %>')"><b>+</b></button>
+																					</div>
+
+
+
+																				</td> --> 	
+																				<td class="product-price text-center">
+																					<p class="price text-dark">₹<%= userCartproducts[i].regularPrice * userData.cart[i].qty %></p>
 																				</td>
-																				<td class="product-remove">
-																					<a href="#" class="remove">×</a>
+																				<td style="margin: auto;"
+																					class="text-center">
+																					<button
+																						onclick="deleteItem('<%= userCartproducts[i]._id %>')"
+																						style="background: none; border: none;">
+																						<svg xmlns="http://www.w3.org/2000/svg"
+																							width="16" height="16"
+																							fill="currentColor"
+																							class="bi bi-trash"
+																							viewBox="0 0 16 16">
+																							<path
+																								d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
+																							<path
+																								d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
+																						</svg>
+																					</button>
 																				</td>
 																			</tr>
-																		<% } %>
-																		<tr>
-																			<td colspan="6" class="actions">
-																				<div class="bottom-cart">
-																					<div class="coupon">
-																						<input type="text"
-																							name="coupon_code"
-																							class="input-text"
-																							id="coupon-code" value=""
-																							placeholder="Coupon code">
-																						<button type="submit"
-																							name="apply_coupon"
-																							class="button"
-																							value="Apply coupon">Apply
-																							coupon</button>
-																					</div>
-																				</div>
-																			</td>
-																		</tr>
+																			<% } %>
+																				<tr>
+																					<td colspan="6" class="actions">
+																						<div class="bottom-cart">
+																							<div class="coupon">
+																								<input type="text"
+																									name="coupon_code"
+																									class="input-text"
+																									id="coupon-code"
+																									value=""
+																									placeholder="Coupon code">
+																								<button type="submit"
+																									name="apply_coupon"
+																									class="button"
+																									value="Apply coupon">Apply
+																									coupon</button>
+																							</div>
+																						</div>
+																					</td>
+																				</tr>
 																	</tbody>
 																</table>
+
 															</div>
-														</form>
-													</div>
-													<div class="col-xl-4 col-lg-12 col-md-12 col-12">
-														<div class="cart-totals">
-															<h2>Cart totals</h2>
-															<div>
-																<div class="cart-subtotal">
-																	<div class="title">Subtotal</div>
-																	<div><span>$480.00</span></div>
-																</div>
-																<div class="shipping-totals">
-																	<div class="title">Shipping</div>
-																	<div>
-																		<ul class="shipping-methods custom-radio">
-																			<li>
-																				<input type="radio" name="shipping_method"
-																					data-index="0" value="free_shipping"
-																					class="shipping_method"
-																					checked="checked"><label>Free
-																					shipping</label>
-																			</li>
-																			<li>
-																				<input type="radio" name="shipping_method"
-																					data-index="0" value="flat_rate"
-																					class="shipping_method"><label>Flat
-																					rate</label>
-																			</li>
-																		</ul>
-																		<p class="shipping-desc">
-																			Shipping options will be updated during
-																			checkout.
-																		</p>
+														</div>
+														<div class="col-xl-4 col-lg-12 col-md-12 col-12">
+															<div class="cart-totals">
+																<h2>Cart totals</h2>
+																<div>
+																	<div class="cart-subtotal">
+																		<div class="title">Subtotal</div>
+																		<div><span>$480.00</span></div>
+																	</div>
+																	<div class="shipping-totals">
+																		<div class="title">Shipping</div>
+																		<div>
+																			<ul class="shipping-methods custom-radio">
+																				<li>
+																					<input type="radio"
+																						name="shipping_method"
+																						data-index="0"
+																						value="free_shipping"
+																						class="shipping_method"
+																						checked="checked"><label>Free
+																						shipping</label>
+																				</li>
+																				<li>
+																					<input type="radio"
+																						name="shipping_method"
+																						data-index="0" value="flat_rate"
+																						class="shipping_method"><label>Flat
+																						rate</label>
+																				</li>
+																			</ul>
+																			<p class="shipping-desc">
+																				Shipping options will be updated during
+																				checkout.
+																			</p>
+																		</div>
+																	</div>
+																	<div class="order-total">
+																		<div class="title">Total</div>
+																		<div><span>$480.00</span></div>
 																	</div>
 																</div>
-																<div class="order-total">
-																	<div class="title">Total</div>
-																	<div><span>$480.00</span></div>
+																<div class="proceed-to-checkout">
+																	<a href="shop-checkout.html"
+																		class="checkout-button button">
+																		Proceed to checkout
+																	</a>
 																</div>
-															</div>
-															<div class="proceed-to-checkout">
-																<a href="shop-checkout.html" class="checkout-button button">
-																	Proceed to checkout
-																</a>
 															</div>
 														</div>
 													</div>
 												</div>
-											</div>
-											<div class="shop-cart-empty">
-												<div class="notices-wrapper">
-													<p class="cart-empty">Your cart is currently empty.</p>
+												<div class="shop-cart-empty">
+													<div class="notices-wrapper">
+														<p class="cart-empty">Your cart is currently empty.</p>
+													</div>
+													<div class="return-to-shop">
+														<a class="button" href="shop-grid-left.html">
+															Return to shop
+														</a>
+													</div>
 												</div>
-												<div class="return-to-shop">
-													<a class="button" href="shop-grid-left.html">
-														Return to shop
-													</a>
-												</div>
-											</div>
-										<% } %>
-									<% } %>
+												<% } %>
+													<% } %>
 							</div>
 						</div>
 					</div><!-- #content -->
@@ -449,7 +519,7 @@
 	<div class="search-overlay">
 		<div class="close-search"></div>
 		<div class="wrapper-search">
-			<form role="search" method="get" class="search-from ajax-search" action="#">
+			<form role="search" method="get" class="search-from ajax-search">
 				<div class="search-box">
 					<button id="searchsubmit" class="btn" type="submit">
 						<i class="icon-search"></i>
@@ -473,255 +543,6 @@
 		</div>
 	</div>
 
-	<!-- Wishlist -->
-	<div class="wishlist-popup">
-		<div class="wishlist-popup-inner">
-			<div class="wishlist-popup-content">
-				<div class="wishlist-popup-content-top">
-					<span class="wishlist-name">Wishlist</span>
-					<span class="wishlist-count-wrapper"><span class="wishlist-count">2</span></span>
-					<span class="wishlist-popup-close"></span>
-				</div>
-				<div class="wishlist-popup-content-mid">
-					<table class="wishlist-items">
-						<tbody>
-							<tr class="wishlist-item">
-								<td class="wishlist-item-remove"><span></span></td>
-								<td class="wishlist-item-image">
-									<a href="shop-details.html">
-										<img width="600" height="600" src="media/product/3.jpg" alt="">
-									</a>
-								</td>
-								<td class="wishlist-item-info">
-									<div class="wishlist-item-name">
-										<a href="shop-details.html">Chair Oak Matt Lacquered</a>
-									</div>
-									<div class="wishlist-item-price">
-										<span>$150.00</span>
-									</div>
-									<div class="wishlist-item-time">June 4, 2022</div>
-								</td>
-								<td class="wishlist-item-actions">
-									<div class="wishlist-item-stock">
-										In stock
-									</div>
-									<div class="wishlist-item-add">
-										<div data-title="Add to cart">
-											<a rel="nofollow" href="#" class="button">Add to cart</a>
-										</div>
-									</div>
-								</td>
-							</tr>
-							<tr class="wishlist-item">
-								<td class="wishlist-item-remove"><span></span></td>
-								<td class="wishlist-item-image">
-									<a href="shop-details.html">
-										<img width="600" height="600" src="media/product/4.jpg" alt="">
-									</a>
-								</td>
-								<td class="wishlist-item-info">
-									<div class="wishlist-item-name">
-										<a href="shop-details.html">Pillar Dining Table Round</a>
-									</div>
-									<div class="wishlist-item-price">
-										<del aria-hidden="true"><span>$150.00</span></del>
-										<ins><span>$100.00</span></ins>
-									</div>
-									<div class="wishlist-item-time">June 4, 2022</div>
-								</td>
-								<td class="wishlist-item-actions">
-									<div class="wishlist-item-stock">
-										In stock
-									</div>
-									<div class="wishlist-item-add">
-										<div data-title="Add to cart">
-											<a rel="nofollow" href="#" class="button">Add to cart</a>
-										</div>
-									</div>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-				<div class="wishlist-popup-content-bot">
-					<div class="wishlist-popup-content-bot-inner">
-						<a class="wishlist-page" href="shop-wishlist.html">
-							Open wishlist page
-						</a>
-						<span class="wishlist-continue" data-url="">
-							Continue shopping
-						</span>
-					</div>
-					<div class="wishlist-notice wishlist-notice-show">Added to the wishlist!</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<!-- Compare -->
-	<div class="compare-popup">
-		<div class="compare-popup-inner">
-			<div class="compare-table">
-				<div class="compare-table-inner">
-					<a href="#" id="compare-table-close" class="compare-table-close">
-						<span class="compare-table-close-icon"></span>
-					</a>
-					<div class="compare-table-items">
-						<table id="product-table" class="product-table">
-							<thead>
-								<tr>
-									<th>
-										<a href="#" class="compare-table-settings">Settings</a>
-									</th>
-									<th>
-										<a href="shop-details.html">Chair Oak Matt Lacquered</a> <span
-											class="remove">remove</span>
-									</th>
-									<th>
-										<a href="shop-details.html">Zunkel Schwarz</a> <span
-											class="remove">remove</span>
-									</th>
-									<th>
-										<a href="shop-details.html">Namaste Vase</a> <span class="remove">remove</span>
-									</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr class="tr-image">
-									<td class="td-label">Image</td>
-									<td>
-										<a href="shop-details.html">
-											<img width="600" height="600" src="media/product/3.jpg" alt="">
-										</a>
-									</td>
-									<td>
-										<a href="shop-details.html">
-											<img width="600" height="600" src="media/product/1.jpg" alt="">
-										</a>
-									</td>
-									<td>
-										<a href="shop-details.html">
-											<img width="600" height="600" src="media/product/2.jpg" alt="">
-										</a>
-									</td>
-								</tr>
-								<tr class="tr-sku">
-									<td class="td-label">SKU</td>
-									<td>VN00189</td>
-									<td></td>
-									<td>D1116</td>
-								</tr>
-								<tr class="tr-rating">
-									<td class="td-label">Rating</td>
-									<td>
-										<div class="star-rating">
-											<span style="width:80%"></span>
-										</div>
-									</td>
-									<td>
-										<div class="star-rating">
-											<span style="width:100%"></span>
-										</div>
-									</td>
-									<td></td>
-								</tr>
-								<tr class="tr-price">
-									<td class="td-label">Price</td>
-									<td><span class="amount">$150.00</span></td>
-									<td><del><span class="amount">$150.00</span></del> <ins><span
-												class="amount">$100.00</span></ins></td>
-									<td><span class="amount">$200.00</span></td>
-								</tr>
-								<tr class="tr-add-to-cart">
-									<td class="td-label">Add to cart</td>
-									<td>
-										<div data-title="Add to cart">
-											<a href="#" class="button">Add to cart</a>
-										</div>
-									</td>
-									<td>
-										<div data-title="Add to cart">
-											<a href="#" class="button">Add to cart</a>
-										</div>
-									</td>
-									<td>
-										<div data-title="Add to cart">
-											<a href="#" class="button">Add to cart</a>
-										</div>
-									</td>
-								</tr>
-								<tr class="tr-description">
-									<td class="td-label">Description</td>
-									<td>Phasellus sed volutpat orci. Fusce eget lore mauris vehicula elementum gravida
-										nec dui. Aenean aliquam varius ipsum, non ultricies tellus sodales eu. Donec
-										dignissim viverra nunc, ut aliquet magna posuere eget.</td>
-									<td>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-										incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-										nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-										Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-										fugiat nulla pariatur.</td>
-									<td>The EcoSmart Fleece Hoodie full-zip hooded jacket provides medium weight fleece
-										comfort all year around. Feel better in this sweatshirt because Hanes keeps
-										plastic bottles of landfills by using recycled polyester.7.8 ounce fleece
-										sweatshirt made with up to 5 percent polyester created from recycled plastic.
-									</td>
-								</tr>
-								<tr class="tr-content">
-									<td class="td-label">Content</td>
-									<td>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-										incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-										nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-										Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-										fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-										culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde
-										omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam
-										rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto
-										beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
-										aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui
-										ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum
-										quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi
-										tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</td>
-									<td>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-										incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-										nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-										Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-										fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-										culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde
-										omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam
-										rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto
-										beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
-										aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui
-										ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum
-										quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi
-										tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</td>
-									<td>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-										incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-										nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-										Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-										fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-										culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde
-										omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam
-										rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto
-										beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
-										aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui
-										ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum
-										quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi
-										tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</td>
-								</tr>
-								<tr class="tr-dimensions">
-									<td class="td-label">Dimensions</td>
-									<td>N/A</td>
-									<td>N/A</td>
-									<td>N/A</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
 	<!-- Page Loader -->
 	<div class="page-preloader">
 		<div class="loader">
@@ -742,11 +563,56 @@
 	<script src="libs/slider/js/draggable-0.1.js"></script>
 	<script src="libs/slider/js/jquery.slider.js"></script>
 	<script src="libs/elevatezoom/js/jquery.elevatezoom.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+		integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 	<!-- Site Scripts -->
 	<script src="assets/js/app.js"></script>
 </body>
 
-<!-- Mirrored from caketheme.com/html/ruper/shop-cart.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 26 Jan 2024 08:52:33 GMT -->
+<script>
+	function deleteItem(id) {
+		Swal.fire({
+			title: "Are you sure?",
+			text: "You want to Remove this product from your cart?",
+			showCancelButton: true,
+			confirmButtonColor: "#FF0000",
+			cancelButtonColor: "#ffffff",
+			confirmButtonText: "Remove",
+			customClass: {
+				popup: 'swal-custom',
+				cancelButton: 'swal-custom-ok-btn'
+			}
+		}).then((result) => {
+			if (result.isConfirmed) {
+				$.ajax({
+					url: "/cart",
+					method: "delete",
+					data: {
+						id
+					},
+					success: (response) => {
+						if (response.status === "okay") {
+							window.location.reload()
+						} else if (response.status === "wrong") {
+							Swal.fire({
+								icon: "error",
+								title: "No changes found",
+								showConfirmButton: false,
+								customClass: {
+									popup: 'swal-custom',
+								},
+								timer: 1500
+							});
+						}
+					}
+				})
+			}
+		});
+	}
+
+</script>
 
 </html>

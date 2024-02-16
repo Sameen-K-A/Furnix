@@ -3,24 +3,27 @@ const Product = require("../model/productModel");
 
 //========================================= Cart page rendering ==============================================
 
-const cartpage = async (req , res) => {
+const cartpage = async (req, res) => {
     try {
-        const userData = await User.findOne({email : req.session.user});
+        const userData = await User.findOne({ email: req.session.user });
         const productData = await Product.find({});
-        const array = [];
-        if(userData){
-            for( let i=0 ; i< userData.cart.length ; i++){
-                const cartproductIdString = userData.cart[i].productID.toString()
-                for( let j=0 ; j<productData.length ; j++) {
+        const ProductResultarray = [];
+        const userCartArray =                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   []
+        if (userData) {
+            for (let i = 0; i < userData.cart.length; i++) {
+                const cartproductIdString = userData.cart[i].productID.toString();
+                userCartArray.push(cartproductIdString)
+                for (let j = 0; j < productData.length; j++) {
                     const productIdString = productData[j]._id.toString();
-                    if(cartproductIdString === productIdString){
-                        array.push(productData[i]._id)
+                    if (cartproductIdString === productIdString) {
+                        ProductResultarray.push(productData[j]);
+                        break;
                     }
                 }
             }
         }
-        const userCartproducts = await Product.find({_id : {$in : array}})
-        res.render("user/cart" , {userData , userCartproducts})
+        const userCartproducts = ProductResultarray;
+        res.render("user/cart", { userData , userCartproducts})
     } catch (error) {
         console.log(error);
     }
@@ -28,18 +31,34 @@ const cartpage = async (req , res) => {
 
 //========================================= Cart page rendering ==============================================
 
-const cartpagepost = async (req , res) => {
+const cartpagepost = async (req, res) => {
     try {
         const productID = req.body.id;
-        const product = await Product.findOne({_id : productID});
+        const product = await Product.findOne({ _id: productID });
         const obj = {
-            productID : product._id
+            productID: product._id
         }
-        if(req.session.user){
-            const updateProcess = await User.updateOne({email : req.session.user} , {$push : {cart : obj}})
-            res.json({status : "okay"})
+        if (req.session.user) {
+            const updateProcess = await User.updateOne({ email: req.session.user }, { $push: { cart: obj } })
+            res.json({ status: "okay" })
         } else {
-            res.json({status : "notlogin"})
+            res.json({ status: "notlogin" })
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+//========================================= Cart page rendering ==============================================
+
+const deleteproduct = async (req, res) => {
+    try {
+        const deleteID = req.body.id;
+        const usercart = await User.updateOne({email : req.session.user} , {$pull : {cart : {productID : deleteID}}});
+        if(usercart.modifiedCount === 1){
+            res.json({status: "okay"})
+        } else{
+            res.json({status : "wrong"})
         }
     } catch (error) {
         console.log(error);
@@ -50,5 +69,6 @@ const cartpagepost = async (req , res) => {
 
 module.exports = {
     cartpage,
-    cartpagepost
+    cartpagepost,
+    deleteproduct
 }

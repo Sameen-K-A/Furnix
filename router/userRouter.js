@@ -33,6 +33,7 @@ router.get("/nameascending" ,isBlocked, userController.nameascending);
 router.get("/namedescending" ,isBlocked, userController.namedescending);
 router.get("/leatest" ,isBlocked, userController.leatest);
 router.get("/oldest" ,isBlocked, userController.oldest);
+router.post("/search" , isBlocked , userController.search)
 
 // user change passwords area
 
@@ -54,8 +55,10 @@ router.get("/addressedit" , isUser , isBlocked , userProfileController.editAddre
 router.patch("/address" , isUser , isBlocked , userProfileController.editAddress);
 
 // user cart side 
-router.get("/cart" , isBlocked , cartController.cartpage)
-router.post("/cart" , isBlocked , cartController.cartpagepost)
+router.get("/cart" , isBlocked , cartController.cartpage);
+router.post("/cart" , isBlocked , cartController.cartpagepost);
+router.delete("/cart" , isBlocked , cartController.deleteproduct)
+
 
 
 module.exports = router;

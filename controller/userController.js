@@ -376,6 +376,19 @@ const oldest = async (req, res) => {
     }
 }
 
+//========================================= search product based on user entered name  ==============================================
+
+const search = async (req, res) => {
+    try {
+        const searchValue = req.body.searchValue;
+        let productList = false
+        productList = await Product.find({name : {$regex : '.*' + searchValue + '.*' , $options : 'i'}}).limit(5);
+        console.log(productList);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 //========================================= Export all modules ==============================================
 
 module.exports = {
@@ -401,5 +414,6 @@ module.exports = {
     nameascending,
     namedescending,
     leatest,
-    oldest
+    oldest,
+    search
 }
