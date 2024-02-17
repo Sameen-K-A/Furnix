@@ -54,9 +54,15 @@ const cartpagepost = async (req, res) => {
 const deleteproduct = async (req, res) => {
     try {
         const deleteID = req.body.id;
+        const price = parseInt(req.body.price);
+        const quantity = parseInt( req.body.qtynumber);
+        const updateTotal = price * quantity;
+        const user = await User.findOne({email : req.session.user});
         const usercart = await User.updateOne({ email: req.session.user }, { $pull: { cart: { productID: deleteID } } });
         if (usercart.modifiedCount === 1) {
-            res.json({ status: "okay" })
+            user.total -= updateTotal;
+            user.save()
+            res.json({ status: "okay"})
         } else {
             res.json({ status: "wrong" })
         }
@@ -71,7 +77,8 @@ const cartPlus = async (req, res) => {
     try {
         const bodyproductID = req.body.id;
         const productIndex = req.body.index;
-        const price = req.body.price;
+        const priceString = req.body.price;
+        const price = parseInt(priceString)
         const qtynumber = req.body.qtynumber;
 
         const fetchingUser = await User.findOne({ email: req.session.user });
@@ -82,6 +89,7 @@ const cartPlus = async (req, res) => {
         if (fetchingProducts.stock >= qtynumber) {
             if (qtynumber <= 10) {
                 fetchingUser.cart[productIndex].qty = qtynumber;
+                fetchingUser.total += price;
                 fetchingUser.save()
                 res.json({ status: "okay" , total : fetchingUser.total})
             } else {
@@ -101,13 +109,15 @@ const cartMinus = async (req, res) => {
     try {
         const productID = req.body.id;
         const productIndex = req.body.index;
-        const price = req.body.price;
+        const priceString = req.body.price;
+        const price = parseInt(priceString)
         const qtynumber = req.body.qtynumber;
         if (qtynumber >= 1) {
             const fetchingUser = await User.findOne({ email: req.session.user })
             fetchingUser.cart[productIndex].qty = qtynumber;
+            fetchingUser.total -= price
             fetchingUser.save()
-            res.json({ status: "okay" })
+            res.json({ status: "okay" , total : fetchingUser.total})
         } else {
             res.json({ status: "minimum1" })
         }

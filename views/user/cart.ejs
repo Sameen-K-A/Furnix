@@ -287,7 +287,7 @@
 																				<td style="margin: auto;"
 																					class="text-center">
 																					<button
-																						onclick="deleteItem('<%= userCartproducts[i]._id %>')"
+																						onclick="deleteItem('<%= userCartproducts[i]._id %>' , '<%= i %>' , '<%= userCartproducts[i].regularPrice %>')"
 																						style="background: none; border: none;">
 																						<svg xmlns="http://www.w3.org/2000/svg"
 																							width="16" height="16"
@@ -331,9 +331,13 @@
 														</div>
 
 														<div class="col-xl-4 col-lg-12 col-md-12 col-12">
+
+															<div class="cart-totals" style="background-color: rgb(255, 255, 255);">
+																<h2 class="text-center text-dark" style="padding: 12px;" >Total <%= userData.cart.length %> products in your cart</h2>
+															</div>
+
+
 															<div class="cart-totals">
-																<h2 class="text-center" >Total <%= userData.cart.length %> products in your cart</h2>
-																<br>
 																<h2>Cart totals</h2>
 																<div>
 																	<div class="shipping-totals">
@@ -343,7 +347,7 @@
 
 																	<div class="order-total">
 																		<div class="title">Total</div>
-																		<p style="font-size: 18px; font-weight: 500; color: black;" id="totalprice">₹<%= userData.total %></p>
+																		<p style="font-size: 18px; font-weight: 500; color: black;" id="totalprice">₹<%= userData.total %>.00</p>
 																	</div>
 																</div>
 																<div class="proceed-to-checkout">
@@ -582,7 +586,8 @@
 					qtynumberString.value = qtynumber;
 
 					// total side
-					alert(response.total)
+					const DBtotal = response.total;
+					document.getElementById("totalprice").textContent = "₹"+DBtotal+".00";
 				}
 			}
 		})
@@ -618,12 +623,17 @@
 					const tempSubtotal = document.getElementById("subtotal" + index);
 					tempSubtotal.innerHTML = "₹" + price * qtynumber;
 					qtynumberString.value = qtynumber;
+					
+					// total
+					const DBtotal = response.total;
+					document.getElementById("totalprice").textContent = "₹"+DBtotal+".00";
 				}
 			}
 		})
 	}
 
-	function deleteItem(id) {
+	function deleteItem(id , index , price) {
+		const qtynumber = document.getElementById("qtynumber"+index).value
 		Swal.fire({
 			title: "Are you sure?",
 			text: "You want to Remove this product from your cart?",
@@ -641,7 +651,10 @@
 					url: "/cart",
 					method: "delete",
 					data: {
-						id
+						id,
+						index,
+						qtynumber,
+						price
 					},
 					success: (response) => {
 						if (response.status === "okay") {
