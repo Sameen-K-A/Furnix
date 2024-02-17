@@ -54,16 +54,20 @@ const userSchema = new mongoose.Schema({
             type: Number
         },
     }],
-    cart : [{
-        productID : {
-            type : mongoose.Schema.Types.ObjectId,
-            ref : "products"
+    cart: [{
+        productID: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "products"
         },
-        qty : {
-            type : Number,
-            default : 1
+        qty: {
+            type: Number,
+            default: 1
         }
-    }]
+    }],
+    total : {
+    type: Number,
+    default: 0
+}
 }, {
     versionKey: false
 })

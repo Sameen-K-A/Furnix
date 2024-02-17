@@ -8,7 +8,7 @@ const cartpage = async (req, res) => {
         const userData = await User.findOne({ email: req.session.user });
         const productData = await Product.find({});
         const ProductResultarray = [];
-        const userCartArray =                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   []
+        const userCartArray = [];
         if (userData) {
             for (let i = 0; i < userData.cart.length; i++) {
                 const cartproductIdString = userData.cart[i].productID.toString();
@@ -23,7 +23,7 @@ const cartpage = async (req, res) => {
             }
         }
         const userCartproducts = ProductResultarray;
-        res.render("user/cart", { userData , userCartproducts})
+        res.render("user/cart", { userData, userCartproducts })
     } catch (error) {
         console.log(error);
     }
@@ -39,7 +39,7 @@ const cartpagepost = async (req, res) => {
             productID: product._id
         }
         if (req.session.user) {
-            const updateProcess = await User.updateOne({ email: req.session.user }, { $push: { cart: obj } })
+            const updateProcess = await User.updateOne({ email: req.session.user }, { $push: { cart: obj } , $inc : {total : product.regularPrice}});
             res.json({ status: "okay" })
         } else {
             res.json({ status: "notlogin" })
@@ -54,12 +54,64 @@ const cartpagepost = async (req, res) => {
 const deleteproduct = async (req, res) => {
     try {
         const deleteID = req.body.id;
-        const usercart = await User.updateOne({email : req.session.user} , {$pull : {cart : {productID : deleteID}}});
-        if(usercart.modifiedCount === 1){
-            res.json({status: "okay"})
-        } else{
-            res.json({status : "wrong"})
+        const usercart = await User.updateOne({ email: req.session.user }, { $pull: { cart: { productID: deleteID } } });
+        if (usercart.modifiedCount === 1) {
+            res.json({ status: "okay" })
+        } else {
+            res.json({ status: "wrong" })
         }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+//========================================= Cart product quantity increment ==============================================
+
+const cartPlus = async (req, res) => {
+    try {
+        const bodyproductID = req.body.id;
+        const productIndex = req.body.index;
+        const price = req.body.price;
+        const qtynumber = req.body.qtynumber;
+
+        const fetchingUser = await User.findOne({ email: req.session.user });
+        let fetchingProducts;
+        if (fetchingUser) {
+            fetchingProducts = await Product.findOne({ _id: fetchingUser.cart[productIndex].productID })
+        }
+        if (fetchingProducts.stock >= qtynumber) {
+            if (qtynumber <= 10) {
+                fetchingUser.cart[productIndex].qty = qtynumber;
+                fetchingUser.save()
+                res.json({ status: "okay" , total : fetchingUser.total})
+            } else {
+                res.json({ status: "limitReached" })
+            }
+        } else {
+            res.json({ status: "stocknotavailable" })
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+//========================================= Cart product quantity decrement ==============================================
+
+const cartMinus = async (req, res) => {
+    try {
+        const productID = req.body.id;
+        const productIndex = req.body.index;
+        const price = req.body.price;
+        const qtynumber = req.body.qtynumber;
+        if (qtynumber >= 1) {
+            const fetchingUser = await User.findOne({ email: req.session.user })
+            fetchingUser.cart[productIndex].qty = qtynumber;
+            fetchingUser.save()
+            res.json({ status: "okay" })
+        } else {
+            res.json({ status: "minimum1" })
+        }
+
     } catch (error) {
         console.log(error);
     }
@@ -70,5 +122,7 @@ const deleteproduct = async (req, res) => {
 module.exports = {
     cartpage,
     cartpagepost,
-    deleteproduct
+    deleteproduct,
+    cartPlus,
+    cartMinus
 }

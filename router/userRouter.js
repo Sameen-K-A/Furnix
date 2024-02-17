@@ -57,7 +57,9 @@ router.patch("/address" , isUser , isBlocked , userProfileController.editAddress
 // user cart side 
 router.get("/cart" , isBlocked , cartController.cartpage);
 router.post("/cart" , isBlocked , cartController.cartpagepost);
-router.delete("/cart" , isBlocked , cartController.deleteproduct)
+router.delete("/cart" , isBlocked , cartController.deleteproduct);
+router.post("/cartPlus" , isBlocked ,  cartController.cartPlus);
+router.post("/cartMinus" , isBlocked , cartController.cartMinus)
 
 
 

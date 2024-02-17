@@ -1,0 +1,26 @@
+<div style="width: 100px; height: 40px; border: 1px solid rgb(193, 193, 193); padding: 5px; display: flex; justify-content: space-between; align-items: center;" class="d-flex justify-content-between align-center">
+    <button style="background: transparent;">-</button>
+    <p style="font-size: 15px; color: rgb(52, 52, 52); margin-bottom: -2px;" id="qtynumber<%= i %>" > <%= userData.cart[i].qty %></p>
+    <button style="background: transparent;" id="plusbtn" onclick="increment('<%= userCartproducts[i]._id %>' , '<%= i %>' , '<%= userCartproducts[i].regularPrice %>')">+</button>
+</div>
+
+
+
+
+<td class="product-quantity">
+    <div class="center d-flex justify-content-center align-items-center">
+        <div class="quantity">
+            <button type="button" class="btn btn-secondary minus">-</button>
+            <input type="number" readonly class="qty form-control" id="qtynumber<%= i %>"  value="<%= userData.cart[i].qty %>" style="background-color: rgb(255, 255, 255); z-index: 9999;">
+            <button type="button" class="btn btn-secondary plus" id="plusbtn" onclick="increment('<%= userCartproducts[i]._id %>' , '<%= i %>' , '<%= userCartproducts[i].regularPrice %>')">+</button>
+        </div>
+    </div>
+</td>
+
+<td class="product-quantity">
+    <div class="center d-flex justify-content-center align-items-center">
+        <button style="background: transparent;">-</button>
+        <p style="font-size: 15px; color: rgb(52, 52, 52); margin-bottom: -2px;" id="qtynumber<%= i %>" > <%= userData.cart[i].qty %></p>
+    <button style="background: transparent;" id="plusbtn" onclick="increment('<%= userCartproducts[i]._id %>' , '<%= i %>' , '<%= userCartproducts[i].regularPrice %>')">+</button>
+    </div>
+</td>

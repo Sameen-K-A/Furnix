@@ -52,8 +52,6 @@
 <body class="shop">
 	<div id="page" class="hfeed page-wrapper">
 		<header id="site-header" class="site-header header-v2">
-
-
 			<div class="header-mobile">
 				<div class="section-padding">
 					<div class="section-container large">
@@ -240,12 +238,15 @@
 																			<tr class="cart-item align-right">
 																				<td
 																					class="product-thumbnail text-center">
-																					<a><img width="600" height="600"
+																					<a
+																						href="/productDetailspage?id=<%= userCartproducts[i]._id %>"><img
+																							width="600" height="600"
 																							src="/uploads/<%= userCartproducts[i].images[0] %>"
 																							class="product-image"
 																							alt=""></a>
 																					<div class="product-name">
-																						<a>
+																						<a
+																							href="/productDetailspage?id=<%= userCartproducts[i]._id %>">
 																							<%= userCartproducts[i].name
 																								%>
 																						</a>
@@ -260,34 +261,28 @@
 																				<td class="product-quantity">
 																					<div
 																						class="center d-flex justify-content-center align-items-center">
-																						<div class="quantity">
-																							<button type="button"
-																								class="btn btn-secondary minus">-</button>
-																							<input type="number" readonly class="qty form-control"
-																								value="<%= userData.cart[i].qty %>" style="background-color: rgb(255, 255, 255); z-index: 9999;">
-																								<button type="button"
-																								class="btn btn-secondary plus" id="plusbtn">+</button>
-																						</div>
+																						<button
+																							style="background-color: black; color: white;"
+																							id="minusbtn"
+																							onclick="decrement('<%= userCartproducts[i]._id %>', '<%= i %>', '<%= userCartproducts[i].regularPrice %>')">-</button>
+																						<input type="text" readonly
+																							class="text-center"
+																							style="font-size: 15px; color: rgb(52, 52, 52); margin-bottom: -2px; width: 50px;"
+																							id="qtynumber<%= i %>"
+																							value="<%= userData.cart[i].qty %>">
+																						<button
+																							style="background-color: black; color: white;"
+																							id="plusbtn"
+																							onclick="increment('<%= userCartproducts[i]._id %>', '<%= i %>', '<%= userCartproducts[i].regularPrice %>')">+</button>
 																					</div>
 																				</td>
 
-
-																				<!-- <td
-																					class="product-quantity text-center">
-																					<div class="quantity d-flex align-items-center justify-content-center"
-																						style="height: 50px; width: 100px; border: 1px solid black;">
-																						<button type="button"
-																							class="border-0 bg-transparent mr-auto"><b>-</b></button>
-																						<button type="button"
-																							class="border-0 bg-transparent ml-auto"
-																							onclick="plus('<%= userCartproducts[i]._id %>', '<%= userCartproducts[i].regularPrice %>')"><b>+</b></button>
-																					</div>
-
-
-
-																				</td> --> 	
 																				<td class="product-price text-center">
-																					<p class="price text-dark">₹<%= userCartproducts[i].regularPrice * userData.cart[i].qty %></p>
+																					<p class="price text-dark"
+																						id="subtotal<%= i %>">₹<%=
+																							userCartproducts[i].regularPrice
+																							* userData.cart[i].qty %>
+																					</p>
 																				</td>
 																				<td style="margin: auto;"
 																					class="text-center">
@@ -307,6 +302,7 @@
 																					</button>
 																				</td>
 																			</tr>
+
 																			<% } %>
 																				<tr>
 																					<td colspan="6" class="actions">
@@ -326,50 +322,28 @@
 																							</div>
 																						</div>
 																					</td>
+																					
 																				</tr>
 																	</tbody>
 																</table>
 
 															</div>
 														</div>
+
 														<div class="col-xl-4 col-lg-12 col-md-12 col-12">
 															<div class="cart-totals">
+																<h2 class="text-center" >Total <%= userData.cart.length %> products in your cart</h2>
+																<br>
 																<h2>Cart totals</h2>
 																<div>
-																	<div class="cart-subtotal">
-																		<div class="title">Subtotal</div>
-																		<div><span>$480.00</span></div>
-																	</div>
 																	<div class="shipping-totals">
 																		<div class="title">Shipping</div>
-																		<div>
-																			<ul class="shipping-methods custom-radio">
-																				<li>
-																					<input type="radio"
-																						name="shipping_method"
-																						data-index="0"
-																						value="free_shipping"
-																						class="shipping_method"
-																						checked="checked"><label>Free
-																						shipping</label>
-																				</li>
-																				<li>
-																					<input type="radio"
-																						name="shipping_method"
-																						data-index="0" value="flat_rate"
-																						class="shipping_method"><label>Flat
-																						rate</label>
-																				</li>
-																			</ul>
-																			<p class="shipping-desc">
-																				Shipping options will be updated during
-																				checkout.
-																			</p>
-																		</div>
+																		<div class="text-dark">Free shipping</div>
 																	</div>
+
 																	<div class="order-total">
 																		<div class="title">Total</div>
-																		<div><span>$480.00</span></div>
+																		<p style="font-size: 18px; font-weight: 500; color: black;" id="totalprice">₹<%= userData.total %></p>
 																	</div>
 																</div>
 																<div class="proceed-to-checkout">
@@ -379,19 +353,10 @@
 																	</a>
 																</div>
 															</div>
-														</div>
+														</div>	
 													</div>
 												</div>
-												<div class="shop-cart-empty">
-													<div class="notices-wrapper">
-														<p class="cart-empty">Your cart is currently empty.</p>
-													</div>
-													<div class="return-to-shop">
-														<a class="button" href="shop-grid-left.html">
-															Return to shop
-														</a>
-													</div>
-												</div>
+
 												<% } %>
 													<% } %>
 							</div>
@@ -543,13 +508,13 @@
 		</div>
 	</div>
 
-	<!-- Page Loader -->
+	<!-- Page Loader 
 	<div class="page-preloader">
 		<div class="loader">
 			<div></div>
 			<div></div>
 		</div>
-	</div>
+	</div>   -->
 
 	<!-- Dependency Scripts -->
 	<script src="libs/popper/js/popper.min.js"></script>
@@ -573,6 +538,91 @@
 </body>
 
 <script>
+
+	function increment(id, index, productPrice) {
+		const price = parseInt(productPrice);
+		const qtynumberString = document.getElementById("qtynumber" + index)
+		const qtynumber = parseInt(qtynumberString.value) + 1;
+		
+		$.ajax({
+			url: "/cartPlus",
+			method: "post",
+			data: {
+				id,
+				index,
+				price,
+				qtynumber
+			},
+			success: (response) => {
+				if (response.status === "limitReached") {
+					Swal.fire({
+						icon: "error",
+						iconColor: "#ff0000",
+						title: "Quantity reaches limit",
+						showConfirmButton: false,
+						customClass: {
+							popup: 'swal-custom',
+						},
+						timer: 1500
+					});
+				} else if (response.status === "stocknotavailable") {
+					Swal.fire({
+						icon: "error",
+						iconColor: "#ff0000",
+						title: "That much stock not avaibale",
+						showConfirmButton: false,
+						customClass: {
+							popup: 'swal-custom',
+						},
+						timer: 1500
+					});
+				} else if (response.status === "okay") {
+					const tempSubtotal = document.getElementById("subtotal" + index);
+					tempSubtotal.innerHTML = "₹" + price * qtynumber;
+					qtynumberString.value = qtynumber;
+
+					// total side
+					alert(response.total)
+				}
+			}
+		})
+	}
+
+
+	function decrement(id, index, productPrice) {
+		const price = parseInt(productPrice);
+		const qtynumberString = document.getElementById("qtynumber" + index)
+		const qtynumber = parseInt(qtynumberString.value) - 1;
+		$.ajax({
+			url: "/cartMinus",
+			method: "post",
+			data: {
+				id,
+				index,
+				price,
+				qtynumber
+			},
+			success: (response) => {
+				if (response.status === "minimum1") {
+					Swal.fire({
+						icon: "error",
+						iconColor: "#ff0000",
+						title: "Quantity need atleast one",
+						showConfirmButton: false,
+						customClass: {
+							popup: 'swal-custom',
+						},
+						timer: 1500
+					});
+				} else if (response.status === "okay") {
+					const tempSubtotal = document.getElementById("subtotal" + index);
+					tempSubtotal.innerHTML = "₹" + price * qtynumber;
+					qtynumberString.value = qtynumber;
+				}
+			}
+		})
+	}
+
 	function deleteItem(id) {
 		Swal.fire({
 			title: "Are you sure?",
@@ -599,7 +649,7 @@
 						} else if (response.status === "wrong") {
 							Swal.fire({
 								icon: "error",
-								title: "No changes found",
+								title: "Oops!.. Network is busy please refresh",
 								showConfirmButton: false,
 								customClass: {
 									popup: 'swal-custom',
