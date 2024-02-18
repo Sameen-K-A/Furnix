@@ -59,7 +59,10 @@ router.get("/cart" , isBlocked , cartController.cartpage);
 router.post("/cart" , isBlocked , cartController.cartpagepost);
 router.delete("/cart" , isBlocked , cartController.deleteproduct);
 router.post("/cartPlus" , isBlocked ,  cartController.cartPlus);
-router.post("/cartMinus" , isBlocked , cartController.cartMinus)
+router.post("/cartMinus" , isBlocked , cartController.cartMinus);
+
+// user checkout page
+router.get("/checkout" , isBlocked , cartController.checkout)
 
 
 

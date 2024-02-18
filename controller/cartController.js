@@ -17,13 +17,18 @@ const cartpage = async (req, res) => {
                     const productIdString = productData[j]._id.toString();
                     if (cartproductIdString === productIdString) {
                         ProductResultarray.push(productData[j]);
+                        if(productData[j].stock === 0){
+                            userData.total -= userData.cart[i].qty * productData[j].regularPrice;
+                            userData.cart[i].qty = 0;
+                        }
                         break;
                     }
                 }
             }
+            userData.save()
         }
         const userCartproducts = ProductResultarray;
-        res.render("user/cart", { userData, userCartproducts })
+        res.render("user/cart", { userData, userCartproducts})
     } catch (error) {
         console.log(error);
     }
@@ -39,7 +44,7 @@ const cartpagepost = async (req, res) => {
             productID: product._id
         }
         if (req.session.user) {
-            const updateProcess = await User.updateOne({ email: req.session.user }, { $push: { cart: obj } , $inc : {total : product.regularPrice}});
+            await User.updateOne({ email: req.session.user }, { $push: { cart: obj } , $inc : {total : product.regularPrice}});
             res.json({ status: "okay" })
         } else {
             res.json({ status: "notlogin" })
@@ -75,7 +80,6 @@ const deleteproduct = async (req, res) => {
 
 const cartPlus = async (req, res) => {
     try {
-        const bodyproductID = req.body.id;
         const productIndex = req.body.index;
         const priceString = req.body.price;
         const price = parseInt(priceString)
@@ -107,7 +111,6 @@ const cartPlus = async (req, res) => {
 
 const cartMinus = async (req, res) => {
     try {
-        const productID = req.body.id;
         const productIndex = req.body.index;
         const priceString = req.body.price;
         const price = parseInt(priceString)
@@ -127,6 +130,37 @@ const cartMinus = async (req, res) => {
     }
 }
 
+//========================================= User checkout page rendering ==============================================
+
+const checkout = async (req, res) => {
+    try {
+        const userData = await User.findOne({ email: req.session.user });
+        const productData = await Product.find({});
+        const ProductResultarray = [];
+        const userCartArray = [];
+        if (userData) {
+            for (let i = 0; i < userData.cart.length; i++) {
+                const cartproductIdString = userData.cart[i].productID.toString();
+                userCartArray.push(cartproductIdString)
+                for (let j = 0; j < productData.length; j++) {
+                    const productIdString = productData[j]._id.toString();
+                    if (cartproductIdString === productIdString) {
+                        if(productData[j].stock!=0){
+                            ProductResultarray.push(productData[j]);
+                            break;
+                        }  
+                    }
+                }
+            }
+        }
+        const userCartproducts = ProductResultarray;
+        console.log(userCartproducts);
+        res.render("user/checkoutpage" , {userData , userCartproducts})
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 //========================================= Export all modules ==============================================
 
 module.exports = {
@@ -134,5 +168,6 @@ module.exports = {
     cartpagepost,
     deleteproduct,
     cartPlus,
-    cartMinus
+    cartMinus,
+    checkout
 }
