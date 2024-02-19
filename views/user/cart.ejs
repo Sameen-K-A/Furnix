@@ -234,92 +234,132 @@
 																		</tr>
 																	</thead>
 																	<tbody>
-																		<% for( let i=0; i < userCartproducts.length; i++ ) { %>
+																		<% for( let i=0; i < userCartproducts.length;
+																			i++ ) { %>
 																			<tr class="cart-item align-right">
 																				<td
 																					class="product-thumbnail text-center">
-																					<a href="/productDetailspage?id=<%= userCartproducts[i]._id %>"><img
+																					<a
+																						href="/productDetailspage?id=<%= userCartproducts[i]._id %>"><img
 																							width="600" height="600"
 																							src="/uploads/<%= userCartproducts[i].images[0] %>"
 																							class="product-image"
 																							alt=""></a>
 																					<div class="product-name">
-																						<% if (userCartproducts[i].stock === 0) { %>
-																							<a href="/productDetailspage?id=<%= userCartproducts[i]._id %>"><%= userCartproducts[i].name %></a>
-																							<p class="text-danger align-start">Out of stock</p>
-																						<% } else if (userCartproducts[i].stock < userData.cart[i].qty) { %>
-																							<a href="/productDetailspage?id=<%= userCartproducts[i]._id %>"><%= userCartproducts[i].name %></a>
-																							<p id="stockwarning<%= i %>" class="text-warning align-start">Only <%= userCartproducts[i].stock %> stock is available</p>
-																						<% } else { %>
-																							<a href="/productDetailspage?id=<%= userCartproducts[i]._id %>"><%= userCartproducts[i].name %></a>
-																						<% } %>
-																						
+																						<% if
+																							(userCartproducts[i].stock===0)
+																							{ %>
+																							<a
+																								href="/productDetailspage?id=<%= userCartproducts[i]._id %>">
+																								<%= userCartproducts[i].name
+																									%>
+																							</a>
+																							<p
+																								class="text-danger align-start">
+																								Out of stock</p>
+																							<% } else if
+																								(userCartproducts[i].stock
+																								< userData.cart[i].qty)
+																								{ %>
+																								<a
+																									href="/productDetailspage?id=<%= userCartproducts[i]._id %>">
+																									<%= userCartproducts[i].name
+																										%>
+																								</a>
+																								<p id="stockwarning<%= i %>"
+																									class="text-warning align-start">
+																									Only <%=
+																										userCartproducts[i].stock
+																										%> stock is
+																										available</p>
+																								<% } else { %>
+																									<a
+																										href="/productDetailspage?id=<%= userCartproducts[i]._id %>">
+																										<%= userCartproducts[i].name
+																											%>
+																									</a>
+																									<% } %>
+
 																					</div>
 																				</td>
 																				<td class="product-price text-center">
-																					<% if (userCartproducts[i].stock===0) { %>
-																						<span class="price">- - - -</span>
-																						<span class="price" style="display: none;">₹<%=
-																							userCartproducts[i].regularPrice
-																							%></span>
-																					<% } else { %>
-																						<span class="price">₹<%=
-																							userCartproducts[i].regularPrice
-																							%></span>
-																					<% } %>
-																					
+																					<% if
+																						(userCartproducts[i].stock===0)
+																						{ %>
+																						<span class="price">- - -
+																							-</span>
+																						<span class="price"
+																							style="display: none;">₹<%=
+																								userCartproducts[i].regularPrice
+																								%></span>
+																						<% } else { %>
+																							<span class="price">₹<%=
+																									userCartproducts[i].regularPrice
+																									%></span>
+																							<% } %>
+
 																				</td>
 
 																				<td class="product-quantity">
-																					<div class="center d-flex justify-content-center align-items-center">
-																						<% if (userCartproducts[i].stock===0) { %>
-																							<span class="price">- - - -</span>
+																					<div
+																						class="center d-flex justify-content-center align-items-center">
+																						<% if
+																							(userCartproducts[i].stock===0)
+																							{ %>
+																							<span class="price">- - -
+																								-</span>
 																							<button
-																							style="background-color: black; color: white; display: none;"
-																							id="minusbtn"
-																							onclick="decrement('<%= userCartproducts[i]._id %>', '<%= i %>', '<%= userCartproducts[i].regularPrice %>')">-</button>
-																						<input type="text" readonly
-																							class="text-center"
-																							style="font-size: 15px; color: rgb(52, 52, 52); margin-bottom: -2px; width: 50px; display: none;"
-																							id="qtynumber<%= i %>"
-																							value="<%= userData.cart[i].qty %>">
-																						<button
-																							style="background-color: black; color: white; display: none;"
-																							id="plusbtn"
-																							onclick="increment('<%= userCartproducts[i]._id %>', '<%= i %>', '<%= userCartproducts[i].regularPrice %>')">+</button>
-																						<% } else { %>
+																								style="background-color: black; color: white; display: none;"
+																								id="minusbtn"
+																								onclick="decrement('<%= userCartproducts[i]._id %>', '<%= i %>', '<%= userCartproducts[i].regularPrice %>')">-</button>
+																							<input type="text" readonly
+																								class="text-center"
+																								style="font-size: 15px; color: rgb(52, 52, 52); margin-bottom: -2px; width: 50px; display: none;"
+																								id="qtynumber<%= i %>"
+																								value="<%= userData.cart[i].qty %>">
 																							<button
-																							style="background-color: black; color: white;"
-																							id="minusbtn"
-																							onclick="decrement('<%= userCartproducts[i]._id %>', '<%= i %>', '<%= userCartproducts[i].regularPrice %>' , '<%= userCartproducts[i].stock %>')">-</button>
-																						<input type="text" readonly
-																							class="text-center"
-																							style="font-size: 15px; color: rgb(52, 52, 52); margin-bottom: -2px; width: 50px;"
-																							id="qtynumber<%= i %>"
-																							value="<%= userData.cart[i].qty %>">
-																						<button
-																							style="background-color: black; color: white;"
-																							id="plusbtn"
-																							onclick="increment('<%= userCartproducts[i]._id %>', '<%= i %>', '<%= userCartproducts[i].regularPrice %>')">+</button>
-																						<% } %>
+																								style="background-color: black; color: white; display: none;"
+																								id="plusbtn"
+																								onclick="increment('<%= userCartproducts[i]._id %>', '<%= i %>', '<%= userCartproducts[i].regularPrice %>')">+</button>
+																							<% } else { %>
+																								<button
+																									style="background-color: black; color: white;"
+																									id="minusbtn"
+																									onclick="decrement('<%= userCartproducts[i]._id %>', '<%= i %>', '<%= userCartproducts[i].regularPrice %>' , '<%= userCartproducts[i].stock %>')">-</button>
+																								<input type="text"
+																									readonly
+																									class="text-center"
+																									style="font-size: 15px; color: rgb(52, 52, 52); margin-bottom: -2px; width: 50px;"
+																									id="qtynumber<%= i %>"
+																									value="<%= userData.cart[i].qty %>">
+																								<button
+																									style="background-color: black; color: white;"
+																									id="plusbtn"
+																									onclick="increment('<%= userCartproducts[i]._id %>', '<%= i %>', '<%= userCartproducts[i].regularPrice %>')">+</button>
+																								<% } %>
 																					</div>
 																				</td>
 
 																				<td class="product-price text-center">
-																					<% if (userCartproducts[i].stock===0) { %>
-																						<span class="price">- - - -</span>
-																					<% } else { %>
-																						<p class="price text-dark"
-																						id="subtotal<%= i %>">₹<%=
-																							userCartproducts[i].regularPrice
-																							* userData.cart[i].qty %>
-																					</p>
-																					<% } %>
-																					
+																					<% if
+																						(userCartproducts[i].stock===0)
+																						{ %>
+																						<span class="price">- - -
+																							-</span>
+																						<% } else { %>
+																							<p class="price text-dark"
+																								id="subtotal<%= i %>">₹
+																								<%= userCartproducts[i].regularPrice
+																									*
+																									userData.cart[i].qty
+																									%>
+																							</p>
+																							<% } %>
+
 																				</td>
 																				<td style="margin: auto;"
 																					class="text-center">
-																						<button
+																					<button
 																						onclick="deleteItem('<%= userCartproducts[i]._id %>' , '<%= i %>' , '<%= userCartproducts[i].regularPrice %>')"
 																						style="background: none; border: none;">
 																						<svg xmlns="http://www.w3.org/2000/svg"
@@ -333,7 +373,7 @@
 																								d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
 																						</svg>
 																					</button>
-																					
+
 																				</td>
 																			</tr>
 
@@ -391,7 +431,9 @@
 																	</div>
 																</div>
 																<div class="proceed-to-checkout">
-																	<a href="/checkout" class="checkout-button button">Proceed to checkout</a>
+																	<a onclick="checkingCheckout()"
+																		class="checkout-button button">Proceed to
+																		checkout</a>
 																</div>
 															</div>
 														</div>
@@ -402,10 +444,10 @@
 													<% } %>
 							</div>
 						</div>
-				</div><!-- #content -->
-			</div><!-- #primary -->
-		</div><!-- #main-content -->
-	</div>
+					</div><!-- #content -->
+				</div><!-- #primary -->
+			</div><!-- #main-content -->
+		</div>
 
 		<footer id="site-footer" class="site-footer background">
 			<div class="footer">
@@ -631,7 +673,7 @@
 	}
 
 
-	function decrement(id, index, productPrice , userCartproducts , userData) {
+	function decrement(id, index, productPrice, userCartproducts, userData) {
 		const price = parseInt(productPrice);
 		const qtynumberString = document.getElementById("qtynumber" + index)
 		const qtynumber = parseInt(qtynumberString.value) - 1;
@@ -664,8 +706,8 @@
 					const DBtotal = response.total;
 					document.getElementById("totalprice").textContent = "₹" + DBtotal + ".00";
 					// new
-					if(qtynumber <= userCartproducts){
-						document.getElementById("stockwarning"+index).style.display = "none"
+					if (qtynumber <= userCartproducts) {
+						document.getElementById("stockwarning" + index).style.display = "none"
 					}
 				}
 			}
@@ -714,6 +756,28 @@
 				})
 			}
 		});
+	}
+
+	function checkingCheckout() {
+		$.ajax({
+			url: "/checkingCheckout",
+			method: "get",
+			success: (response) => {
+				if (response.status === "okay") {
+					window.location.href = "/checkout"
+				} else if (response.status === "missingqty") {
+					Swal.fire({
+						icon: "error",
+						iconColor : "red",
+						text: "This amount of stock is currently not available ! . . . Please refresh and check again.",
+						customClass: {
+							popup: 'swal-custom',
+						},
+						confirmButtonColor : "#03c04a"
+					});
+				}
+			}
+		})
 	}
 
 </script>

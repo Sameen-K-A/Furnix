@@ -26,13 +26,13 @@ router.get("/productDetailspage" , isProductBlocked  ,isBlocked,  userController
 
 //user all product page and sorting
 
-router.get("/allproduct" ,isBlocked, userController.allproduct);
-router.get("/pricehightolow" ,isBlocked, userController.pricehightolow);
-router.get("/pricelowtohigh" ,isBlocked, userController.pricelowtohigh);
-router.get("/nameascending" ,isBlocked, userController.nameascending);
-router.get("/namedescending" ,isBlocked, userController.namedescending);
-router.get("/leatest" ,isBlocked, userController.leatest);
-router.get("/oldest" ,isBlocked, userController.oldest);
+router.get("/allproduct" , isBlocked, userController.allproduct);
+router.get("/pricehightolow" , isBlocked, userController.pricehightolow);
+router.get("/pricelowtohigh" , isBlocked, userController.pricelowtohigh);
+router.get("/nameascending" , isBlocked, userController.nameascending);
+router.get("/namedescending" , isBlocked, userController.namedescending);
+router.get("/leatest" , isBlocked, userController.leatest);
+router.get("/oldest" , isBlocked, userController.oldest);
 router.post("/search" , isBlocked , userController.search)
 
 // user change passwords area
@@ -42,9 +42,9 @@ router.patch("/changepassword" , isUser , isBlocked , userProfileController.chan
 
 // user account details
 
-router.get("/accountDetails" ,  isUser , isBlocked , userProfileController.accountDetails);
-router.get("/editdetails" ,isUser , isBlocked, userProfileController.editdetails)
-router.post("/editdetails" ,isUser , isBlocked , userProfileController.editdetailspost)
+router.get("/accountDetails" , isUser , isBlocked , userProfileController.accountDetails);
+router.get("/editdetails" , isUser , isBlocked, userProfileController.editdetails)
+router.post("/editdetails" , isUser , isBlocked , userProfileController.editdetailspost)
 
 // user address area
 
@@ -56,13 +56,14 @@ router.patch("/address" , isUser , isBlocked , userProfileController.editAddress
 
 // user cart side 
 router.get("/cart" , isBlocked , cartController.cartpage);
-router.post("/cart" , isBlocked , cartController.cartpagepost);
-router.delete("/cart" , isBlocked , cartController.deleteproduct);
-router.post("/cartPlus" , isBlocked ,  cartController.cartPlus);
-router.post("/cartMinus" , isBlocked , cartController.cartMinus);
+router.post("/cart" , isUser , isBlocked , cartController.cartpagepost);
+router.delete("/cart" ,isUser ,  isBlocked , cartController.deleteproduct);
+router.post("/cartPlus" , isUser , isBlocked ,  cartController.cartPlus);
+router.post("/cartMinus" , isUser , isBlocked , cartController.cartMinus);
 
 // user checkout page
-router.get("/checkout" , isBlocked , cartController.checkout)
+router.get("/checkingCheckout" , isUser , isBlocked , cartController.checkingCheckout)
+router.get("/checkout" , isUser , isBlocked , cartController.checkout)
 
 
 

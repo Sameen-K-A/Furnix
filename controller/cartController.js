@@ -17,7 +17,7 @@ const cartpage = async (req, res) => {
                     const productIdString = productData[j]._id.toString();
                     if (cartproductIdString === productIdString) {
                         ProductResultarray.push(productData[j]);
-                        if(productData[j].stock === 0){
+                        if (productData[j].stock === 0) {
                             userData.total -= userData.cart[i].qty * productData[j].regularPrice;
                             userData.cart[i].qty = 0;
                         }
@@ -28,7 +28,7 @@ const cartpage = async (req, res) => {
             userData.save()
         }
         const userCartproducts = ProductResultarray;
-        res.render("user/cart", { userData, userCartproducts})
+        res.render("user/cart", { userData, userCartproducts })
     } catch (error) {
         console.log(error);
     }
@@ -44,7 +44,7 @@ const cartpagepost = async (req, res) => {
             productID: product._id
         }
         if (req.session.user) {
-            await User.updateOne({ email: req.session.user }, { $push: { cart: obj } , $inc : {total : product.regularPrice}});
+            await User.updateOne({ email: req.session.user }, { $push: { cart: obj }, $inc: { total: product.regularPrice } });
             res.json({ status: "okay" })
         } else {
             res.json({ status: "notlogin" })
@@ -60,14 +60,14 @@ const deleteproduct = async (req, res) => {
     try {
         const deleteID = req.body.id;
         const price = parseInt(req.body.price);
-        const quantity = parseInt( req.body.qtynumber);
+        const quantity = parseInt(req.body.qtynumber);
         const updateTotal = price * quantity;
-        const user = await User.findOne({email : req.session.user});
+        const user = await User.findOne({ email: req.session.user });
         const usercart = await User.updateOne({ email: req.session.user }, { $pull: { cart: { productID: deleteID } } });
         if (usercart.modifiedCount === 1) {
             user.total -= updateTotal;
             user.save()
-            res.json({ status: "okay"})
+            res.json({ status: "okay" })
         } else {
             res.json({ status: "wrong" })
         }
@@ -95,7 +95,7 @@ const cartPlus = async (req, res) => {
                 fetchingUser.cart[productIndex].qty = qtynumber;
                 fetchingUser.total += price;
                 fetchingUser.save()
-                res.json({ status: "okay" , total : fetchingUser.total})
+                res.json({ status: "okay", total: fetchingUser.total })
             } else {
                 res.json({ status: "limitReached" })
             }
@@ -120,11 +120,45 @@ const cartMinus = async (req, res) => {
             fetchingUser.cart[productIndex].qty = qtynumber;
             fetchingUser.total -= price
             fetchingUser.save()
-            res.json({ status: "okay" , total : fetchingUser.total})
+            res.json({ status: "okay", total: fetchingUser.total })
         } else {
             res.json({ status: "minimum1" })
         }
 
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+//========================================= User checkout page rendering ==============================================
+
+const checkingCheckout = async (req, res) => {
+    try {
+        const userData = await User.findOne({ email: req.session.user });
+        const productData = await Product.find({});
+        const ProductResultarray = [];
+        let nextpage = true;
+        if (userData) {
+            for (let i = 0; i < userData.cart.length; i++) {
+                const cartproductIdString = userData.cart[i].productID.toString();
+                for (let j = 0; j < productData.length; j++) {
+                    const productIdString = productData[j]._id.toString();
+                    if (cartproductIdString === productIdString) {
+                        ProductResultarray.push(productData[j]);
+                        break;
+                    }
+                }
+                if ( userData.cart[i].qty === 0 || userData.cart[i].qty > ProductResultarray[i].stock) {
+                    nextpage = false;
+                    break;
+                 }
+            }
+        }
+        if (nextpage === true) {
+            res.json({ status: "okay" })
+        } else {
+            res.json({ status: "missingqty" })
+        }
     } catch (error) {
         console.log(error);
     }
@@ -137,25 +171,19 @@ const checkout = async (req, res) => {
         const userData = await User.findOne({ email: req.session.user });
         const productData = await Product.find({});
         const ProductResultarray = [];
-        const userCartArray = [];
         if (userData) {
             for (let i = 0; i < userData.cart.length; i++) {
                 const cartproductIdString = userData.cart[i].productID.toString();
-                userCartArray.push(cartproductIdString)
                 for (let j = 0; j < productData.length; j++) {
                     const productIdString = productData[j]._id.toString();
                     if (cartproductIdString === productIdString) {
-                        if(productData[j].stock!=0){
-                            ProductResultarray.push(productData[j]);
-                            break;
-                        }  
+                        ProductResultarray.push(productData[j]);
+                        break;
                     }
                 }
             }
         }
-        const userCartproducts = ProductResultarray;
-        console.log(userCartproducts);
-        res.render("user/checkoutpage" , {userData , userCartproducts})
+        res.render("user/checkoutpage" , {userData , ProductResultarray})
     } catch (error) {
         console.log(error);
     }
@@ -169,5 +197,6 @@ module.exports = {
     deleteproduct,
     cartPlus,
     cartMinus,
+    checkingCheckout,
     checkout
 }
