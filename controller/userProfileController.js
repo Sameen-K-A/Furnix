@@ -1,6 +1,6 @@
 const User = require("../model/userModel");
-const Product = require("../model/productModel");
 const bcrypt = require("bcrypt");
+const Order = require("../model/orderModel");
 
 //========================================= inside user profile page change password session rendering ==============================================
 
@@ -186,6 +186,17 @@ const editAddress = async (req, res) => {
     }
 }
 
+//========================================= Update edited address area ==============================================
+
+const orders = async (req, res) => {
+    try {
+        const orderData = await Order.find({userEmail : req.session.user})
+       res.render("userProfile/userOrders" , {orderData})
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 //========================================= Exporting all modules ==============================================
 
 module.exports = {
@@ -198,5 +209,6 @@ module.exports = {
     deleteAddress,
     editAddress,
     editAddressget,
-    editdetailspost
+    editdetailspost,
+    orders
 }

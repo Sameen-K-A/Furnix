@@ -1,5 +1,8 @@
 const User = require("../model/userModel");
 const Product = require("../model/productModel");
+const Order = require("../model/orderModel")
+const dateGenerator = require("../config/dateGenerator");
+const idGenerator = require("../config/randomID");
 
 //========================================= Cart page rendering ==============================================
 
@@ -38,7 +41,6 @@ const cartpage = async (req, res) => {
 
 const cartpagepost = async (req, res) => {
     try {
-        console.log("not login");
         const productID = req.body.id;
         const product = await Product.findOne({ _id: productID });
         const obj = {
@@ -48,7 +50,6 @@ const cartpagepost = async (req, res) => {
             await User.updateOne({ email: req.session.user }, { $push: { cart: obj }, $inc: { total: product.regularPrice } });
             res.json({ status: "okay" })
         } else {
-            
             res.json({ status: "notlogin" })
         }
     } catch (error) {
@@ -150,10 +151,10 @@ const checkingCheckout = async (req, res) => {
                         break;
                     }
                 }
-                if ( userData.cart[i].qty === 0 || userData.cart[i].qty > ProductResultarray[i].stock) {
+                if (userData.cart[i].qty === 0 || userData.cart[i].qty > ProductResultarray[i].stock) {
                     nextpage = false;
                     break;
-                 }
+                }
             }
         }
         if (nextpage === true) {
@@ -185,7 +186,7 @@ const checkout = async (req, res) => {
                 }
             }
         }
-        res.render("user/checkoutpage" , {userData , ProductResultarray})
+        res.render("user/checkoutpage", { userData, ProductResultarray })
     } catch (error) {
         console.log(error);
     }
@@ -197,7 +198,66 @@ const checkoutPost = async (req, res) => {
     try {
         const addressID = req.body.addressChecked;
         const payment = req.body.paymentchecked;
-        console.log(addressID , payment);
+
+        const userData = await User.findOne({ email: req.session.user });
+        const productData = await Product.find({});
+        const orderProducts = [];
+        let address;
+        let nextpage = false;
+        if (userData) {
+            for (let i = 0; i < userData.cart.length; i++) {
+                const cartproductIdString = userData.cart[i].productID.toString();
+                for (let j = 0; j < productData.length; j++) {
+                    const productIdString = productData[j]._id.toString();
+                    if (cartproductIdString === productIdString) {
+                        if (productData[j].stock >= userData.cart[i].qty) {
+                            orderProducts.push(productData[j])
+                            nextpage = true;
+                        } else {
+                            nextpage = false;
+                            break;
+                        }
+                    }
+                }
+            }
+            for (let i = 0; i < userData.address.length; i++) {
+                const stringID = userData.address[i]._id.toString();
+                if (stringID === addressID) {
+                    address = userData.address[i]
+                }
+            }
+            const orderData = {
+                product: orderProducts,
+                address: address,
+                orderID: idGenerator(),
+                userEmail: req.session.user,
+                date: dateGenerator(),
+                total: userData.total,
+                itemsCount: userData.cart.length,
+                paymentMethod: payment
+            }
+            if (nextpage) {
+                const orderProcess = await Order.create(orderData);
+                if(orderProcess){
+                    res.json({ status: "true" })
+                } else{
+                    res.json({ status: "network" })
+                }
+                
+            } else {
+                res.json({ status: "stocklimit" })
+            }
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+//========================================= User order successfully page rendering ==============================================
+
+const orderSuccessfull = async (req, res) => {
+    try {
+        res.render("user/orderSuccess")
     } catch (error) {
         console.log(error);
     }
@@ -213,5 +273,6 @@ module.exports = {
     cartMinus,
     checkingCheckout,
     checkout,
-    checkoutPost
+    checkoutPost,
+    orderSuccessfull
 }

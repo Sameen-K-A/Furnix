@@ -1,5 +1,3 @@
-const express = require("express");
-
 const OTPgenerator = function () {
     let otp = '';
     for (let i = 0; i < 4; i++) {

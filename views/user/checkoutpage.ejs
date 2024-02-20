@@ -48,6 +48,16 @@
 		width: 70px;
 		font-size: small;
 	}
+
+	.swal-custom {
+		background: linear-gradient(94deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.8240546218487395) 26%, rgba(0, 0, 0, 1) 53%, rgba(0, 0, 0, 0.8492647058823529) 79%, rgba(227, 227, 227, 0) 100%);
+		color: #ffffff;
+		width: 100%;
+	}
+
+	.swal-custom-ok-btn {
+		color: black !important;
+	}
 </style>
 
 <body class="shop">
@@ -200,7 +210,8 @@
 																	</div>
 																</div>
 																<div class="product-total">
-																	<span>₹<%= ProductResultarray[i].regularPrice %>.00</span>
+																	<span>₹<%= ProductResultarray[i].regularPrice %>
+																			.00</span>
 																</div>
 															</div>
 															<% } %>
@@ -263,7 +274,7 @@
 																<div
 																	style="background-color: rgb(228, 228, 228); width: 100%; height: 40px; border: 1px solid rgb(228, 228, 228); color: black; padding: 10px; display: flex; justify-content: space-between; align-items: center;">
 																	<input type="radio" id="addressCheckbox<%= i %>"
-																		name="addressCheckbox" 
+																		name="addressCheckbox"
 																		value="<%= userData.address[i]._id %>">
 																	<h5 class="text-align-center">
 																		<%= userData.address[i].addressType %>
@@ -335,6 +346,11 @@
 															order</p>
 													</b>
 												</div>
+												<div style="margin: auto; display: none;" id="productlength">
+													<b>
+														<p class="text-danger">Produts not founded</p>
+													</b>
+												</div>
 												<div style="margin: auto; display: none;" id="selectpayment">
 													<b>
 														<p class="text-danger">Please select a payment method</p>
@@ -342,7 +358,7 @@
 												</div>
 												<button type="submit" class="button alt" name="checkout_place_order"
 													value="Place order" style="margin-top: 15px;"
-													onclick="placeOrder('<%= userData.address.length%>')">Place
+													onclick="placeOrder('<%= userData.address.length%>' , '<%= userData.cart.length %>')">Place
 													order</button>
 											</div>
 										</div>
@@ -521,6 +537,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
 		integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
 		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 	<!-- Site Scripts -->
 	<script src="assets/js/app.js"></script>
@@ -528,57 +545,89 @@
 
 <script>
 
-	function placeOrder(data) {
-		if (data == 0) {
-			document.getElementById("selectAddressID").style.display = "block";
+	function placeOrder(data, products) {
+		if (products == 0) {
+			document.getElementById("productlength").style.display = "block";
 			setTimeout(() => {
-				document.getElementById("selectAddressID").style.display = "none";
+				document.getElementById("productlength").style.display = "none";
 			}, 3000);
 		} else {
-			let addressChecked = false;
-			const addressradio = document.getElementsByName("addressCheckbox")
-			for (let i = 0; i < addressradio.length; i++) {
-				if (addressradio[i].checked) {
-					addressChecked = addressradio[i].value;
-					break;
-				} else {
-					addressChecked = false;
-				}
-			}
-			if (addressChecked) {
-				let paymentchecked = false
-				const paymentradio = document.getElementsByName("payment_method");
-				for (let j = 0; j < paymentradio.length; j++) {
-					if (paymentradio[j].checked) {
-						paymentchecked = paymentradio[j].value;
-						break;
-					} else {
-						paymentchecked = false;
-					}
-				}
-				if (paymentchecked) {
-					$.ajax({
-						url: "/checkout",
-						method: "post",
-						data: {
-							addressChecked,
-							paymentchecked
-						},
-						success: (response) => { }
-					})
-				} else {
-					document.getElementById("selectpayment").style.display = "block";
-					setTimeout(() => {
-						document.getElementById("selectpayment").style.display = "none";
-					}, 2000);
-				}
-			} else {
+			if (data == 0) {
 				document.getElementById("selectAddressID").style.display = "block";
 				setTimeout(() => {
 					document.getElementById("selectAddressID").style.display = "none";
-				}, 2000);
+				}, 3000);
+			} else {
+				let addressChecked = false;
+				const addressradio = document.getElementsByName("addressCheckbox")
+				for (let i = 0; i < addressradio.length; i++) {
+					if (addressradio[i].checked) {
+						addressChecked = addressradio[i].value;
+						break;
+					} else {
+						addressChecked = false;
+					}
+				}
+				if (addressChecked) {
+					let paymentchecked = false
+					const paymentradio = document.getElementsByName("payment_method");
+					for (let j = 0; j < paymentradio.length; j++) {
+						if (paymentradio[j].checked) {
+							paymentchecked = paymentradio[j].value;
+							break;
+						} else {
+							paymentchecked = false;
+						}
+					}
+					if (paymentchecked) {
+						$.ajax({
+							url: "/checkout",
+							method: "post",
+							data: {
+								addressChecked,
+								paymentchecked
+							},
+							success: (response) => {
+								if (response.status === "true") {
+									window.location.href = "/orderSuccessfull"
+								} else if (response.status === "stocklimit") {
+									Swal.fire({
+										icon: "error",
+										iconColor: "red",
+										text: "This amount of stock is currently not available ! . . . Go to your cart and check again.",
+										customClass: {
+											popup: 'swal-custom',
+										},
+										confirmButtonColor: "#03c04a"
+									});
+								} else if (response.status === "network") {
+									Swal.fire({
+										icon: "error",
+										title: "Oops!.. Network is busy please refresh",
+										showConfirmButton: false,
+										customClass: {
+											popup: 'swal-custom',
+										},
+										timer: 1500
+									});
+								}
+							}
+						})
+					} else {
+						document.getElementById("selectpayment").style.display = "block";
+						setTimeout(() => {
+							document.getElementById("selectpayment").style.display = "none";
+						}, 2000);
+					}
+				} else {
+					document.getElementById("selectAddressID").style.display = "block";
+					setTimeout(() => {
+						document.getElementById("selectAddressID").style.display = "none";
+					}, 2000);
+				}
 			}
 		}
+
 	}
 
 </script>

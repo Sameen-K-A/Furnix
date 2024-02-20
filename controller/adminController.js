@@ -1,5 +1,6 @@
 const User = require("../model/userModel");
 const Category = require("../model/categoryModel");
+const Order = require("../model/orderModel")
 
 //========================================= Render admin login page==============================================
 
@@ -215,6 +216,17 @@ const adminLogout = (req, res) => {
     }
 }
 
+//========================================= Admin logout side ==============================================
+
+const orderget = async (req, res) => {
+    try {
+        const orderData = await Order.find({})
+        res.render("admin/orderPage" , {orderData})
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 //========================================= Export all modules ==============================================
 
 module.exports = {
@@ -230,7 +242,8 @@ module.exports = {
     UnblockCategory,
     editcategory,
     catEditPOST,
-    adminLogout
+    adminLogout,
+    orderget
 }
 
 

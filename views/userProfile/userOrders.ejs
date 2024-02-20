@@ -8,10 +8,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>FURNIX</title>
+    <title>FURNIX</title>
 
-	<!-- Favicon -->
-	<link rel="icon" type="image/png" sizes="32x32" href="media/favicon-16x16.png">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="media/favicon-16x16.png">
 
     <!-- Dependency Styles -->
     <link rel="stylesheet" href="libs/bootstrap/css/bootstrap.min.css" type="text/css">
@@ -38,59 +38,45 @@
         rel="stylesheet">
 </head>
 <style>
-    .addaddress {
-        background-color: black;
-        color: white;
-        width: 100%;
-        height: 40px;
+    .cancelorder{
+        background-color: red;
+        font-size: 13px;
+        padding-left: 15px;
+        padding-right: 15px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        border-radius: 30px;
+        color: rgb(255, 255, 255);
     }
-
-    .edit-account .form-row label {
-        display: block;
-        margin-bottom: 5px;
-    }
-
-    select[name="District"] option {
-        background-color: black;
-        color: white;
-    }
-
-    .addbtn {
-        background-color: black;
-        color: white;
-        width: 150px;
-        height: 40px;
-    }
-
-    .cancelbtn {
-        background-color: rgb(255, 255, 255);
+    .ordered{
+        background-color: rgb(255, 234, 0);
+        font-size: 13px;
+        padding-left: 15px;
+        padding-right: 15px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        border-radius: 30px;
         color: rgb(0, 0, 0);
-        border: 1px solid black;
-        width: 150px;
-        height: 40px;
     }
-
-    .hidden {
-        display: none;
+    .shippedorder{
+        background-color: rgb(136, 255, 0);
+        font-size: 13px;
+        padding-left: 15px;
+        padding-right: 15px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        border-radius: 30px;
+        color: rgb(0, 0, 0);
     }
-
-    .swal-custom {
-        background: linear-gradient(94deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.8240546218487395) 26%, rgba(0, 0, 0, 1) 53%, rgba(0, 0, 0, 0.8492647058823529) 79%, rgba(227, 227, 227, 0) 100%);
-        color: #ffffff;
-        width: 100%;
-    }
-
-    .swal-custom-ok-btn {
-        color: black !important;
-    }
-
-    .editDeletebtn {
-        background-color: white;
-        text-align: center;
-        border: 1px solid black;
-        border-radius: 50px;
-        width: 70px;
-        font-size: small;
+    .deliveredorder{
+        background-color: rgb(14, 219, 144);
+        font-size: 13px;
+        padding-left: 15px;
+        padding-right: 15px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        border-radius: 30px;
+        color: rgb(0, 0, 0);
     }
 </style>
 
@@ -99,118 +85,119 @@
         <header id="site-header" class="site-header header-v2">
 
 
-			<div class="header-mobile">
-				<div class="section-padding">
-					<div class="section-container large">
-						<div class="row">
-							<div class="col-xl-4 col-lg-4 col-md-4 col-sm-3 col-3 header-left">
-								<div class="navbar-header">
-									<button type="button" id="show-megamenu" class="navbar-toggle"></button>
-								</div>
-							</div>
-							<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 header-center">
-								<div class="site-logo">
-									<a href="index2.html">
-										<img width="400" height="79" src="media/logo.png"
-											alt="Ruper – Furniture HTML Theme" />
-									</a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+            <div class="header-mobile">
+                <div class="section-padding">
+                    <div class="section-container large">
+                        <div class="row">
+                            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-3 col-3 header-left">
+                                <div class="navbar-header">
+                                    <button type="button" id="show-megamenu" class="navbar-toggle"></button>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 header-center">
+                                <div class="site-logo">
+                                    <a href="index2.html">
+                                        <img width="400" height="79" src="media/logo.png"
+                                            alt="Ruper – Furniture HTML Theme" />
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-				<div class="header-mobile-fixed">
-					<!-- Shop -->
-					<div class="shop-page">
-						<a href="shop-grid-left.html"><i class="wpb-icon-shop"></i></a>
-					</div>
+                <div class="header-mobile-fixed">
+                    <!-- Shop -->
+                    <div class="shop-page">
+                        <a href="shop-grid-left.html"><i class="wpb-icon-shop"></i></a>
+                    </div>
 
-					<!-- Login -->
-					<div class="my-account">
-						<div class="login-header">
-							<a href="page-my-account.html"><i class="wpb-icon-user"></i></a>
-						</div>
-					</div>
+                    <!-- Login -->
+                    <div class="my-account">
+                        <div class="login-header">
+                            <a href="page-my-account.html"><i class="wpb-icon-user"></i></a>
+                        </div>
+                    </div>
 
-					<!-- Search -->
-					<div class="search-box">
-						<div class="search-toggle"><i class="wpb-icon-magnifying-glass"></i></div>
-					</div>
+                    <!-- Search -->
+                    <div class="search-box">
+                        <div class="search-toggle"><i class="wpb-icon-magnifying-glass"></i></div>
+                    </div>
 
-					<!-- Wishlist -->
-					<div class="wishlist-box">
-						<a href="shop-wishlist.html"><i class="wpb-icon-heart"></i></a>
-					</div>
-				</div>
-			</div>
+                    <!-- Wishlist -->
+                    <div class="wishlist-box">
+                        <a href="shop-wishlist.html"><i class="wpb-icon-heart"></i></a>
+                    </div>
+                </div>
+            </div>
 
-			<div class="header-desktop" style="background: linear-gradient(94deg, rgba(226,226,226,1) 0%, rgba(255,255,255,1) 53%, rgba(227,227,227,1) 100%);">
-				<div class="header-wrapper">
-					<div class="section-padding">
-						<div class="section-container large p-l-r">
-							<div class="row">
-								<div class="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-12 header-left">
-									<div class="site-navigation">
-										<nav id="main-navigation">
-											<ul id="menu-main-menu" class="menu">
-												<li class="level-0 menu-item">
-													<a href="/"><span class="menu-item-text">home</span></a>
-												</li>
-												<li class="level-0 menu-item">
-													<a href="/allproduct"><span class="menu-item-text">All</span></a>
-												</li>
-												<li class="level-0 menu-item">
-													<a href="page-contact.html"><span class="menu-item-text">about us
-														</span></a>
-												</li>
-												<li class="level-0 menu-item">
-													<a href="page-contact.html"><span
-															class="menu-item-text">Contact</span></a>
-												</li>
+            <div class="header-desktop"
+                style="background: linear-gradient(94deg, rgba(226,226,226,1) 0%, rgba(255,255,255,1) 53%, rgba(227,227,227,1) 100%);">
+                <div class="header-wrapper">
+                    <div class="section-padding">
+                        <div class="section-container large p-l-r">
+                            <div class="row">
+                                <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-12 header-left">
+                                    <div class="site-navigation">
+                                        <nav id="main-navigation">
+                                            <ul id="menu-main-menu" class="menu">
+                                                <li class="level-0 menu-item">
+                                                    <a href="/"><span class="menu-item-text">home</span></a>
+                                                </li>
+                                                <li class="level-0 menu-item">
+                                                    <a href="/allproduct"><span class="menu-item-text">All</span></a>
+                                                </li>
+                                                <li class="level-0 menu-item">
+                                                    <a href="page-contact.html"><span class="menu-item-text">about us
+                                                        </span></a>
+                                                </li>
+                                                <li class="level-0 menu-item">
+                                                    <a href="page-contact.html"><span
+                                                            class="menu-item-text">Contact</span></a>
+                                                </li>
 
-											</ul>
-										</nav>
-									</div>
-								</div>
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                </div>
 
-								<div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-12 text-center header-center">
-									<div class="site-logo">
-										<a href="index2.html">
-											<img width="400" height="79" src="media/logo.png"
-												alt="Ruper – Furniture HTML Theme" />
-										</a>
-									</div>
-								</div>
+                                <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-12 text-center header-center">
+                                    <div class="site-logo">
+                                        <a href="index2.html">
+                                            <img width="400" height="79" src="media/logo.png"
+                                                alt="Ruper – Furniture HTML Theme" />
+                                        </a>
+                                    </div>
+                                </div>
 
-								<div class="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-12 header-right">
-									<div class="header-page-link">
+                                <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-12 header-right">
+                                    <div class="header-page-link">
 
-										<!-- Search -->
-										<div class="search-box">
-											<div class="search-toggle"><i class="icon-search"></i></div>
-										</div>
+                                        <!-- Search -->
+                                        <div class="search-box">
+                                            <div class="search-toggle"><i class="icon-search"></i></div>
+                                        </div>
 
-										<!-- Wishlist -->
-										<div class="wishlist-box">
-											<a href="shop-wishlist.html"><i class="icon-heart"></i></a>
-										</div>
+                                        <!-- Wishlist -->
+                                        <div class="wishlist-box">
+                                            <a href="shop-wishlist.html"><i class="icon-heart"></i></a>
+                                        </div>
 
-										<!-- Cart -->
-										<div class="mini-cart top-cart wishlist-box">
-											<a class="cart-icon" href="/cart">
-												<div class="icons-cart"><i class="icon-large-paper-bag"></i>
-											</a>
-										</div>
+                                        <!-- Cart -->
+                                        <div class="mini-cart top-cart wishlist-box">
+                                            <a class="cart-icon" href="/cart">
+                                                <div class="icons-cart"><i class="icon-large-paper-bag"></i>
+                                            </a>
+                                        </div>
 
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</header>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
 
         <div id="site-main" class="site-main">
             <div id="main-content" class="main-content">
@@ -225,11 +212,11 @@
                                                 <li class="nav-item">
                                                     <a class="nav-link" href="/userprofilepage">Dashboard</a>
                                                 </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" href="/orders">Orders</a>
+                                                <li class="nav-item" style="background-color: rgb(0, 0, 0);">
+                                                    <a class="nav-link text-light">Orders</a>
                                                 </li>
-                                                <li class="nav-item" style="background-color: rgb(0, 0, 0); ">
-                                                    <a class="nav-link text-light">Addresses</a>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="/address">Addresses</a>
                                                 </li>
                                                 <li class="nav-item">
                                                     <a class="nav-link" href="/accountDetails">Account details</a>
@@ -243,234 +230,60 @@
                                             </ul>
                                         </nav>
                                         <div class="my-account-content tab-content">
-                                            <div
-                                                class="my-account-account-details d-flex justify-content-center align-items-center">
-                                                <div class="edit-account col-lg-8">
-                                                    <div class="form-row">
-                                                        <button class="addaddress" id="addAddress"
-                                                            onclick="addNewAddressbtn('<%= userDetails.address.length %>')">Add
-                                                            new Address</button>
-
-                                                    </div>
-                                                    <div id="elseID">
-                                                        <% if (userDetails.address.length===0) { %>
-                                                            <div style="width: 100%; height: 100px; background-color:
-                                                            rgb(255, 255, 255); display: flex; justify-content: center;
-                                                            align-items: center; border: 1px solid black;">
-                                                                <p style="color: black; margin-top: 10px;">Address not
-                                                                    found! Please insert</p>
-                                                            </div>
-
-
-
-                                                            <% } else { %>
-
-                                                                <% for( let i=0; i < userDetails.address.length; i++ ) {
-                                                                    %>
-                                                                    <div
-                                                                        style="background-color: rgb(228, 228, 228); width: 100%; height: 40px; border: 1px solid rgb(228, 228, 228); color: black; padding: 10px; display: flex; justify-content: space-between; align-items: center;">
-                                                                        <h5>
-                                                                            <%= userDetails.address[i].addressType %>
-                                                                        </h5>
-                                                                        <div>
-                                                                            <a href="/addressedit?id=<%= userDetails.address[i]._id %>"><button class="editDeletebtn">Edit</button></a>
-                                                                            <button class="editDeletebtn"
-                                                                                onclick="deleteAddress('<%= userDetails.address[i]._id %>')">Delete</button>
-                                                                        </div>
-
-                                                                    </div>
-                                                                    <div
-                                                                        style="background-color: rgb(255, 255, 255); width: 100%; height: auto; padding: 10px; border: 1px solid rgb(228, 228, 228); color: black;">
-                                                                        <p>
-                                                                            <%= userDetails.address[i].name %>
-                                                                                <br>
-                                                                                <%= userDetails.address[i].number %>
-                                                                                    <br>
-                                                                                    <%= userDetails.address[i].address
-                                                                                        %>,
-                                                                                        <%= userDetails.address[i].landmark
-                                                                                            %>,
-                                                                                            <%= userDetails.address[i].district
-                                                                                                %>,
-                                                                                                <%= userDetails.address[i].state
-                                                                                                    %>,
-                                                                                                    <%= userDetails.address[i].pin
-                                                                                                        %> <br>
-                                                                                                        <%= userDetails.address[i].alternateNumber
-                                                                                                            %>
-                                                                                                            <br>
-                                                                        </p>
-                                                                    </div>
-                                                                    <br>
-                                                                    <% } %>
+                                            <div class="my-account-account-details d-flex justify-content-center align-items-center">
+                                                <div class="edit-account col-lg-12 ">
+                                                    <div class="tab-pane" id="orders">
+                                                        <div class="my-account-orders">
+                                                            <div class="table-responsive">
+                                                                <table class="table">
+                                                                    <thead class="text-center" style="background-color: black;">
+                                                                        <tr >
+                                                                            <th class="text-light">OrderID</th>
+                                                                            <th class="text-light">Date</th>
+                                                                            <th class="text-light">Status</th>
+                                                                            <th class="text-light">Total</th>
+                                                                            <th class="text-light">Item</th>
+                                                                            <th class="text-light">Actions</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody class="text-center">
+                                                                        <% for( let i = 0; i < orderData.length; i++ ) { %>
+                                                                            <tr>
+                                                                                <td><%= orderData[i].orderID %></td>
+                                                                                <td><%= orderData[i].date %></td>
+                                                                                <td>
+                                                                                    <% if (orderData[i].status === "Ordered") { %>
+                                                                                        <span class="ordered">Ordered</span>
+                                                                                    <% } else if (orderData[i].status === "Cancelled") { %>
+                                                                                        <span class="cancelorder">Cancelled</span>
+                                                                                    <% } else if (orderData[i].status === "Shipped") { %>
+                                                                                        <span class="shippedorder">Shipped</span>
+                                                                                    <% } else if (orderData[i].status === "Delivered") { %>
+                                                                                        <span class="deliveredorder">Delivered</span>
+                                                                                    <% } %>
+                                                                                    
+                                                                                </td>
+                                                                                <td>₹<%= orderData[i].total %>.00</td>
+                                                                                <td><%= orderData[i].itemsCount %> Products</td>
+                                                                                <td><a href="#" class="btn-small d-block">View</a></td>
+                                                                            </tr>
                                                                         <% } %>
-                                                    </div>
-
-                                                    <b>
-                                                        <p style="color:  red;" class="text-center" id="fillerror"></p>
-                                                    </b>
-
-                                                    <div class="form-row row hidden" id="addressForm"
-                                                        style="margin-top: 30px;">
-                                                        <div class="col-lg-6">
-                                                            <label for="name">Name</label>
-                                                            <input type="text" name="name" id="name"
-                                                                style="width: 100%;" onclick="nameClear()">
-                                                            <b>
-                                                                <p style="color:  red;" class="text-center"
-                                                                    id="nameError"></p>
-                                                            </b>
-                                                            </p>
-                                                        </div>
-                                                        <div class="col-lg-6 m-b-20">
-                                                            <label for="phone">Phone number</label>
-                                                            <input type="text" style="width: 100%;" id="number"
-                                                                name="phone" onclick="phoneClear()">
-                                                            <b>
-                                                                <p style="color:  red;" class="text-center"
-                                                                    id="phoneError">
-                                                                </p>
-                                                            </b>
-                                                        </div>
-                                                        <div class="col-lg-12 m-b-20">
-                                                            <label for="Address">Address</label>
-                                                            <textarea name="Address" id="address" class="col-lg-12"
-                                                                onclick="addressClear()"></textarea>
-                                                            <b>
-                                                                <p style="color:  red;" class="text-center"
-                                                                    id="addressError"></p>
-                                                            </b>
-                                                        </div>
-                                                        <div class="col-lg-6 m-b-20">
-                                                            <label for="PIN">PIN code</label>
-                                                            <input type="text" id="pin" style="width: 100%;" name="PIN"
-                                                                onclick="pinClear()">
-                                                            <b>
-                                                                <p style="color:  red;" class="text-center"
-                                                                    id="pinError">
-                                                                </p>
-                                                            </b>
-                                                        </div>
-
-                                                        <div class="col-lg-6 m-b-20">
-                                                            <label for="District">City / Town /
-                                                                District</label>
-                                                            <input type="text" id="district" style="width: 100%;"
-                                                                name="District" onclick="districtClear()">
-                                                            <b>
-                                                                <p style="color:  red;" class="text-center"
-                                                                    id="districtError"></p>
-                                                            </b>
-                                                        </div>
-                                                        <div class="col-lg-6 m-b-20">
-                                                            <label for="State">State</label>
-                                                            <select id="state" style="width: 100%;" name="State"
-                                                                onchange="stateClear()">
-                                                                <option value="Andhra Pradesh">
-                                                                    Andhra Pradesh</option>
-                                                                <option value="Arunachal Pradesh">
-                                                                    Arunachal Pradesh
-                                                                </option>
-                                                                <option value="Assam">Assam</option>
-                                                                <option value="Bihar">Bihar</option>
-                                                                <option value="Chhattisgarh">
-                                                                    Chhattisgarh</option>
-                                                                <option value="Goa">Goa</option>
-                                                                <option value="Gujarat">Gujarat
-                                                                </option>
-                                                                <option value="Haryana">Haryana
-                                                                </option>
-                                                                <option value="Himachal Pradesh">
-                                                                    Himachal Pradesh
-                                                                </option>
-                                                                <option value="Jharkhand">Jharkhand
-                                                                </option>
-                                                                <option value="Karnataka">Karnataka
-                                                                </option>
-                                                                <option value="Kerala">Kerala
-                                                                </option>
-                                                                <option value="Madhya Pradesh">
-                                                                    Madhya Pradesh</option>
-                                                                <option value="Maharashtra">
-                                                                    Maharashtra</option>
-                                                                <option value="Manipur">Manipur
-                                                                </option>
-                                                                <option value="Meghalaya">Meghalaya
-                                                                </option>
-                                                                <option value="Mizoram">Mizoram
-                                                                </option>
-                                                                <option value="Nagaland">Nagaland
-                                                                </option>
-                                                                <option value="Odisha">Odisha
-                                                                </option>
-                                                                <option value="Punjab">Punjab
-                                                                </option>
-                                                                <option value="Rajasthan">Rajasthan
-                                                                </option>
-                                                                <option value="Sikkim">Sikkim
-                                                                </option>
-                                                                <option value="Tamil Nadu">Tamil
-                                                                    Nadu</option>
-                                                                <option value="Telangana">Telangana
-                                                                </option>
-                                                                <option value="Tripura">Tripura
-                                                                </option>
-                                                                <option value="Uttar Pradesh">Uttar
-                                                                    Pradesh</option>
-                                                                <option value="Uttarakhand">
-                                                                    Uttarakhand</option>
-                                                                <option value="West Bengal">West
-                                                                    Bengal</option>
-                                                            </select>
-                                                            <b>
-                                                                <p style="color:  red;" class="text-center"
-                                                                    id="stateError"></p>
-                                                            </b>
-                                                            </p>
-                                                        </div>
-                                                        <div class="col-lg-6 m-b-20">
-                                                            <label for="Address-type">Address
-                                                                type</label>
-                                                            <select name="Address-type" id="Address-type"
-                                                                style="width: 100%;">
-                                                                <option value="Home">Home</option>
-                                                                <option value="Work">Work</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="col-lg-6 m-b-20">
-                                                            <label for="Landmark">Landmark</label>
-                                                            <input type="text" id="Landmark" style="width: 100%;"
-                                                                name="Landmark" onclick="landClear()">
-                                                            <b>
-                                                                <p style="color:  red;" class="text-center"
-                                                                    id="landError">
-                                                                </p>
-                                                            </b>
-                                                        </div>
-                                                        <div class="col-lg-6 m-b-20" style="margin-bottom: 50px;">
-                                                            <label for="District">Alternate
-                                                                Phone</label>
-                                                            <input type="text" id="altNumber" style="width: 100%;"
-                                                                name="District" onclick="altClear()">
-                                                            <b>
-                                                                <p style="color:  red;" class="text-center"
-                                                                    id="altError">
-                                                                </p>
-                                                            </b>
-                                                        </div>
-                                                        <div class="col-lg-6 d-flex justify-content-center"
-                                                            style="margin: auto;">
-                                                            <button class="cancelbtn mr-2" id="cancel"
-                                                                onclick="cancel()">Cancel</button>
-                                                            <button class="addbtn" id="add"
-                                                                onclick="addAddress()">Add</button>
+                                                                        
+                                                                    
+                                                                        <!-- <td><span class="ordered">Ordered</span></td>
+                                                                            <td><span class="cancelorder">Cancelled</span></td>
+                                                                        <td><span class="shippedorder">Shipped</span></td>
+                                                                        <td><span class="deliveredorder">Delivered</span></td> -->
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
                                                         </div>
                                                     </div>
+
                                                 </div>
-
-
                                             </div>
                                         </div>
+                                        
 
                                     </div>
                                 </div>
@@ -835,7 +648,7 @@
                     Landmark,
                     altNumber
                 },
-                success: (response) => { 
+                success: (response) => {
                     if (response.status === "success") {
                         Swal.fire({
                             icon: "success",

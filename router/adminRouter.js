@@ -29,4 +29,7 @@ router.post("/editProductPOST" ,isAdmin,upload.array("image" , 5) ,  productCont
 router.get("/unlistproduct" ,isAdmin, productController.unlistproduct);
 router.get("/listproduct" ,isAdmin, productController.listproduct);
 
+//Order side routes
+router.get("/order" ,isAdmin , adminController.orderget)
+
 module.exports = router;
