@@ -48,23 +48,6 @@
 		width: 70px;
 		font-size: small;
 	}
-
-	input[type="checkbox"] {
-		display: inline-block;
-		width: 16px;
-		height: 16px;
-		border: 1px solid #000;
-		border-radius: 3px;
-	}
-
-	input[type="checkbox"]:checked::before {
-		content: '\2713';
-		display: block;
-		text-align: center;
-		line-height: 16px;
-		color: #ffffff;
-		background-color: black;
-	}
 </style>
 
 <body class="shop">
@@ -197,192 +180,6 @@
 							<div class="section-container p-l-r">
 								<div class="shop-checkout">
 									<div class="row">
-										<!-- <div class="col-xl-8 col-lg-7 col-md-12 col-12">
-													<div class="customer-details">
-														<div class="billing-fields">
-															<h3>Billing details</h3>
-															<div class="billing-fields-wrapper">
-																<p class="form-row form-row-first validate-required">
-																	<label>First name <span class="required" title="required">*</span></label>
-																	<span class="input-wrapper"><input type="text" class="input-text" name="billing_first_name" value=""></span>
-																</p>
-																<p class="form-row form-row-last validate-required">
-																	<label>Last name <span class="required" title="required">*</span></label>
-																	<span class="input-wrapper"><input type="text" class="input-text" name="billing_last_name" value=""></span>
-																</p>
-																<p class="form-row form-row-wide">
-																	<label>Company name <span class="optional">(optional)</span></label>
-																	<span class="input-wrapper"><input type="text" class="input-text" name="billing_company" value=""></span>
-																</p>
-																<p class="form-row form-row-wide validate-required">
-																	<label>Country / Region <span class="required" title="required">*</span></label>
-																	<span class="input-wrapper">
-																		<select name="billing_country" class="country-select custom-select">
-																			<option value="">Select a country / region…</option>
-																			<option value="AF">Afghanistan</option>
-																			<option value="AX">Åland Islands</option>
-																			<option value="AL">Albania</option>
-																			<option value="DZ">Algeria</option>
-																			<option value="AS">American Samoa</option>
-																			<option value="AD">Andorra</option>
-																		</select>
-																	</span>
-																</p>
-																<p class="form-row address-field validate-required form-row-wide">
-																	<label>Street address <span class="required" title="required">*</span></label>
-																	<span class="input-wrapper">
-																		<input type="text" class="input-text" name="billing_address_1" placeholder="House number and street name" value="">
-																	</span>
-																</p>
-																<p class="form-row address-field form-row-wide">
-																	<label>Apartment, suite, unit, etc.&nbsp;<span class="optional">(optional)</span></label>
-																	<span class="input-wrapper">
-																		<input type="text" class="input-text" name="billing_address_2" placeholder="Apartment, suite, unit, etc. (optional)" value="">
-																	</span>
-																</p>
-																<p class="form-row address-field validate-required form-row-wide">
-																	<label for="billing_city" class="">Town / City <span class="required" title="required">*</span></label>
-																	<span class="input-wrapper">
-																		<input type="text" class="input-text" name="billing_city" value="">
-																	</span>
-																</p>
-																<p class="form-row address-field validate-required validate-state form-row-wide">
-																	<label>State / County <span class="required" title="required">*</span></label>
-																	<span class="input-wrapper">
-																		<select name="billing_state" class="state-select custom-select">
-																			<option value="">Select a state / county…</option>
-																			<option value="VN">Vinnytsia Oblast</option>
-																			<option value="VL">Volyn Oblast</option>
-																			<option value="DP">Dnipropetrovsk Oblast</option>
-																			<option value="DT">Donetsk Oblast</option>
-																			<option value="ZT">Zhytomyr Oblast</option>
-																		</select>
-																	</span>
-																</p>
-																<p class="form-row address-field validate-required validate-postcode form-row-wide">
-																	<label>Postcode / ZIP <span class="required" title="required">*</span></label>
-																	<span class="input-wrapper">
-																		<input type="text" class="input-text" name="billing_postcode" value="">
-																	</span>
-																</p>
-																<p class="form-row form-row-wide validate-required validate-phone">
-																	<label>Phone <span class="required" title="required">*</span></label>
-																	<span class="input-wrapper">
-																		<input type="tel" class="input-text" name="billing_phone" value="">
-																	</span>
-																</p>
-																<p class="form-row form-row-wide validate-required validate-email">
-																	<label>Email address <span class="required" title="required">*</span></label>
-																	<span class="input-wrapper">
-																		<input type="email" class="input-text" name="billing_email" value="" autocomplete="off">
-																	</span>
-																</p>
-															</div>
-														</div>
-														<div class="account-fields">
-															<p class="form-row form-row-wide">
-																<label class="checkbox">
-																	<input class="input-checkbox" type="checkbox" name="createaccount" value="1"> 
-																	<span>Create an account?</span>
-																</label>
-															</p>
-															<div class="create-account">
-																<p class="form-row validate-required">
-																	<label>Create account password <span class="required" title="required">*</span></label>
-																	<span class="input-wrapper password-input">
-																		<input type="password" class="input-text" name="account_password" value="" autocomplete="off">
-																		<span class="show-password-input"></span>
-																	</span>
-																</p>								
-																<div class="clear"></div>
-															</div>
-														</div>
-													</div>
-													<div class="shipping-fields">
-														<p class="form-row form-row-wide ship-to-different-address">
-															<label class="checkbox">
-																<input class="input-checkbox" type="checkbox" name="ship_to_different_address" value="1"> 
-																<span>Ship to a different address?</span>
-															</label>
-														</p>
-														<div class="shipping-address">
-															<p class="form-row form-row-first validate-required">
-																<label>First name <span class="required" title="required">*</span></label>
-																<span class="input-wrapper">
-																	<input type="text" class="input-text" name="shipping_first_name" value="">
-																</span>
-															</p>
-															<p class="form-row form-row-last validate-required">
-																<label>Last name <span class="required" title="required">*</span></label>
-																<span class="input-wrapper">
-																	<input type="text" class="input-text" name="shipping_last_name" value="">
-																</span>
-															</p>
-															<p class="form-row form-row-wide">
-																<label>Company name <span class="optional">(optional)</span></label>
-																<span class="input-wrapper">
-																	<input type="text" class="input-text" name="shipping_company" value="">
-																</span>
-															</p>
-															<p class="form-row form-row-wide address-field validate-required">
-																<label for="shipping_country" class="">Country / Region <span class="required" title="required">*</span></label>
-																<span class="input-wrapper">
-																	<select name="billing_state" class="state-select custom-select">
-																		<option value="">Select a country / region…</option>
-																		<option value="VN">Vinnytsia Oblast</option>
-																		<option value="VL">Volyn Oblast</option>
-																		<option value="DP">Dnipropetrovsk Oblast</option>
-																		<option value="DT">Donetsk Oblast</option>
-																		<option value="ZT">Zhytomyr Oblast</option>
-																	</select>
-																</span>
-															</p>
-															<p class="form-row address-field validate-required form-row-wide">
-																<label>Street address <span class="required" title="required">*</span></label>
-																<span class="input-wrapper">
-																	<input type="text" class="input-text" name="shipping_address_1" placeholder="House number and street name" value="">
-																</span>
-															</p>
-															<p class="form-row address-field form-row-wide">
-																<label>Apartment, suite, unit, etc. <span class="optional">(optional)</span></label>
-																<span class="input-wrapper">
-																	<input type="text" class="input-text" name="shipping_address_2" placeholder="Apartment, suite, unit, etc. (optional)" value="">
-																</span>
-															</p>
-															<p class="form-row address-field validate-required form-row-wide">
-																<label>Town / City <span class="required" title="required">*</span></label>
-																<span class="input-wrapper"><input type="text" class="input-text" name="shipping_city" value=""></span>
-															</p>
-															<p class="form-row address-field validate-required validate-state form-row-wide">
-																<label for="shipping_state" class="">State / County <span class="required" title="required">*</span></label>
-																<span class="input-wrapper">
-																	<select name="billing_state" class="state-select custom-select">
-																		<option value="">Select a state / county…</option>
-																		<option value="VN">Vinnytsia Oblast</option>
-																		<option value="VL">Volyn Oblast</option>
-																		<option value="DP">Dnipropetrovsk Oblast</option>
-																		<option value="DT">Donetsk Oblast</option>
-																		<option value="ZT">Zhytomyr Oblast</option>
-																	</select>
-																</span>
-															</p>
-															<p class="form-row address-field validate-required validate-postcode form-row-wide">
-																<label>Postcode / ZIP <span class="required" title="required">*</span></label>
-																<span class="input-wrapper">
-																	<input type="text" class="input-text" name="shipping_postcode" value="">
-																</span>
-															</p>
-														</div>
-													</div>
-													<div class="additional-fields">
-														<p class="form-row notes">
-															<label>Order notes <span class="optional">(optional)</span></label>
-															<span class="input-wrapper">
-																<textarea name="order_comments" class="input-text" placeholder="Notes about your order, e.g. special notes for delivery." rows="2" cols="5"></textarea>
-															</span>
-														</p>
-													</div>
-												</div> -->
 										<div class="col-xl-6 col-lg-6 col-md-12 col-12">
 											<div class="checkout-review-order">
 												<div class="checkout-review-order-table">
@@ -403,8 +200,7 @@
 																	</div>
 																</div>
 																<div class="product-total">
-																	<span>₹<%= ProductResultarray[i].regularPrice %>
-																			.00</span>
+																	<span>₹<%= ProductResultarray[i].regularPrice %>.00</span>
 																</div>
 															</div>
 															<% } %>
@@ -432,7 +228,7 @@
 														<h2>Total</h2>
 														<div class="total-price">
 															<strong>
-																<span>₹<%= userData.total %>.00</span>
+																<span><b>₹<%= userData.total %>.00</b></span>
 															</strong>
 														</div>
 													</div>
@@ -443,27 +239,33 @@
 											<div class="checkout-review-order">
 												<div id="elseID">
 													<% if (userData.address.length===0) { %>
-														<div style="width: 100%; height: 100px; background-color:
-																rgb(255, 255, 255); display: flex; justify-content: center;
-																align-items: center; border: 1px solid black;">
-															<p style="color: black; margin-top: 10px;">Address not
+														<div
+															style="width: 100%; height: 150px; background-color:rgb(255, 255, 255); display: flex; flex-direction: column; justify-content: center; align-items: center; border: 1px solid black;">
+															<p style="color: black; margin-bottom: 10px;">Address not
 																found! Please insert</p>
+															<a href="/address"
+																style="text-decoration: none; display: flex; justify-content: center; align-items: center; width: 40%;">
+																<button class="addaddress"
+																	style="width: 100%; color: white; background-color: black; height: 40px;">Go
+																	to address page</button>
+															</a>
 														</div>
+
 														<% } else { %>
 															<div
-																style="display: flex; justify-content: center; align-items: center; width: 100%; height: 40px; background-color: rgb(227, 227, 227); margin-bottom: 20px; padding-top: 15px;">
-																<p style="color: black; font-size: 20px;">Select your
+																style="display: flex; justify-content: center; align-items: center; width: 100%; height: 40px; background-color: rgb(0, 0, 0); margin-bottom: 20px; padding-top: 15px;">
+																<p style="color: rgb(255, 255, 255); font-size: 15px;">
+																	Select your
 																	address</p>
 															</div>
 
 															<% for( let i=0; i < userData.address.length; i++ ) { %>
 																<div
 																	style="background-color: rgb(228, 228, 228); width: 100%; height: 40px; border: 1px solid rgb(228, 228, 228); color: black; padding: 10px; display: flex; justify-content: space-between; align-items: center;">
-																	<input type="checkbox" id="addressCheckbox<%= i %>"
-																		name="addressCheckbox"
-																		value="<%= userData.address[i]._id %>"
-																		onclick="handleCheckboxSelection(this)">
-																	<h5>
+																	<input type="radio" id="addressCheckbox<%= i %>"
+																		name="addressCheckbox" 
+																		value="<%= userData.address[i]._id %>">
+																	<h5 class="text-align-center">
 																		<%= userData.address[i].addressType %>
 																	</h5>
 																	<div>
@@ -477,14 +279,15 @@
 																	<p>
 																		<%= userData.address[i].name %><br>
 																			<%= userData.address[i].number %><br>
-																				<%= userData.address[i].address %>, <%=
-																						userData.address[i].landmark %>,
-																						<%= userData.address[i].district
-																							%>, <%=
-																								userData.address[i].state
-																								%>, <%=
-																									userData.address[i].pin
-																									%> <br>
+																				<%= userData.address[i].address %>,
+																					<%=userData.address[i].landmark %>,
+																						<%=
+																							userData.address[i].district%>
+																							,
+																							<%=userData.address[i].state%>
+																								,
+																								<%=userData.address[i].pin%>
+																									<br>
 																									<%= userData.address[i].alternateNumber
 																										%><br>
 																	</p>
@@ -500,31 +303,11 @@
 									<div class="checkout-review-order">
 										<div id="payment" class="checkout-payment">
 											<ul class="payment-methods methods custom-radio">
+												<h5><b>Select your payment method</b></h5>
+												<br>
 												<li class="payment-method">
 													<input type="radio" class="input-radio" name="payment_method"
-														value="bacs" checked="checked">
-													<label for="payment_method_bacs">Direct bank
-														transfer</label>
-													<div class="payment-box">
-														<p>Make your payment directly into our bank account.
-															Please use your Order ID as the payment reference.
-															Your order will not be shipped until the funds have
-															cleared in our account.</p>
-													</div>
-												</li>
-												<li class="payment-method">
-													<input type="radio" class="input-radio" name="payment_method"
-														value="cheque">
-													<label>Check payments</label>
-													<div class="payment-box">
-														<p>Please send a check to Store Name, Store Street,
-															Store Town, Store State / County, Store Postcode.
-														</p>
-													</div>
-												</li>
-												<li class="payment-method">
-													<input type="radio" class="input-radio" name="payment_method"
-														value="cod">
+														value="Cash on delivery">
 													<label>Cash on delivery</label>
 													<div class="payment-box">
 														<p>Pay with cash upon delivery.</p>
@@ -532,11 +315,13 @@
 												</li>
 												<li class="payment-method">
 													<input type="radio" class="input-radio" name="payment_method"
-														value="paypal">
-													<label>PayPal</label>
+														value="Razorpay">
+													<label>Razorpay</label>
 													<div class="payment-box">
-														<p>Pay via PayPal; you can pay with your credit card if
-															you don’t have a PayPal account.</p>
+														<p>Make your payment directly into Razerpay.
+															Please use your Order ID as the payment reference.
+															Your order will not be shipped until the funds have
+															cleared in our account.</p>
 													</div>
 												</li>
 											</ul>
@@ -544,8 +329,20 @@
 												<div class="terms-and-conditions-wrapper">
 													<div class="privacy-policy-text"></div>
 												</div>
+												<div style="margin: auto; display: none;" id="selectAddressID">
+													<b>
+														<p class="text-danger">Please select an address for placing your
+															order</p>
+													</b>
+												</div>
+												<div style="margin: auto; display: none;" id="selectpayment">
+													<b>
+														<p class="text-danger">Please select a payment method</p>
+													</b>
+												</div>
 												<button type="submit" class="button alt" name="checkout_place_order"
-													value="Place order">Place
+													value="Place order" style="margin-top: 15px;"
+													onclick="placeOrder('<%= userData.address.length%>')">Place
 													order</button>
 											</div>
 										</div>
@@ -700,255 +497,6 @@
 		</div>
 	</div>
 
-	<!-- Wishlist -->
-	<div class="wishlist-popup">
-		<div class="wishlist-popup-inner">
-			<div class="wishlist-popup-content">
-				<div class="wishlist-popup-content-top">
-					<span class="wishlist-name">Wishlist</span>
-					<span class="wishlist-count-wrapper"><span class="wishlist-count">2</span></span>
-					<span class="wishlist-popup-close"></span>
-				</div>
-				<div class="wishlist-popup-content-mid">
-					<table class="wishlist-items">
-						<tbody>
-							<tr class="wishlist-item">
-								<td class="wishlist-item-remove"><span></span></td>
-								<td class="wishlist-item-image">
-									<a href="shop-details.html">
-										<img width="600" height="600" src="media/product/3.jpg" alt="">
-									</a>
-								</td>
-								<td class="wishlist-item-info">
-									<div class="wishlist-item-name">
-										<a href="shop-details.html">Chair Oak Matt Lacquered</a>
-									</div>
-									<div class="wishlist-item-price">
-										<span>$150.00</span>
-									</div>
-									<div class="wishlist-item-time">June 4, 2022</div>
-								</td>
-								<td class="wishlist-item-actions">
-									<div class="wishlist-item-stock">
-										In stock
-									</div>
-									<div class="wishlist-item-add">
-										<div data-title="Add to cart">
-											<a rel="nofollow" href="#" class="button">Add to cart</a>
-										</div>
-									</div>
-								</td>
-							</tr>
-							<tr class="wishlist-item">
-								<td class="wishlist-item-remove"><span></span></td>
-								<td class="wishlist-item-image">
-									<a href="shop-details.html">
-										<img width="600" height="600" src="media/product/4.jpg" alt="">
-									</a>
-								</td>
-								<td class="wishlist-item-info">
-									<div class="wishlist-item-name">
-										<a href="shop-details.html">Pillar Dining Table Round</a>
-									</div>
-									<div class="wishlist-item-price">
-										<del aria-hidden="true"><span>$150.00</span></del>
-										<ins><span>$100.00</span></ins>
-									</div>
-									<div class="wishlist-item-time">June 4, 2022</div>
-								</td>
-								<td class="wishlist-item-actions">
-									<div class="wishlist-item-stock">
-										In stock
-									</div>
-									<div class="wishlist-item-add">
-										<div data-title="Add to cart">
-											<a rel="nofollow" href="#" class="button">Add to cart</a>
-										</div>
-									</div>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-				<div class="wishlist-popup-content-bot">
-					<div class="wishlist-popup-content-bot-inner">
-						<a class="wishlist-page" href="shop-wishlist.html">
-							Open wishlist page
-						</a>
-						<span class="wishlist-continue" data-url="">
-							Continue shopping
-						</span>
-					</div>
-					<div class="wishlist-notice wishlist-notice-show">Added to the wishlist!</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<!-- Compare -->
-	<div class="compare-popup">
-		<div class="compare-popup-inner">
-			<div class="compare-table">
-				<div class="compare-table-inner">
-					<a href="#" id="compare-table-close" class="compare-table-close">
-						<span class="compare-table-close-icon"></span>
-					</a>
-					<div class="compare-table-items">
-						<table id="product-table" class="product-table">
-							<thead>
-								<tr>
-									<th>
-										<a href="#" class="compare-table-settings">Settings</a>
-									</th>
-									<th>
-										<a href="shop-details.html">Chair Oak Matt Lacquered</a> <span
-											class="remove">remove</span>
-									</th>
-									<th>
-										<a href="shop-details.html">Zunkel Schwarz</a> <span
-											class="remove">remove</span>
-									</th>
-									<th>
-										<a href="shop-details.html">Namaste Vase</a> <span class="remove">remove</span>
-									</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr class="tr-image">
-									<td class="td-label">Image</td>
-									<td>
-										<a href="shop-details.html">
-											<img width="600" height="600" src="media/product/3.jpg" alt="">
-										</a>
-									</td>
-									<td>
-										<a href="shop-details.html">
-											<img width="600" height="600" src="media/product/1.jpg" alt="">
-										</a>
-									</td>
-									<td>
-										<a href="shop-details.html">
-											<img width="600" height="600" src="media/product/2.jpg" alt="">
-										</a>
-									</td>
-								</tr>
-								<tr class="tr-sku">
-									<td class="td-label">SKU</td>
-									<td>VN00189</td>
-									<td></td>
-									<td>D1116</td>
-								</tr>
-								<tr class="tr-rating">
-									<td class="td-label">Rating</td>
-									<td>
-										<div class="star-rating">
-											<span style="width:80%"></span>
-										</div>
-									</td>
-									<td>
-										<div class="star-rating">
-											<span style="width:100%"></span>
-										</div>
-									</td>
-									<td></td>
-								</tr>
-								<tr class="tr-price">
-									<td class="td-label">Price</td>
-									<td><span class="amount">$150.00</span></td>
-									<td><del><span class="amount">$150.00</span></del> <ins><span
-												class="amount">$100.00</span></ins></td>
-									<td><span class="amount">$200.00</span></td>
-								</tr>
-								<tr class="tr-add-to-cart">
-									<td class="td-label">Add to cart</td>
-									<td>
-										<div data-title="Add to cart">
-											<a href="#" class="button">Add to cart</a>
-										</div>
-									</td>
-									<td>
-										<div data-title="Add to cart">
-											<a href="#" class="button">Add to cart</a>
-										</div>
-									</td>
-									<td>
-										<div data-title="Add to cart">
-											<a href="#" class="button">Add to cart</a>
-										</div>
-									</td>
-								</tr>
-								<tr class="tr-description">
-									<td class="td-label">Description</td>
-									<td>Phasellus sed volutpat orci. Fusce eget lore mauris vehicula elementum gravida
-										nec dui. Aenean aliquam varius ipsum, non ultricies tellus sodales eu. Donec
-										dignissim viverra nunc, ut aliquet magna posuere eget.</td>
-									<td>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-										incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-										nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-										Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-										fugiat nulla pariatur.</td>
-									<td>The EcoSmart Fleece Hoodie full-zip hooded jacket provides medium weight fleece
-										comfort all year around. Feel better in this sweatshirt because Hanes keeps
-										plastic bottles of landfills by using recycled polyester.7.8 ounce fleece
-										sweatshirt made with up to 5 percent polyester created from recycled plastic.
-									</td>
-								</tr>
-								<tr class="tr-content">
-									<td class="td-label">Content</td>
-									<td>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-										incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-										nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-										Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-										fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-										culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde
-										omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam
-										rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto
-										beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
-										aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui
-										ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum
-										quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi
-										tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</td>
-									<td>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-										incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-										nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-										Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-										fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-										culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde
-										omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam
-										rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto
-										beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
-										aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui
-										ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum
-										quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi
-										tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</td>
-									<td>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-										incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-										nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-										Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-										fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-										culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde
-										omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam
-										rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto
-										beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
-										aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui
-										ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum
-										quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi
-										tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</td>
-								</tr>
-								<tr class="tr-dimensions">
-									<td class="td-label">Dimensions</td>
-									<td>N/A</td>
-									<td>N/A</td>
-									<td>N/A</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
 	<!-- Page Loader -->
 	<div class="page-preloader">
 		<div class="loader">
@@ -970,20 +518,69 @@
 	<script src="libs/slider/js/jquery.slider.js"></script>
 	<script src="libs/elevatezoom/js/jquery.elevatezoom.js"></script>
 	<script src="libs/select2/js/select2.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+		integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 	<!-- Site Scripts -->
 	<script src="assets/js/app.js"></script>
 </body>
 
 <script>
-	function handleCheckboxSelection(checkbox) {
-		var checkboxes = document.getElementsByName('addressCheckbox');
-		for (var i = 0; i < checkboxes.length; i++) {
-			if (checkboxes[i] !== checkbox) {
-				checkboxes[i].checked = false;
+
+	function placeOrder(data) {
+		if (data == 0) {
+			document.getElementById("selectAddressID").style.display = "block";
+			setTimeout(() => {
+				document.getElementById("selectAddressID").style.display = "none";
+			}, 3000);
+		} else {
+			let addressChecked = false;
+			const addressradio = document.getElementsByName("addressCheckbox")
+			for (let i = 0; i < addressradio.length; i++) {
+				if (addressradio[i].checked) {
+					addressChecked = addressradio[i].value;
+					break;
+				} else {
+					addressChecked = false;
+				}
+			}
+			if (addressChecked) {
+				let paymentchecked = false
+				const paymentradio = document.getElementsByName("payment_method");
+				for (let j = 0; j < paymentradio.length; j++) {
+					if (paymentradio[j].checked) {
+						paymentchecked = paymentradio[j].value;
+						break;
+					} else {
+						paymentchecked = false;
+					}
+				}
+				if (paymentchecked) {
+					$.ajax({
+						url: "/checkout",
+						method: "post",
+						data: {
+							addressChecked,
+							paymentchecked
+						},
+						success: (response) => { }
+					})
+				} else {
+					document.getElementById("selectpayment").style.display = "block";
+					setTimeout(() => {
+						document.getElementById("selectpayment").style.display = "none";
+					}, 2000);
+				}
+			} else {
+				document.getElementById("selectAddressID").style.display = "block";
+				setTimeout(() => {
+					document.getElementById("selectAddressID").style.display = "none";
+				}, 2000);
 			}
 		}
 	}
+
 </script>
 
 </html>

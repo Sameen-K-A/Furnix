@@ -303,8 +303,9 @@ const userLogout = (req, res) => {
 
 const allproduct = async (req, res) => {
     try {
+        const userData = await User.findOne({email : req.session.user});
         const productDetails = await Product.find({ isBlocked: false });
-        res.render("user/userAllProduct", { productDetails });
+        res.render("user/userAllProduct", { productDetails , userData});
     } catch (error) {
         console.log(error);
     }

@@ -295,7 +295,7 @@
 																						<% } else { %>
 																							<span class="price">₹<%=
 																									userCartproducts[i].regularPrice
-																									%></span>
+																									%>.00</span>
 																							<% } %>
 
 																				</td>
@@ -348,11 +348,10 @@
 																							-</span>
 																						<% } else { %>
 																							<p class="price text-dark"
-																								id="subtotal<%= i %>">₹
-																								<%= userCartproducts[i].regularPrice
+																								id="subtotal<%= i %>">₹<%= userCartproducts[i].regularPrice
 																									*
 																									userData.cart[i].qty
-																									%>
+																									%>.00
 																							</p>
 																							<% } %>
 

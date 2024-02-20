@@ -313,11 +313,8 @@
                                                                                         </div>
                                                                                     </a>
                                                                                     <% } %>
-                                                                                        <div
-                                                                                            class="product-thumb-hover">
-
-                                                                                            <a
-                                                                                                href="/productDetailspage?id=<%= productDetails[i]._id %>">
+                                                                                        <div class="product-thumb-hover">
+                                                                                            <a href="/productDetailspage?id=<%= productDetails[i]._id %>">
                                                                                                 <img width="600"
                                                                                                     height="600"
                                                                                                     src="/uploads/<%= productDetails[i].images[0]%>"
@@ -330,24 +327,14 @@
                                                                                                     alt="">
                                                                                             </a>
                                                                                         </div>
-                                                                                        <div class="product-button"
-                                                                                            style="z-index: 9999;">
-                                                                                            <div class="btn-add-to-cart"
-                                                                                                data-title="Add to cart">
-                                                                                                <a rel="nofollow"
-                                                                                                    href="#"
-                                                                                                    class="product-btn button">Add
-                                                                                                    to
-                                                                                                    cart</a>
-                                                                                            </div>
-                                                                                            <div class="btn-wishlist"
-                                                                                                data-title="Wishlist">
-                                                                                                <button
-                                                                                                    class="product-btn">Add
-                                                                                                    to
-                                                                                                    wishlist</button>
-                                                                                            </div>
-                                                                                        </div>
+                                                                                <div class="product-button" style="z-index: 9999;">
+                                                                                    <div class="btn-add-to-cart" data-title="Add to cart">
+                                                                                        <a class="product-btn">Add to cart</a>
+                                                                                    </div>
+                                                                                    <div data-title="Add to wishlist">
+                                                                                        <button class="product-btn">Add to wishlist</button>
+                                                                                    </div>       
+                                                                                </div>
                                                                             </div>
                                                                             <div class="products-content">
                                                                                 <div class="contents text-center">

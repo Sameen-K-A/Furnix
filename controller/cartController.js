@@ -38,6 +38,7 @@ const cartpage = async (req, res) => {
 
 const cartpagepost = async (req, res) => {
     try {
+        console.log("not login");
         const productID = req.body.id;
         const product = await Product.findOne({ _id: productID });
         const obj = {
@@ -47,6 +48,7 @@ const cartpagepost = async (req, res) => {
             await User.updateOne({ email: req.session.user }, { $push: { cart: obj }, $inc: { total: product.regularPrice } });
             res.json({ status: "okay" })
         } else {
+            
             res.json({ status: "notlogin" })
         }
     } catch (error) {
@@ -189,6 +191,18 @@ const checkout = async (req, res) => {
     }
 }
 
+//========================================= User checkout page rendering ==============================================
+
+const checkoutPost = async (req, res) => {
+    try {
+        const addressID = req.body.addressChecked;
+        const payment = req.body.paymentchecked;
+        console.log(addressID , payment);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 //========================================= Export all modules ==============================================
 
 module.exports = {
@@ -198,5 +212,6 @@ module.exports = {
     cartPlus,
     cartMinus,
     checkingCheckout,
-    checkout
+    checkout,
+    checkoutPost
 }

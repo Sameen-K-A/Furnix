@@ -63,7 +63,8 @@ router.post("/cartMinus" , isUser , isBlocked , cartController.cartMinus);
 
 // user checkout page
 router.get("/checkingCheckout" , isUser , isBlocked , cartController.checkingCheckout)
-router.get("/checkout" , isUser , isBlocked , cartController.checkout)
+router.get("/checkout" , isUser , isBlocked , cartController.checkout);
+router.post("/checkout" , isUser , isBlocked , cartController.checkoutPost)
 
 
 
