@@ -261,18 +261,19 @@ const checkoutPost = async (req, res) => {
 const orderSuccessfull = async (req, res) => {
     try {
         const productData = await Product.find({});
-        const userData = await User.findOne({email : req.session.user});
-        for(let i=0 ; i<userData.cart.length ; i++) {
-            for(let j=0 ; j<productData.length ; j++) {
+        const userData = await User.findOne({ email: req.session.user });
+        for (let i = 0; i < userData.cart.length; i++) {
+            for (let j = 0; j < productData.length; j++) {
                 const cartString = userData.cart[i].productID.toString();
                 const productString = productData[j]._id.toString();
-                if(cartString === productString){
-                    productData[j].stock -= userData.cart[i].qty
+                if (cartString === productString) {
+                    productData[j].stock -= userData.cart[i].qty;
+                    await productData[j].save();
+                    break;
                 }
-                productData[j].save();
             }
         }
-        res.render("user/orderSuccess")
+        res.render("user/orderSuccess");
     } catch (error) {
         console.log(error);
     }

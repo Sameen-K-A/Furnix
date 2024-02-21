@@ -354,11 +354,10 @@
                                                     <% if (orderInfodata.status != "Cancelled") { %>
                                                         <button
                                                         style="background-color: rgb(0, 0, 0); width: 50%; color: #ffffff; border-radius: 50px; height: 35px;"
-                                                        onclick="cancelorder('<%= orderInfodata._id %>')">Cancel
-                                                        order</button>
+                                                        onclick="cancelorder('<%= orderInfodata._id %>')">Cancel order</button>
                                                     <% } else { %>
                                                         <button
-                                                        style="background-color: rgb(0, 0, 0); width: 50%; color: #ffffff; border-radius: 50px; height: 35px;" >Order ancelled</button>
+                                                        style="background-color: #ffffff; border: 1px solid rgb(255, 0, 0); width: 50%; border-radius: 50px; height: 35px;" >Order cancelled</button>
                                                     <% } %>
                                                     
                                                     
@@ -583,6 +582,9 @@
                                 },
                                 timer: 1500
                             });
+                            setTimeout(() => {
+                                window.location.reload()
+                            }, 1500);
                         } else if (response.status === "okay") {
                             Swal.fire({
                                 icon: "success",
@@ -593,6 +595,9 @@
                                 },
                                 timer: 1500
                             });
+                            setTimeout(() => {
+                                window.location.reload()
+                            }, 1500);
                         }
                     }
                 })

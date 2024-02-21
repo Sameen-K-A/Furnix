@@ -191,8 +191,8 @@ const editAddress = async (req, res) => {
 
 const orders = async (req, res) => {
     try {
-        const orderData = await Order.find({userEmail : req.session.user})
-       res.render("userProfile/userOrders" , {orderData})
+        const orderData = await Order.find({ userEmail: req.session.user })
+        res.render("userProfile/userOrders", { orderData })
     } catch (error) {
         console.log(error);
     }
@@ -203,8 +203,8 @@ const orders = async (req, res) => {
 const vieworderinfo = async (req, res) => {
     try {
         const orderID = req.query.id;
-        const orderInfodata = await Order.findOne({_id : orderID});
-        res.render("userProfile/orderInfo" , {orderInfodata})
+        const orderInfodata = await Order.findOne({ _id: orderID });
+        res.render("userProfile/orderInfo", { orderInfodata })
     } catch (error) {
         console.log(error);
     }
@@ -215,23 +215,25 @@ const vieworderinfo = async (req, res) => {
 const cancelOrder = async (req, res) => {
     try {
         const cancelID = req.body.id;
-        const productData = await Product.find({});
-        const cancelProducts = await Order.findOne({_id : cancelID});
-        for(let i=0 ; i< productData.length ; i++) {
-            for(let  j=0 ; j<cancelProducts.product.length ; j++){
-                const proString = productData[i]._id.toString();
-                const canString = cancelProducts.product[j]._id;
-                console.log(canString);
+        const cancelProcess = await Order.updateOne({ _id: cancelID }, { status: "Cancelled" });
+        if (cancelProcess.modifiedCount === 1) {
+            const productData = await Product.find({});
+            const cancelProducts = await Order.findOne({ _id: cancelID });
+            for (let i = 0; i < productData.length; i++) {
+                for (let j = 0; j < cancelProducts.product.length; j++) {
+                    const proString = productData[i]._id.toString();
+                    const canString = cancelProducts.product[j]._id.toString();
+                    if (proString === canString) {
+                        console.log(cancelProducts.product[j].cartQty);
+                        productData[j].stock += cancelProducts.product[j].cartQty
+                        productData[j].save()
+                    }
+                }
             }
+            res.json({ status: "okay" })
+        } else {
+            res.json({ status: "oops" })
         }
-
-
-        // const cancelProcess = await Order.updateOne({_id : cancelID} , {status : "Cancelled"});
-        // if(cancelProcess.modifiedCount === 1){
-        //     res.json({status : "okay"})
-        // } else {
-        //     res.json({status : "oops"})
-        // }
     } catch (error) {
         console.log(error);
     }
