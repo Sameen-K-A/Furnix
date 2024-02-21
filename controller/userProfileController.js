@@ -1,6 +1,7 @@
 const User = require("../model/userModel");
 const bcrypt = require("bcrypt");
 const Order = require("../model/orderModel");
+const Product = require("../model/productModel");
 
 //========================================= inside user profile page change password session rendering ==============================================
 
@@ -197,6 +198,45 @@ const orders = async (req, res) => {
     }
 }
 
+//========================================= Update edited address area ==============================================
+
+const vieworderinfo = async (req, res) => {
+    try {
+        const orderID = req.query.id;
+        const orderInfodata = await Order.findOne({_id : orderID});
+        res.render("userProfile/orderInfo" , {orderInfodata})
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+//========================================= user cancel order ==============================================
+
+const cancelOrder = async (req, res) => {
+    try {
+        const cancelID = req.body.id;
+        const productData = await Product.find({});
+        const cancelProducts = await Order.findOne({_id : cancelID});
+        for(let i=0 ; i< productData.length ; i++) {
+            for(let  j=0 ; j<cancelProducts.product.length ; j++){
+                const proString = productData[i]._id.toString();
+                const canString = cancelProducts.product[j]._id;
+                console.log(canString);
+            }
+        }
+
+
+        // const cancelProcess = await Order.updateOne({_id : cancelID} , {status : "Cancelled"});
+        // if(cancelProcess.modifiedCount === 1){
+        //     res.json({status : "okay"})
+        // } else {
+        //     res.json({status : "oops"})
+        // }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 //========================================= Exporting all modules ==============================================
 
 module.exports = {
@@ -210,5 +250,7 @@ module.exports = {
     editAddress,
     editAddressget,
     editdetailspost,
-    orders
+    orders,
+    vieworderinfo,
+    cancelOrder
 }

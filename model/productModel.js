@@ -39,7 +39,10 @@ const productSchema = new mongoose.Schema({
     isBlocked : {
         type : Boolean,
         default : false,
-    }
+    },
+    cartQty : {
+        type : Number
+    },
 }, {
     versionKey : false
 });

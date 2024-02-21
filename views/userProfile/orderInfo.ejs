@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<!-- Mirrored from caketheme.com/html/ruper/page-my-account.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 26 Jan 2024 08:52:33 GMT -->
+<!-- Mirrored from caketheme.com/html/ruper/shop-cart.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 26 Jan 2024 08:52:33 GMT -->
 
 <head>
     <!-- Meta Data -->
@@ -12,6 +12,7 @@
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" sizes="32x32" href="media/favicon-16x16.png">
+
 
     <!-- Dependency Styles -->
     <link rel="stylesheet" href="libs/bootstrap/css/bootstrap.min.css" type="text/css">
@@ -38,7 +39,17 @@
         rel="stylesheet">
 </head>
 <style>
-    .cancelorder{
+    .swal-custom {
+        background: linear-gradient(94deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.8240546218487395) 26%, rgba(0, 0, 0, 1) 53%, rgba(0, 0, 0, 0.8492647058823529) 79%, rgba(227, 227, 227, 0) 100%);
+        color: #ffffff;
+        width: 100%;
+    }
+
+    .swal-custom-ok-btn {
+        color: black !important;
+    }
+
+    .cancelorder {
         background-color: red;
         font-size: 13px;
         padding-left: 15px;
@@ -48,7 +59,8 @@
         border-radius: 30px;
         color: rgb(255, 255, 255);
     }
-    .ordered{
+
+    .ordered {
         background-color: rgb(255, 234, 0);
         font-size: 13px;
         padding-left: 15px;
@@ -58,7 +70,8 @@
         border-radius: 30px;
         color: rgb(0, 0, 0);
     }
-    .shippedorder{
+
+    .shippedorder {
         background-color: rgb(136, 255, 0);
         font-size: 13px;
         padding-left: 15px;
@@ -68,7 +81,8 @@
         border-radius: 30px;
         color: rgb(0, 0, 0);
     }
-    .deliveredorder{
+
+    .deliveredorder {
         background-color: rgb(14, 219, 144);
         font-size: 13px;
         padding-left: 15px;
@@ -76,15 +90,13 @@
         padding-top: 5px;
         padding-bottom: 5px;
         border-radius: 30px;
-           color: rgb(0, 0, 0);
+        color: rgb(0, 0, 0);
     }
 </style>
 
-<body class="blog">
+<body class="shop">
     <div id="page" class="hfeed page-wrapper">
         <header id="site-header" class="site-header header-v2">
-
-
             <div class="header-mobile">
                 <div class="section-padding">
                     <div class="section-container large">
@@ -96,7 +108,7 @@
                             </div>
                             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 header-center">
                                 <div class="site-logo">
-                                    <a href="index2.html">
+                                    <a href="/">
                                         <img width="400" height="79" src="media/logo.png"
                                             alt="Ruper – Furniture HTML Theme" />
                                     </a>
@@ -109,13 +121,13 @@
                 <div class="header-mobile-fixed">
                     <!-- Shop -->
                     <div class="shop-page">
-                        <a href="shop-grid-left.html"><i class="wpb-icon-shop"></i></a>
+                        <a href="/"><i class="wpb-icon-shop"></i></a>
                     </div>
 
                     <!-- Login -->
                     <div class="my-account">
                         <div class="login-header">
-                            <a href="page-my-account.html"><i class="wpb-icon-user"></i></a>
+                            <a href="/userProfile"><i class="wpb-icon-user"></i></a>
                         </div>
                     </div>
 
@@ -191,6 +203,11 @@
                                         </div>
 
                                     </div>
+
+                                    <!-- profile -->
+                                    <div class="wishlist-box">
+                                        <a href="/userprofilepage"><i class="wpb-icon-user"></i></a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -203,87 +220,155 @@
             <div id="main-content" class="main-content">
                 <div id="primary" class="content-area">
                     <div id="content" class="site-content" role="main">
-                        <div class="section-padding">
+                        <div class="section-padding" style="margin-top: 100px;">
                             <div class="section-container p-l-r">
-                                <div class="page-my-account">
-                                    <div class="my-account-wrap clearfix" style="margin-top: 100px;">
-                                        <nav class="my-account-navigation" style="padding: 0px;">
-                                            <ul class="text-center">
-                                                <li class="nav-item">
-                                                    <a class="nav-link" href="/userprofilepage">Dashboard</a>
-                                                </li>
-                                                <li class="nav-item" style="background-color: rgb(0, 0, 0);">
-                                                    <a class="nav-link text-light">Orders</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" href="/address">Addresses</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" href="/accountDetails">Account details</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" href="/changepassword">Change password</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link text-dark" onclick="logout()">Logout</a>
-                                                </li>
-                                            </ul>
-                                        </nav>
-                                        <div class="my-account-content tab-content">
-                                            <div class="my-account-account-details d-flex justify-content-center align-items-center">
-                                                <div class="edit-account col-lg-12 ">
-                                                    <div class="tab-pane" id="orders">
-                                                        <div class="my-account-orders">
-                                                            <div class="table-responsive">
-                                                                <table class="table">
-                                                                    <thead class="text-center" style="background-color: black;">
-                                                                        <tr >
-                                                                            <th class="text-light">OrderID</th>
-                                                                            <th class="text-light">Date</th>
-                                                                            <th class="text-light">Status</th>
-                                                                            <th class="text-light">Total</th>
-                                                                            <th class="text-light">Item</th>
-                                                                            <th class="text-light">Actions</th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody class="text-center">
-                                                                        <% for( let i = 0; i < orderData.length; i++ ) { %>
-                                                                            <tr>
-                                                                                <td><%= orderData[i].orderID %></td>
-                                                                                <td><%= orderData[i].date %></td>
-                                                                                <td>
-                                                                                    <% if (orderData[i].status === "Ordered") { %>
-                                                                                        <span class="ordered">Ordered</span>
-                                                                                    <% } else if (orderData[i].status === "Cancelled") { %>
-                                                                                        <span class="cancelorder">Cancelled</span>
-                                                                                    <% } else if (orderData[i].status === "Shipped") { %>
-                                                                                        <span class="shippedorder">Shipped</span>
-                                                                                    <% } else if (orderData[i].status === "Delivered") { %>
-                                                                                        <span class="deliveredorder">Delivered</span>
-                                                                                    <% } %>
-                                                                                    
-                                                                                </td>
-                                                                                <td>₹<%= orderData[i].total %>.00</td>
-                                                                                <td><%= orderData[i].itemsCount %> Products</td>
-                                                                                <td><a href="/vieworderinfo?id=<%= orderData[i]._id %>" class="btn-small d-block" style="background-color: black; color: white;">View</a></td>
-                                                                            </tr>
-                                                                        <% } %>
-                                                                        
-                                                                    
-                                                                        <!-- <td><span class="ordered">Ordered</span></td>
-                                                                            <td><span class="cancelorder">Cancelled</span></td>
-                                                                        <td><span class="shippedorder">Shipped</span></td>
-                                                                        <td><span class="deliveredorder">Delivered</span></td> -->
-                                                                    </tbody>
-                                                                </table>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                <div class="shop-cart">
+                                    <div class="row justify-content-center  ">
+                                        <div class="col-xl-12 col-lg-12 col-md-12 col-12">
+                                            <div class="table-responsive">
+                                                <table class="cart-items table" cellspacing="0">
+                                                    <thead style="background-color: rgb(219, 219, 219);">
+                                                        <tr>
+                                                            <th class="product-thumbnail text-dark">Product
+                                                            </th>
+                                                            <th class="product-price text-dark text-center">
+                                                                Date</th>
+                                                            <th class="product-price text-dark text-center">
+                                                                Address</th>
+                                                            <th class="product-price text-dark text-center">
+                                                                Payment</th>
+                                                            <th class="product-price text-dark text-center">
+                                                                Price</th>
+                                                            <th class="product-quantity text-dark text-center">
+                                                                Quantity</th>
+                                                            <th class="product-subtotal text-dark text-center">
+                                                                Subtotal</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <% for (let i=0; i < orderInfodata.product.length; i++) { %>
+                                                            <tr class="cart-item align-right">
+                                                                <td class="product-thumbnail text-center">
+                                                                    <a><img width="600" height="600"
+                                                                            src="/uploads/<%= orderInfodata.product[i].images[0] %>"
+                                                                            class="product-image"
+                                                                            alt="product image"></a>
+                                                                    <div class="product-name">
+                                                                        <a>
+                                                                            <%= orderInfodata.product[i].name %>
+                                                                        </a>
+                                                                    </div>
+                                                                </td>
+                                                                <td class="product-price text-center">
+                                                                    <div class="product-name">
+                                                                        <a>
+                                                                            <%= orderInfodata.date %>
+                                                                        </a>
+                                                                    </div>
+                                                                </td>
+                                                                <td class="product-price text-center">
+                                                                    <div class="product-name">
+                                                                        <a>
+                                                                            <%= orderInfodata.address.name %>
+                                                                        </a><br>
+                                                                        <a>
+                                                                            <%= orderInfodata.address.address %>
+                                                                        </a><br>
+                                                                        <a>
+                                                                            <%= orderInfodata.address.district %>
+                                                                        </a>, <a>
+                                                                            <%= orderInfodata.address.state %>
+                                                                        </a>, <a>
+                                                                            <%= orderInfodata.address.pin %>
+                                                                        </a>
+                                                                    </div>
+                                                                </td>
+                                                                <td class="product-price text-center">
+                                                                    <div class="product-name">
+                                                                        <a>
+                                                                            <%= orderInfodata.paymentMethod %>
+                                                                        </a>
+                                                                    </div>
+                                                                </td>
+                                                                <td class="product-price text-center">
+                                                                    <div class="product-name">
+                                                                        <a>₹<%= orderInfodata.product[i].regularPrice %>
+                                                                                .00</a>
+                                                                    </div>
+                                                                </td>
+                                                                <td class="product-price text-center">
+                                                                    <div class="product-name">
+                                                                        <a>
+                                                                            <%= orderInfodata.product[i].cartQty %>
+                                                                        </a>
+                                                                    </div>
+                                                                </td>
+                                                                <td class="product-price text-center">
+                                                                    <div class="product-name">
+                                                                        <a>
+                                                                            <%= orderInfodata.product[i].regularPrice *
+                                                                                orderInfodata.product[i].cartQty %>.00
+                                                                        </a>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <% } %>
+                                                    </tbody>
+                                                </table>
 
-                                                </div>
                                             </div>
                                         </div>
-                                        
+                                        <div class="col-xl-3 col-lg-3 col-md-5 col-5" style="margin-top: 30px;">
+                                            <div class="table-responsive">
+                                                <table class="cart-items table" cellspacing="0">
+                                                    <thead>
+                                                        <tr style="background-color: rgb(219, 219, 219);">
+                                                            <th class="product-thumbnail text-dark text-center"
+                                                                colspan="2">Total</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr class="cart-item align-right">
+                                                            <td style="margin: auto;">
+                                                                <div class="product-name">
+                                                                    <a>Sub total</a><br>
+                                                                    <a>Shipping</a><br><br>
+                                                                    <p style="font-size: 20px; color: black;">Total</p>
+                                                                </div>
+                                                            </td>
+                                                            <td style="margin: auto;">
+                                                                <div class="product-name">
+                                                                    <a>₹<%= orderInfodata.total %>.00</a><br>
+                                                                    <a>free shipping</a><br><br>
+                                                                    <p style="font-size: 20px; color: black;"><b>₹<%=
+                                                                                orderInfodata.total %>.00</b></p>
+                                                                </div>
+                                                            </td>
+
+                                                        </tr>
+
+                                                    </tbody>
+
+                                                </table>
+                                                <div class="justify-content-center align-items-center d-flex">
+                                                    <% if (orderInfodata.status != "Cancelled") { %>
+                                                        <button
+                                                        style="background-color: rgb(0, 0, 0); width: 50%; color: #ffffff; border-radius: 50px; height: 35px;"
+                                                        onclick="cancelorder('<%= orderInfodata._id %>')">Cancel
+                                                        order</button>
+                                                    <% } else { %>
+                                                        <button
+                                                        style="background-color: rgb(0, 0, 0); width: 50%; color: #ffffff; border-radius: 50px; height: 35px;" >Order ancelled</button>
+                                                    <% } %>
+                                                    
+                                                    
+                                                    
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+
 
                                     </div>
                                 </div>
@@ -412,7 +497,7 @@
     <div class="search-overlay">
         <div class="close-search"></div>
         <div class="wrapper-search">
-            <form role="search" method="get" class="search-from ajax-search" action="#">
+            <form role="search" method="get" class="search-from ajax-search">
                 <div class="search-box">
                     <button id="searchsubmit" class="btn" type="submit">
                         <i class="icon-search"></i>
@@ -436,15 +521,13 @@
         </div>
     </div>
 
-
-
-    <!-- Page Loader -->
-    <!-- <div class="page-preloader">
-	    	<div class="loader">
-	    		<div></div>
-	    		<div></div>
-	    	</div>
-	    </div> -->
+    <!-- Page Loader 
+	<div class="page-preloader">
+		<div class="loader">
+			<div></div>
+			<div></div>
+		</div>
+	</div>   -->
 
     <!-- Dependency Scripts -->
     <script src="libs/popper/js/popper.min.js"></script>
@@ -457,54 +540,53 @@
     <script src="libs/slider/js/jquery.dependClass-0.1.js"></script>
     <script src="libs/slider/js/draggable-0.1.js"></script>
     <script src="libs/slider/js/jquery.slider.js"></script>
-    <script src="assets/js/app.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="libs/elevatezoom/js/jquery.elevatezoom.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
         integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Site Scripts -->
+    <script src="assets/js/app.js"></script>
 </body>
 
 <script>
-
-    // Delete address
-    function deleteAddress(addressID) {
+    function cancelorder(id) {
         Swal.fire({
-            title: "Are you sure?",
-            text: "You want to Delete this address?",
+            title: "Cancel your order?",
+            text: "Are you sure? Do you want to cancel your order?",
             showCancelButton: true,
             confirmButtonColor: "#FF0000",
             cancelButtonColor: "#ffffff",
-            confirmButtonText: "Delete",
+            confirmButtonText: "Cancel order",
             customClass: {
                 popup: 'swal-custom',
                 cancelButton: 'swal-custom-ok-btn'
             }
         }).then((result) => {
             if (result.isConfirmed) {
-                const ID = addressID
                 $.ajax({
-                    url: "/address",
-                    method: "delete",
+                    url: "/cancelOrder",
+                    method: "post",
                     data: {
-                        ID
+                        id
                     },
                     success: (response) => {
-                        if (response.status === "deleted") {
+                        if (response.status === "oops") {
                             Swal.fire({
-                                icon: "success",
-                                title: "Changes saved successfully",
+                                icon: "error",
+                                iconColor: "#ff0000",
+                                title: "Some network issue please try again later",
                                 showConfirmButton: false,
                                 customClass: {
                                     popup: 'swal-custom',
                                 },
                                 timer: 1500
-                            }).then(() => {
-                                window.location.reload();
                             });
-                        } else if (response.status === "wrong") {
+                        } else if (response.status === "okay") {
                             Swal.fire({
-                                icon: "error",
-                                title: "Ooops somthing wrong",
+                                icon: "success",
+                                title: "Cancelled your order",
                                 showConfirmButton: false,
                                 customClass: {
                                     popup: 'swal-custom',
@@ -517,244 +599,6 @@
             }
         });
     }
-
-    // add address div open
-    function addNewAddressbtn(totalAddressCount) {
-        if (totalAddressCount < 3) {
-            document.getElementById("addAddress").style.display = "none";
-            let addressForm = document.getElementById("addressForm");
-            addressForm.classList.remove("hidden");
-            let addressdiv = document.getElementById("elseID");
-            addressdiv.classList.add("hidden");
-        } else {
-            Swal.fire({
-                icon: "error",
-                text: "You have reached the limit. You have already created three addresses",
-                customClass: {
-                    popup: 'swal-custom',
-                    confirmButton: 'swal-custom-ok-btn'
-                },
-                confirmButtonColor: '#ffffff'
-            });
-        }
-
-    }
-
-
-    // add address button
-    function addAddress() {
-        // Inputs
-        const name = document.getElementById("name").value.trim();
-        const number = document.getElementById("number").value.trim();
-        const address = document.getElementById("address").value.trim();
-        const pin = document.getElementById("pin").value.trim();
-        const state = document.getElementById("state").value.trim();
-        const district = document.getElementById("district").value.trim();
-        const AddressType = document.getElementById("Address-type").value.trim();
-        const Landmark = document.getElementById("Landmark").value.trim();
-        const altNumber = document.getElementById("altNumber").value.trim();
-
-        // Errors
-        const fillerror = document.getElementById("fillerror");
-        const nameError = document.getElementById("nameError");
-        const phoneError = document.getElementById("phoneError");
-        const addressError = document.getElementById("addressError");
-        const pinError = document.getElementById("pinError");
-        const stateError = document.getElementById("stateError");
-        const districtError = document.getElementById("districtError");
-        const landError = document.getElementById("landError");
-        const altError = document.getElementById("altError");
-
-        // Reset all error messages
-        fillerror.textContent = "";
-        nameError.textContent = "";
-        phoneError.textContent = "";
-        addressError.textContent = "";
-        pinError.textContent = "";
-        stateError.textContent = "";
-        districtError.textContent = "";
-        landError.textContent = "";
-        altError.textContent = "";
-
-        // Check individual field validations
-        if (name === "") {
-            nameError.textContent = "Name is required";
-        } else if (name.length < 3) {
-            nameError.textContent = "Name must have at least 3 characters";
-        } else if (!/^[A-Za-z\s]+$/.test(name)) {
-            nameError.textContent = "Name can only contain alphabets and spaces";
-        }
-
-        if (number === "") {
-            phoneError.textContent = "Phone number is required";
-        } else if (!/^\d+$/.test(number)) {
-            phoneError.textContent = "Phone number must contain only numbers";
-        } else if (number.length !== 10) {
-            phoneError.textContent = "Phone number must be 10 digits";
-        }
-
-        if (address === "") {
-            addressError.textContent = "Address is required";
-        } else if (!/^[a-zA-Z0-9\s,'-]+$/.test(address)) {
-            addressError.textContent = "Enter a valid address";
-        }
-
-        if (pin === "") {
-            pinError.textContent = "PIN code is required";
-        } else if (!/^\d+$/.test(pin)) {
-            pinError.textContent = "PIN code must contain only numbers";
-        } else if (pin.length !== 6) {
-            pinError.textContent = "PIN code must be 6 digits";
-        }
-
-        if (district === "") {
-            districtError.textContent = "District is required";
-        } else if (!/^[a-zA-Z0-9\s,'-]+$/.test(district)) {
-            districtError.textContent = "Enter a valid district name";
-        }
-
-        if (Landmark === "") {
-            landError.textContent = "Landmark is required";
-        } else if (!/^[a-zA-Z0-9\s,'-]+$/.test(Landmark)) {
-            landError.textContent = "Enter a valid landmark";
-        }
-
-        if (altNumber === "") {
-            altError.textContent = "Alternate phone number is required";
-        } else if (!/^\d+$/.test(altNumber)) {
-            altError.textContent = "Alternate phone number must contain only numbers";
-        } else if (altNumber.length !== 10) {
-            altError.textContent = "Alternate phone number must be 10 digits";
-        }
-
-
-        if (nameError.textContent !== "" || phoneError.textContent !== "" || addressError.textContent !== "" || pinError.textContent !== "" || districtError.textContent !== "" || landError.textContent !== "" || altError.textContent !== "") {
-            fillerror.textContent = "Fill all fields correctly . . .";
-            setTimeout(() => {
-                fillerror.textContent = "";
-            }, 3000);
-        } else {
-            $.ajax({
-                url: "/address",
-                method: "post",
-                data: {
-                    name,
-                    number,
-                    address,
-                    pin,
-                    state,
-                    district,
-                    AddressType,
-                    Landmark,
-                    altNumber
-                },
-                success: (response) => {
-                    if (response.status === "success") {
-                        Swal.fire({
-                            icon: "success",
-                            title: "Changes saved successfully",
-                            showConfirmButton: false,
-                            customClass: {
-                                popup: 'swal-custom',
-                            },
-                            timer: 1500
-                        });
-                        setTimeout(() => {
-                            window.location.href = "http://localhost:5000/address";
-                        }, 1500);
-
-                    } else if (response.status === "wrong") {
-                        Swal.fire({
-                            icon: "error",
-                            title: "Changes saved successfully",
-                            showConfirmButton: false,
-                            customClass: {
-                                popup: 'swal-custom',
-                            },
-                            timer: 1500
-                        });
-                        setTimeout(() => {
-                            window.location.href = "http://localhost:5000/address";
-                        }, 1500);
-                    }
-                }
-            })
-        }
-    }
-
-
-    // input box clear functions
-
-    function nameClear() {
-        document.getElementById("nameError").textContent = ""
-    }
-    function phoneClear() {
-        document.getElementById("phoneError").textContent = ""
-    }
-    function addressClear() {
-        document.getElementById("addressError").textContent = ""
-    }
-    function pinClear() {
-        document.getElementById("pinError").textContent = ""
-    }
-    function stateClear() {
-        document.getElementById("stateError").textContent = ""
-    }
-    function districtClear() {
-        document.getElementById("districtError").textContent = ""
-    }
-    function landClear() {
-        document.getElementById("landError").textContent = ""
-    }
-    function altClear() {
-        document.getElementById("altError").textContent = ""
-    }
-
-
-    // cancel add address div closing
-    function cancel() {
-        Swal.fire({
-            title: "Are you sure?",
-            text: "You want to discard this details?",
-            showCancelButton: true,
-            confirmButtonColor: "#FF0000",
-            cancelButtonColor: "#ffffff",
-            confirmButtonText: "Discard",
-            customClass: {
-                popup: 'swal-custom',
-                cancelButton: 'swal-custom-ok-btn'
-            }
-        }).then((result) => {
-            if (result.isConfirmed) {
-                document.getElementById("addAddress").style.display = "Block"
-                let addressForm = document.getElementById("addressForm");
-                addressForm.classList.add("hidden");
-                let addressdiv = document.getElementById("elseID");
-                addressdiv.classList.remove("hidden");
-            }
-        });
-
-    }
-
-    function logout() {
-        Swal.fire({
-            title: "Are you sure?",
-            text: "You want to Logout from FURNIX?",
-            showCancelButton: true,
-            confirmButtonColor: "#FF0000",
-            cancelButtonColor: "#ffffff",
-            confirmButtonText: "Logout",
-            customClass: {
-                popup: 'swal-custom',
-                cancelButton: 'swal-custom-ok-btn'
-            }
-        }).then((result) => {
-            if (result.isConfirmed) {
-                window.location.href = "/userLogout"
-            }
-        });
-    }
-
 </script>
 
 </html>

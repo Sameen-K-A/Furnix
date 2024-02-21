@@ -192,13 +192,12 @@ const checkout = async (req, res) => {
     }
 }
 
-//========================================= User checkout page rendering ==============================================
+//========================================= User checkout page post store datas to database  ==============================================
 
 const checkoutPost = async (req, res) => {
     try {
         const addressID = req.body.addressChecked;
         const payment = req.body.paymentchecked;
-
         const userData = await User.findOne({ email: req.session.user });
         const productData = await Product.find({});
         const orderProducts = [];
@@ -211,7 +210,7 @@ const checkoutPost = async (req, res) => {
                     const productIdString = productData[j]._id.toString();
                     if (cartproductIdString === productIdString) {
                         if (productData[j].stock >= userData.cart[i].qty) {
-                            orderProducts.push(productData[j])
+                            orderProducts.push(productData[j]);
                             nextpage = true;
                         } else {
                             nextpage = false;
@@ -226,8 +225,13 @@ const checkoutPost = async (req, res) => {
                     address = userData.address[i]
                 }
             }
+            for (let i = 0; i < orderProducts.length; i++) {
+                for(let j=0 ; j<userData.cart.length ; j++){
+                    orderProducts[i].cartQty = userData.cart[i].qty
+                }
+            }
             const orderData = {
-                product: orderProducts,
+                product : orderProducts,
                 address: address,
                 orderID: idGenerator(),
                 userEmail: req.session.user,
@@ -243,7 +247,6 @@ const checkoutPost = async (req, res) => {
                 } else{
                     res.json({ status: "network" })
                 }
-                
             } else {
                 res.json({ status: "stocklimit" })
             }
@@ -257,6 +260,18 @@ const checkoutPost = async (req, res) => {
 
 const orderSuccessfull = async (req, res) => {
     try {
+        const productData = await Product.find({});
+        const userData = await User.findOne({email : req.session.user});
+        for(let i=0 ; i<userData.cart.length ; i++) {
+            for(let j=0 ; j<productData.length ; j++) {
+                const cartString = userData.cart[i].productID.toString();
+                const productString = productData[j]._id.toString();
+                if(cartString === productString){
+                    productData[j].stock -= userData.cart[i].qty
+                }
+                productData[j].save();
+            }
+        }
         res.render("user/orderSuccess")
     } catch (error) {
         console.log(error);
