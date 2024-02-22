@@ -187,7 +187,7 @@ const editAddress = async (req, res) => {
     }
 }
 
-//========================================= Update edited address area ==============================================
+//========================================= Render user profile order page ==============================================
 
 const orders = async (req, res) => {
     try {
@@ -198,7 +198,7 @@ const orders = async (req, res) => {
     }
 }
 
-//========================================= Update edited address area ==============================================
+//========================================= Render separate order info page ==============================================
 
 const vieworderinfo = async (req, res) => {
     try {
@@ -217,27 +217,26 @@ const cancelOrder = async (req, res) => {
         const cancelID = req.body.id;
         const cancelProcess = await Order.updateOne({ _id: cancelID }, { status: "Cancelled" });
         if (cancelProcess.modifiedCount === 1) {
-            const productData = await Product.find({});
             const cancelProducts = await Order.findOne({ _id: cancelID });
-            for (let i = 0; i < productData.length; i++) {
-                for (let j = 0; j < cancelProducts.product.length; j++) {
-                    const proString = productData[i]._id.toString();
-                    const canString = cancelProducts.product[j]._id.toString();
-                    if (proString === canString) {
-                        console.log(cancelProducts.product[j].cartQty);
-                        productData[j].stock += cancelProducts.product[j].cartQty
-                        productData[j].save()
-                    }
+            for (let j = 0; j < cancelProducts.product.length; j++) {
+                const cancelProduct = cancelProducts.product[j];
+                const product = await Product.findById(cancelProduct._id);
+                if (product) {
+                    product.stock += cancelProduct.cartQty;
+                    await product.save();
                 }
             }
-            res.json({ status: "okay" })
+            res.json({ status: "okay" });
         } else {
-            res.json({ status: "oops" })
+            res.json({ status: "oops" });
         }
     } catch (error) {
         console.log(error);
+        res.status(500).json({ status: "error" });
     }
 }
+
+
 
 //========================================= Exporting all modules ==============================================
 

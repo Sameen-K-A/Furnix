@@ -5,9 +5,11 @@ const adminRouter = require("./router/adminRouter.js");
 const session = require("express-session");
 const connectDB = require("./Database/database.js");
 const nocache = require("nocache");
+const path = require("path")
 const dotenv = require("dotenv")
 dotenv.config();
 connectDB()
+
 
 app.use(express.static("public"));
 app.use(express.static("views"));
@@ -21,19 +23,15 @@ app.use(session({
 }))
 
 app.use(nocache())
-
+app.use("/static" ,express.static(path.join(__dirname, "public")));
 app.set('view engine' , 'ejs');
 app.use("/admin" , adminRouter);
 app.use('/' , userRouter);
 
 
-// app.use("*",(req,res)=>{
-//     res.status(404).render("page-404")
-// });
-
-// app.use((err,req,res,next)=>{
-//     res.status(500).render("page-404")
-// })
+app.use("*",(req,res)=>{
+    res.status(404).render("user/page-404")
+});
 
 
 app.listen(process.env.PORT, console.log(`Server started at ${process.env.PORT} number`));

@@ -20,6 +20,10 @@ const productSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    time : {
+        type : String,
+        required: true
+    },
     status: {
         type: String,
         default: "Ordered"

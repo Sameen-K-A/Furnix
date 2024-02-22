@@ -235,47 +235,55 @@
                                                     <div class="tab-pane" id="orders">
                                                         <div class="my-account-orders">
                                                             <div class="table-responsive">
-                                                                <table class="table">
-                                                                    <thead class="text-center" style="background-color: black;">
-                                                                        <tr >
-                                                                            <th class="text-light">OrderID</th>
-                                                                            <th class="text-light">Date</th>
-                                                                            <th class="text-light">Status</th>
-                                                                            <th class="text-light">Total</th>
-                                                                            <th class="text-light">Item</th>
-                                                                            <th class="text-light">Actions</th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody class="text-center">
-                                                                        <% for( let i = 0; i < orderData.length; i++ ) { %>
-                                                                            <tr>
-                                                                                <td><%= orderData[i].orderID %></td>
-                                                                                <td><%= orderData[i].date %></td>
-                                                                                <td>
-                                                                                    <% if (orderData[i].status === "Ordered") { %>
-                                                                                        <span class="ordered">Ordered</span>
-                                                                                    <% } else if (orderData[i].status === "Cancelled") { %>
-                                                                                        <span class="cancelorder">Cancelled</span>
-                                                                                    <% } else if (orderData[i].status === "Shipped") { %>
-                                                                                        <span class="shippedorder">Shipped</span>
-                                                                                    <% } else if (orderData[i].status === "Delivered") { %>
-                                                                                        <span class="deliveredorder">Delivered</span>
-                                                                                    <% } %>
-                                                                                    
-                                                                                </td>
-                                                                                <td>₹<%= orderData[i].total %>.00</td>
-                                                                                <td><%= orderData[i].itemsCount %> Products</td>
-                                                                                <td><a href="/vieworderinfo?id=<%= orderData[i]._id %>" class="btn-small d-block" style="background-color: black; color: white;">View</a></td>
+                                                                <% if (orderData.length === 0) { %>
+                                                                    <div style="width: 100%; height: 100%; background-color:
+                                                                    rgb(255, 255, 255); display: flex; justify-content: center;
+                                                                    align-items: center; border: 1px solid black;">
+                                                                        <p style="color: black; margin-top: 10px;">Orders not found</p>
+                                                                    </div>
+                                                                <% } else { %>
+                                                                    <table class="table">
+                                                                        <thead class="text-center" style="background-color: black;">
+                                                                            <tr >
+                                                                                <th class="text-light">OrderID</th>
+                                                                                <th class="text-light">Date</th>
+                                                                                <th class="text-light">Status</th>
+                                                                                <th class="text-light">Total</th>
+                                                                                <th class="text-light">Item</th>
+                                                                                <th class="text-light">Actions</th>
                                                                             </tr>
-                                                                        <% } %>
+                                                                        </thead>
+                                                                        <tbody class="text-center">
+                                                                            <% for( let i = 0; i < orderData.length; i++ ) { %>
+                                                                                <tr>
+                                                                                    <td><%= orderData[i].orderID %></td>
+                                                                                    <td><%= orderData[i].date %></td>
+                                                                                    <td>
+                                                                                        <% if (orderData[i].status === "Ordered") { %>
+                                                                                            <span class="ordered">Ordered</span>
+                                                                                        <% } else if (orderData[i].status === "Cancelled") { %>
+                                                                                            <span class="cancelorder">Cancelled</span>
+                                                                                        <% } else if (orderData[i].status === "Shipped") { %>
+                                                                                            <span class="shippedorder">Shipped</span>
+                                                                                        <% } else if (orderData[i].status === "Delivered") { %>
+                                                                                            <span class="deliveredorder">Delivered</span>
+                                                                                        <% } %>
+                                                                                        
+                                                                                    </td>
+                                                                                    <td>₹<%= orderData[i].total %>.00</td>
+                                                                                    <td><%= orderData[i].itemsCount %> Products</td>
+                                                                                    <td><a href="/vieworderinfo?id=<%= orderData[i]._id %>" class="btn-small d-block" style="background-color: black; color: white;">View</a></td>
+                                                                                </tr>
+                                                                            <% } %>
+                                                                            
                                                                         
-                                                                    
-                                                                        <!-- <td><span class="ordered">Ordered</span></td>
-                                                                            <td><span class="cancelorder">Cancelled</span></td>
-                                                                        <td><span class="shippedorder">Shipped</span></td>
-                                                                        <td><span class="deliveredorder">Delivered</span></td> -->
-                                                                    </tbody>
-                                                                </table>
+                                                                            <!-- <td><span class="ordered">Ordered</span></td>
+                                                                                <td><span class="cancelorder">Cancelled</span></td>
+                                                                            <td><span class="shippedorder">Shipped</span></td>
+                                                                            <td><span class="deliveredorder">Delivered</span></td> -->
+                                                                        </tbody>
+                                                                    </table>
+                                                                <% } %>
                                                             </div>
                                                         </div>
                                                     </div>

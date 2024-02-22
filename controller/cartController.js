@@ -3,6 +3,7 @@ const Product = require("../model/productModel");
 const Order = require("../model/orderModel")
 const dateGenerator = require("../config/dateGenerator");
 const idGenerator = require("../config/randomID");
+const timeGenerator = require("../config/timeGenerator");
 
 //========================================= Cart page rendering ==============================================
 
@@ -236,6 +237,7 @@ const checkoutPost = async (req, res) => {
                 orderID: idGenerator(),
                 userEmail: req.session.user,
                 date: dateGenerator(),
+                time : timeGenerator(),
                 total: userData.total,
                 itemsCount: userData.cart.length,
                 paymentMethod: payment
@@ -273,6 +275,9 @@ const orderSuccessfull = async (req, res) => {
                 }
             }
         }
+        userData.cart = [];
+        userData.total = 0;
+        userData.save()
         res.render("user/orderSuccess");
     } catch (error) {
         console.log(error);

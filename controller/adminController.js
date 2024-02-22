@@ -1,6 +1,7 @@
 const User = require("../model/userModel");
 const Category = require("../model/categoryModel");
-const Order = require("../model/orderModel")
+const Order = require("../model/orderModel");
+const Product = require("../model/productModel");
 
 //========================================= Render admin login page==============================================
 
@@ -221,7 +222,47 @@ const adminLogout = (req, res) => {
 const orderget = async (req, res) => {
     try {
         const orderData = await Order.find({})
-        res.render("admin/orderPage" , {orderData})
+        res.render("admin/orderPage", { orderData })
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+//========================================= Admin logout side ==============================================
+
+const orderInfo = async (req, res) => {
+    try {
+        const id = req.query.id;
+        const orderDetails = await Order.findById({ _id: id });
+        res.render("admin/orderInfo", { orderDetails })
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+//========================================= Admin order status changing side ==============================================
+
+const statusChanger = async (req, res) => {
+    try {
+        const newStatus = req.body.value;
+        const changeOrderID = req.body.id;
+        const orderData = await Order.findById({ _id: changeOrderID });
+        if (orderData.status !== newStatus) {
+            orderData.status = newStatus;
+            orderData.save();
+            if (newStatus === "Cancelled") {
+                for( let i=0 ; i<orderData.product.length ; i++){
+                    const product = await Product.findById({_id : orderData.product[i]._id});;
+                    if(product){
+                        product.stock += orderData.product[i].cartQty;
+                        product.save();
+                    }
+                }
+            }
+            res.json({ status: "okay" })
+        } else {
+            res.json({ status: "nochange" })
+        }
     } catch (error) {
         console.log(error);
     }
@@ -243,7 +284,9 @@ module.exports = {
     editcategory,
     catEditPOST,
     adminLogout,
-    orderget
+    orderget,
+    orderInfo,
+    statusChanger
 }
 
 

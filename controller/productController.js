@@ -113,6 +113,18 @@ const listproduct = async (req, res) => {
     }
 }
 
+//========================================= product list side ==============================================
+
+const productinfo = async (req, res) => {
+    try {
+        const proID = req.query.id;
+        const info = await Product.findById({_id : proID});
+        res.render("admin/productInfo" , {info})
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 //========================================= Export all modules ==============================================
 
 module.exports = {
@@ -122,5 +134,6 @@ module.exports = {
     editproduct,
     editproductPOST,
     unlistproduct,
-    listproduct
+    listproduct,
+    productinfo
 }
