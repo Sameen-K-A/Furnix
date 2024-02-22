@@ -57,8 +57,8 @@ router.post("/cancelOrder" , isUser , isBlocked , userProfileController.cancelOr
 router.get("/cart" , isBlocked , cartController.cartpage);
 router.post("/cart" ,  isBlocked , cartController.cartpagepost);
 router.delete("/cart" ,isUser ,  isBlocked , cartController.deleteproduct);
-router.post("/cartPlus" , isUser , isBlocked ,  cartController.cartPlus);
-router.post("/cartMinus" , isUser , isBlocked , cartController.cartMinus);
+router.post("/cartPlus" , isBlocked ,  cartController.cartPlus);
+router.post("/cartMinus" , isBlocked , cartController.cartMinus);
 
 // user checkout page
 router.get("/checkingCheckout" , isUser , isBlocked , cartController.checkingCheckout)

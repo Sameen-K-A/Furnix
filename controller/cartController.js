@@ -12,11 +12,9 @@ const cartpage = async (req, res) => {
         const userData = await User.findOne({ email: req.session.user });
         const productData = await Product.find({});
         const ProductResultarray = [];
-        const userCartArray = [];
         if (userData) {
             for (let i = 0; i < userData.cart.length; i++) {
                 const cartproductIdString = userData.cart[i].productID.toString();
-                userCartArray.push(cartproductIdString)
                 for (let j = 0; j < productData.length; j++) {
                     const productIdString = productData[j]._id.toString();
                     if (cartproductIdString === productIdString) {
@@ -48,8 +46,12 @@ const cartpagepost = async (req, res) => {
             productID: product._id
         }
         if (req.session.user) {
-            await User.updateOne({ email: req.session.user }, { $push: { cart: obj }, $inc: { total: product.regularPrice } });
-            res.json({ status: "okay" })
+            if (product.isBlocked === false) {
+                await User.updateOne({ email: req.session.user }, { $push: { cart: obj }, $inc: { total: product.regularPrice } });
+                res.json({ status: "okay" })
+            } else {
+                res.json({ status: "blocked" })
+            }
         } else {
             res.json({ status: "notlogin" })
         }
@@ -93,19 +95,26 @@ const cartPlus = async (req, res) => {
         let fetchingProducts;
         if (fetchingUser) {
             fetchingProducts = await Product.findOne({ _id: fetchingUser.cart[productIndex].productID })
-        }
-        if (fetchingProducts.stock >= qtynumber) {
-            if (qtynumber <= 10) {
-                fetchingUser.cart[productIndex].qty = qtynumber;
-                fetchingUser.total += price;
-                fetchingUser.save()
-                res.json({ status: "okay", total: fetchingUser.total })
+            if (fetchingProducts.stock >= qtynumber) {
+                if (qtynumber <= 10) {
+                    if (fetchingProducts.isBlocked === false) {
+                        fetchingUser.cart[productIndex].qty = qtynumber;
+                        fetchingUser.total += price;
+                        fetchingUser.save()
+                        res.json({ status: "okay", total: fetchingUser.total })
+                    } else {
+                        res.json({ status: "blocked" })
+                    }
+                } else {
+                    res.json({ status: "limitReached" })
+                }
             } else {
-                res.json({ status: "limitReached" })
+                res.json({ status: "stocknotavailable" })
             }
         } else {
-            res.json({ status: "stocknotavailable" })
+            res.json({ status: "notlogin" })
         }
+
     } catch (error) {
         console.log(error);
     }
@@ -119,16 +128,24 @@ const cartMinus = async (req, res) => {
         const priceString = req.body.price;
         const price = parseInt(priceString)
         const qtynumber = req.body.qtynumber;
-        if (qtynumber >= 1) {
-            const fetchingUser = await User.findOne({ email: req.session.user })
-            fetchingUser.cart[productIndex].qty = qtynumber;
-            fetchingUser.total -= price
-            fetchingUser.save()
-            res.json({ status: "okay", total: fetchingUser.total })
+        const fetchingUser = await User.findOne({ email: req.session.user })
+        if (fetchingUser) {
+            fetchingProducts = await Product.findOne({ _id: fetchingUser.cart[productIndex].productID });
+            if (fetchingProducts.isBlocked === false) {
+                if (qtynumber >= 1) {
+                    fetchingUser.cart[productIndex].qty = qtynumber;
+                    fetchingUser.total -= price
+                    fetchingUser.save()
+                    res.json({ status: "okay", total: fetchingUser.total })
+                } else {
+                    res.json({ status: "minimum1" })
+                }
+            } else {
+                res.json({ status: "blocked" })
+            }
         } else {
-            res.json({ status: "minimum1" })
+            res.json({ status: "notlogin" })
         }
-
     } catch (error) {
         console.log(error);
     }
@@ -148,8 +165,14 @@ const checkingCheckout = async (req, res) => {
                 for (let j = 0; j < productData.length; j++) {
                     const productIdString = productData[j]._id.toString();
                     if (cartproductIdString === productIdString) {
-                        ProductResultarray.push(productData[j]);
-                        break;
+
+                        if (productData[j].isBlocked === false) {
+                            ProductResultarray.push(productData[j]);
+                            break;
+                        } else {
+                            res.json({ status: "blocked" })
+                        }
+
                     }
                 }
                 if (userData.cart[i].qty === 0 || userData.cart[i].qty > ProductResultarray[i].stock) {
@@ -210,13 +233,23 @@ const checkoutPost = async (req, res) => {
                 for (let j = 0; j < productData.length; j++) {
                     const productIdString = productData[j]._id.toString();
                     if (cartproductIdString === productIdString) {
-                        if (productData[j].stock >= userData.cart[i].qty) {
-                            orderProducts.push(productData[j]);
-                            nextpage = true;
-                        } else {
-                            nextpage = false;
-                            break;
+
+                        if(productData[j].isBlocked === false){
+                            if (productData[j].stock >= userData.cart[i].qty) {
+                                orderProducts.push(productData[j]);
+                                nextpage = true;
+                            } else {
+                                nextpage = false;
+                                break;
+                            }
+                        } else{
+                            res.json({status : "blocked"})
                         }
+
+
+
+
+                        
                     }
                 }
             }
@@ -227,26 +260,26 @@ const checkoutPost = async (req, res) => {
                 }
             }
             for (let i = 0; i < orderProducts.length; i++) {
-                for(let j=0 ; j<userData.cart.length ; j++){
+                for (let j = 0; j < userData.cart.length; j++) {
                     orderProducts[i].cartQty = userData.cart[i].qty
                 }
             }
             const orderData = {
-                product : orderProducts,
+                product: orderProducts,
                 address: address,
                 orderID: idGenerator(),
                 userEmail: req.session.user,
                 date: dateGenerator(),
-                time : timeGenerator(),
+                time: timeGenerator(),
                 total: userData.total,
                 itemsCount: userData.cart.length,
                 paymentMethod: payment
             }
             if (nextpage) {
                 const orderProcess = await Order.create(orderData);
-                if(orderProcess){
+                if (orderProcess) {
                     res.json({ status: "true" })
-                } else{
+                } else {
                     res.json({ status: "network" })
                 }
             } else {

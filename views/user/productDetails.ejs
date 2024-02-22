@@ -805,6 +805,23 @@
 							window.location.href = "/userLogin"
 						}
 					});
+				} else if (response.status === "blocked") {
+					Swal.fire({
+						title: "Oops ! . . .",
+						text: "This product has been temporaily discontinued",
+						showCancelButton: true,
+						confirmButtonColor: "#39e75f",
+						cancelButtonColor: "#ffffff",
+						confirmButtonText: "Okay",
+						customClass: {
+							popup: 'swal-custom',
+							cancelButton: 'swal-custom-ok-btn'
+						}
+					}).then((result) => {
+						if (result.isConfirmed) {
+							window.location.reload()
+						}
+					});
 				}
 			}
 		})

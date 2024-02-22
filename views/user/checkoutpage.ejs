@@ -600,6 +600,23 @@
 										},
 										confirmButtonColor: "#03c04a"
 									});
+								} else if (response.status === "blocked") {
+									Swal.fire({
+										title: "Oops ! . . .",
+										text: "Product has been temporaily discontinued",
+										showCancelButton: true,
+										confirmButtonColor: "#39e75f",
+										cancelButtonColor: "#ffffff",
+										confirmButtonText: "Okay",
+										customClass: {
+											popup: 'swal-custom',
+											cancelButton: 'swal-custom-ok-btn'
+										}
+									}).then((result) => {
+										if (result.isConfirmed) {
+											window.location.reload()
+										}
+									});
 								} else if (response.status === "network") {
 									Swal.fire({
 										icon: "error",

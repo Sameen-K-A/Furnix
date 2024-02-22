@@ -246,39 +246,28 @@
 																							class="product-image"
 																							alt=""></a>
 																					<div class="product-name">
-																						<% if
-																							(userCartproducts[i].stock===0)
-																							{ %>
-																							<a
-																								href="/productDetailspage?id=<%= userCartproducts[i]._id %>">
-																								<%= userCartproducts[i].name
-																									%>
+																						<% if (userCartproducts[i].stock === 0) { %>
+																							<a href="/productDetailspage?id=<%= userCartproducts[i]._id %>">
+																								<%= userCartproducts[i].name %>
 																							</a>
-																							<p
-																								class="text-danger align-start">
-																								Out of stock</p>
-																							<% } else if
-																								(userCartproducts[i].stock
-																								< userData.cart[i].qty)
-																								{ %>
-																								<a
-																									href="/productDetailspage?id=<%= userCartproducts[i]._id %>">
-																									<%= userCartproducts[i].name
-																										%>
-																								</a>
-																								<p id="stockwarning<%= i %>"
-																									class="text-warning align-start">
-																									Only <%=
-																										userCartproducts[i].stock
-																										%> stock is
-																										available</p>
-																								<% } else { %>
-																									<a
-																										href="/productDetailspage?id=<%= userCartproducts[i]._id %>">
-																										<%= userCartproducts[i].name
-																											%>
-																									</a>
-																									<% } %>
+																							<p class="text-danger align-start">Out of stock</p>
+																						<% } else if (userCartproducts[i].stock < userData.cart[i].qty) { %>
+																							<a href="/productDetailspage?id=<%= userCartproducts[i]._id %>">
+																								<%= userCartproducts[i].name %>
+																							</a>
+																							<p id="stockwarning<%= i %>" class="text-warning align-start">
+																								Only <%= userCartproducts[i].stock %> stock is available
+																							</p>
+																						<% } else if (userCartproducts[i].isBlocked === true) { %>
+																							<a href="/productDetailspage?id=<%= userCartproducts[i]._id %>" class="text-start">
+																								<%= userCartproducts[i].name %>
+																							</a>
+																							<p class="text-danger align-start">Product has been temporaily discontinued</p>
+																						<% } else { %>
+																							<a href="/productDetailspage?id=<%= userCartproducts[i]._id %>">
+																								<%= userCartproducts[i].name %>
+																							</a>
+																						<% } %>
 
 																					</div>
 																				</td>
@@ -647,6 +636,39 @@
 						},
 						timer: 1500
 					});
+				} else if (response.status === "notlogin") {
+					Swal.fire({
+						title: "Please login",
+						showCancelButton: true,
+						confirmButtonColor: "#39e75f",
+						cancelButtonColor: "#ffffff",
+						confirmButtonText: "Go to login page",
+						customClass: {
+							popup: 'swal-custom',
+							cancelButton: 'swal-custom-ok-btn'
+						}
+					}).then((result) => {
+						if (result.isConfirmed) {
+							window.location.href = "/userLogin"
+						}
+					});
+				} else if (response.status === "blocked") {
+					Swal.fire({
+						title: "Oops ! . . .",
+						text: "Product has been temporaily discontinued",
+						showCancelButton: true,
+						confirmButtonColor: "#39e75f",
+						cancelButtonColor: "#ffffff",
+						confirmButtonText: "Okay",
+						customClass: {
+							popup: 'swal-custom',
+							cancelButton: 'swal-custom-ok-btn'
+						}
+					}).then((result) => {
+						if (result.isConfirmed) {
+							window.location.reload()
+						}
+					});
 				} else if (response.status === "stocknotavailable") {
 					Swal.fire({
 						icon: "error",
@@ -660,7 +682,7 @@
 					});
 				} else if (response.status === "okay") {
 					const tempSubtotal = document.getElementById("subtotal" + index);
-					tempSubtotal.innerHTML = "₹" + price * qtynumber;
+					tempSubtotal.innerHTML = "₹" + price * qtynumber+".00";
 					qtynumberString.value = qtynumber;
 
 					// total side
@@ -697,9 +719,42 @@
 						},
 						timer: 1500
 					});
+				}else if (response.status === "notlogin") {
+					Swal.fire({
+						title: "Please login",
+						showCancelButton: true,
+						confirmButtonColor: "#39e75f",
+						cancelButtonColor: "#ffffff",
+						confirmButtonText: "Go to login page",
+						customClass: {
+							popup: 'swal-custom',
+							cancelButton: 'swal-custom-ok-btn'
+						}
+					}).then((result) => {
+						if (result.isConfirmed) {
+							window.location.href = "/userLogin"
+						}
+					});
+				} else if (response.status === "blocked") {
+					Swal.fire({
+						title: "Oops ! . . .",
+						text: "Product has been temporaily discontinued",
+						showCancelButton: true,
+						confirmButtonColor: "#39e75f",
+						cancelButtonColor: "#ffffff",
+						confirmButtonText: "Okay",
+						customClass: {
+							popup: 'swal-custom',
+							cancelButton: 'swal-custom-ok-btn'
+						}
+					}).then((result) => {
+						if (result.isConfirmed) {
+							window.location.reload()
+						}
+					});
 				} else if (response.status === "okay") {
 					const tempSubtotal = document.getElementById("subtotal" + index);
-					tempSubtotal.innerHTML = "₹" + price * qtynumber;
+					tempSubtotal.innerHTML = "₹" + price * qtynumber+".00";
 					qtynumberString.value = qtynumber;
 					// total
 					const DBtotal = response.total;
@@ -773,6 +828,23 @@
 							popup: 'swal-custom',
 						},
 						confirmButtonColor : "#03c04a"
+					});
+				}  else if (response.status === "blocked") {
+					Swal.fire({
+						title: "Oops ! . . .",
+						text: "Product has been temporaily discontinued",
+						showCancelButton: true,
+						confirmButtonColor: "#39e75f",
+						cancelButtonColor: "#ffffff",
+						confirmButtonText: "Okay",
+						customClass: {
+							popup: 'swal-custom',
+							cancelButton: 'swal-custom-ok-btn'
+						}
+					}).then((result) => {
+						if (result.isConfirmed) {
+							window.location.reload()
+						}
 					});
 				}
 			}
