@@ -226,6 +226,7 @@ const checkoutPost = async (req, res) => {
         const productData = await Product.find({});
         const orderProducts = [];
         let address;
+        let notworking = false;
         let nextpage = false;
         if (userData) {
             for (let i = 0; i < userData.cart.length; i++) {
@@ -233,8 +234,7 @@ const checkoutPost = async (req, res) => {
                 for (let j = 0; j < productData.length; j++) {
                     const productIdString = productData[j]._id.toString();
                     if (cartproductIdString === productIdString) {
-
-                        if(productData[j].isBlocked === false){
+                        if (productData[j].isBlocked === false) {
                             if (productData[j].stock >= userData.cart[i].qty) {
                                 orderProducts.push(productData[j]);
                                 nextpage = true;
@@ -242,48 +242,46 @@ const checkoutPost = async (req, res) => {
                                 nextpage = false;
                                 break;
                             }
-                        } else{
-                            res.json({status : "blocked"})
+                        } else {
+                            notworking = true
+                            res.json({ status: "blocked" })
                         }
-
-
-
-
-                        
                     }
                 }
             }
-            for (let i = 0; i < userData.address.length; i++) {
-                const stringID = userData.address[i]._id.toString();
-                if (stringID === addressID) {
-                    address = userData.address[i]
+            if (notworking === false) {
+                for (let i = 0; i < userData.address.length; i++) {
+                    const stringID = userData.address[i]._id.toString();
+                    if (stringID === addressID) {
+                        address = userData.address[i]
+                    }
                 }
-            }
-            for (let i = 0; i < orderProducts.length; i++) {
-                for (let j = 0; j < userData.cart.length; j++) {
-                    orderProducts[i].cartQty = userData.cart[i].qty
+                for (let i = 0; i < orderProducts.length; i++) {
+                    for (let j = 0; j < userData.cart.length; j++) {
+                        orderProducts[i].cartQty = userData.cart[i].qty
+                    }
                 }
-            }
-            const orderData = {
-                product: orderProducts,
-                address: address,
-                orderID: idGenerator(),
-                userEmail: req.session.user,
-                date: dateGenerator(),
-                time: timeGenerator(),
-                total: userData.total,
-                itemsCount: userData.cart.length,
-                paymentMethod: payment
-            }
-            if (nextpage) {
-                const orderProcess = await Order.create(orderData);
-                if (orderProcess) {
-                    res.json({ status: "true" })
+                const orderData = {
+                    product: orderProducts,
+                    address: address,
+                    orderID: idGenerator(),
+                    userEmail: req.session.user,
+                    date: dateGenerator(),
+                    time: timeGenerator(),
+                    total: userData.total,
+                    itemsCount: userData.cart.length,
+                    paymentMethod: payment
+                }
+                if (nextpage) {
+                    const orderProcess = await Order.create(orderData);
+                    if (orderProcess) {
+                        res.json({ status: "true" })
+                    } else {
+                        res.json({ status: "network" })
+                    }
                 } else {
-                    res.json({ status: "network" })
+                    res.json({ status: "stocklimit" })
                 }
-            } else {
-                res.json({ status: "stocklimit" })
             }
         }
     } catch (error) {
