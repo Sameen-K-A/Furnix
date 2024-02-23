@@ -255,11 +255,12 @@
                                     <hr>
                                     <p class="text-dark text-center" style="margin-top: 30px;">Rating</p>
                                     <ul style="font-size: small;">
-                                        <li>★☆☆☆☆</li>
-                                        <li>★★☆☆☆</li>
-                                        <li>★★★☆☆</li>
-                                        <li>★★★★☆</li>
-                                        <li>★★★★★</li>
+                                        <a href="/fiverated"><li>★ ★ ★ ★ ★</li></a>
+                                        <a href="/fourrated"><li>★ ★ ★ ★ ☆</li></a>
+                                        <a href="/threerated"><li>★ ★ ★ ☆ ☆</li></a>
+                                        <a href="/tworated"><li>★ ★ ☆ ☆ ☆</li></a>
+                                        <a href="/onerated"><li>★ ☆ ☆ ☆ ☆</li></a>
+
                                     </ul>
                                     <hr>
                                     <p class="text-dark text-center" style="margin-top: 30px;">Sort</p>
@@ -286,82 +287,104 @@
                                     <hr>
                                 </div>
                                 <section class="section section-padding m-b-70 col-lg-9">
-                                    <div class="section-container large">
-                                        <div class="block block-products loadmore">
-                                            <div class="block-widget-wrap">
-                                                <div class="block-content">
-                                                    <div class="products-list grid">
-                                                        <div class="row">
-                                                            <% for( let i=0; i < productDetails.length; i++ ) { %>
-                                                                <div class="col-xl-4 col-lg-4 col-md-5 col-sm-6">
-
-                                                                    <div class="items">
-
-                                                                        <div
-                                                                            class="products-entry clearfix product-wapper">
-                                                                            <div class="products-thumb">
-
-                                                                                <% if (productDetails[i].stock===0) { %>
-                                                                                    <a
-                                                                                        href="/productDetailspage?id=<%= productDetails[i]._id %>">
-                                                                                        <div
-                                                                                            class="outofstockbackground">
+                                    <% if (productDetails.length === 0) { %>
+                                        <div class="justify-content-center d-flex align-center"
+												style="margin-bottom: 20px; margin-top: 100px;">
+												<div class="col-lg-8" style="width: 100%; height: 100px; background-color:
+																	rgb(255, 255, 255); display: flex; justify-content: center;
+																	align-items: center; border: 1px solid black;">
+													<p style="color: black; margin-top: 10px;">Sorry no products found</p>
+												</div>
+											</div>
+                                    <% } else { %>
+                                        <div class="section-container large">
+                                            <div class="block block-products loadmore">
+                                                <div class="block-widget-wrap">
+                                                    <div class="block-content">
+                                                        <div class="products-list grid">
+                                                            <div class="row">
+                                                                
+                                                                
+                                                                <% for( let i=0; i < productDetails.length; i++ ) { %>
+                                                                    <div class="col-xl-4 col-lg-4 col-md-5 col-sm-6">
+    
+                                                                        <div class="items">
+    
+                                                                            <div
+                                                                                class="products-entry clearfix product-wapper">
+                                                                                <div class="products-thumb">
+    
+                                                                                    <% if (productDetails[i].stock===0) { %>
+                                                                                        <a
+                                                                                            href="/productDetailspage?id=<%= productDetails[i]._id %>">
                                                                                             <div
-                                                                                                class="outofstock text-danger d-flex justify-content-center align-items-center">
-                                                                                                Out of stock
+                                                                                                class="outofstockbackground">
+                                                                                                <div
+                                                                                                    class="outofstock text-danger d-flex justify-content-center align-items-center">
+                                                                                                    Out of stock
+                                                                                                </div>
                                                                                             </div>
+                                                                                        </a>
+                                                                                        <% } %>
+                                                                                            <div class="product-thumb-hover">
+                                                                                                <a href="/productDetailspage?id=<%= productDetails[i]._id %>">
+                                                                                                    <img width="600"
+                                                                                                        height="600"
+                                                                                                        src="/uploads/<%= productDetails[i].images[0]%>"
+                                                                                                        class="post-image"
+                                                                                                        alt="">
+                                                                                                    <img width="600"
+                                                                                                        height="600"
+                                                                                                        src="/uploads/<%= productDetails[i].images[3]%>"
+                                                                                                        class="hover-image back"
+                                                                                                        alt="">
+                                                                                                </a>
+                                                                                            </div>
+                                                                                    <!-- <div class="product-button" style="z-index: 9999;">
+                                                                                        <div class="btn-add-to-cart" data-title="Add to cart">
+                                                                                            <a class="product-btn">Add to cart</a>
                                                                                         </div>
-                                                                                    </a>
-                                                                                    <% } %>
-                                                                                        <div class="product-thumb-hover">
-                                                                                            <a href="/productDetailspage?id=<%= productDetails[i]._id %>">
-                                                                                                <img width="600"
-                                                                                                    height="600"
-                                                                                                    src="/uploads/<%= productDetails[i].images[0]%>"
-                                                                                                    class="post-image"
-                                                                                                    alt="">
-                                                                                                <img width="600"
-                                                                                                    height="600"
-                                                                                                    src="/uploads/<%= productDetails[i].images[3]%>"
-                                                                                                    class="hover-image back"
-                                                                                                    alt="">
-                                                                                            </a>
-                                                                                        </div>
-                                                                                <div class="product-button" style="z-index: 9999;">
-                                                                                    <div class="btn-add-to-cart" data-title="Add to cart">
-                                                                                        <a class="product-btn">Add to cart</a>
-                                                                                    </div>
-                                                                                    <div data-title="Add to wishlist">
-                                                                                        <button class="product-btn">Add to wishlist</button>
-                                                                                    </div>       
+                                                                                        <div data-title="Add to wishlist">
+                                                                                            <button class="product-btn">Add to wishlist</button>
+                                                                                        </div>       
+                                                                                    </div> -->
                                                                                 </div>
-                                                                            </div>
-                                                                            <div class="products-content">
-                                                                                <div class="contents text-center">
-                                                                                    <h3 class="product-title">
-                                                                                        <%= productDetails[i].name %>
-                                                                                    </h3>
-                                                                                    <span class="price">
-                                                                                        <del aria-hidden="true"><span>₹
-                                                                                                <%= productDetails[i].regularPrice
-                                                                                                    %>
-                                                                                            </span></del>
-                                                                                        <ins><span>₹<%=
-                                                                                                    productDetails[i].regularPrice
-                                                                                                    %></span></ins>
-                                                                                    </span>
+                                                                                <div class="products-content">
+                                                                                    <div class="contents text-center">
+                                                                                        <h3 class="product-title">
+                                                                                            <%= productDetails[i].name %>
+                                                                                        </h3>
+                                                                                        <span class="price">
+                                                                                            <del aria-hidden="true"><span>₹
+                                                                                                    <%= productDetails[i].regularPrice
+                                                                                                        %>
+                                                                                                </span></del>
+                                                                                            <ins><span>₹<%=
+                                                                                                        productDetails[i].regularPrice
+                                                                                                        %></span></ins>
+                                                                                        </span>
+                                                                                    </div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
+                                                                    <% } %>
                                                                 </div>
-                                                                <% } %>
+                                                                <!-- <nav class="pagination">
+                                                                    <ul class="page-numbers">
+                                                                        <li><a class="prev page-numbers" href="#">Previous</a></li>
+                                                                        <li><span aria-current="page" class="page-numbers current">1</span></li>
+                                                                        <li><a class="page-numbers" href="#">2</a></li>
+                                                                        <li><a class="page-numbers" href="#">3</a></li>
+                                                                        <li><a class="next page-numbers" href="#">Next</a></li>
+                                                                    </ul>
+                                                                </nav> -->
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    <% } %>
                                 </section>
                             </div>
                         </div>
@@ -372,6 +395,7 @@
             </div><!-- #primary -->
         </div><!-- #main-content -->
     </div>
+    
 
     <footer id="site-footer" class="site-footer background">
         <div class="footer">
@@ -549,12 +573,12 @@
 	</div>
 
     <!-- Page Loader -->
-    <!-- <div class="page-preloader">
+   <div class="page-preloader">
         <div class="loader">
             <div></div>
             <div></div>
         </div>
-    </div> -->
+    </div>
 
     <script src="libs/popper/js/popper.min.js"></script>
     <script src="libs/jquery/js/jquery.min.js"></script>

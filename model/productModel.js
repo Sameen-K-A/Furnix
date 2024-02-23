@@ -43,6 +43,10 @@ const productSchema = new mongoose.Schema({
     cartQty : {
         type : Number
     },
+    avgStar : {
+        type : Number,
+        default : 0
+    },
 }, {
     versionKey : false
 });

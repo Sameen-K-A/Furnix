@@ -28,9 +28,16 @@ router.get("/pricehightolow" , isBlocked, userController.pricehightolow);
 router.get("/pricelowtohigh" , isBlocked, userController.pricelowtohigh);
 router.get("/nameascending" , isBlocked, userController.nameascending);
 router.get("/namedescending" , isBlocked, userController.namedescending);
+router.get("/fiverated" , isBlocked, userController.fiverated);
+router.get("/fourrated" , isBlocked, userController.fourrated);
+router.get("/threerated" , isBlocked, userController.threerated);
+router.get("/tworated" , isBlocked, userController.tworated);
+router.get("/onerated" , isBlocked, userController.onerated);
 router.get("/leatest" , isBlocked, userController.leatest);
 router.get("/oldest" , isBlocked, userController.oldest);
-router.post("/search" , isBlocked , userController.search)
+
+// product review;
+router.post("/feedback" , isUser , isBlocked , userController.feedback)
 
 // user change passwords area
 router.get("/changepassword" , isUser , isBlocked , userProfileController.changepassword);
@@ -64,7 +71,7 @@ router.post("/cartMinus" , isBlocked , cartController.cartMinus);
 router.get("/checkingCheckout" , isUser , isBlocked , cartController.checkingCheckout)
 router.get("/checkout" , isUser , isBlocked , cartController.checkout);
 router.post("/checkout" , isUser , isBlocked , cartController.checkoutPost);
-router.get("/orderSuccessfull" , isUser , isBlocked , cartController.orderSuccessfull)
+router.get("/orderSuccessfull" , isUser , isBlocked , cartController.orderSuccessfull);
 
 
 

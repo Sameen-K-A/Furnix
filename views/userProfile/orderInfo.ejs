@@ -360,14 +360,18 @@
 
                                                 </table>
                                                 <div class="justify-content-center align-items-center d-flex">
-                                                    <% if (orderInfodata.status != "Cancelled") { %>
+                                                    <% if (orderInfodata.status != "Cancelled" && orderInfodata.status != "Delivered") { %>
                                                         <button
                                                         style="background-color: rgb(0, 0, 0); width: 50%; color: #ffffff; border-radius: 50px; height: 35px;"
                                                         onclick="cancelorder('<%= orderInfodata._id %>')">Cancel order</button>
+                                                    <% } else if (orderInfodata.status === "Delivered") { %>
+                                                        <button
+                                                        style="background-color: #00ffaa; width: 50%; color: #000000; border-radius: 50px; height: 35px;">Delivered</button>
                                                     <% } else { %>
                                                         <button
                                                         style="background-color: #ffffff; border: 1px solid rgb(255, 0, 0); width: 50%; border-radius: 50px; height: 35px;" >Order cancelled</button>
                                                     <% } %>
+                                                    
                                                     
                                                     
                                                     

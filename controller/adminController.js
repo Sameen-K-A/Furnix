@@ -286,7 +286,7 @@ module.exports = {
     adminLogout,
     orderget,
     orderInfo,
-    statusChanger
+    statusChanger,
 }
 
 

@@ -275,9 +275,24 @@
 													<ins><span>₹<%= productDetails.regularPrice %></span></ins>
 												</span>
 												<div class="rating">
-													<div class="star star-5"></div>
+
+
+													<% if (productDetails.avgStar === 1) { %>
+														<div class="star star-1"></div>
+													<% } else if (productDetails.avgStar === 2) { %>
+														<div class="star star-2"></div>
+													<% } else if (productDetails.avgStar === 3) { %>
+														<div class="star star-3"></div>
+													<% } else if (productDetails.avgStar === 4) { %>
+														<div class="star star-4"></div>
+													<% } else if (productDetails.avgStar === 5) { %>
+														<div class="star star-5"></div>
+													<% } else if (productDetails.avgStar === 0) { %>
+														<div class="star star-0"></div>
+													<% } %>
+													
 													<div class="review-count">
-														(3<span> reviews</span>)
+														(<%= ratingData.length %><span> reviews</span>)
 													</div>
 												</div>
 												<div class="variations">
@@ -326,38 +341,38 @@
 																	<% const productIDString = userData.cart[i].productID.toString(); %>
 																	<% const productDetailsIDString = productDetails._id.toString(); %>
 																	<% if (productDetailsIDString === productIDString) { %>
-																		<a href="/cart" style="width: 100%; height: 50px; background-color: black; font-size: 20px;"
+																		<a href="/cart" style="width: 100%; height: 50px; background-color: black; font-size: 20px; margin-top: 90px;"
 																			class="d-flex justify-content-center align-items-center text-light">
 																			View Cart
 																		</a>
-																			<div class="btn-quick-buy" data-title="Wishlist">
+																		<!--<div class="btn-quick-buy" data-title="Wishlist">
 																			<button class="product-btn">Buy It Now</button>
-																		</div>
+																		</div> -->
 																		<% productFound = true; %>
 																	<% } %>
 																<% } %>
 																<% if (!productFound) { %>
 																	<div class="add-to-cart-wrap">
-																		<div class="btn-add-to-cart"
+																		<div class="btn-add-to-cart" style=" margin-top: 90px;"
 																			onclick="addtocart('<%= productDetails._id %>')">
 																			<a id="addtocarttext">add to cart</a>
 																		</div>
 																	</div>
-																	<div class="btn-quick-buy" data-title="Wishlist">
+																	<!--<div class="btn-quick-buy" data-title="Wishlist">
 																		<button class="product-btn">Buy It Now</button>
-																	</div>
+																	</div> -->
 																<% } %>
 
 																<% } else { %>
 																	<div class="add-to-cart-wrap">
-																		<div class="btn-add-to-cart"
+																		<div class="btn-add-to-cart" style=" margin-top: 90px;"
 																			onclick="addtocart('<%= productDetails._id %>')">
 																			<a id="addtocarttext">add to cart</a>
 																		</div>
 																	</div>
-																	<div class="btn-quick-buy" data-title="Wishlist">
+																	<!--<div class="btn-quick-buy" data-title="Wishlist">
 																		<button class="product-btn">Buy It Now</button>
-																	</div>
+																	</div> -->
 																<% } %>
 														<% } %>
 													<% } else { %>
@@ -368,14 +383,14 @@
 															</div>
 														<% } else { %>
 															<div class="add-to-cart-wrap">
-																<div class="btn-add-to-cart"
+																<div class="btn-add-to-cart" style=" margin-top: 90px;"
 																	onclick="addtocart('<%= productDetails._id %>')">
 																	<a id="addtocarttext">add to cart</a>
 																</div>
 															</div>
-															<div class="btn-quick-buy" data-title="Wishlist">
+															<!--<div class="btn-quick-buy" data-title="Wishlist">
 																<button class="product-btn">Buy It Now</button>
-															</div>
+															</div> -->
 														<% } %>
 													<% } %>
 											</div>
@@ -394,7 +409,7 @@
 												</li>
 												<li class="nav-item">
 													<a class="nav-link" data-toggle="tab" href="#reviews"
-														role="tab">Reviews (1)</a>
+														role="tab">Reviews (<%= ratingData.length %>)</a>
 												</li>
 											</ul>
 											<div class="tab-content">
@@ -420,82 +435,92 @@
 												<div class="tab-pane fade" id="reviews" role="tabpanel">
 													<div id="reviews" class="product-reviews">
 														<div id="comments">
-															<h2 class="reviews-title">1 review for <span>Bora
-																	Armchair</span></h2>
-															<ol class="comment-list">
-																<li class="review">
-																	<div class="content-comment-container">
-																		<div class="comment-container">
-																			<img src="media/user.jpg" class="avatar"
-																				height="60" width="60" alt="">
-																			<div class="comment-text">
-																				<div class="rating small">
-																					<div class="star star-5"></div>
+															<h2 class="reviews-title"><%= ratingData.length %> review for <span><%= productDetails.name %></span></h2>
+															<% if (ratingData.length === 0) { %>
+																<div class="col-lg-12" style="width: 100%; height: 100px; background-color:
+																	rgb(255, 255, 255); display: flex; justify-content: center;
+																	align-items: center; border: 1px solid black; margin-bottom: 50px;">
+																	<p style="color: black; margin-top: 10px;">No reviews found</p>
+																</div>
+															<% } else { %>
+																<ol class="comment-list">
+																	<% for (let i = 0; i < ratingData.length; i++) { %>
+																		<li class="review col-lg-12">
+																			<div class="content-comment-container">
+																				<div class="comment-container">
+																					<img src="media/user.jpg" class="avatar"
+																						height="60" width="60" alt="">
+																					<div class="comment-text">
+																						<div class="rating small">
+																							<% if (ratingData[i].star === 1) { %>
+																								<div class="star star-1"></div>
+																							<% } else if (ratingData[i].star === 2) { %>
+																								<div class="star star-2"></div>
+																							<% } else if (ratingData[i].star === 3) { %>
+																								<div class="star star-3"></div>
+																							<% } else if (ratingData[i].star === 4) { %>
+																								<div class="star star-4"></div>
+																							<% } else if (ratingData[i].star === 5) { %>
+																								<div class="star star-5"></div>
+																							<% } else if (ratingData[i].star === 0) { %>
+																								<div class="star star-0"></div>
+																							<% } %>
+																						</div>
+																						<div class="review-author"><%= ratingData[i].name %>
+																						</div>
+																						<div class="review-time"><%= ratingData[i].date %></div>
+																					</div>
 																				</div>
-																				<div class="review-author">Peter Capidal
+																				<div class="description">
+																					<p><%= ratingData[i].description %></p>
 																				</div>
-																				<div class="review-time">January 12,
-																					2022</div>
 																			</div>
-																		</div>
-																		<div class="description">
-																			<p>good</p>
-																		</div>
-																	</div>
-																</li>
-															</ol>
+																		</li>
+																	<% } %>
+																</ol>
+															<% } %>
 														</div>
-														<div id="review-form">
-															<div id="respond" class="comment-respond">
-																<span id="reply-title" class="comment-reply-title">Add a
-																	review</span>
-																<form action="#" method="post" id="comment-form"
-																	class="comment-form">
-																	<p class="comment-notes">
-																		<span id="email-notes">Your email address will
-																			not be published.</span> Required fields are
-																		marked <span class="required">*</span>
-																	</p>
-																	<div class="comment-form-rating">
-																		<label for="rating">Your rating</label>
-																		<p class="stars">
-																			<span>
-																				<a class="star-1" href="#">1</a><a
-																					class="star-2" href="#">2</a><a
-																					class="star-3" href="#">3</a><a
-																					class="star-4" href="#">4</a><a
-																					class="star-5" href="#">5</a>
-																			</span>
-																		</p>
+														<% if (userData) { %>
+															<% if (boughtProductID) { %>
+																<div id="review-form">
+																	<div id="respond" class="comment-respond comment-form">
+																		<span id="reply-title" class="comment-reply-title">Add a
+																			review</span>
+																			
+																			<div class="comment-form-rating">
+																				<label for="rating">Your rating</label>
+																				<p class="stars">
+																					<select style="border: none; font-size: 24px;" id="ratingstars">
+																						<option value="1">★☆☆☆☆</option>  
+																						<option value="2">★★☆☆☆</option>  
+																						<option value="3">★★★☆☆</option>  
+																						<option value="4">★★★★☆</option>  
+																						<option value="5">★★★★★</option>
+																					</select>
+																				</p>
+																				
+																			</div>
+																			<div class="comment-form-rating">
+																				<label for="rating">Your Review</label>
+																			</div>
+																			
+																			<div class="content-info-reviews">
+																				<p class="comment-form-comment">
+																				<textarea id="comment" name="comment"
+																					placeholder="Enter your feedback" cols="45"
+																					rows="8" aria-required="true"
+																					required=""></textarea>
+																			</p>
+																				<p class="form-submit">
+																					<input name="submit" type="submit"
+																						id="submit" class="submit"
+																						value="Submit" onclick="ratingstars('<%= productDetails._id %>')">
+																				</p>
+																			</div>
 																	</div>
-																	<p class="comment-form-comment">
-																		<textarea id="comment" name="comment"
-																			placeholder="Your Reviews *" cols="45"
-																			rows="8" aria-required="true"
-																			required=""></textarea>
-																	</p>
-																	<div class="content-info-reviews">
-																		<p class="comment-form-author">
-																			<input id="author" name="author"
-																				placeholder="Name *" type="text"
-																				value="" size="30" aria-required="true"
-																				required="">
-																		</p>
-																		<p class="comment-form-email">
-																			<input id="email" name="email"
-																				placeholder="Email *" type="email"
-																				value="" size="30" aria-required="true"
-																				required="">
-																		</p>
-																		<p class="form-submit">
-																			<input name="submit" type="submit"
-																				id="submit" class="submit"
-																				value="Submit">
-																		</p>
-																	</div>
-																</form><!-- #respond -->
-															</div>
-														</div>
+																</div>
+															<% } %>
+														<% } %>
 														<div class="clear"></div>
 													</div>
 												</div>
@@ -826,6 +851,41 @@
 			}
 		})
 	}
+
+	function ratingstars(productid){
+    const star = document.getElementById("ratingstars").value;
+    const feedback  =document.getElementById("comment").value;
+	if(feedback.trim() === ""){
+		alert("fill this fields")
+	}else{
+		$.ajax({
+			url: "/feedback",
+			method: "post",
+			data: {
+				star,
+				feedback,
+				productid
+			},
+			success: (response) => {
+				if (response.status === "updated") {
+					Swal.fire({
+						icon: "success",
+						title: "Thank you for the feedback",
+						showConfirmButton: false,
+						customClass: {
+							popup: 'swal-custom',
+						},
+						timer: 1500
+					});
+					setTimeout(() => {
+						window.location.reload()
+					}, 1000);
+				}
+			}
+		})
+	}
+}
+
 </script>
 
 </html>

@@ -1,7 +1,10 @@
 const User = require("../model/userModel");
 const Product = require("../model/productModel");
+const Order = require("../model/orderModel");
+const Rating = require('../model/ratingModel');
 const GenerateOTP = require("../controller/OTP controller/GenerateOTP");
 const sendOTPmail = require("../controller/OTP controller/sendOTP");
+const dateGenerator = require("../config/dateGenerator")
 const bcrypt = require("bcrypt");
 
 //========================================= Render default page ==============================================
@@ -9,7 +12,7 @@ const bcrypt = require("bcrypt");
 const userhomeGET = async (req, res) => {
     try {
         const productDetails = await Product.find({ isBlocked: false }).limit(4).sort({ _id: -1 });
-        res.render("user/userHome", { productDetails });
+        res.render("user/userHome", { productDetails});
     } catch (error) {
         console.log(error);
     }
@@ -282,7 +285,22 @@ const productDetailspage = async (req, res) => {
         const productID = req.query.id;
         const userData = await User.findOne({email : req.session.user});
         const productDetails = await Product.findOne({ _id: productID });
-        res.render("user/productDetails", { productDetails , userData})
+        let boughtProductID = false;
+        const ratingData = await Rating.find({productID : productID})
+
+        if(userData){
+            const boughtProduct = await Order.find({userEmail : req.session.user , status : "Delivered"});
+            for(let i=0 ; i< boughtProduct.length ; i++){
+                for(let j=0 ; j<boughtProduct[i].product.length ; j++){
+                    const boughtProductString =  boughtProduct[i].product[j]._id.toString();
+                    if(productID === boughtProductString){
+                        boughtProductID = productID;
+                        break;
+                    }
+                }
+            }
+        }
+        res.render("user/productDetails", { productDetails , userData , boughtProductID , ratingData})
     } catch (error) {
         console.log(error);
     }
@@ -355,6 +373,61 @@ const namedescending = async (req, res) => {
     }
 }
 
+//========================================= Sort product based on 5 star rated products ==============================================
+
+const fiverated = async (req, res) => {
+    try {
+        const productDetails = await Product.find({avgStar : 5})
+        res.render("user/userAllProduct", { productDetails })
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+//========================================= Sort product based on 4 star rated products ==============================================
+
+const fourrated = async (req, res) => {
+    try {
+        const productDetails = await Product.find({avgStar : 4})
+        res.render("user/userAllProduct", { productDetails })
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+//========================================= Sort product based on 3 star rated products ==============================================
+
+const threerated = async (req, res) => {
+    try {
+        const productDetails = await Product.find({avgStar : 3})
+        res.render("user/userAllProduct", { productDetails })
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+//========================================= Sort product based on 2 star rated products ==============================================
+
+const tworated = async (req, res) => {
+    try {
+        const productDetails = await Product.find({avgStar : 2})
+        res.render("user/userAllProduct", { productDetails })
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+//========================================= Sort product based on 1 star rated products ==============================================
+
+const onerated = async (req, res) => {
+    try {
+        const productDetails = await Product.find({avgStar : 1})
+        res.render("user/userAllProduct", { productDetails })
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 //========================================= Sort product based on name ascending order ==============================================
 
 const leatest = async (req, res) => {
@@ -379,12 +452,35 @@ const oldest = async (req, res) => {
 
 //========================================= search product based on user entered name  ==============================================
 
-const search = async (req, res) => {
+const feedback = async (req, res) => {
     try {
-        const searchValue = req.body.searchValue;
-        let productList = false
-        productList = await Product.find({name : {$regex : '.*' + searchValue + '.*' , $options : 'i'}}).limit(5);
-        console.log(productList);
+        const starcount = parseInt(req.body.star);
+        const feedbackreview = req.body.feedback;
+        const productid = req.body.productid;
+        const userData = await User.findOne({email : req.session.user});
+        const productData = await Product.findOne({_id : productid});
+
+        const ratingDetails = {
+            productID : productData._id,
+            name : userData.name,
+            email : userData.email,
+            date : dateGenerator(),
+            description : feedbackreview,
+            star : starcount
+        }
+        const data = await Rating.create(ratingDetails);
+        if(data){
+            const ratingData = await Rating.find({productID : productid} , {star : true});
+            let totalStar = 0;
+            for(let i=0 ; i<ratingData.length ; i++){
+                totalStar += ratingData[i].star
+            };
+            const avgratingstar = totalStar/ratingData.length;
+            const nearestInteger = Math.round(avgratingstar);
+            productData.avgStar = nearestInteger;
+            productData.save();
+            res.json({status : "updated"})
+        }
     } catch (error) {
         console.log(error);
     }
@@ -405,6 +501,11 @@ module.exports = {
     userForgetPasswordpost,
     userRegisterResentOTPpost,
     userForgetOTP,
+    fiverated,
+    fourrated,
+    threerated,
+    tworated,
+    onerated,
     userForgetOTPpost,
     userforgetResentOTPpost,
     userLogout,
@@ -416,5 +517,5 @@ module.exports = {
     namedescending,
     leatest,
     oldest,
-    search
+    feedback
 }
