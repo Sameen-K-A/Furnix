@@ -321,9 +321,8 @@ const userLogout = (req, res) => {
 
 const allproduct = async (req, res) => {
     try {
-        const userData = await User.findOne({email : req.session.user});
         const productDetails = await Product.find({ isBlocked: false });
-        res.render("user/userAllProduct", { productDetails , userData});
+        res.render("user/userAllProduct", { productDetails});
     } catch (error) {
         console.log(error);
     }
@@ -333,7 +332,7 @@ const allproduct = async (req, res) => {
 
 const pricehightolow = async (req, res) => {
     try {
-        const productDetails = await Product.find({}).sort({ regularPrice: -1 })
+        const productDetails = await Product.find({isBlocked: false}).sort({ regularPrice: -1 })
         res.render("user/userAllProduct", { productDetails })
     } catch (error) {
         console.log(error);
@@ -344,7 +343,7 @@ const pricehightolow = async (req, res) => {
 
 const pricelowtohigh = async (req, res) => {
     try {
-        const productDetails = await Product.find({}).sort({ regularPrice: 1 })
+        const productDetails = await Product.find({isBlocked: false}).sort({ regularPrice: 1 })
         res.render("user/userAllProduct", { productDetails })
     } catch (error) {
         console.log(error);
@@ -355,7 +354,7 @@ const pricelowtohigh = async (req, res) => {
 
 const nameascending = async (req, res) => {
     try {
-        const productDetails = await Product.find({}).sort({ name: 1 })
+        const productDetails = await Product.find({isBlocked: false}).sort({ name: 1 })
         res.render("user/userAllProduct", { productDetails })
     } catch (error) {
         console.log(error);
@@ -366,7 +365,7 @@ const nameascending = async (req, res) => {
 
 const namedescending = async (req, res) => {
     try {
-        const productDetails = await Product.find({}).sort({ name: -1 })
+        const productDetails = await Product.find({isBlocked: false}).sort({ name: -1 })
         res.render("user/userAllProduct", { productDetails })
     } catch (error) {
         console.log(error);
@@ -377,7 +376,7 @@ const namedescending = async (req, res) => {
 
 const fiverated = async (req, res) => {
     try {
-        const productDetails = await Product.find({avgStar : 5})
+        const productDetails = await Product.find({isBlocked: false , avgStar : 5})
         res.render("user/userAllProduct", { productDetails })
     } catch (error) {
         console.log(error);
@@ -388,7 +387,7 @@ const fiverated = async (req, res) => {
 
 const fourrated = async (req, res) => {
     try {
-        const productDetails = await Product.find({avgStar : 4})
+        const productDetails = await Product.find({isBlocked: false , avgStar : 4})
         res.render("user/userAllProduct", { productDetails })
     } catch (error) {
         console.log(error);
@@ -399,7 +398,7 @@ const fourrated = async (req, res) => {
 
 const threerated = async (req, res) => {
     try {
-        const productDetails = await Product.find({avgStar : 3})
+        const productDetails = await Product.find({isBlocked: false , avgStar : 3})
         res.render("user/userAllProduct", { productDetails })
     } catch (error) {
         console.log(error);
@@ -410,7 +409,7 @@ const threerated = async (req, res) => {
 
 const tworated = async (req, res) => {
     try {
-        const productDetails = await Product.find({avgStar : 2})
+        const productDetails = await Product.find({isBlocked: false , avgStar : 2})
         res.render("user/userAllProduct", { productDetails })
     } catch (error) {
         console.log(error);
@@ -421,7 +420,7 @@ const tworated = async (req, res) => {
 
 const onerated = async (req, res) => {
     try {
-        const productDetails = await Product.find({avgStar : 1})
+        const productDetails = await Product.find({isBlocked: false , avgStar : 1})
         res.render("user/userAllProduct", { productDetails })
     } catch (error) {
         console.log(error);
@@ -432,7 +431,7 @@ const onerated = async (req, res) => {
 
 const leatest = async (req, res) => {
     try {
-        const productDetails = await Product.find({}).sort({ _id: -1 })
+        const productDetails = await Product.find({isBlocked: false}).sort({ _id: -1 })
         res.render("user/userAllProduct", { productDetails })
     } catch (error) {
         console.log(error);
@@ -443,7 +442,7 @@ const leatest = async (req, res) => {
 
 const oldest = async (req, res) => {
     try {
-        const productDetails = await Product.find({}).sort({ _id: 1 })
+        const productDetails = await Product.find({isBlocked: false}).sort({ _id: 1 })
         res.render("user/userAllProduct", { productDetails })
     } catch (error) {
         console.log(error);

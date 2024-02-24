@@ -397,6 +397,21 @@
 																						<span class="price"><del aria-hidden="true"><span>₹<%=productDetails[i].regularPrice%></span></del>
 																							<ins><span>₹<%=productDetails[i].regularPrice%></span></ins>
 																					</span>
+																					<div class="rating">
+																						<% if (productDetails[i].avgStar === 1) { %>
+																							<div class="star star-1"></div>
+																						<% } else if (productDetails[i].avgStar === 2) { %>
+																							<div class="star star-2"></div>
+																						<% } else if (productDetails[i].avgStar === 3) { %>
+																							<div class="star star-3"></div>
+																						<% } else if (productDetails[i].avgStar === 4) { %>
+																							<div class="star star-4"></div>
+																						<% } else if (productDetails[i].avgStar === 5) { %>
+																							<div class="star star-5"></div>
+																						<% } else if (productDetails[i].avgStar === 0) { %>
+																							<div class="star star-0"></div>
+																						<% } %>
+																					</div>
 																				</div>
 																			</div>
 																		</div>

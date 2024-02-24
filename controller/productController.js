@@ -31,10 +31,12 @@ const addProductPOST = async (req, res) => {
     try {
         const { name, description, category, regularPrice, capacity, material, stock, color } = req.body;
         const images = req.files.map(file => file.originalname);
+        const catID = await Category.findOne({name : category});
         const productData = {
             name,
             description,
             category,
+            categoryID : catID._id.toString(),
             regularPrice,
             capacity,
             material,
@@ -67,11 +69,13 @@ const editproduct = async (req, res) => {
 const editproductPOST = async (req, res) => {
     try {
         const productID = req.query.id;
-        const newImages = req.files.map(elems => elems.originalname)
-        if (newImages) {
-            await Product.updateOne({ _id: productID }, { $push: { images: { $each: newImages } } })
-        }
+        // const newImages = req.files.map(elems => elems.originalname)
+        // console.log(newImages);
+        // if (newImages) {
+        //     await Product.updateOne({ _id: productID }, { $push: { images: { $each: newImages } } })
+        // }
         const { name, description, category, regularPrice, capacity, material, stock, color } = req.body;
+        console.log( name, description, category, regularPrice, capacity, material, stock, color);
         const editProDetails = {
             name: name,
             description: description,
@@ -82,8 +86,29 @@ const editproductPOST = async (req, res) => {
             stock: stock,
             color: color,
         }
-        await Product.updateOne({ _id: productID }, editProDetails)
+        console.log(editProDetails);
+        await Product.updateOne({ _id: productID } , editProDetails)
         res.redirect("/admin/productPage");
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+//========================================= Update Edited details of product ==============================================
+
+const editproductImagePOST = async (req, res) => {
+    try {
+        const image = req.body.imagename;
+        const index = parseInt(req.body.index);
+        const productID = req.body.productID;
+        if(image){
+            const productDetails = await Product.findOne({_id : productID});
+            productDetails.images.splice(index , 1 , image);
+            productDetails.save()
+            res.json({status : "okay"})
+        }else{
+            res.json({status : "oops"})
+        }
     } catch (error) {
         console.log(error);
     }
@@ -133,6 +158,7 @@ module.exports = {
     addProductPOST,
     editproduct,
     editproductPOST,
+    editproductImagePOST,
     unlistproduct,
     listproduct,
     productinfo

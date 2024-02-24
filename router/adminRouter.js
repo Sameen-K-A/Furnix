@@ -25,8 +25,9 @@ router.get("/productPage" ,isAdmin, productController.productPage);
 router.get("/productinfo" , isAdmin , productController.productinfo)
 router.get("/addProduct" ,isAdmin, productController.addProduct);
 router.post("/addProductPOST",isAdmin, upload.array("image" , 5)  ,productController.addProductPOST);
+router.post("/editproductImagePOST", isAdmin, upload.single("image"), productController.editproductImagePOST);
 router.get("/editproduct" ,isAdmin, productController.editproduct);
-router.post("/editProductPOST" ,isAdmin,upload.array("image" , 5) ,  productController.editproductPOST);
+router.post("/editProductPOST" ,isAdmin, productController.editproductPOST);
 router.get("/unlistproduct" ,isAdmin, productController.unlistproduct);
 router.get("/listproduct" ,isAdmin, productController.listproduct);
 

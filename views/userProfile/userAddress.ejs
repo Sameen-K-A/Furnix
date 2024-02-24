@@ -812,6 +812,8 @@
             altError.textContent = "Alternate phone number must contain only numbers";
         } else if (altNumber.length !== 10) {
             altError.textContent = "Alternate phone number must be 10 digits";
+        } else if (altNumber === number) {
+            altError.textContent = "Alternate phone number cannot be the same as primary number";
         }
 
 

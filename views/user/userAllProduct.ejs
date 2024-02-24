@@ -263,6 +263,14 @@
 
                                     </ul>
                                     <hr>
+                                    <!-- <p class="text-dark text-center" style="margin-top: 30px;">Top category</p>
+                                    <ul style="font-size: small;">
+                                        <a href="/category?name=livingroom"><li>Living Room</li></a>
+                                        <a href="/category?name=bedroom"><li>Bedroom</li></a>
+                                        <a href="/category?name=kitchen"><li>Kitchen</li></a>
+                                        <a href="/category?name=dining"><li>Dining</li></a>
+                                    </ul>
+                                    <hr> -->
                                     <p class="text-dark text-center" style="margin-top: 30px;">Sort</p>
                                     <ul style="font-size: small;">
                                         <a href="/nameascending">
@@ -362,6 +370,21 @@
                                                                                             <ins><span>₹<%=
                                                                                                         productDetails[i].regularPrice
                                                                                                         %></span></ins>
+                                                                                            <div class="rating" style="margin-top: 10px;">
+                                                                                                <% if (productDetails[i].avgStar === 1) { %>
+                                                                                                    <div class="star star-1"></div>
+                                                                                                <% } else if (productDetails[i].avgStar === 2) { %>
+                                                                                                    <div class="star star-2"></div>
+                                                                                                <% } else if (productDetails[i].avgStar === 3) { %>
+                                                                                                    <div class="star star-3"></div>
+                                                                                                <% } else if (productDetails[i].avgStar === 4) { %>
+                                                                                                    <div class="star star-4"></div>
+                                                                                                <% } else if (productDetails[i].avgStar === 5) { %>
+                                                                                                    <div class="star star-5"></div>
+                                                                                                <% } else if (productDetails[i].avgStar === 0) { %>
+                                                                                                    <div class="star star-0"></div>
+                                                                                                <% } %>
+                                                                                            </div>
                                                                                         </span>
                                                                                     </div>
                                                                                 </div>
