@@ -173,9 +173,9 @@
 															<input type="number" class="input-text"
 																name="registeruserphone" id="registeruserphone">
 														</div>
-														<p id="phoneregex" class="text-danger text-center"></p>
+														<p id="numberREGEX" class="text-danger text-center"></p>
 														<p class="text-danger text-center" id="numberlength"
-															style="display: none;">Enter valid phone number</p>
+															style="display: none;">Phone number need 10 digits</p>
 														<p class="text-danger text-center" id="numberexist"
 															style="display: none;">Number already existed</p>
 
@@ -184,6 +184,9 @@
 															<input class="input-text" type="password"
 																name="registeruserpass" id="registeruserpass">
 														</div>
+														<p class="text-danger text-center" id="passstrength"
+															style="display: none;">Password must contain at least one <br> lowercase letter, one uppercase letter,<br> and one number
+														</p>
 														<p class="text-danger text-center" id="passlength"
 															style="display: none;">Password must need more than 8
 															character</p>
@@ -384,7 +387,16 @@
 			setTimeout(() => {
 				document.getElementById("alphName").innerHTML = "";
 			}, 2000);
-		} else {
+		}
+		else if (/^[6789]\d{9}$/.test(registernumber)) {
+			document.getElementById("numberREGEX").innerHTML = "Please enter a valid mobile number";
+			setTimeout(() => {
+				document.getElementById("numberREGEX").innerHTML = "";
+			}, 2000);
+		}
+
+		
+		else {
 			$.ajax({
 				url: "/userRegisterpost",
 				method: "post",
@@ -415,6 +427,12 @@
 						document.getElementById("numberexist").style.display = "block";
 						setTimeout(() => {
 							document.getElementById("numberexist").style.display = "none"
+						}, 2000);
+					}
+					else if (response.status === "passstrength") {
+						document.getElementById("passstrength").style.display = "block";
+						setTimeout(() => {
+							document.getElementById("passstrength").style.display = "none"
 						}, 2000);
 					}
 					else if (response.status === "passlength") {

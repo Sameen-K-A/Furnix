@@ -22,17 +22,25 @@ const changepasswordPost = async (req, res) => {
         const userDBpassword = user.password
         const comparePassword = await bcrypt.compare(currentPassword, userDBpassword);
         if (comparePassword) {
-            if (newPassword.length >= 8) {
-                if (newPassword === confirmPassword) {
-                    const hashPassword = await bcrypt.hash(newPassword, 10);
-                    await User.updateOne({ email: req.session.user }, { password: hashPassword });
-                    res.json({ status: true })
+
+            if (/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(newPassword)){
+                if (newPassword.length >= 8) {
+                    if (newPassword === confirmPassword) {
+                        const hashPassword = await bcrypt.hash(newPassword, 10);
+                        await User.updateOne({ email: req.session.user }, { password: hashPassword });
+                        res.json({ status: true })
+                    } else {
+                        res.json({ status: "bothpasswrong" })
+                    }
                 } else {
-                    res.json({ status: "bothpasswrong" })
+                    res.json({ status: "newpasslength" })
                 }
-            } else {
-                res.json({ status: "newpasslength" })
+            } else{
+                res.json({ status: "newpassstrength" });
             }
+
+
+            
         } else {
             res.json({ status: "currentwrong" })
         }
@@ -67,11 +75,10 @@ const editdetails = async (req, res) => {
 
 const editdetailspost = async (req, res) => {
     try {
-        const { name, number, selectedDateOfBirth } = req.body;
+        const { name, number } = req.body;
         const data = {
             name: name,
-            phone: number,
-            DateOfBirth: selectedDateOfBirth
+            phone: number
         }
         const updateProcess = await User.updateOne({ email: req.session.user }, data);
         if (updateProcess.matchedCount === 1 && updateProcess.modifiedCount == 1) {
@@ -191,7 +198,7 @@ const editAddress = async (req, res) => {
 
 const orders = async (req, res) => {
     try {
-        const orderData = await Order.find({ userEmail: req.session.user })
+        const orderData = await Order.find({ userEmail: req.session.user }).sort({_id : -1})
         res.render("userProfile/userOrders", { orderData })
     } catch (error) {
         console.log(error);

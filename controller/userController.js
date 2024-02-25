@@ -109,24 +109,28 @@ const userRegisterpost = async (req, res) => {
             if (registeruserphone.length >= 10) {
                 const checkphone = await User.findOne({ phone: registeruserphone });
                 if (!checkphone) {
-                    if (registeruserpass.length >= 8) {
-                        if (registeruserpass === registeruserconfpass) {
-                            const serverSideOTP = GenerateOTP();
-                            sendOTPmail(email, serverSideOTP);
-                            const secretPass = await hashPassword(registeruserpass)
-                            req.session.tempuserDetail = {
-                                registerusername,
-                                email,
-                                registeruserphone,
-                                secretPass,
-                                serverOTP: serverSideOTP
+                    if(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(registeruserpass)){
+                        if (registeruserpass.length >= 8) {
+                            if (registeruserpass === registeruserconfpass) {
+                                const serverSideOTP = GenerateOTP();
+                                sendOTPmail(email, serverSideOTP);
+                                const secretPass = await hashPassword(registeruserpass)
+                                req.session.tempuserDetail = {
+                                    registerusername,
+                                    email,
+                                    registeruserphone,
+                                    secretPass,
+                                    serverOTP: serverSideOTP
+                                }
+                                res.json({ status: true });
+                            } else {
+                                res.json({ status: "confpass" });
                             }
-                            res.json({ status: true });
                         } else {
-                            res.json({ status: "confpass" });
+                            res.json({ status: "passlength" });
                         }
-                    } else {
-                        res.json({ status: "passlength" });
+                    } else{
+                        res.json({ status: "passstrength" });
                     }
                 } else {
                     res.json({ status: "numberexist" })
@@ -166,7 +170,7 @@ const userRegisterOTPpost = async (req, res) => {
                     phone: req.session.tempuserDetail.registeruserphone,
                     password: req.session.tempuserDetail.secretPass
                 }
-                const newUser = await User.create(UserData);
+                await User.create(UserData);
                 delete req.session.tempuserDetail;
                 res.json({ status: true })
             } catch (error) {
@@ -212,18 +216,29 @@ const userForgetPasswordpost = async (req, res) => {
         const forgetUserinfo = await User.findOne({ email: forgetemail });
         if (forgetUserinfo) {
             if (forgetpassword.length >= 8) {
-                if (forgetpassword === forgetconfpassword) {
-                    const newforgetOTP = GenerateOTP();
-                    const frogetOTP_mail = sendOTPmail(forgetemail, newforgetOTP);
-                    req.session.userforgetTEMP = {
-                        email: forgetemail,
-                        registeruserpass: forgetpassword,
-                        OTPserverSide: newforgetOTP
+
+
+                if(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(forgetpassword)){
+                    if (forgetpassword === forgetconfpassword) {
+                        const newforgetOTP = GenerateOTP();
+                        sendOTPmail(forgetemail, newforgetOTP);
+                        const secretPass = await hashPassword(forgetpassword)
+                        req.session.userforgetTEMP = {
+                            email: forgetemail,
+                            registeruserpass: secretPass,
+                            OTPserverSide: newforgetOTP
+                        }
+                        res.json({ status: true })
+                    } else {
+                        res.json({ status: "passwrong" })
                     }
-                    res.json({ status: true })
-                } else {
-                    res.json({ status: "passwrong" })
+                } else{
+                    res.json({ status: "newpassstrength" });
                 }
+
+
+
+                    
             } else {
                 res.json({ status: "passlength" })
             }
@@ -252,7 +267,7 @@ const userForgetOTPpost = async (req, res) => {
         const userEnterOTP = req.body.userSideOTP;
         if (userEnterOTP === req.session.userforgetTEMP.OTPserverSide) {
             try {
-                const updatePass = await User.updateOne({ email: req.session.userforgetTEMP.email }, { password: req.session.userforgetTEMP.registeruserpass });
+                await User.updateOne({ email: req.session.userforgetTEMP.email },{ password: req.session.userforgetTEMP.registeruserpass });
                 res.json({ status: true })
             } catch (error) {
                 console.log(error);

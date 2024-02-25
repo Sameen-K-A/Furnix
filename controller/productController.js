@@ -69,11 +69,6 @@ const editproduct = async (req, res) => {
 const editproductPOST = async (req, res) => {
     try {
         const productID = req.query.id;
-        // const newImages = req.files.map(elems => elems.originalname)
-        // console.log(newImages);
-        // if (newImages) {
-        //     await Product.updateOne({ _id: productID }, { $push: { images: { $each: newImages } } })
-        // }
         const { name, description, category, regularPrice, capacity, material, stock, color } = req.body;
         console.log( name, description, category, regularPrice, capacity, material, stock, color);
         const editProDetails = {

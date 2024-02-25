@@ -221,7 +221,7 @@ const adminLogout = (req, res) => {
 
 const orderget = async (req, res) => {
     try {
-        const orderData = await Order.find({})
+        const orderData = await Order.find({}).sort({_id : -1})
         res.render("admin/orderPage", { orderData })
     } catch (error) {
         console.log(error);

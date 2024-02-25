@@ -248,10 +248,6 @@
                                             </b>
                                         </div>
                                         <div class="col-lg-12 m-b-20">
-                                            <label for="date_of_birth">Date of Birth ( optional
-                                                )</label>
-                                            <input type="date" class="input-text col-lg-12" name="date_of_birth"
-                                                id="date_of_birth" value="<%= userDetails.DateOfBirth %>">
                                             <b>
                                                 <p style="color:  red;" class="text-center" id="phoneError">
                                                 </p>
@@ -449,8 +445,7 @@
     function editDetails() {
         // Inputs
         const name = document.getElementById("name").value.trim();
-        const number = document.getElementById("number").value.trim();
-        const selectedDateOfBirth = document.querySelector('input[name="date_of_birth"]').value.trim();
+        const number = document.getElementById("number").value.trim(); 
 
         // Errors
         const fillerror = document.getElementById("fillerror");
@@ -490,8 +485,7 @@
                 method: "post",
                 data: {
                     name,
-                    number,
-                    selectedDateOfBirth
+                    number
                 },
                 success: (response) => {
                     if (response.status === "success") {
@@ -572,15 +566,6 @@
         });
 
     }
-
-    // date of birth limit
-    const currentDate = new Date();
-    const minDate = new Date(currentDate.getFullYear() - 70, currentDate.getMonth(), currentDate.getDate());
-    const maxDate = new Date();
-
-    document.getElementById("date_of_birth").setAttribute("min", minDate.toISOString().split('T')[0]);
-    document.getElementById("date_of_birth").setAttribute("max", maxDate.toISOString().split('T')[0]);
-
 </script>
 
 </html>

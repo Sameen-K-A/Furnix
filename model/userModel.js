@@ -18,9 +18,6 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    DateOfBirth: {
-        type: String
-    },
     isBlocked: {
         type: Boolean,
         default: false

@@ -164,6 +164,8 @@
 															<input class="input-text" type="password"
 																name="forgetpassword" id="forgetpassword">
 														</div>
+														<p class="text-danger text-center" id="error3"
+															style="display: none;">Password must contain at least one <br> lowercase letter, one uppercase letter,<br> and one number</p>
 														<p class="text-danger text-center" id="passlength"
 															style="display: none;">Password must need more than 8
 															character</p>
@@ -367,6 +369,13 @@
 							document.getElementById("gmailnotfound").style.display = "none";
 						}, 2000);
 					}
+					else if (response.status === "newpassstrength") {
+						document.getElementById("error3").style.display = "block";
+						setTimeout(() => {
+							document.getElementById("error3").style.display = "none";
+						}, 3000);
+					}
+
 					else if(response.status === "passlength"){
 						document.getElementById("passlength").style.display = "block";
 						setTimeout(() => {
