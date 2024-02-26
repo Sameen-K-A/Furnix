@@ -279,7 +279,7 @@
                             </div>
                             <div class="d-grid d-flex gap-2 justify-content-center" style="margin: auto;">
                                 <button class="custom-butto1" onclick="cancel()">Cancel</button>
-                                <button class="custom-button" onclick="catValidate()">Confirm</button>
+                                <button class="custom-button" onclick="catValidate('<%= catDet._id %>')">Confirm</button>
                             </div>
 
                         </div>
@@ -315,7 +315,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </body>
 <script>
-    function catValidate() {
+    function catValidate(categoryID) {
         const name = document.getElementById("prName").value;
         const description = document.getElementById("prDescription").value;
         if (name.trim() === "" || description.trim() === "") {
@@ -354,6 +354,7 @@
                 url: "/admin/adminEditPOST",
                 method: "post",
                 data: {
+                    categoryID,
                     name,
                     description
                 },
@@ -369,7 +370,17 @@
                             window.location.href = "http://localhost:5000/admin/category";
                         }, 1500);
 
-                    } else if (response.status === false) {
+                    } else if(response.status === "nochange"){
+                        Swal.fire({
+                            icon: "error",
+                            title: "No changes found",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    }
+                    
+                    
+                    else if (response.status === false) {
                         document.getElementById("alreadyexist").style.display = "block";
                         setTimeout(() => {
                             document.getElementById("alreadyexist").style.display = "none";

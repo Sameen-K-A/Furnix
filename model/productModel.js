@@ -8,14 +8,14 @@ const productSchema = new mongoose.Schema({
         type : String,
         required : true
     },
-    category : {
+    categoryName : {
         type : String,
         required : true
     },
-    // categoryID : {
-    //     type : String,
-    //     required : true
-    // },
+    categoryID : {
+        type : String,
+        required : true
+    },
     regularPrice : {
         type : Number,
         required : true

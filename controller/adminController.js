@@ -43,9 +43,17 @@ const adminLoginPOST = async (req, res) => {
 
 //========================================= render admin home page ==============================================
 
-const adminHome = (req, res) => {
+const adminHome = async (req, res) => {
     try {
-        res.render("admin/adminHome")
+        const user = await User.find({});
+        const category = await Category.find({})
+        const product = await Product.find({})
+        const order = await Order.find({status : "Delivered"})
+        let revenue = 0;
+        for(let i=0 ; i< order.length ; i++){
+            revenue += order[i].total
+        }
+        res.render("admin/adminHome" , {user , category , product , order , revenue})
     } catch (error) {
         console.log(error);
     }
@@ -136,7 +144,6 @@ const blockCategory = async (req, res) => {
     try {
         const categoryID = req.query._id;
         await Category.updateOne({ _id: categoryID }, { isBlocked: true });
-        console.log("Blocked is done");
         res.redirect("/admin/category")
     } catch (error) {
         console.log(error);
@@ -149,7 +156,6 @@ const UnblockCategory = async (req, res) => {
     try {
         const categoryID = req.query._id;
         await Category.updateOne({ _id: categoryID }, { isBlocked: false });
-        console.log("Unlocked is done");
         res.redirect("/admin/category")
     } catch (error) {
         console.log(error);
@@ -175,6 +181,7 @@ const catEditPOST = async (req, res) => {
     try {
         const editName = req.body.name
         const editDescription = req.body.description;
+        const categoryID = req.body.categoryID
 
         const existCatDeatils = await Category.find({});
         const names = existCatDeatils.map((elems) => elems.name);
@@ -197,9 +204,12 @@ const catEditPOST = async (req, res) => {
                 name: editName,
                 description: editDescription
             }
-            await Category.create(newCat);
-            res.json({ status: true });
-            console.log('done');
+            const updateprocess = await Category.updateOne({_id : categoryID} , newCat);
+            if(updateprocess.modifiedCount === 1){
+                res.json({ status: true });
+            } else{
+                res.json({ status: "nochange" });
+            }
         }
     } catch (error) {
         console.log(error);

@@ -243,14 +243,13 @@
                                     style="background-color: rgb(244, 244, 244); padding: 20px; margin-left: 20px; margin-bottom: 20px;">
                                     <h3 class="text-center">Filter</h3>
                                     <hr>
-                                    <p class="text-dark text-center" style="margin-top: 30px;">Price range</p>
+                                    <p class="text-dark text-center" style="margin-top: 30px;">Category</p>
                                     <ul style="font-size: small;">
-                                        <a href="/pricehightolow">
-                                            <li>High to Low</li>
-                                        </a>
-                                        <a href="/pricelowtohigh">
-                                            <li>Low to High</li>
-                                        </a>
+                                        <% for( let i = 0; i < catDetails.length; i++ ) { %>
+                                            <a href="/category?id=<%= catDetails[i]._id %>">
+                                                <li><%= catDetails[i].name %></li>
+                                            </a>
+                                        <% } %>
                                     </ul>
                                     <hr>
                                     <p class="text-dark text-center" style="margin-top: 30px;">Rating</p>

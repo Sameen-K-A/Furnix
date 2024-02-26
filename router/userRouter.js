@@ -3,6 +3,7 @@ const router = express.Router();
 const userController = require("../controller/userController.js");
 const userProfileController = require("../controller/userProfileController.js");
 const cartController = require("../controller/cartController.js");
+const sortFilterController = require("../controller/sortfilterController.js")
 const { isBlocked ,isUser , isNoUser , isProductBlocked} = require("../Middleware/isLogged.js");
 
 router.get("/" , isBlocked , userController.userhomeGET);
@@ -23,18 +24,16 @@ router.get("/userLogout" , userController.userLogout);
 router.get("/productDetailspage" , isProductBlocked  ,isBlocked,  userController.productDetailspage);
 
 //user all product page and sorting
-router.get("/allproduct" , isBlocked, userController.allproduct);
-router.get("/pricehightolow" , isBlocked, userController.pricehightolow);
-router.get("/pricelowtohigh" , isBlocked, userController.pricelowtohigh);
-router.get("/nameascending" , isBlocked, userController.nameascending);
-router.get("/namedescending" , isBlocked, userController.namedescending);
-router.get("/fiverated" , isBlocked, userController.fiverated);
-router.get("/fourrated" , isBlocked, userController.fourrated);
-router.get("/threerated" , isBlocked, userController.threerated);
-router.get("/tworated" , isBlocked, userController.tworated);
-router.get("/onerated" , isBlocked, userController.onerated);
-router.get("/leatest" , isBlocked, userController.leatest);
-router.get("/oldest" , isBlocked, userController.oldest);
+router.get("/allproduct" , isBlocked, sortFilterController.allproduct);
+router.get("/nameascending" , isBlocked, sortFilterController.nameascending);
+router.get("/namedescending" , isBlocked, sortFilterController.namedescending);
+router.get("/fiverated" , isBlocked, sortFilterController.fiverated);
+router.get("/fourrated" , isBlocked, sortFilterController.fourrated);
+router.get("/threerated" , isBlocked, sortFilterController.threerated);
+router.get("/tworated" , isBlocked, sortFilterController.tworated);
+router.get("/onerated" , isBlocked, sortFilterController.onerated);
+router.get("/leatest" , isBlocked, sortFilterController.leatest);
+router.get("/oldest" , isBlocked, sortFilterController.oldest);
 
 // product review;
 router.post("/feedback" , isUser , isBlocked , userController.feedback)
@@ -73,6 +72,8 @@ router.get("/checkout" , isUser , isBlocked , cartController.checkout);
 router.post("/checkout" , isUser , isBlocked , cartController.checkoutPost);
 router.get("/orderSuccessfull" , isUser , isBlocked , cartController.orderSuccessfull);
 
-
+//user wishlist side
+router.get("/wishlist" , userController.wishlistget)
+router.post("/wishlist" , userController.wishlistpost)
 
 module.exports = router;

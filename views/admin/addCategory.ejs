@@ -297,7 +297,7 @@
                                                     <%= element.description %>
                                                 </td>
                                                 <td>
-                                                    <% if (element.isBlocked===true) { %>
+                                                    <% if (element.isBlocked===false) { %>
                                                         <p style="color: rgb(0, 202, 145);">Listed</p>
 
                                                         <% } else { %>
@@ -308,7 +308,7 @@
                                                             type="submit" class="custom-butto1"
                                                             id="editbtn">Edit</button></a></td>
                                                 <td>
-                                                    <% if (element.isBlocked===true) { %>
+                                                    <% if (element.isBlocked===false) { %>
                                                         <button type="submit" class="custom-button" id="Unblockbtn" onclick="unblock('<%= element._id %>')">Unlist</button></a>
                                                         <% } else { %>
                                                             <button type="submit" class="custom-button" id="blockbtn" onclick="block('<%= element._id %>')">List</button></a>

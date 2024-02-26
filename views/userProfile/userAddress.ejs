@@ -679,7 +679,7 @@
                         if (response.status === "deleted") {
                             Swal.fire({
                                 icon: "success",
-                                title: "Changes saved successfully",
+                                title: "Deleted successfully",
                                 showConfirmButton: false,
                                 customClass: {
                                     popup: 'swal-custom',
@@ -849,7 +849,7 @@
                             timer: 1500
                         });
                         setTimeout(() => {
-                            window.location.href = "http://localhost:5000/address";
+                            window.history.back();
                         }, 1500);
 
                     } else if (response.status === "wrong") {

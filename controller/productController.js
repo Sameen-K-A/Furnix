@@ -6,9 +6,8 @@ const Product = require("../model/productModel");
 
 const productPage = async (req, res) => {
     try {
-        const catData = await Category.find({});
         const product = await Product.find({});
-        res.render("admin/productPage", { catData, product })
+        res.render("admin/productPage", {product })
     } catch (error) {
         console.log(error);
     }
@@ -18,7 +17,7 @@ const productPage = async (req, res) => {
 
 const addProduct = async (req, res) => {
     try {
-        const categories = await Category.find({ isBlocked: true });
+        const categories = await Category.find({ isBlocked: false });
         res.render("admin/addProduct", { categories })
     } catch (error) {
         console.log(error);
@@ -35,8 +34,8 @@ const addProductPOST = async (req, res) => {
         const productData = {
             name,
             description,
-            category,
-            categoryID : catID._id.toString(),
+            categoryName : catID.name,
+            categoryID: catID._id.toString(),
             regularPrice,
             capacity,
             material,
@@ -70,7 +69,6 @@ const editproductPOST = async (req, res) => {
     try {
         const productID = req.query.id;
         const { name, description, category, regularPrice, capacity, material, stock, color } = req.body;
-        console.log( name, description, category, regularPrice, capacity, material, stock, color);
         const editProDetails = {
             name: name,
             description: description,
@@ -81,7 +79,6 @@ const editproductPOST = async (req, res) => {
             stock: stock,
             color: color,
         }
-        console.log(editProDetails);
         await Product.updateOne({ _id: productID } , editProDetails)
         res.redirect("/admin/productPage");
     } catch (error) {

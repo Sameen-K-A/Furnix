@@ -38,6 +38,24 @@
 		rel="stylesheet">
 </head>
 <style>
+	.wishlistbtn{
+		background-color: rgba(255, 255, 255, 0);
+		font-size:  16px;
+		font-weight: 500;
+	}
+	.lovebtn{
+		width: 35px;
+		height: 35px;
+		border: 1px solid rgb(109, 109, 109);
+		border-radius: 50px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		padding-top: 2px;
+	}
+	.lovebtn:hover{
+		background-color: black;
+	}
 	.outofstock {
 		position: absolute;
 		top: 44%;
@@ -270,9 +288,9 @@
 													<%= productDetails.name %>
 												</h1>
 												<span class="price">
-													<del aria-hidden="true"><span>₹<%= productDetails.regularPrice %>
+													<del aria-hidden="true"><span>₹<%= productDetails.regularPrice %>.00
 														</span></del>
-													<ins><span>₹<%= productDetails.regularPrice %></span></ins>
+													<ins><span>₹<%= productDetails.regularPrice %>.00</span></ins>
 												</span>
 												<div class="rating">
 
@@ -317,17 +335,19 @@
 																	<%= productDetails.capacity%>
 																</b></span>
 															<hr>
-															<div class="buttons ">
-																<div class="btn-wishlist " data-title="Wishlist">
-																	<button class="product-btn">Add to wishlist</button>
+															<div class="d-flex" style="gap: 10px;">
+																<div class="lovebtn" onclick="wish('<%= productDetails._id%>')">
+																	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-heart-fill" viewBox="0 0 16 16">
+																	<path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
+																	</svg>
 																</div>
+																<button class="wishlistbtn" id="wishlistbtn">Add to wishlist</button>
 															</div>
 														</div>
 													</table>
 
 												</div>
 												<div class="buttons">
-
 													<% if (userData) { %>
 														<% if (productDetails.stock === 0) { %>
 															<div style="width: 100%; height: 50px; background-color: black; font-size: 20px;"
@@ -678,90 +698,7 @@
 		</div>
 	</div>
 
-	<!-- Wishlist -->
-	<div class="wishlist-popup">
-		<div class="wishlist-popup-inner">
-			<div class="wishlist-popup-content">
-				<div class="wishlist-popup-content-top">
-					<span class="wishlist-name">Wishlist</span>
-					<span class="wishlist-count-wrapper"><span class="wishlist-count">2</span></span>
-					<span class="wishlist-popup-close"></span>
-				</div>
-				<div class="wishlist-popup-content-mid">
-					<table class="wishlist-items">
-						<tbody>
-							<tr class="wishlist-item">
-								<td class="wishlist-item-remove"><span></span></td>
-								<td class="wishlist-item-image">
-									<a href="shop-details.html">
-										<img width="600" height="600" src="media/product/3.jpg" alt="">
-									</a>
-								</td>
-								<td class="wishlist-item-info">
-									<div class="wishlist-item-name">
-										<a href="shop-details.html">Chair Oak Matt Lacquered</a>
-									</div>
-									<div class="wishlist-item-price">
-										<span>$150.00</span>
-									</div>
-									<div class="wishlist-item-time">June 4, 2022</div>
-								</td>
-								<td class="wishlist-item-actions">
-									<div class="wishlist-item-stock">
-										In stock
-									</div>
-									<div class="wishlist-item-add">
-										<div data-title="Add to cart">
-											<a rel="nofollow" href="#" class="button">Add to cart</a>
-										</div>
-									</div>
-								</td>
-							</tr>
-							<tr class="wishlist-item">
-								<td class="wishlist-item-remove"><span></span></td>
-								<td class="wishlist-item-image">
-									<a href="shop-details.html">
-										<img width="600" height="600" src="media/product/4.jpg" alt="">
-									</a>
-								</td>
-								<td class="wishlist-item-info">
-									<div class="wishlist-item-name">
-										<a href="shop-details.html">Pillar Dining Table Round</a>
-									</div>
-									<div class="wishlist-item-price">
-										<del aria-hidden="true"><span>$150.00</span></del>
-										<ins><span>$100.00</span></ins>
-									</div>
-									<div class="wishlist-item-time">June 4, 2022</div>
-								</td>
-								<td class="wishlist-item-actions">
-									<div class="wishlist-item-stock">
-										In stock
-									</div>
-									<div class="wishlist-item-add">
-										<div data-title="Add to cart">
-											<a rel="nofollow" href="#" class="button">Add to cart</a>
-										</div>
-									</div>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-				<div class="wishlist-popup-content-bot">
-					<div class="wishlist-popup-content-bot-inner">
-						<a class="wishlist-page" href="shop-wishlist.html">
-							Open wishlist page
-						</a>
-						<span class="wishlist-continue" data-url="">
-							Continue shopping
-						</span>
-					</div>
-					<div class="wishlist-notice wishlist-notice-show">Added to the wishlist!</div>
-				</div>
-			</div>
-		</div>
-	</div>
+	
 
 	
 
@@ -880,6 +817,67 @@
 					setTimeout(() => {
 						window.location.reload()
 					}, 1000);
+				}
+			}
+		})
+	}
+}
+
+function wish(id){
+	if(document.getElementById("wishlistbtn").textContent === "Go to wishlist"){
+		window.location.href = "/wishlist"
+	}else{
+		$.ajax({
+			url: "/wishlist",
+			method: "post",
+			data: {
+				id
+			},
+			success: (response) => {
+				if (response.status === "okay") {
+					Swal.fire({
+						icon: "success",
+						title: "Product added into your wishlist",
+						showConfirmButton: false,
+						customClass: {
+							popup: 'swal-custom',
+						},
+						timer: 1500
+					});
+					document.getElementById("wishlistbtn").textContent = "Go to wishlist"
+				} else if (response.status === "notlogin") {
+					Swal.fire({
+						title: "Please login",
+						showCancelButton: true,
+						confirmButtonColor: "#39e75f",
+						cancelButtonColor: "#ffffff",
+						confirmButtonText: "Go to login page",
+						customClass: {
+							popup: 'swal-custom',
+							cancelButton: 'swal-custom-ok-btn'
+						}
+					}).then((result) => {
+						if (result.isConfirmed) {
+							window.location.href = "/userLogin"
+						}
+					});
+				} else if (response.status === "blocked") {
+					Swal.fire({
+						title: "Oops ! . . .",
+						text: "This product has been temporaily discontinued",
+						showCancelButton: true,
+						confirmButtonColor: "#39e75f",
+						cancelButtonColor: "#ffffff",
+						confirmButtonText: "Okay",
+						customClass: {
+							popup: 'swal-custom',
+							cancelButton: 'swal-custom-ok-btn'
+						}
+					}).then((result) => {
+						if (result.isConfirmed) {
+							window.location.reload()
+						}
+					});
 				}
 			}
 		})

@@ -2,6 +2,7 @@ const User = require("../model/userModel");
 const Product = require("../model/productModel");
 const Order = require("../model/orderModel");
 const Rating = require('../model/ratingModel');
+const Wishlist = require("../model/wishlistModel");
 const GenerateOTP = require("../controller/OTP controller/GenerateOTP");
 const sendOTPmail = require("../controller/OTP controller/sendOTP");
 const dateGenerator = require("../config/dateGenerator")
@@ -332,138 +333,6 @@ const userLogout = (req, res) => {
     }
 }
 
-//========================================= All product page rendering ==============================================
-
-const allproduct = async (req, res) => {
-    try {
-        const productDetails = await Product.find({ isBlocked: false });
-        res.render("user/userAllProduct", { productDetails});
-    } catch (error) {
-        console.log(error);
-    }
-}
-
-//========================================= Sort product based on price Secsending order ==============================================
-
-const pricehightolow = async (req, res) => {
-    try {
-        const productDetails = await Product.find({isBlocked: false}).sort({ regularPrice: -1 })
-        res.render("user/userAllProduct", { productDetails })
-    } catch (error) {
-        console.log(error);
-    }
-}
-
-//========================================= Sort product based on price Ascending order ==============================================
-
-const pricelowtohigh = async (req, res) => {
-    try {
-        const productDetails = await Product.find({isBlocked: false}).sort({ regularPrice: 1 })
-        res.render("user/userAllProduct", { productDetails })
-    } catch (error) {
-        console.log(error);
-    }
-}
-
-//========================================= Sort product based on name Ascending order ==============================================
-
-const nameascending = async (req, res) => {
-    try {
-        const productDetails = await Product.find({isBlocked: false}).sort({ name: 1 })
-        res.render("user/userAllProduct", { productDetails })
-    } catch (error) {
-        console.log(error);
-    }
-}
-
-//========================================= Sort product based on name ascending order ==============================================
-
-const namedescending = async (req, res) => {
-    try {
-        const productDetails = await Product.find({isBlocked: false}).sort({ name: -1 })
-        res.render("user/userAllProduct", { productDetails })
-    } catch (error) {
-        console.log(error);
-    }
-}
-
-//========================================= Sort product based on 5 star rated products ==============================================
-
-const fiverated = async (req, res) => {
-    try {
-        const productDetails = await Product.find({isBlocked: false , avgStar : 5})
-        res.render("user/userAllProduct", { productDetails })
-    } catch (error) {
-        console.log(error);
-    }
-}
-
-//========================================= Sort product based on 4 star rated products ==============================================
-
-const fourrated = async (req, res) => {
-    try {
-        const productDetails = await Product.find({isBlocked: false , avgStar : 4})
-        res.render("user/userAllProduct", { productDetails })
-    } catch (error) {
-        console.log(error);
-    }
-}
-
-//========================================= Sort product based on 3 star rated products ==============================================
-
-const threerated = async (req, res) => {
-    try {
-        const productDetails = await Product.find({isBlocked: false , avgStar : 3})
-        res.render("user/userAllProduct", { productDetails })
-    } catch (error) {
-        console.log(error);
-    }
-}
-
-//========================================= Sort product based on 2 star rated products ==============================================
-
-const tworated = async (req, res) => {
-    try {
-        const productDetails = await Product.find({isBlocked: false , avgStar : 2})
-        res.render("user/userAllProduct", { productDetails })
-    } catch (error) {
-        console.log(error);
-    }
-}
-
-//========================================= Sort product based on 1 star rated products ==============================================
-
-const onerated = async (req, res) => {
-    try {
-        const productDetails = await Product.find({isBlocked: false , avgStar : 1})
-        res.render("user/userAllProduct", { productDetails })
-    } catch (error) {
-        console.log(error);
-    }
-}
-
-//========================================= Sort product based on name ascending order ==============================================
-
-const leatest = async (req, res) => {
-    try {
-        const productDetails = await Product.find({isBlocked: false}).sort({ _id: -1 })
-        res.render("user/userAllProduct", { productDetails })
-    } catch (error) {
-        console.log(error);
-    }
-}
-
-//========================================= Sort product based on name ascending order ==============================================
-
-const oldest = async (req, res) => {
-    try {
-        const productDetails = await Product.find({isBlocked: false}).sort({ _id: 1 })
-        res.render("user/userAllProduct", { productDetails })
-    } catch (error) {
-        console.log(error);
-    }
-}
-
 //========================================= search product based on user entered name  ==============================================
 
 const feedback = async (req, res) => {
@@ -500,6 +369,46 @@ const feedback = async (req, res) => {
     }
 }
 
+//========================================= Wishlist page render  ==============================================
+
+const wishlistget = async (req, res) => {
+    try {
+        const wishData = await Wishlist.find({email : req.session.user});
+        const userData = await User.findOne({email : req.session.user});
+
+        res.render("user/wishlist" , {wishData , userData})
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+//========================================= Wishlist page render  ==============================================
+
+const wishlistpost = async (req, res) => {
+    try {
+        const productID = req.body.id;
+        const userData = await User.findOne({email : req.session.user});
+        if(userData){
+            const productData = await Product.findOne({_id : productID});
+            if(productData.isBlocked === false){
+                const wishschema = {
+                    productID : productData._id,
+                    email : req.session.user,
+                    date : dateGenerator()
+                }
+                await Wishlist.create(wishschema)
+                res.json({status : "okay"})
+            } else{
+                res.json({status : "blocked"})
+            }
+        } else {
+            res.json({status : "notlogin"})
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 //========================================= Export all modules ==============================================
 
 module.exports = {
@@ -515,21 +424,11 @@ module.exports = {
     userForgetPasswordpost,
     userRegisterResentOTPpost,
     userForgetOTP,
-    fiverated,
-    fourrated,
-    threerated,
-    tworated,
-    onerated,
     userForgetOTPpost,
     userforgetResentOTPpost,
     userLogout,
     productDetailspage,
-    allproduct,
-    pricehightolow,
-    pricelowtohigh,
-    nameascending,
-    namedescending,
-    leatest,
-    oldest,
-    feedback
+    feedback,
+    wishlistget,
+    wishlistpost
 }

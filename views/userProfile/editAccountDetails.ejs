@@ -472,6 +472,8 @@
             phoneError.textContent = "Phone number must contain only numbers";
         } else if (number.length !== 10) {
             phoneError.textContent = "Phone number must be 10 digits";
+        } else if (!/^[6789]\d{9}$/.test(number)) {
+            phoneError.textContent = "Please enter a valid mobile number";
         }
 
         if (nameError.textContent !== "" || phoneError.textContent !== "") {

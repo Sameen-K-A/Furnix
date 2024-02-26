@@ -196,7 +196,7 @@
 																name="registeruserconfpass" id="registeruserconfpass">
 														</div>
 														<p class="text-danger text-center" id="confpass"
-															style="display: none;">Password is wrong</p>
+															style="display: none;">Confirm password is wrong</p>
 
 														<div class="button-login">
 															<input type="submit" class="button" name="registernext"
@@ -388,7 +388,7 @@
 				document.getElementById("alphName").innerHTML = "";
 			}, 2000);
 		}
-		else if (/^[6789]\d{9}$/.test(registernumber)) {
+		else if (!/^[6789]\d{9}$/.test(registernumber)) {
 			document.getElementById("numberREGEX").innerHTML = "Please enter a valid mobile number";
 			setTimeout(() => {
 				document.getElementById("numberREGEX").innerHTML = "";
