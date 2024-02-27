@@ -13,7 +13,7 @@ const bcrypt = require("bcrypt");
 const userhomeGET = async (req, res) => {
     try {
         const productDetails = await Product.find({ isBlocked: false }).limit(4).sort({ _id: -1 });
-        res.render("user/userHome", { productDetails});
+        res.render("user/userHome", { productDetails });
     } catch (error) {
         console.log(error);
     }
@@ -110,7 +110,7 @@ const userRegisterpost = async (req, res) => {
             if (registeruserphone.length >= 10) {
                 const checkphone = await User.findOne({ phone: registeruserphone });
                 if (!checkphone) {
-                    if(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(registeruserpass)){
+                    if (/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(registeruserpass)) {
                         if (registeruserpass.length >= 8) {
                             if (registeruserpass === registeruserconfpass) {
                                 const serverSideOTP = GenerateOTP();
@@ -130,7 +130,7 @@ const userRegisterpost = async (req, res) => {
                         } else {
                             res.json({ status: "passlength" });
                         }
-                    } else{
+                    } else {
                         res.json({ status: "passstrength" });
                     }
                 } else {
@@ -217,9 +217,7 @@ const userForgetPasswordpost = async (req, res) => {
         const forgetUserinfo = await User.findOne({ email: forgetemail });
         if (forgetUserinfo) {
             if (forgetpassword.length >= 8) {
-
-
-                if(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(forgetpassword)){
+                if (/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(forgetpassword)) {
                     if (forgetpassword === forgetconfpassword) {
                         const newforgetOTP = GenerateOTP();
                         sendOTPmail(forgetemail, newforgetOTP);
@@ -233,13 +231,9 @@ const userForgetPasswordpost = async (req, res) => {
                     } else {
                         res.json({ status: "passwrong" })
                     }
-                } else{
+                } else {
                     res.json({ status: "newpassstrength" });
                 }
-
-
-
-                    
             } else {
                 res.json({ status: "passlength" })
             }
@@ -268,7 +262,7 @@ const userForgetOTPpost = async (req, res) => {
         const userEnterOTP = req.body.userSideOTP;
         if (userEnterOTP === req.session.userforgetTEMP.OTPserverSide) {
             try {
-                await User.updateOne({ email: req.session.userforgetTEMP.email },{ password: req.session.userforgetTEMP.registeruserpass });
+                await User.updateOne({ email: req.session.userforgetTEMP.email }, { password: req.session.userforgetTEMP.registeruserpass });
                 res.json({ status: true })
             } catch (error) {
                 console.log(error);
@@ -299,24 +293,34 @@ const userforgetResentOTPpost = (req, res) => {
 const productDetailspage = async (req, res) => {
     try {
         const productID = req.query.id;
-        const userData = await User.findOne({email : req.session.user});
+        const userData = await User.findOne({ email: req.session.user });
         const productDetails = await Product.findOne({ _id: productID });
         let boughtProductID = false;
-        const ratingData = await Rating.find({productID : productID})
-
-        if(userData){
-            const boughtProduct = await Order.find({userEmail : req.session.user , status : "Delivered"});
-            for(let i=0 ; i< boughtProduct.length ; i++){
-                for(let j=0 ; j<boughtProduct[i].product.length ; j++){
-                    const boughtProductString =  boughtProduct[i].product[j]._id.toString();
-                    if(productID === boughtProductString){
+        let wishproduct = false;
+        const ratingData = await Rating.find({ productID: productID })
+        if (userData) {
+            const boughtProduct = await Order.find({ userEmail: req.session.user, status: "Delivered" });
+            for (let i = 0; i < boughtProduct.length; i++) {
+                for (let j = 0; j < boughtProduct[i].product.length; j++) {
+                    const boughtProductString = boughtProduct[i].product[j]._id.toString();
+                    if (productID === boughtProductString) {
                         boughtProductID = productID;
                         break;
                     }
                 }
             }
+            // wishlist checking
+            const wishlistData = await Wishlist.findOne({userID : userData._id})
+            if(wishlistData){
+                for(let i=0 ; i< wishlistData.products.length ; i++){
+                    if(productDetails._id.toString() === wishlistData.products[i].productID.toString()){
+                        wishproduct = true;
+                        break;
+                    }
+                }
+            }
         }
-        res.render("user/productDetails", { productDetails , userData , boughtProductID , ratingData})
+        res.render("user/productDetails", { productDetails, userData, boughtProductID, ratingData, wishproduct })
     } catch (error) {
         console.log(error);
     }
@@ -340,29 +344,29 @@ const feedback = async (req, res) => {
         const starcount = parseInt(req.body.star);
         const feedbackreview = req.body.feedback;
         const productid = req.body.productid;
-        const userData = await User.findOne({email : req.session.user});
-        const productData = await Product.findOne({_id : productid});
+        const userData = await User.findOne({ email: req.session.user });
+        const productData = await Product.findOne({ _id: productid });
 
         const ratingDetails = {
-            productID : productData._id,
-            name : userData.name,
-            email : userData.email,
-            date : dateGenerator(),
-            description : feedbackreview,
-            star : starcount
+            productID: productData._id,
+            name: userData.name,
+            email: userData.email,
+            date: dateGenerator(),
+            description: feedbackreview,
+            star: starcount
         }
         const data = await Rating.create(ratingDetails);
-        if(data){
-            const ratingData = await Rating.find({productID : productid} , {star : true});
+        if (data) {
+            const ratingData = await Rating.find({ productID: productid }, { star: true });
             let totalStar = 0;
-            for(let i=0 ; i<ratingData.length ; i++){
+            for (let i = 0; i < ratingData.length; i++) {
                 totalStar += ratingData[i].star
             };
-            const avgratingstar = totalStar/ratingData.length;
+            const avgratingstar = totalStar / ratingData.length;
             const nearestInteger = Math.round(avgratingstar);
             productData.avgStar = nearestInteger;
             productData.save();
-            res.json({status : "updated"})
+            res.json({ status: "updated" })
         }
     } catch (error) {
         console.log(error);
@@ -373,10 +377,20 @@ const feedback = async (req, res) => {
 
 const wishlistget = async (req, res) => {
     try {
-        const wishData = await Wishlist.find({email : req.session.user});
-        const userData = await User.findOne({email : req.session.user});
-
-        res.render("user/wishlist" , {wishData , userData})
+        const userData = await User.findOne({ email: req.session.user });
+        const wishProducts = [];
+        if(userData){
+            const wishData  = await Wishlist.findOne({ userID : userData._id });
+            const productData = await Product.find({isBlocked : false})
+            for(let i=0 ; i <wishData.products.length ; i++){
+                for(let j=0 ; j<productData.length ; j++){
+                    if(wishData.products[i].productID.toString() === productData[j]._id.toString()){
+                        wishProducts.push(productData[j])
+                    }
+                }
+            }
+        }
+        res.render("user/wishlist", { userData , wishProducts })
     } catch (error) {
         console.log(error);
     }
@@ -387,22 +401,78 @@ const wishlistget = async (req, res) => {
 const wishlistpost = async (req, res) => {
     try {
         const productID = req.body.id;
-        const userData = await User.findOne({email : req.session.user});
-        if(userData){
-            const productData = await Product.findOne({_id : productID});
-            if(productData.isBlocked === false){
-                const wishschema = {
-                    productID : productData._id,
-                    email : req.session.user,
-                    date : dateGenerator()
+        const userData = await User.findOne({ email: req.session.user });
+        if (userData) {
+            const productData = await Product.findOne({ _id: productID });
+            if (productData.isBlocked === false) {
+                const checkwish = await Wishlist.findOne({ userID: userData._id });
+                if (checkwish) {
+                    const data = {
+                        productID: productData._id,
+                        date: dateGenerator()
+                    }
+                    await Wishlist.updateOne({ userID: userData._id }, { $push: { products: data } });
+                    res.json({ status: "okay" })
+                } else {
+                    const wishschema = {
+                        userID: userData._id,
+                        products: [{
+                            productID: productData._id,
+                            date: dateGenerator()
+                        }]
+                    }
+                    await Wishlist.create(wishschema);
+                    res.json({ status: "okay" })
                 }
-                await Wishlist.create(wishschema)
-                res.json({status : "okay"})
-            } else{
-                res.json({status : "blocked"})
+            } else {
+                res.json({ status: "blocked" })
             }
         } else {
-            res.json({status : "notlogin"})
+            res.json({ status: "notlogin" })
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+//========================================= Wishlist page render  ==============================================
+
+const deletewish = async (req, res) => {
+    try {
+        const productID = req.body.id;
+        const userData = await User.findOne({ email: req.session.user });
+        if (userData) {
+            const productData = await Product.findOne({ _id: productID });
+            if (productData.isBlocked === false) {
+                await Wishlist.updateOne({userID : userData._id} , {$pull :{products : {productID : productData._id}}});
+                res.json({status : "okay"})
+            } else {
+                res.json({ status: "blocked" })
+            } 
+        } else {
+            res.json({ status: "notlogin" })
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+//========================================= Wishlist page render  ==============================================
+
+const deletewishitem = async (req, res) => {
+    try {
+        const productID = req.body.id;
+        const userData = await User.findOne({ email: req.session.user });
+        if (userData) {
+            // const productData = await Product.findOne({ _id: productID });
+            // if (productData.isBlocked === false) {
+            //     await Wishlist.updateOne({userID : userData._id} , {$pull :{products : {productID : productData._id}}});
+            //     res.json({status : "okay"})
+            // } else {
+            //     res.json({ status: "blocked" })
+            // } 
+        } else {
+            res.json({ status: "notlogin" })
         }
     } catch (error) {
         console.log(error);
@@ -430,5 +500,7 @@ module.exports = {
     productDetailspage,
     feedback,
     wishlistget,
-    wishlistpost
+    wishlistpost,
+    deletewish,
+    deletewishitem
 }

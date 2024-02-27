@@ -37,6 +37,17 @@
 		href="https://fonts.googleapis.com/css?family=EB+Garamond:100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic&amp;display=swap"
 		rel="stylesheet">
 </head>
+<style>
+	 .swal-custom {
+        background: linear-gradient(94deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.8240546218487395) 26%, rgba(0, 0, 0, 1) 53%, rgba(0, 0, 0, 0.8492647058823529) 79%, rgba(227, 227, 227, 0) 100%);
+        color: #ffffff;
+        width: 100%;
+    }
+
+    .swal-custom-ok-btn {
+        color: black !important;
+    }
+</style>
 
 <body class="shop">
 	<div id="page" class="hfeed page-wrapper">
@@ -82,7 +93,7 @@
 
 					<!-- Wishlist -->
 					<div class="wishlist-box">
-						<a href="shop-wishlist.html"><i class="wpb-icon-heart"></i></a>
+						<a href="/wishlist"><i class="wpb-icon-heart"></i></a>
 					</div>
 				</div>
 			</div>
@@ -136,7 +147,7 @@
 
 										<!-- Wishlist -->
 										<div class="wishlist-box">
-											<a href="shop-wishlist.html"><i class="icon-heart"></i></a>
+											<a href="/wishlist"><i class="icon-heart"></i></a>
 										</div>
 
 										<!-- Cart -->
@@ -173,31 +184,28 @@
 										<tbody>
 
 											<% if (userData) { %>
-												<% if (wishData.length !== 0) { %>
-													<% for( let i = 0; i < wishData.length; i++ ) { %>
+												<% if (wishProducts.length !== 0) { %>
+													<% for( let i = 0; i < wishProducts.length; i++ ) { %>
 														<tr class="wishlist-item">
 															<td class="wishlist-item-image">
 																<a href="shop-details.html">
-																	<img width="600" height="600" src="media/product/3.jpg" alt="">
+																	<img width="600" height="600" src="/uploads/<%= wishProducts[i].images[0] %>" alt="">
 																</a>
 															</td>
 															<td class="wishlist-item-info">
 																<div class="wishlist-item-name">
-																	<a href="shop-details.html"></a>
+																	<a href="shop-details.html"><%= wishProducts[i].name %></a>
 																</div>
 																<div class="wishlist-item-price">
-																	<span>$150.00</span>
+																	<span>₹<%= wishProducts[i].regularPrice %>.00</span>
 																</div>
-																<div class="wishlist-item-time">June 6, 2022</div>
 															</td>
-															<td style="text-align: end;">
-																<button style="background-color: black; color: white; font-size: 14px; padding-left: 10px; padding-right: 10px;">Add to cart</button>
-															</td >
-															<td style="text-align: center;"><svg xmlns="http://www.w3.org/2000/svg" height="14" width="12.25"
+															<td style="text-align: right;"><svg onclick="deleteproduct('<%= wishProducts[i]._id %>')" xmlns="http://www.w3.org/2000/svg" height="14" width="12.25"
 																	viewBox="0 0 448 512">
 																	<path fill="#000000"
 																		d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z" />
-																</svg></td>
+																</svg>
+															</td>
 														</tr>
 													<% } %>
 												<% } else { %>
@@ -638,12 +646,12 @@
 	</div>
 
 	<!-- Page Loader -->
-	<div class="page-preloader">
+	<!-- <div class="page-preloader">
 		<div class="loader">
 			<div></div>
 			<div></div>
 		</div>
-	</div>
+	</div> -->
 
 	<!-- Dependency Scripts -->
 	<script src="libs/popper/js/popper.min.js"></script>
@@ -657,11 +665,91 @@
 	<script src="libs/slider/js/draggable-0.1.js"></script>
 	<script src="libs/slider/js/jquery.slider.js"></script>
 	<script src="libs/elevatezoom/js/jquery.elevatezoom.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+		integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 	<!-- Site Scripts -->
 	<script src="assets/js/app.js"></script>
 </body>
 
-<!-- Mirrored from caketheme.com/html/ruper/shop-wishlist.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 26 Jan 2024 08:52:33 GMT -->
+<script>
+	function deleteproduct(id){
 
+
+		Swal.fire({
+            title: "Are you sure?",
+            text: "You want to discard this details?",
+            showCancelButton: true,
+            confirmButtonColor: "#FF0000",
+            cancelButtonColor: "#ffffff",
+            confirmButtonText: "Discard",
+            customClass: {
+                popup: 'swal-custom',
+                cancelButton: 'swal-custom-ok-btn'
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+				url: "/wishlist",
+				method: "delete",
+				data: {
+					id
+				},
+				success: (response) => {
+					if (response.status === "okay") {
+						Swal.fire({
+							icon: "success",
+							title: "Product removed in your wishlist",
+							showConfirmButton: false,
+							customClass: {
+								popup: 'swal-custom',
+							},
+							timer: 1500
+						});
+						setTimeout(() => {
+							window.location.reload()
+						}, 1000);
+					} else if (response.status === "notlogin") {
+						Swal.fire({
+							title: "Please login",
+							showCancelButton: true,
+							confirmButtonColor: "#39e75f",
+							cancelButtonColor: "#ffffff",
+							confirmButtonText: "Go to login page",
+							customClass: {
+								popup: 'swal-custom',
+								cancelButton: 'swal-custom-ok-btn'
+							}
+						}).then((result) => {
+							if (result.isConfirmed) {
+								window.location.href = "/userLogin"
+							}
+						});
+					} else if (response.status === "blocked") {
+						Swal.fire({
+							title: "Oops ! . . .",
+							text: "This product has been temporaily discontinued. click okay for reloading",
+							showCancelButton: true,
+							confirmButtonColor: "#39e75f",
+							cancelButtonColor: "#ffffff",
+							confirmButtonText: "Okay",
+							customClass: {
+								popup: 'swal-custom',
+								cancelButton: 'swal-custom-ok-btn'
+							}
+						}).then((result) => {
+							if (result.isConfirmed) {
+								window.location.reload()
+							}
+						});
+					}
+				}
+			})
+            }
+        });
+	}
+
+</script>
 </html>

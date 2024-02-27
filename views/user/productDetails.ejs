@@ -94,8 +94,6 @@
 	
 	<div id="page" class="hfeed page-wrapper">
 		<header id="site-header" class="site-header header-v2" style="z-index: 9998;">
-
-
 			<div class="header-mobile">
 				<div class="section-padding">
 					<div class="section-container large">
@@ -137,7 +135,7 @@
 
 					<!-- Wishlist -->
 					<div class="wishlist-box">
-						<a href="shop-wishlist.html"><i class="wpb-icon-heart"></i></a>
+						<a href="/wishlist"><i class="wpb-icon-heart"></i></a>
 					</div>
 				</div>
 			</div>
@@ -191,7 +189,7 @@
 
 										<!-- Wishlist -->
 										<div class="wishlist-box">
-											<a href="shop-wishlist.html"><i class="icon-heart"></i></a>
+											<a href="/wishlist"><i class="icon-heart"></i></a>
 										</div>
 
 										<!-- Cart -->
@@ -335,14 +333,60 @@
 																	<%= productDetails.capacity%>
 																</b></span>
 															<hr>
-															<div class="d-flex" style="gap: 10px;">
-																<div class="lovebtn" onclick="wish('<%= productDetails._id%>')">
-																	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-heart-fill" viewBox="0 0 16 16">
-																	<path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
-																	</svg>
-																</div>
-																<button class="wishlistbtn" id="wishlistbtn">Add to wishlist</button>
+															<div style="display: block;" id="serverwish">
+																<% if (userData) { %>
+																	<% if (wishproduct) { %>
+																		<div class="d-flex" style="gap: 10px;">
+																			<div class="lovebtn" onclick="removewishlist('<%= productDetails._id%>')">
+																				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-heartbreak-fill" viewBox="0 0 16 16">
+																				<path d="M8.931.586 7 3l1.5 4-2 3L8 15C22.534 5.396 13.757-2.21 8.931.586M7.358.77 5.5 3 7 7l-1.5 3 1.815 4.537C-6.533 4.96 2.685-2.467 7.358.77"/>
+																				</svg>
+																			</div>
+																			<button class="wishlistbtn" id="wishlistbtn">Remove from wishlist</button>
+																		</div>
+																	<% } else { %>
+																		<div class="d-flex" style="gap: 10px;">
+																			<div class="lovebtn" onclick="wish('<%= productDetails._id%>')">
+																				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-heart" viewBox="0 0 16 16">
+																				<path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
+																				</svg>
+																			</div>
+																			<button class="wishlistbtn" id="wishlistbtn">Add to wishlist</button>
+																		</div>
+																	<% } %>
+
+																<% } else { %>
+																	<div class="d-flex" style="gap: 10px;">
+																		<div class="lovebtn" onclick="wish('<%= productDetails._id%>')">
+																			<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-heart" viewBox="0 0 16 16">
+																			<path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
+																			</svg>
+																		</div>
+																		<button class="wishlistbtn" id="wishlistbtn">Add to wishlist</button>
+																	</div>
+																<% } %>
 															</div>
+															<div id="addwish" style="display: none;">
+																<div class="d-flex" style="gap: 10px;" >
+																	<div class="lovebtn" onclick="wish('<%= productDetails._id%>')">
+																		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-heart" viewBox="0 0 16 16">
+																		<path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
+																		</svg>
+																	</div>
+																	<button class="wishlistbtn" id="wishlistbtn">Add to wishlist</button>
+																</div>
+															</div>
+															<div id="removewish" style="display: none;">
+																<div class="d-flex" style="gap: 10px;" >
+																	<div class="lovebtn" onclick="removewishlist('<%= productDetails._id%>')">
+																		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-heartbreak-fill" viewBox="0 0 16 16">
+																		<path d="M8.931.586 7 3l1.5 4-2 3L8 15C22.534 5.396 13.757-2.21 8.931.586M7.358.77 5.5 3 7 7l-1.5 3 1.815 4.537C-6.533 4.96 2.685-2.467 7.358.77"/>
+																		</svg>
+																	</div>
+																	<button class="wishlistbtn" id="wishlistbtn">Remove from wishlist</button>
+																</div>
+															</div>
+															
 														</div>
 													</table>
 
@@ -824,27 +868,79 @@
 }
 
 function wish(id){
-	if(document.getElementById("wishlistbtn").textContent === "Go to wishlist"){
-		window.location.href = "/wishlist"
-	}else{
-		$.ajax({
+	$.ajax({
+		url: "/wishlist",
+		method: "post",
+		data: {
+			id
+		},
+		success: (response) => {
+			if (response.status === "okay") {
+				Swal.fire({
+					text : "Product added into your wishlist",
+					showConfirmButton: false,
+					position : "bottom",
+					timer: 2000
+				});
+				document.getElementById("serverwish").style.display = "none";
+				document.getElementById("removewish").style.display = "block";
+				document.getElementById("addwish").style.display = "none";
+			} else if (response.status === "notlogin") {
+				Swal.fire({
+					title: "Please login",
+					showCancelButton: true,
+					confirmButtonColor: "#39e75f",
+					cancelButtonColor: "#ffffff",
+					confirmButtonText: "Go to login page",
+					customClass: {
+						popup: 'swal-custom',
+						cancelButton: 'swal-custom-ok-btn'
+					}
+				}).then((result) => {
+					if (result.isConfirmed) {
+						window.location.href = "/userLogin"
+					}
+				});
+			} else if (response.status === "blocked") {
+				Swal.fire({
+					title: "Oops ! . . .",
+					text: "This product has been temporaily discontinued",
+					showCancelButton: true,
+					confirmButtonColor: "#39e75f",
+					cancelButtonColor: "#ffffff",
+					confirmButtonText: "Okay",
+					customClass: {
+						popup: 'swal-custom',
+						cancelButton: 'swal-custom-ok-btn'
+					}
+				}).then((result) => {
+					if (result.isConfirmed) {
+						window.location.reload()
+					}
+				});
+			}
+		}
+	})
+} 
+
+function removewishlist(id){
+	$.ajax({
 			url: "/wishlist",
-			method: "post",
+			method: "delete",
 			data: {
 				id
 			},
 			success: (response) => {
 				if (response.status === "okay") {
 					Swal.fire({
-						icon: "success",
-						title: "Product added into your wishlist",
+						text: "Product removed from wishlist",
 						showConfirmButton: false,
-						customClass: {
-							popup: 'swal-custom',
-						},
-						timer: 1500
+						position : "bottom",
+						timer: 2000
 					});
-					document.getElementById("wishlistbtn").textContent = "Go to wishlist"
+					document.getElementById("serverwish").style.display = "none";
+					document.getElementById("addwish").style.display = "block";
+					document.getElementById("removewish").style.display = "none";
 				} else if (response.status === "notlogin") {
 					Swal.fire({
 						title: "Please login",
@@ -864,7 +960,7 @@ function wish(id){
 				} else if (response.status === "blocked") {
 					Swal.fire({
 						title: "Oops ! . . .",
-						text: "This product has been temporaily discontinued",
+						text: "This product has been temporaily discontinued. Please refresh your page",
 						showCancelButton: true,
 						confirmButtonColor: "#39e75f",
 						cancelButtonColor: "#ffffff",
@@ -881,7 +977,6 @@ function wish(id){
 				}
 			}
 		})
-	}
 }
 
 </script>

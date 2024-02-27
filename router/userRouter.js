@@ -75,5 +75,6 @@ router.get("/orderSuccessfull" , isUser , isBlocked , cartController.orderSucces
 //user wishlist side
 router.get("/wishlist" , userController.wishlistget)
 router.post("/wishlist" , userController.wishlistpost)
+router.delete("/wishlist" , userController.deletewish)
 
 module.exports = router;
