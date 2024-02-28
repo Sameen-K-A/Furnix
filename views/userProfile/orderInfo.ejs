@@ -39,6 +39,26 @@
         rel="stylesheet">
 </head>
 <style>
+    .custom-button1 {
+        width: 100px;
+        height: 40px;
+        padding: 5px;
+        border: 1px solid black;
+        background-color: rgb(255, 255, 255);
+        color: rgb(0, 0, 0);
+        font-size: 14px;
+        border-radius: 50px;
+    }
+
+    .custom-button2 {
+        width: 100px;
+        height: 40px;
+        padding: 5px;
+        background-color: rgb(0, 0, 0);
+        color: rgb(255, 255, 255);
+        font-size: 14px;
+        border-radius: 50px;
+    }
     .swal-custom {
         background: linear-gradient(94deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.8240546218487395) 26%, rgba(0, 0, 0, 1) 53%, rgba(0, 0, 0, 0.8492647058823529) 79%, rgba(227, 227, 227, 0) 100%);
         color: #ffffff;
@@ -82,15 +102,55 @@
         color: rgb(0, 0, 0);
     }
 
-    .deliveredorder {
-        background-color: rgb(14, 219, 144);
+    .bttn {
+        background-color: rgb(0, 0, 0);
         font-size: 13px;
-        padding-left: 15px;
-        padding-right: 15px;
+        padding-left: 20px;
+        padding-right: 20px;
         padding-top: 5px;
         padding-bottom: 5px;
         border-radius: 30px;
+        color: rgb(255, 255, 255);
+    }
+    .addbtn {
+        background-color: black;
+        color: white;
+        width: 170px;
+        height: 40px;
+        font-size: 15px;
+    }
+
+    .cancelbtn {
+        background-color: rgb(255, 255, 255);
         color: rgb(0, 0, 0);
+        border: 1px solid black;
+        width: 170px;
+        height: 40px;
+        font-size: 15px;
+    }
+    .cancelbtn4 {
+        background-color: rgb(0, 0, 0);
+        color: rgb(255, 255, 255);
+        width: 140px;
+        height: 40px;
+        font-size: 15px;
+        border-radius: 50px;
+    }
+
+    .review-order-title {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .editDeletebtn {
+        background-color: white;
+        text-align: center;
+        border: 1px solid black;
+        border-radius: 50px;
+        width: 70px;
+        font-size: small;
     }
 </style>
 
@@ -327,13 +387,17 @@
 
                                             </div>
                                         </div>
+                                        
+
+
+                                    </div>
+                                    <div class="d-flex justify-content-end">
                                         <div class="col-xl-3 col-lg-3 col-md-5 col-5" style="margin-top: 30px;">
                                             <div class="table-responsive">
                                                 <table class="cart-items table" cellspacing="0">
                                                     <thead>
                                                         <tr style="background-color: rgb(219, 219, 219);">
-                                                            <th class="product-thumbnail text-dark text-center"
-                                                                colspan="2">Total</th>
+                                                            <th class="product-thumbnail text-dark text-center" colspan="2">Total</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -349,46 +413,166 @@
                                                                 <div class="product-name">
                                                                     <a>₹<%= orderInfodata.total %>.00</a><br>
                                                                     <a>free shipping</a><br><br>
-                                                                    <p style="font-size: 20px; color: black;"><b>₹<%=
-                                                                                orderInfodata.total %>.00</b></p>
+                                                                    <p style="font-size: 20px; color: black;"><b>₹<%= orderInfodata.total %>.00</b></p>
                                                                 </div>
                                                             </td>
-
                                                         </tr>
-
                                                     </tbody>
-
                                                 </table>
                                                 <div class="justify-content-center align-items-center d-flex">
                                                     <% if (orderInfodata.status != "Cancelled" && orderInfodata.status != "Delivered") { %>
-                                                        <button
-                                                        style="background-color: rgb(0, 0, 0); width: 50%; color: #ffffff; border-radius: 50px; height: 35px;"
-                                                        onclick="cancelorder('<%= orderInfodata._id %>')">Cancel order</button>
+                                                        <button style="background-color: rgb(0, 0, 0); width: 50%; color: #ffffff; border-radius: 50px; height: 35px;" onclick="cancelorder('<%= orderInfodata._id %>')">Cancel order</button>
                                                     <% } else if (orderInfodata.status === "Delivered") { %>
-                                                        <button
-                                                        style="background-color: #00ffaa; width: 50%; color: #000000; border-radius: 50px; height: 35px;">Delivered</button>
+                                                       
                                                     <% } else { %>
-                                                        <button
-                                                        style="background-color: #ffffff; border: 1px solid rgb(255, 0, 0); width: 50%; border-radius: 50px; height: 35px;" >Order cancelled</button>
+                                                        <button style="background-color: #ffffff; border: 1px solid rgb(255, 0, 0); width: 50%; border-radius: 50px; height: 35px;" >Order cancelled</button>
                                                     <% } %>
-                                                    
-                                                    
-                                                    
-                                                    
                                                 </div>
-
-
                                             </div>
                                         </div>
-
-
+                                    </div>
+                                    
+                                    <div>
+                                        <% if (orderInfodata.status === "Delivered") { %>
+                                            <hr>
+                                            <button style="width: 100%; background-color: #e8e8e8; padding-top: 15px; padding-bottom: 12px; padding-left: 20px;" onclick="questionopen()" id="returnbtn">
+                                                <h6><b>⦿ Do you want to return this order </b> ( click here )</h6>
+                                            </button>
+                                            <button style="width: 100%; background-color: #e8e8e8; padding-top: 15px; padding-bottom: 12px; padding-left: 20px; display: none;"  id="returnbtncopy">
+                                                <h6><b>⦿ Do you want to return this order </b> ( click here )</h6>
+                                            </button>
+                                            <div id="questions" style="color: black; margin: 50px; display: none;">
+                                                    <p class="text-center">- - - ⦿ - - - ○ - - - ○ - - - </p>
+                                                    <label>
+                                                        <input type="radio" name="reason" value="damaged">
+                                                        Product is damaged
+                                                    </label><br>
+                                                    <label>
+                                                        <input type="radio" name="reason" value="different">
+                                                        Product is different from what was ordered
+                                                    </label><br>
+                                                    <label>
+                                                        <input type="radio" name="reason" value="missing">
+                                                        Product is missing parts or accessories
+                                                    </label><br>
+                                                    <label>
+                                                        <input type="radio" name="reason" value="not_functioning">
+                                                        Product is not functioning properly
+                                                    </label><br>
+                                                    <label>
+                                                        <input type="radio" name="reason" value="other">
+                                                        Other problem
+                                                    </label><br>
+                                                    
+                                                    <div style="margin-top: 25px; display: block;" >
+                                                        <p class="text-danger" id="errormessage"></p>
+                                                        <button class="bttn"  onclick="qscheck()">
+                                                            Continue
+                                                        </button>
+                                                    </div>
+                                            </div>
+                                            <div>
+                                                <div class="shop-cart" id="productview" style="display: none; margin-top: 50px;">
+                                                    <p class="text-center text-dark">- - - ○ - - - <b>⦿</b> - - - ○ - - - </p>
+                                                    <h6><b>⦿ Your products</b></h6>
+                                                    <div class="row justify-content-start" style="margin-top: 15px;">
+                                                        <div class="col-xl-12 col-lg-12 col-md-12 col-12">
+                                                            <div class="table-responsive">
+                                                                <table class="cart-items table" cellspacing="0">
+                                                                    <thead style="background-color: rgb(219, 219, 219);">
+                                                                        <tr>
+                                                                            <th class="product-thumbnail text-dark">
+                                                                                Product</th>
+                                                                            <th class="product-thumbnail text-dark text-center">
+                                                                                Price</th>
+                                                                            <th class="product-quantity text-dark text-center">
+                                                                                Quantity</th>
+                                                                            <th class="product-subtotal text-dark text-center">
+                                                                                Subtotal</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <% for (let i=0; i < orderInfodata.product.length; i++) { %>
+                                                                            <tr class="cart-item align-center">
+                                                                                <td class="product-thumbnail text-center">
+                                                                                    <a><img width="600" height="600"
+                                                                                            src="/uploads/<%= orderInfodata.product[i].images[0] %>"
+                                                                                            class="product-image"
+                                                                                            alt="product image"></a>
+                                                                                    <div class="product-name">
+                                                                                        <a>
+                                                                                            <%= orderInfodata.product[i].name %>
+                                                                                        </a>
+                                                                                    </div>
+                                                                                </td>
+                                                                                
+                                                                                <td class="product-price text-center">
+                                                                                    <div class="product-name">
+                                                                                        <a>₹<%= orderInfodata.product[i].regularPrice %>
+                                                                                                .00</a>
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td class="product-price text-center">
+                                                                                    <div class="product-name">
+                                                                                        <a>
+                                                                                            <%= orderInfodata.product[i].cartQty %>
+                                                                                        </a>
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td class="product-price text-center">
+                                                                                    <div class="product-name">
+                                                                                        <a>
+                                                                                            <%= orderInfodata.product[i].regularPrice *
+                                                                                                orderInfodata.product[i].cartQty %>.00
+                                                                                        </a>
+                                                                                    </div>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <% } %>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="mb-50 col-12 text-center" style="margin-top: 30px;">
+                                                        <button class="custom-button1" onclick="window.history.back()" >Cancel</button>
+                                                        <button class="custom-button2" onclick="cntueRetuen('<%= orderInfodata._id %>')" >Continue</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <% } %>
                                     </div>
                                 </div>
+                                
                             </div>
+                            
                         </div>
                     </div><!-- #content -->
                 </div><!-- #primary -->
             </div><!-- #main-content -->
+        </div>
+        
+        <div class="row" style="margin-top: 50px; display: none;" id="success">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-12">
+                <p class="text-center text-dark">- - - ○ - - - ○ - - - <b>⦿</b> - - - </p>
+                <div
+                    class="checkout-review-order-table justify-content-center align-items-center text-center">
+                    <div class="review-order-title"
+                        style="font-size: 25px; color: black; margin: 0 auto;">
+                        <div style="width: 70px; height: 70px;">
+                            <img src="/media/Screenshot (105).png" alt="Success">
+                        </div>
+                        <b>Order return accepted</b>
+                        <p style="font-size: 15px; margin-top: 20px;">Apologies for the inconvenience <br> We're here to
+                            The moves will start soon.
+                        </p>
+                        <div>
+                            <a href="/orders"><button class="cancelbtn4">Okay</button></a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
         </div>
 
         <footer id="site-footer" class="site-footer background">
@@ -617,6 +801,57 @@
             }
         });
     }
+
+    function questionopen(){
+        document.getElementById("questions").style.display = "block"
+    }
+    function qscheck() {
+        const reasons = document.getElementsByName("reason");
+        let isChecked = false;
+        for (let i = 0; i < reasons.length; i++) {
+            if (reasons[i].checked) {
+                isChecked = true;
+                document.getElementById("productview").style.display = "block"
+                document.getElementById("questions").style.display = "none"
+                document.getElementById("returnbtn").style.display = "none"
+                document.getElementById("returnbtncopy").style.display = "block"
+                break;
+            }
+        }
+        if (!isChecked) {
+            document.getElementById("errormessage").textContent = "Please give youe feedback"
+        }
+    }
+    function cntueRetuen(id){
+        $.ajax({
+            url: "/returnorder",
+            method: "post",
+            data: {
+                id
+            },
+            success: (response) => {
+                if (response.status === "oops") {
+                    Swal.fire({
+                        icon: "error",
+                        iconColor: "#ff0000",
+                        title: "Some network issue please try again later",
+                        showConfirmButton: false,
+                        customClass: {
+                            popup: 'swal-custom',
+                        },
+                        timer: 1500
+                    });
+                    setTimeout(() => {
+                        window.location.reload()
+                    }, 1500);
+                } else if (response.status === "okay") {
+                    document.getElementById("productview").style.display = "none"
+                    document.getElementById("success").style.display = "block"
+                }
+            }
+        })
+    }
+
 </script>
 
 </html>

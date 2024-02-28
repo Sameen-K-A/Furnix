@@ -81,6 +81,25 @@
         border-radius: 30px;
         color: rgb(0, 0, 0);
     }
+    .returnorder {
+        background-color: rgb(233, 85, 0);
+        font-size: 13px;
+        padding-left: 15px;
+        padding-right: 15px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        border-radius: 30px;
+        color: rgb(0, 0, 0);
+    }
+    .swal-custom {
+        background: linear-gradient(94deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.8240546218487395) 26%, rgba(0, 0, 0, 1) 53%, rgba(0, 0, 0, 0.8492647058823529) 79%, rgba(227, 227, 227, 0) 100%);
+        color: #ffffff;
+        width: 100%;
+    }
+
+    .swal-custom-ok-btn {
+        color: black !important;
+    }
 </style>
 
 <body class="blog">
@@ -286,12 +305,11 @@
                                                                                                     ) { %>
                                                                                                     <span
                                                                                                         class="cancelorder">Cancelled</span>
+                                                                                                    <% } else if (orderData[i].status==="Shipped") { %>
+                                                                                                        <spanclass="shippedorder">Shipped</span>
+                                                                                                    <% } else if (orderData[i].status==="Returnorder") { %>
+                                                                                                        <span class="returnorder">Returned</span>
                                                                                                     <% } else if
-                                                                                                        (orderData[i].status==="Shipped"
-                                                                                                        ) { %>
-                                                                                                        <span
-                                                                                                            class="shippedorder">Shipped</span>
-                                                                                                        <% } else if
                                                                                                             (orderData[i].status==="Delivered"
                                                                                                             ) { %>
                                                                                                             <span

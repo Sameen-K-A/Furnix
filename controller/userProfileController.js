@@ -244,6 +244,24 @@ const cancelOrder = async (req, res) => {
 }
 
 
+//========================================= user cancel order ==============================================
+
+const returnorder = async (req, res) => {
+    try {
+        const returnID = req.body.id;
+        const orderDetails = await Order.updateOne({_id : returnID} , {status : "Returnorder"});
+        if(orderDetails.modifiedCount === 1){
+            res.json({status : "okay"})
+        } else{
+            res.json({status : "oops"})
+        }
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ status: "error" });
+    }
+}
+
+
 
 //========================================= Exporting all modules ==============================================
 
@@ -260,5 +278,6 @@ module.exports = {
     editdetailspost,
     orders,
     vieworderinfo,
-    cancelOrder
+    cancelOrder,
+    returnorder
 }

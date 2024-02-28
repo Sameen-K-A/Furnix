@@ -457,28 +457,6 @@ const deletewish = async (req, res) => {
     }
 }
 
-//========================================= Wishlist page render  ==============================================
-
-const deletewishitem = async (req, res) => {
-    try {
-        const productID = req.body.id;
-        const userData = await User.findOne({ email: req.session.user });
-        if (userData) {
-            // const productData = await Product.findOne({ _id: productID });
-            // if (productData.isBlocked === false) {
-            //     await Wishlist.updateOne({userID : userData._id} , {$pull :{products : {productID : productData._id}}});
-            //     res.json({status : "okay"})
-            // } else {
-            //     res.json({ status: "blocked" })
-            // } 
-        } else {
-            res.json({ status: "notlogin" })
-        }
-    } catch (error) {
-        console.log(error);
-    }
-}
-
 //========================================= Export all modules ==============================================
 
 module.exports = {
@@ -502,5 +480,4 @@ module.exports = {
     wishlistget,
     wishlistpost,
     deletewish,
-    deletewishitem
 }

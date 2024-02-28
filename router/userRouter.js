@@ -57,7 +57,8 @@ router.patch("/address" , isUser , isBlocked , userProfileController.editAddress
 // user order details
 router.get("/orders" , isUser , isBlocked , userProfileController.orders);
 router.get("/vieworderinfo" , isUser , isBlocked , userProfileController.vieworderinfo);
-router.post("/cancelOrder" , isUser , isBlocked , userProfileController.cancelOrder)
+router.post("/cancelOrder" , isUser , isBlocked , userProfileController.cancelOrder);
+router.post("/returnorder" , isUser , isBlocked , userProfileController.returnorder);
 
 // user cart side 
 router.get("/cart" , isBlocked , cartController.cartpage);
