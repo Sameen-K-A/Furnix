@@ -2,6 +2,8 @@ const User = require("../model/userModel");
 const Category = require("../model/categoryModel");
 const Order = require("../model/orderModel");
 const Product = require("../model/productModel");
+const date = require("../config/dateGenerator");
+const time = require("../config/timeGenerator");
 
 //========================================= Render admin login page==============================================
 
@@ -258,9 +260,15 @@ const statusChanger = async (req, res) => {
         const changeOrderID = req.body.id;
         const orderData = await Order.findById({ _id: changeOrderID });
         if (orderData.status !== newStatus) {
+            if(newStatus === "Delivered"){
+                currentTime = time();
+                currentDate = date();
+                const dateTime = currentTime + " / " + currentDate;
+                orderData.deliveredDateTime = dateTime;
+            }
             orderData.status = newStatus;
             orderData.save();
-            if (newStatus === "Cancelled") {
+            if (newStatus === "Cancelled" || newStatus === "Returned order recieved") {
                 for( let i=0 ; i<orderData.product.length ; i++){
                     const product = await Product.findById({_id : orderData.product[i]._id});;
                     if(product){

@@ -243,13 +243,30 @@ const cancelOrder = async (req, res) => {
     }
 }
 
+//========================================= user cancel order ==============================================
+
+const cancelreturnOrder = async (req, res) => {
+    try {
+        const cancelID = req.body.id;
+        const cancelProcess = await Order.updateOne({ _id: cancelID }, { status: "Return order cancel" });
+        if (cancelProcess.modifiedCount === 1) {
+            res.json({ status: "okay" });
+        } else {
+            res.json({ status: "oops" });
+        }
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ status: "error" });
+    }
+}
+
 
 //========================================= user cancel order ==============================================
 
 const returnorder = async (req, res) => {
     try {
         const returnID = req.body.id;
-        const orderDetails = await Order.updateOne({_id : returnID} , {status : "Returnorder"});
+        const orderDetails = await Order.updateOne({_id : returnID} , {status : "Return order processing"});
         if(orderDetails.modifiedCount === 1){
             res.json({status : "okay"})
         } else{
@@ -279,5 +296,6 @@ module.exports = {
     orders,
     vieworderinfo,
     cancelOrder,
-    returnorder
+    returnorder,
+    cancelreturnOrder
 }

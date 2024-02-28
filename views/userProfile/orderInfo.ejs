@@ -405,6 +405,9 @@
                                                             <td style="margin: auto;">
                                                                 <div class="product-name">
                                                                     <a>Sub total</a><br>
+                                                                    <% if (orderInfodata.deliveredDateTime !== "false") { %>
+                                                                        <a>Delivered time</a><br>
+                                                                    <% } %>
                                                                     <a>Shipping</a><br><br>
                                                                     <p style="font-size: 20px; color: black;">Total</p>
                                                                 </div>
@@ -412,6 +415,9 @@
                                                             <td style="margin: auto;">
                                                                 <div class="product-name">
                                                                     <a>₹<%= orderInfodata.total %>.00</a><br>
+                                                                    <% if (orderInfodata.deliveredDateTime !== "false") { %>
+                                                                        <a><%= orderInfodata.deliveredDateTime %></a><br>
+                                                                    <% } %>
                                                                     <a>free shipping</a><br><br>
                                                                     <p style="font-size: 20px; color: black;"><b>₹<%= orderInfodata.total %>.00</b></p>
                                                                 </div>
@@ -420,12 +426,19 @@
                                                     </tbody>
                                                 </table>
                                                 <div class="justify-content-center align-items-center d-flex">
-                                                    <% if (orderInfodata.status != "Cancelled" && orderInfodata.status != "Delivered") { %>
+                                                    <% if (orderInfodata.status != "Cancelled" && orderInfodata.status != "Delivered" && orderInfodata.status != "Return order processing" && orderInfodata.status != "Returned order recieved" && orderInfodata.status != "Return order cancel" ) { %>
                                                         <button style="background-color: rgb(0, 0, 0); width: 50%; color: #ffffff; border-radius: 50px; height: 35px;" onclick="cancelorder('<%= orderInfodata._id %>')">Cancel order</button>
-                                                    <% } else if (orderInfodata.status === "Delivered") { %>
-                                                       
-                                                    <% } else { %>
+                                                    <% } %>
+                                                    <% if (orderInfodata.status === "Delivered" && orderInfodata.status === "Returned order recieved") { %>
+                                                    <% } %>
+                                                    <% if (orderInfodata.status === "Return order cancel") { %>
+                                                        <button style="background-color: #ffffff; border: 1px solid rgb(255, 0, 0); width: 50%; border-radius: 50px; height: 35px;" >Return order cancelled</button>
+                                                    <% } %>
+                                                    <% if (orderInfodata.status === "Cancelled") { %>
                                                         <button style="background-color: #ffffff; border: 1px solid rgb(255, 0, 0); width: 50%; border-radius: 50px; height: 35px;" >Order cancelled</button>
+                                                    <% } %>
+                                                    <% if (orderInfodata.status === "Return order processing") { %>
+                                                        <button style="background-color: rgb(0, 0, 0); width: 50%; color: #ffffff; border-radius: 50px; height: 35px;" onclick="cancelreturnorder('<%= orderInfodata._id %>')">Cancel return order</button>
                                                     <% } %>
                                                 </div>
                                             </div>
@@ -442,7 +455,7 @@
                                                 <h6><b>⦿ Do you want to return this order </b> ( click here )</h6>
                                             </button>
                                             <div id="questions" style="color: black; margin: 50px; display: none;">
-                                                    <p class="text-center">- - - ⦿ - - - ○ - - - ○ - - - </p>
+                                                    <p class="text-center">⦿&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ○&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;○</p>
                                                     <label>
                                                         <input type="radio" name="reason" value="damaged">
                                                         Product is damaged
@@ -473,7 +486,7 @@
                                             </div>
                                             <div>
                                                 <div class="shop-cart" id="productview" style="display: none; margin-top: 50px;">
-                                                    <p class="text-center text-dark">- - - ○ - - - <b>⦿</b> - - - ○ - - - </p>
+                                                    <p class="text-center text-dark">○&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>⦿</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ○</p>
                                                     <h6><b>⦿ Your products</b></h6>
                                                     <div class="row justify-content-start" style="margin-top: 15px;">
                                                         <div class="col-xl-12 col-lg-12 col-md-12 col-12">
@@ -554,7 +567,7 @@
         
         <div class="row" style="margin-top: 50px; display: none;" id="success">
             <div class="col-xl-12 col-lg-12 col-md-12 col-12">
-                <p class="text-center text-dark">- - - ○ - - - ○ - - - <b>⦿</b> - - - </p>
+                <p class="text-center text-dark">○&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ○&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>⦿</b></p>
                 <div
                     class="checkout-review-order-table justify-content-center align-items-center text-center">
                     <div class="review-order-title"
@@ -747,6 +760,60 @@
 </body>
 
 <script>
+    function cancelreturnorder(id) {
+        Swal.fire({
+            title: "Cancel your order?",
+            text: "Are you sure? Do you want to cancel your order?",
+            showCancelButton: true,
+            confirmButtonColor: "#FF0000",
+            cancelButtonColor: "#ffffff",
+            confirmButtonText: "Cancel order",
+            customClass: {
+                popup: 'swal-custom',
+                cancelButton: 'swal-custom-ok-btn'
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: "/cancelreturnOrder",
+                    method: "post",
+                    data: {
+                        id
+                    },
+                    success: (response) => {
+                        if (response.status === "oops") {
+                            Swal.fire({
+                                icon: "error",
+                                iconColor: "#ff0000",
+                                title: "Some network issue please try again later",
+                                showConfirmButton: false,
+                                customClass: {
+                                    popup: 'swal-custom',
+                                },
+                                timer: 1500
+                            });
+                            setTimeout(() => {
+                                window.location.reload()
+                            }, 1500);
+                        } else if (response.status === "okay") {
+                            Swal.fire({
+                                icon: "success",
+                                title: "Cancelled your order",
+                                showConfirmButton: false,
+                                customClass: {
+                                    popup: 'swal-custom',
+                                },
+                                timer: 1500
+                            });
+                            setTimeout(() => {
+                                window.location.reload()
+                            }, 1500);
+                        }
+                    }
+                })
+            }
+        });
+    }
     function cancelorder(id) {
         Swal.fire({
             title: "Cancel your order?",

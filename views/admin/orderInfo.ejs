@@ -216,7 +216,7 @@
                                                         </article>
                                                     </td>
                                                 </tr>
-                                                <% if (orderDetails.status !="Cancelled" &&  orderDetails.status !="Delivered") { %>
+                                                <% if (orderDetails.status !="Cancelled" &&  orderDetails.status !="Delivered" && orderDetails.status !="Return order cancel" && orderDetails.status !="Returned order recieved") { %>
                                                     <tr>
                                                         <td colspan="4">
                                                             <hr>
@@ -225,13 +225,21 @@
                                                                     <select
                                                                         class="form-select d-inline-block mb-lg-0 mb-15 mw-200"
                                                                         id="statusChanger">
-                                                                        <option>
-                                                                            <%= orderDetails.status %>
-                                                                        </option>
-                                                                        <option>Ordered</option>
-                                                                        <option>Shipped</option>
-                                                                        <option>Delivered</option>
-                                                                        <option>Cancelled</option>
+                                                                        <% if (orderDetails.status === "Return order processing" ||  orderDetails.status === "Returned order recieved") { %>
+                                                                            <option>
+                                                                                <%= orderDetails.status %>
+                                                                            </option>
+                                                                            <option>Returned order recieved</option>
+                                                                            <option>Return order cancel</option>
+                                                                        <% } else { %>
+                                                                            <option>
+                                                                                <%= orderDetails.status %>
+                                                                            </option>
+                                                                            <option>Ordered</option>
+                                                                            <option>Shipped</option>
+                                                                            <option>Delivered</option>
+                                                                            <option>Cancelled</option>
+                                                                        <% } %>
                                                                     </select>
                                                                     <article class="float-end">
                                                                         <a class="btn savebtn"

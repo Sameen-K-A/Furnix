@@ -21,49 +21,18 @@
 </head>
 
 <style>
-    .cancelorder {
-        background-color: red;
+     .orderStatus {
+        background-color: rgb(255, 255, 255);
         font-size: 13px;
         padding-left: 15px;
         padding-right: 15px;
         padding-top: 5px;
         padding-bottom: 5px;
-        border-radius: 30px;
-        color: rgb(255, 255, 255);
-    }
-
-    .ordered {
-        background-color: rgb(255, 234, 0);
-        font-size: 13px;
-        padding-left: 15px;
-        padding-right: 15px;
-        padding-top: 5px;
-        padding-bottom: 5px;
+        border:  1px solid black;
         border-radius: 30px;
         color: rgb(0, 0, 0);
     }
-
-    .shippedorder {
-        background-color: rgb(136, 255, 0);
-        font-size: 13px;
-        padding-left: 15px;
-        padding-right: 15px;
-        padding-top: 5px;
-        padding-bottom: 5px;
-        border-radius: 30px;
-        color: rgb(0, 0, 0);
-    }
-
-    .deliveredorder {
-        background-color: rgb(14, 219, 144);
-        font-size: 13px;
-        padding-left: 15px;
-        padding-right: 15px;
-        padding-top: 5px;
-        padding-bottom: 5px;
-        border-radius: 30px;
-        color: rgb(0, 0, 0);
-    }
+    
 </style>
 
 <body>
@@ -299,15 +268,22 @@
                                         </td>
                                         <td>₹<%= orderData[i].total %>.00</td>
                                         <td>
-                                            <% if (orderData[i].status==="Ordered" ) { %>
-                                                <span class="ordered">Ordered</span>
-                                                <% } else if (orderData[i].status==="Cancelled" ) { %>
-                                                    <span class="cancelorder">Cancelled</span>
-                                                    <% } else if (orderData[i].status==="Shipped" ) { %>
-                                                        <span class="shippedorder">Shipped</span>
-                                                        <% } else if (orderData[i].status==="Delivered" ) { %>
-                                                            <span class="deliveredorder">Delivered</span>
-                                                            <% } %>
+                                            <% if
+                                            ( orderData[i].status==="Ordered") { %>
+                                                <span class="orderStatus">Ordered</span>
+                                            <% } else if (orderData[i].status==="Cancelled") { %>
+                                                <span class="orderStatus">Cancelled</span>
+                                            <% } else if (orderData[i].status==="Shipped") { %>
+                                                    <span class="orderStatus">Shipped</span>
+                                            <% } else if (orderData[i].status==="Return order processing") { %>
+                                                    <span class="orderStatus">Return processing</span>
+                                            <% } else if (orderData[i].status==="Returned order recieved") { %>
+                                                <span class="orderStatus">Return recieved</span>
+                                            <% }else if (orderData[i].status==="Return order cancel") { %>
+                                                <span class="orderStatus">Return cancelled</span>
+                                            <% } else if (orderData[i].status==="Delivered" ) { %>
+                                                <span class="orderStatus">Delivered</span>
+                                            <% } %>
                                         </td>
                                         <td>
                                             <%= orderData[i].date %>

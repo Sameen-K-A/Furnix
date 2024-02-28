@@ -39,6 +39,10 @@ const productSchema = new mongoose.Schema({
     paymentMethod: {
         type: String,
         required: true
+    },
+    deliveredDateTime : {
+        type : String,
+        default : false
     }
 }, {
     versionKey: false

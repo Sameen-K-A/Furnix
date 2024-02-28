@@ -299,13 +299,15 @@ const productDetailspage = async (req, res) => {
         let wishproduct = false;
         const ratingData = await Rating.find({ productID: productID })
         if (userData) {
-            const boughtProduct = await Order.find({ userEmail: req.session.user, status: "Delivered" });
+            const boughtProduct = await Order.find({ userEmail: req.session.user});
             for (let i = 0; i < boughtProduct.length; i++) {
-                for (let j = 0; j < boughtProduct[i].product.length; j++) {
-                    const boughtProductString = boughtProduct[i].product[j]._id.toString();
-                    if (productID === boughtProductString) {
-                        boughtProductID = productID;
-                        break;
+                if(boughtProduct[i].deliveredDateTime != false){
+                    for (let j = 0; j < boughtProduct[i].product.length; j++) {
+                        const boughtProductString = boughtProduct[i].product[j]._id.toString();
+                        if (productID === boughtProductString) {
+                            boughtProductID = productID;
+                            break;
+                        }
                     }
                 }
             }
