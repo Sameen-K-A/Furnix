@@ -47,6 +47,12 @@
     .swal-custom-ok-btn {
         color: black !important;
     }
+	.copybtn{
+		background-color: black;
+		height: 100%;
+		width: 100px;
+		color: white;
+	}
 </style>
 
 <body class="blog">
@@ -190,6 +196,9 @@
 													<a class="nav-link" href="/accountDetails">Account details</a>
 												</li>
 												<li class="nav-item">
+													<a class="nav-link" href="/Coupons">Coupons</a>
+												</li>
+												<li class="nav-item">
 													<a class="nav-link" href="/changepassword">Change password</a>
 												</li>
 												<li class="nav-item">
@@ -209,8 +218,16 @@
 														pieces add a touch of elegance to any room. Shop now and
 														transform your home into a haven of luxury and comfort. <br>
 														Your dream home is just a click away!
+													</p><br>
+													<hr>
+													<p style="color: black; font-size: 16px; margin-top: 50px;" >Refer to your friends</p><br>
+													<div style="width: 70%; height: 35px; border: 1px solid rgb(163, 163, 163); margin-top: -10px;" class="d-flex justify-content-between align-items-center">
+														<p id="myText" style="margin: 0 ; padding-left: 20px;"><%= userData.referCode %></p>
+														<button onclick="copyContent()" class="copybtn">Copy</button>
+													</div><br>
+													<p>Invite your friends to FURNIX Furniture with your referral code <br> and have them register their account on FURNIX. You'll earn 2000₹ gift coupon.
 													</p>
-
+													
 												</div>
 											</div>
 										</div>
@@ -403,5 +420,25 @@
             }
         });
     }
+	
+	let text = document.getElementById('myText').innerHTML;
+	const copyContent = async () => {
+	try {
+		await navigator.clipboard.writeText(text);
+		Swal.fire({
+			text: "Copied to your clipboard",
+			showConfirmButton: false,
+			position : "bottom",
+			timer: 1000
+		});
+	} catch (err) {
+		Swal.fire({
+			text: "Something wrong",
+			showConfirmButton: false,
+			position : "bottom",
+			timer: 1000
+		});
+	}
+	}
 </script>
 </html>

@@ -197,7 +197,13 @@
 														</div>
 														<p class="text-danger text-center" id="confpass"
 															style="display: none;">Confirm password is wrong</p>
-
+														<div class="password text-left">
+															<label>Referral code <span style="font-size: 13px;"> (Option)</span></label>
+															<input class="input-text" type="text"
+																name="registeruserefercode" id="registeruserrefercode">
+														</div>
+														<p class="text-danger text-center" id="refcode"
+															style="display: none;">Referral code is wrong</p>
 														<div class="button-login">
 															<input type="submit" class="button" name="registernext"
 																value="Next" onclick="registervalidation()">
@@ -372,6 +378,7 @@
 		const registernumber = document.getElementById("registeruserphone").value;
 		const registerpassword = document.getElementById("registeruserpass").value;
 		const registerconfpass = document.getElementById("registeruserconfpass").value;
+		const registerrefercode = document.getElementById("registeruserrefercode").value;
 		if (registeremail.trim() === "" || registername.trim() === "" || registernumber.trim() === "" || registerpassword.trim() === "" || registerconfpass.trim() === "") {
 			document.getElementById("formAlert").style.display = "block"
 			setTimeout(() => {
@@ -405,7 +412,8 @@
 					registeremail,
 					registernumber,
 					registerpassword,
-					registerconfpass
+					registerconfpass,
+					registerrefercode
 				},
 				success: (response) => {
 					if (response.status === true) {
@@ -445,6 +453,12 @@
 						document.getElementById("confpass").style.display = "block";
 						setTimeout(() => {
 							document.getElementById("confpass").style.display = "none"
+						}, 2000);
+					}
+					else if (response.status === "refcodeerror") {
+						document.getElementById("refcode").style.display = "block";
+						setTimeout(() => {
+							document.getElementById("refcode").style.display = "none"
 						}, 2000);
 					}
 				}

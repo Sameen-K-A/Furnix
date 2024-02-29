@@ -38,56 +38,58 @@
         rel="stylesheet">
 </head>
 <style>
-    .cancelbtn {
-        background-color: rgb(0, 0, 0);
-        color: rgb(255, 255, 255);
-        border: 1px solid black;
-        width: 150px;
-        height: 40px;
+   .firstbook{
+        width: 280px;
+        height: 280px;
+        border-radius: 40px;
+        margin-bottom: 20px;
+        background: linear-gradient(315deg, rgba(9,6,6,1) 0%, rgb(94, 82, 79) 100%);
+        position: relative;
+        gap: 10px;
+        padding-left: 10px;
+        padding-right: 10px;
     }
-
-    /* .input-radio {
-        display: none;
+   .refercpn{
+        width: 280px;
+        height: 280px;
+        border-radius: 40px;
+        margin-bottom: 20px;
+        background: linear-gradient(315deg, #05151e 0%, #004263 100%);
+        position: relative;
+        gap: 10px;
+        padding-left: 10px;
+        padding-right: 10px;
     }
+   .copybtn{
+		background-color: #CCBEA5;
+		height: 100%;
+		width: 40px;
+		color: rgb(0, 0, 0);
+	}
+    .wrapper {
+    display: flex;
+    flex-wrap: wrap;
+}
 
-    .input-radio+label:before {
-        content: "";
-        display: inline-block;
-        width: 16px;
-        height: 16px;
-        border-radius: 50%;
-        border: 1px solid black;
-        margin-right: 5px;
+.container {
+    width: calc(33.33% - 20px);
+    margin: 10px; 
+}
+
+@media (max-width: 768px) {
+    .container {
+        width: calc(50% - 20px);
     }
+}
 
-    .input-radio:checked+label:before {
-        background-color: black;
-    } */
-
-    .addbtn {
-        background-color: black;
-        color: white;
-        width: 150px;
-        height: 40px;
+@media (max-width: 576px) {
+    .container {
+        width: calc(100% - 20px);
     }
+}
 
-    .cancelbtn2 {
-        background-color: rgb(255, 255, 255);
-        color: rgb(0, 0, 0);
-        border: 1px solid black;
-        width: 150px;
-        height: 40px;
-    }
 
-    .swal-custom {
-        background: linear-gradient(94deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.8240546218487395) 26%, rgba(0, 0, 0, 1) 53%, rgba(0, 0, 0, 0.8492647058823529) 79%, rgba(227, 227, 227, 0) 100%);
-        color: #ffffff;
-        width: 100%;
-    }
 
-    .swal-custom-ok-btn {
-        color: black !important;
-    }
 </style>
 
 <body class="blog">
@@ -225,11 +227,11 @@
                                                 <li class="nav-item">
                                                     <a class="nav-link" href="/address">Addresses</a>
                                                 </li>
-                                                <li class="nav-item " style="background-color: rgb(0, 0, 0); ">
-                                                    <a class="nav-link text-light">Account details</a>
-                                                </li>
                                                 <li class="nav-item">
-													<a class="nav-link" href="/Coupons">Coupons</a>
+                                                    <a class="nav-link" href="/accountDetails">Account details</a>
+                                                </li>
+                                                <li class="nav-item" style="background-color: rgb(0, 0, 0);">
+													<a class="nav-link text-light">Coupons</a>
 												</li>
                                                 <li class="nav-item">
                                                     <a class="nav-link" href="/changepassword">Change password</a>
@@ -240,32 +242,59 @@
                                             </ul>
                                         </nav>
                                         <div class="my-account-content tab-content">
-                                            <div
+                                            <!-- <div
                                                 class="my-account-account-details d-flex justify-content-center align-items-center">
-                                                <div class="edit-account col-lg-8 ">
-                                                    <p class="form-row" style="margin-top: -17px;">
-                                                    <div id="detailsDiv"
-                                                        style="width: 100%; height: auto; background-color: rgb(241, 241, 241); padding: 20px; border: 1px solid black; display: block;">
-                                                        Name : <h5 style="margin-bottom: 15px;"><b>
-                                                                <%= userDetails.name %>
-                                                            </b></h5>
-                                                        Email : <h5 style="margin-bottom: 15px;"><b>
-                                                                <%= userDetails.email%>
-                                                            </b></h5>
-                                                        Phone number : <h5 style="margin-bottom: 15px;"><b>
-                                                                <%= userDetails.phone %>
-                                                            </b></h5>
+                                                <div class="edit-account col-lg-8">
+                                                    <div style="width: 100%; height: 100px; background-color:
+                                                    rgb(255, 255, 255); display: flex; justify-content: center;
+                                                    align-items: center; border: 1px solid black;">
+                                                        <p style="color: black; margin-top: 10px;">Address not
+                                                            found! Please insert</p>
                                                     </div>
-                                                    </p>
-                                                    <div class="col-lg-6 d-flex justify-content-center"
-                                                        style="margin: auto;">
-                                                        <a href="/editdetails"><button class="cancelbtn mr-2" id="Edit"
-                                                                style="display: block;">Add
-                                                                & Edit</button></a>
-                                                    </div>
-
                                                 </div>
+                                            </div> -->
+
+                                            
+
+                                            <div class="wrapper d-flex">
+                                                <div class="container d-flex">
+                                                    <div class="firstbook d-flex align-items-center justify-content-center">
+                                                        <div class="text-center">
+                                                            <h3 style="color: #CCBEA5;"><b>First order</b></h3><br>
+                                                            <p style="color: #CCBEA5; font-size: 13px;">Make your first purchase with the FURNIX exclusive coupon to receive a ₹1000 discount offer on any product.</p>
+                                                            <br>
+                                                            <div style="width: 100%; height: 35px; border: 1px solid #CCBEA5; margin-top: -10px;" class="d-flex justify-content-between align-items-center">
+                                                                <p id="myText" style="margin: 0 ; padding-left: 20px; color: #CCBEA5;">svdbftgb</p>
+                                                                <button onclick="copyContent()" class="copybtn"><svg xmlns="http://www.w3.org/2000/svg" height="20px" width="20px" viewBox="0 0 448 512">
+                                                                    <path fill="#090606" d="M208 0H332.1c12.7 0 24.9 5.1 33.9 14.1l67.9 67.9c9 9 14.1 21.2 14.1 33.9V336c0 26.5-21.5 48-48 48H208c-26.5 0-48-21.5-48-48V48c0-26.5 21.5-48 48-48zM48 128h80v64H64V448H256V416h64v48c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V176c0-26.5 21.5-48 48-48z"/>
+                                                                </svg>
+                                                                </button>
+                                                            </div><br>
+                                                            <h1 style="font-weight: 800; color: #CCBEA5;">₹1000/-</h1>
+                                                        </div>
+                                                    </div>
+                                                </div>  
+                                                <div class="container d-flex">
+                                                    <div class="refercpn d-flex align-items-center justify-content-center">
+                                                        <div class="text-center">
+                                                            <h3 style="color: #ffffff;"><b>Gift coupon</b></h3><br>
+                                                            <p style="color: #ffffff; font-size: 13px;">Invite more friends and earn extra coupons with each referral</p>
+                                                            <br>
+                                                            <div style="width: 100%; height: 35px; border: 1px solid #ffffff; margin-top: -10px;" class="d-flex justify-content-between align-items-center">
+                                                                <p id="myText" style="margin: 0 ; padding-left: 20px; color: #ffffff;">svdbftgb</p>
+                                                                <button onclick="copyContent()" style="background-color: white;" class="copybtn"><svg xmlns="http://www.w3.org/2000/svg" height="20px" width="20px" viewBox="0 0 448 512">
+                                                                    <path fill="#090606" d="M208 0H332.1c12.7 0 24.9 5.1 33.9 14.1l67.9 67.9c9 9 14.1 21.2 14.1 33.9V336c0 26.5-21.5 48-48 48H208c-26.5 0-48-21.5-48-48V48c0-26.5 21.5-48 48-48zM48 128h80v64H64V448H256V416h64v48c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V176c0-26.5 21.5-48 48-48z"/>
+                                                                </svg>
+                                                                </button>
+                                                            </div><br>
+                                                            <h1 style="font-weight: 800; color: #ffffff;">₹2000/-</h1>
+                                                        </div>
+                                                    </div>
+                                                </div>  
                                             </div>
+                                            
+                                            
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -417,96 +446,16 @@
             </form>
         </div>
     </div>
-    <!-- Quickview -->
-    <div class="quickview-popup">
-        <div id="quickview-container">
-            <div class="quickview-container">
-                <a href="#" class="quickview-close"></a>
-                <div class="quickview-notices-wrapper"></div>
-                <div class="product single-product product-type-simple">
-                    <div class="product-detail">
-                        <div class="row">
-                            <div class="img-quickview">
-                                <div class="product-images-slider">
-                                    <div id="quickview-slick-carousel">
-                                        <div class="images">
-                                            <div class="scroll-image">
-                                                <div class="slick-wrap">
-                                                    <div class="slick-sliders image-additional" data-dots="true"
-                                                        data-columns4="1" data-columns3="1" data-columns2="1"
-                                                        data-columns1="1" data-columns="1" data-nav="true">
-                                                        <div class="img-thumbnail slick-slide">
-                                                            <a href="media/product/3.jpg" class="image-scroll" title="">
-                                                                <img width="900" height="900" src="media/product/3.jpg"
-                                                                    alt="">
-                                                            </a>
-                                                        </div>
-                                                        <div class="img-thumbnail slick-slide">
-                                                            <a href="media/product/3-2.jpg" class="image-scroll"
-                                                                title="">
-                                                                <img width="900" height="900"
-                                                                    src="media/product/3-2.jpg" alt="">
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="quickview-single-info">
-                                <div class="product-content-detail entry-summary">
-                                    <h1 class="product-title entry-title">Chair Oak Matt Lacquered</h1>
-                                    <div class="price-single">
-                                        <div class="price">
-                                            <del><span>$150.00</span></del>
-                                            <span>$100.00</span>
-                                        </div>
-                                    </div>
-                                    <div class="product-rating">
-                                        <div class="star-rating" role="img" aria-label="Rated 4.00 out of 5">
-                                            <span style="width:80%">Rated <strong class="rating">4.00</strong> out of 5
-                                                based on <span class="rating">1</span> customer rating</span>
-                                        </div>
-                                        <a href="#" class="review-link">(<span class="count">1</span> customer
-                                            review)</a>
-                                    </div>
-                                    <div class="description">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                            tempor incididunt ut labore…</p>
-                                    </div>
-                                    <form class="cart" method="post" enctype="multipart/form-data">
-                                        <div class="quantity-button">
-                                            <div class="quantity">
-                                                <button type="button" class="plus">+</button>
-                                                <input type="number" class="input-text qty text" step="1" min="1" max=""
-                                                    name="quantity" value="1" title="Qty" size="4" placeholder=""
-                                                    inputmode="numeric" autocomplete="off">
-                                                <button type="button" class="minus">-</button>
-                                            </div>
-                                            <button type="submit" class="single-add-to-cart-button button alt">Add to
-                                                cart</button>
-                                        </div>
-                                        <button class="button quick-buy">Buy It Now</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="clearfix"></div>
-            </div>
-        </div>
-    </div>
+
+
 
     <!-- Page Loader -->
     <!-- <div class="page-preloader">
-        <div class="loader">
-            <div></div>
-            <div></div>
-        </div>
-    </div> -->
+	    	<div class="loader">
+	    		<div></div>
+	    		<div></div>
+	    	</div>
+	    </div> -->
 
     <!-- Dependency Scripts -->
     <script src="libs/popper/js/popper.min.js"></script>
@@ -521,30 +470,26 @@
     <script src="libs/slider/js/jquery.slider.js"></script>
     <script src="assets/js/app.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
-        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
 </body>
 <script>
-    function logout() {
-        Swal.fire({
-            title: "Are you sure?",
-            text: "You want to Logout from FURNIX?",
-            showCancelButton: true,
-            confirmButtonColor: "#FF0000",
-            cancelButtonColor: "#ffffff",
-            confirmButtonText: "Logout",
-            customClass: {
-                popup: 'swal-custom',
-                cancelButton: 'swal-custom-ok-btn'
-            }
-        }).then((result) => {
-            if (result.isConfirmed) {
-                window.location.href = "/userLogout"
-            }
-        });
-    }
+    let text = document.getElementById('myText').innerHTML;
+	const copyContent = async () => {
+	try {
+		await navigator.clipboard.writeText(text);
+		Swal.fire({
+			text: "Copied to your clipboard",
+			showConfirmButton: false,
+			position : "bottom",
+			timer: 1000
+		});
+	} catch (err) {
+		Swal.fire({
+			text: "Something wrong",
+			showConfirmButton: false,
+			position : "bottom",
+			timer: 1000
+		});
+	}
+	}
 </script>
-
 </html>

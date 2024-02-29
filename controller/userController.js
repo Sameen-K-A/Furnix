@@ -5,7 +5,8 @@ const Rating = require('../model/ratingModel');
 const Wishlist = require("../model/wishlistModel");
 const GenerateOTP = require("../controller/OTP controller/GenerateOTP");
 const sendOTPmail = require("../controller/OTP controller/sendOTP");
-const dateGenerator = require("../config/dateGenerator")
+const dateGenerator = require("../config/dateGenerator");
+const randomID = require("../config/randomID");
 const bcrypt = require("bcrypt");
 
 //========================================= Render default page ==============================================
@@ -105,6 +106,7 @@ const userRegisterpost = async (req, res) => {
         const registeruserphone = req.body.registernumber;
         const registeruserpass = req.body.registerpassword;
         const registeruserconfpass = req.body.registerconfpass;
+        const registerReferralCode = req.body.registerrefercode
         const checkemail = await User.findOne({ email: email });
         if (!checkemail) {
             if (registeruserphone.length >= 10) {
@@ -113,17 +115,40 @@ const userRegisterpost = async (req, res) => {
                     if (/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(registeruserpass)) {
                         if (registeruserpass.length >= 8) {
                             if (registeruserpass === registeruserconfpass) {
-                                const serverSideOTP = GenerateOTP();
-                                sendOTPmail(email, serverSideOTP);
-                                const secretPass = await hashPassword(registeruserpass)
-                                req.session.tempuserDetail = {
-                                    registerusername,
-                                    email,
-                                    registeruserphone,
-                                    secretPass,
-                                    serverOTP: serverSideOTP
+                                let matched = false
+                                let referral = false;
+                                if(registerReferralCode.length !=0){
+                                    const users = await User.find({});
+                                    for(let i=0 ; i<users.length ; i++){
+                                        if(users[i].referCode === registerReferralCode){
+                                            console.log(users[i].email + "is matched");
+                                            matched = users[i].email;
+                                            referral = false;
+                                            break;
+                                        } else{
+                                            referral = true
+                                        }
+                                    }
+                                }else{
+                                    referral = false;
                                 }
-                                res.json({ status: true });
+                                if(referral === false){
+                                    const serverSideOTP = GenerateOTP();
+                                    sendOTPmail(email, serverSideOTP);
+                                    const secretPass = await hashPassword(registeruserpass)
+                                    req.session.tempuserDetail = {
+                                        registerusername,
+                                        email,
+                                        registeruserphone,
+                                        secretPass,
+                                        serverOTP: serverSideOTP,
+                                        referUser : matched
+                                    }
+                                    res.json({ status: true });
+                                } else{
+                                    res.json({status : "refcodeerror"})
+                                }
+                                
                             } else {
                                 res.json({ status: "confpass" });
                             }
@@ -152,6 +177,7 @@ const userRegisterpost = async (req, res) => {
 const userRegisterOTP = (req, res) => {
     try {
         res.render("user/userRegisterOTP")
+        console.log(req.session.tempuserDetail);
     } catch (error) {
         console.log(error);
     }
@@ -164,12 +190,14 @@ const userRegisterOTPpost = async (req, res) => {
         const serverOTP = req.session.tempuserDetail.serverOTP;
         const userSideOTP = req.body.userSideOTP;
         if (serverOTP === userSideOTP) {
+            const referelcode = "FURNIX" + randomID();
             try {
                 const UserData = {
                     name: req.session.tempuserDetail.registerusername,
                     email: req.session.tempuserDetail.email,
                     phone: req.session.tempuserDetail.registeruserphone,
-                    password: req.session.tempuserDetail.secretPass
+                    password: req.session.tempuserDetail.secretPass,
+                    referCode : referelcode
                 }
                 await User.create(UserData);
                 delete req.session.tempuserDetail;

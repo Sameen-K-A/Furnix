@@ -41,6 +41,15 @@
         font-size: 14px;
         border-radius: 50px;
     }
+    .custom-button {
+        width: 100px;
+        height: 40px;
+        padding: 5px;
+        background-color: rgb(0, 0, 0);
+        color: rgb(255, 255, 255);
+        font-size: 14px;
+        border-radius: 50px;
+    }
 </style>
 
 <body>
@@ -63,8 +72,7 @@
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a class="menu-link  btn-dark text-light" href="/admin/adminUserList"> <i
-                            class="icon material-icons md-person"></i>
+                    <a class="menu-link" href="/admin/adminUserList"> <i class="icon material-icons md-person"></i>
                         <span class="text">Users</span>
                     </a>
                 </li>
@@ -83,7 +91,7 @@
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a class="menu-link" href="/admin/coupon"> <i class="icon material-icons md-local_offer"></i>
+                    <a class="menu-link btn-dark text-light"> <i class="icon material-icons md-local_offer"></i>
                         <span class="text">Coupons</span>
                     </a>
                 </li>
@@ -235,69 +243,59 @@
         </header>
         <section class="content-main">
             <div class="content-header">
-                <h2 class="content-title fw-bold" style="margin: auto;">Users</h2>
+                <div style="margin: auto;">
+                    <h2 class="content-title card-title">Coupons</h2>
+                </div>
+                <div>
+                    <a href="/admin/addCoupon"><button class="custom-button">Create New</button></a>
+
+                </div>
             </div>
 
             <div class="card mb-4">
-                <header class="card-header">
-                    <div class="row gx-3">
-                        <div class="col-lg-4 col-md-6 me-auto" style="margin: auto;">
-                            <input type="text" placeholder="Search..." class="form-control">
-                        </div>
-                    </div>
-                </header> <!-- card-header end// -->
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-hover">
                             <thead>
                                 <tr>
-                                    <th class="text-center">User</th>
-                                    <th class="text-center">Email</th>
-                                    <th class="text-center">Number</th>
+                                    <th class="text-center">Coupon name</th>
+                                    <th class="text-center">Coupon code</th>
+                                    <th class="text-center">Starting date</th>
+                                    <th class="text-center">Ending date</th>
+                                    <th class="text-center">Minimum amount</th>
+                                    <th class="text-center">Discount amount</th>
                                     <th class="text-center">Active</th>
-                                    <th></th>
                                     <th style="width: 200px;" class="text-center">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <% UserDatas.forEach(element=> { %>
+                                
                                     <tr class="text-center">
                                         <td>
-                                            <%= element.name %>
+                                            fgfbgb
                                         </td>
                                         <td>
-                                            <%= element.email %>
+                                            fvfgf
                                         </td>
                                         <td>
-                                            <%= element.phone %>
+                                            2252522
                                         </td>
                                         <td>
-                                            <% if (element.isBlocked===true) { %>
-                                                <p style="color: red;">Blocked</p>
-                                                <% } else { %>
-                                                    <p style="color: rgb(36, 206, 121);">Unblocked</p>
-                                                    <% } %>
-                                        </td>
-
-                                        <td>
-                                        <td>
-                                            <% if (element.isBlocked===true) { %>
-                                                <button onclick="unblock('<%= element.email %>')" type="submit"
-                                                    class="custom-button2" id="Unblockbtn">Unblocked</button>
-                                                <% } else { %>
-                                                    <button type="submit" class="custom-button1" onclick="block('<%= element.email %>')"
-                                                        id="Blockbtn">Block</button></a>
-                                                    <% } %>
+                                            12-21-2024
                                         </td>
                                         <td>
-
+                                            283832
                                         </td>
-
-
-
+                                        <td>
+                                            283832
+                                        </td>
+                                        <td>
+                                            <p style="color: rgb(36, 206, 121);">Unblocked</p>
+                                        </td>
+                                        <td>
+                                            <button type="submit" class="custom-button1" id="Blockbtn">Block</button></a>
                                         </td>
                                     </tr>
-                                    <% }) %>
 
                             </tbody>
                         </table>

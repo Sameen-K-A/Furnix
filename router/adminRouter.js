@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const adminController = require("../controller/adminController");
 const productController = require("../controller/productController");
+const couponController = require("../controller/couponController")
 const {isAdmin} = require("../Middleware/isLogged")
 const upload = require("../controller/multer folder/multer");
 
@@ -35,5 +36,9 @@ router.get("/listproduct" ,isAdmin, productController.listproduct);
 router.get("/order" ,isAdmin , adminController.orderget);
 router.get("/orderInfo" , isAdmin , adminController.orderInfo);
 router.post("/changeStatus" , isAdmin , adminController.statusChanger);
+
+// coupon side
+router.get("/coupon" , isAdmin , couponController.coupenget);
+router.get("/addCoupon" , isAdmin , couponController.addCoupen);
 
 module.exports = router;

@@ -75,8 +75,11 @@ router.post("/checkout" , isUser , isBlocked , cartController.checkoutPost);
 router.get("/orderSuccessfull" , isUser , isBlocked , cartController.orderSuccessfull);
 
 //user wishlist side
-router.get("/wishlist" , userController.wishlistget)
-router.post("/wishlist" , userController.wishlistpost)
-router.delete("/wishlist" , userController.deletewish)
+router.get("/wishlist" , userController.wishlistget);
+router.post("/wishlist" , userController.wishlistpost);
+router.delete("/wishlist" , userController.deletewish);
+
+// user Coupon side
+router.get("/Coupons" , isUser , isBlocked, userProfileController.coupons)
 
 module.exports = router;

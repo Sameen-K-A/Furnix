@@ -278,7 +278,15 @@ const returnorder = async (req, res) => {
     }
 }
 
+//========================================= coupons page render  ==============================================
 
+const coupons = async (req, res) => {
+    try {
+        res.render("userProfile/userCoupon")
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 //========================================= Exporting all modules ==============================================
 
@@ -297,5 +305,6 @@ module.exports = {
     vieworderinfo,
     cancelOrder,
     returnorder,
-    cancelreturnOrder
+    cancelreturnOrder,
+    coupons
 }
