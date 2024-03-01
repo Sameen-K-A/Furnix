@@ -73,36 +73,37 @@
 
 
                             <div class="mb-4">
-                                <label for="product_name" class="form-label">Name</label>
-                                <input type="text" placeholder="Enter coupon name" class="form-control"
-                                    id="product_name" onkeyup="namValidation()" name="name">
+                                <label for="product_name" class="form-label">Name*</label>
+                                <input type="text" placeholder="Enter coupon name" class="form-control" id="couponName" name="name" onkeydown="nameclear()">
                             </div>
                             <p class="text-danger text-center mb-15 " id="minName"></p>
-
-                            
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <label class="form-label">Starting date</label>
+                                    <label class="form-label">Starting date &nbsp; (Default current date)</label>
                                     <input type="date" placeholder="Enter starting date" class="form-control" id="startingDate">
                                     <p class="text-danger text-center mb-15 " id="startingDateError"></p>
                                 </div>
                                 <div class="col-lg-6">
-                                    <label class="form-label">Ending date</label>
+                                    <label class="form-label">Ending date &nbsp; (Default no expiary date)</label>
                                     <input type="date" placeholder="Enter starting date" class="form-control" id="endingDate">
                                     <p class="text-danger text-center mb-15 " id="endingDateError"></p>
                                 </div>
                                 <div class="col-lg-6" style="margin-top: 20px;">
-                                    <label class="form-label">Minimum order amount</label>
-                                    <input type="text" placeholder="Enter minimum order amount" class="form-control"
-                                        id="product_material" onkeyup="matValidation()" name="material">
+                                    <label class="form-label">Minimum order amount &nbsp; (Default 0 amount)</label>
+                                    <input type="text" placeholder="Enter minimum order amount" class="form-control" id="minimumAmount">
                                     <p class="text-danger text-center mb-15 " id="materialError"></p>
                                 </div>
                                 <div class="col-lg-6" style="margin-top: 20px;">
-                                    <label class="form-label">Discount amount</label>
-                                    <input type="text" placeholder="Enter discount amount" class="form-control"
-                                        id="product_stock" onkeyup="stockValidation()" name="stock">
-                                    <p class="text-danger text-center mb-15 " id="stockError"></p>
-
+                                    <label class="form-label">Discount amount*</label>
+                                    <input type="text" placeholder="Enter discount amount" class="form-control" id="discountamount" onkeydown="amountclear()">
+                                    <p class="text-danger text-center mb-15 " id="discounterror"></p>
+                                </div>
+                                <div class="col-lg-6" style="margin-top: 20px;">
+                                    <label class="form-label">Discount amount*</label>
+                                    <select class="form-control" id="couponType">
+                                        <option value="Special">Special coupon</option>
+                                        <option value="Regular">Regular coupon</option>
+                                    </select>
                                 </div>
 
                             </div>
@@ -111,7 +112,7 @@
                 </div>
                 <div class="mb-50 text-center">
                     <button class="custom-button1" onclick="cancel()">Cancel</button>
-                    <button class="custom-button2" type="submit" id="add">Add</button>
+                    <button class="custom-button2" onclick="validation()">Add</button>
                 </div>
             </div>
     </section>
@@ -130,233 +131,82 @@
 
 <script>
 
-    document.addEventListener("DOMContentLoaded", function () {
-        const form = document.querySelector('form');
+    function validation() {
 
+        const name = document.getElementById("couponName").value;
+        const startingDate = document.getElementById("startingDate").value;
+        const endingDate = document.getElementById("endingDate").value;
+        const minimumAmount = document.getElementById("minimumAmount").value;
+        const discountamount = document.getElementById("discountamount").value;
+        const couponType = document.getElementById("couponType").value;
+        
         const nameError = document.getElementById("minName");
-        const descriptionError = document.getElementById("descriptionError");
-        const regularError = document.getElementById("regularError");
-        const capacityError = document.getElementById("capacityError");
-        const upoError = document.getElementById("materialError");
-        const stockError = document.getElementById("stockError");
-        const colorError = document.getElementById("colorError")
-
+        const discounterror = document.getElementById("discounterror");
         nameError.textContent = "";
-        descriptionError.textContent = "";
-        regularError.textContent = "";
-        capacityError.textContent = "";
-        upoError.textContent = "";
-        stockError.textContent = "";
-        colorError.textContent = "";
+        discounterror.textContent = "";
 
-        //      name validation 
-
-        function namValidation() {
-            const name = document.getElementById("product_name").value;
-            if (name.trim() === "") {
-                nameError.textContent = "Please enter valid name"
-                return false
-            } else if (name.length <= 3) {
-                nameError.textContent = "Name must need atleast 3 character"
-                return false
-            } else if (name.length >= 20) {
-                nameError.textContent = "Name can't exceed 20 character"
-                return false
-            } else if ((!/^[A-Za-z\s]+$/.test(name))) {
-                nameError.textContent = "Name can't contain characters other than alphabets, underscore and &"
-                return false
-            }
+        // name validation
+        if (name.trim() === "") {
+            nameError.textContent = "Please enter valid name"
+        } else if (name.length <= 3) {
+            nameError.textContent = "Name must need atleast 3 character"
+        } else if (name.length >= 20) {
+            nameError.textContent = "Name can't exceed 20 character"
+        } else if ((!/^[A-Za-z\s]+$/.test(name))) {
+            nameError.textContent = "Name can't contain characters other than alphabets"
+        }else{
             nameError.textContent = "";
-            return true
         }
 
-        // description validation 
-
-        function desValidation() {
-            const description = document.getElementById("product_description").value;
-            if (description.trim() === "") {
-                descriptionError.textContent = "Please enter valid description"
-                return false
-            } else if (description.length <= 10) {
-                descriptionError.textContent = "Desciption must need more than 10 character"
-                return false
-            } else if (description.length >= 50) {
-                descriptionError.textContent = "Desciption can't exceed 50 character"
-                return false
+            
+            
+        if (discountamount.trim() === "") {
+            discounterror.textContent = "Discount amount is required"
+        } else if (/^\d+$/.test(discountamount)) {
+            const capNumber = parseInt(discountamount);
+            if (capNumber <= 0) {
+                discounterror.textContent = "Discount amount not allowed in zero"
             }
-            descriptionError.textContent = "";
-            return true
+        } else if(!/^\d+$/.test(discountamount)) {
+            discounterror.textContent = "Discount amount can't contain characters other numbers"
+        } else{
+            discounterror.textContent = "";
         }
-
-        // regular price validation
-
-        function regValidation() {
-            const regular = document.getElementById("product_regular").value;
-            if (regular.trim() === "") {
-                regularError.textContent = "Please enter valid amount"
-                return false
-            } else if (/^\d+$/.test(regular)) {
-                const regNumber = parseInt(regular);
-                if (regNumber < 1000) {
-                    regularError.textContent = "Regular price need more than 1000 amount"
-                    return false
-                } else if (regNumber > 100000) {
-                    regularError.textContent = "Regular price can't accept more than 1,00,000 amount"
-                    return false
+        if(nameError.textContent === "" && discounterror.textContent === ""){
+            $.ajax({
+                url: "/admin/addCoupon",
+                method: "post",
+                data: {
+                    name,
+                    startingDate,
+                    endingDate,
+                    minimumAmount,
+                    discountamount,
+                    couponType
+                },
+                success: (response) => {
+                    if (response.status === "okay") {
+                        Swal.fire({
+                            icon: "success",
+                            title: "Your work has been saved",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        setTimeout(() => {
+                            window.history.back()
+                        }, 1500);   
+                    } else if(response.status === "oops"){
+                        Swal.fire({
+                            icon: "error",
+                            title: "Something wrong",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    }
                 }
-            } else {
-                regularError.textContent = "Price can't contain characters other numbers"
-                return false
-            }
-            regularError.textContent = "";
-            return true
+            })
         }
-
-        // capacity validation
-
-        function capValidation() {
-            const capacity = document.getElementById("product_capacity").value;
-            if (capacity.trim() === "") {
-                capacityError.textContent = "Please enter valid seating capacity"
-                return false
-            } else if (/^\d+$/.test(capacity)) {
-                const capNumber = parseInt(capacity);
-                if (capNumber < 1) {
-                    capacityError.textContent = "Capacity need minimum 1"
-                    return false
-                } else if (capNumber > 8) {
-                    capacityError.textContent = "Capacity can't accept more than 8"
-                    return false
-                }
-            } else {
-                capacityError.textContent = "Capacity can't contain characters other numbers"
-                return false
-            }
-            capacityError.textContent = "";
-            return true
-        }
-
-        // material validation
-
-        function matValidation() {
-            const material = document.getElementById("product_material").value;
-            if (material.trim() === "") {
-                upoError.textContent = "Please enter valid material name";
-                return false
-            } else if (material.length <= 3) {
-                upoError.textContent = "Material name must need more than 3 character"
-                return false
-            } else if (material.length >= 20) {
-                upoError.textContent = "material name can't exceed 20 character"
-                return false
-            } else if (!/^[A-Za-z\s]+$/.test(material)) {
-                upoError.textContent = "material can't contain characters other than alphabets, space"
-                return false
-            }
-            upoError.textContent = "";
-            return true
-        }
-
-        // stock validation
-
-        function stockValidation() {
-            const stock = document.getElementById("product_stock").value;
-            if (stock.trim() === "") {
-                stockError.textContent = "Please enter valid product stock";
-                return false;
-            } else if (/^\d+$/.test(stock)) {
-                const stockNumber = parseInt(stock);
-                if (stockNumber < 1) {
-                    stockError.textContent = "Product needs minimum 1 stock";
-                    return false;
-                } else {
-                    stockError.textContent = ""; // Clear the error message here
-                    return true; // Return true for valid input
-                }
-            } else {
-                stockError.textContent = "Stock amount can't contain characters other than numbers";
-                return false;
-            }
-        }
-
-
-        // color validation
-
-        function colorValidation() {
-            const color = document.getElementById("product_color").value;
-            if (color.trim() === "") {
-                colorError.textContent = "Please enter valid color"
-                return false
-            } else if (color.length <= 3) {
-                colorError.textContent = "Color name must need more than 3 character"
-                return false
-            } else if (color.length >= 20) {
-                colorError.textContent = "Color name can't exceed 20 character"
-                return false
-            } else if (!/^[A-Za-z]+$/.test(color)) {
-                colorError.textContent = "Color can't contain characters other than alphabets"
-                return false
-            }
-            colorError.textContent = "";
-            return true
-        }
-
-        // image validation
-        function imageValidation() {
-            const selectImages = document.getElementById("product_images").files;
-            const imageError = document.getElementById("imageError");
-
-            if (selectImages.length !== 5) {
-                imageError.textContent = "Images must need exactly 5 images";
-                return false;
-            }
-            imageError.textContent = "";
-            return true;
-        }
-
-
-
-
-        function allValidation(event) {
-            event.preventDefault()
-            const nameValid = namValidation();
-            const descriptionValid = desValidation();
-            const regularValid = regValidation();
-            const capacityValid = capValidation();
-            const materialValid = matValidation();
-            const stockValid = stockValidation();
-            const colorValid = colorValidation();
-            const imgValid = imageValidation();
-            if (nameValid && descriptionValid && regularValid && capacityValid && materialValid && stockValid && colorValid && imgValid) {
-                form.submit();
-                return true;
-            } else {
-                return false;
-            }
-        }
-
-        form.addEventListener("submit", allValidation);
-        form.addEventListener("keyup", function (event) {
-            if (event.target.id === "product_name") {
-                namValidation();
-            } else if (event.target.id === "product_description") {
-                desValidation();
-            } else if (event.target.id === "product_regular") {
-                regValidation();
-            } else if (event.target.id === "product_capacity") {
-                capValidation();
-            } else if (event.target.id === "product_material") {
-                matValidation();
-            } else if (event.target.id === "product_stock") {
-                stockValidation();
-            } else if (event.target.id === "product_color") {
-                colorValidation();
-            } else if (event.target.id === "product_images") {
-                imageValidation();
-            }
-        });
-
-    });
+    }
 
 
 
@@ -376,6 +226,13 @@
         });
     }
 
+    function nameclear(){
+        document.getElementById("minName").textContent = ""
+    }
+    function amountclear(){
+        document.getElementById("discounterror").textContent = ""
+    }
+
 // Get references to the input elements
 const startingDateInput = document.getElementById('startingDate');
 const endingDateInput = document.getElementById('endingDate');
@@ -384,29 +241,24 @@ const endingDateInput = document.getElementById('endingDate');
 startingDateInput.addEventListener('change', validateDates);
 endingDateInput.addEventListener('change', validateDates);
 
-// Validation function
 function validateDates() {
-  const startingDate = new Date(startingDateInput.value);
-  const endingDate = new Date(endingDateInput.value);
-  const currentDate = new Date();
+    const startingDate = new Date(startingDateInput.value);
+    const endingDate = new Date(endingDateInput.value);
+    const currentDate = new Date();
 
-  // Validate starting date
-  if (startingDate < currentDate || startingDate.getTime() === currentDate.getTime()) { // Include today's date
-    document.getElementById('startingDateError').innerText = 'Starting date cannot be a previous date';
-  } else {
-    document.getElementById('startingDateError').innerText = '';
-  }
+    // Validate starting date
+    if (startingDate < currentDate) {
+        document.getElementById('startingDateError').innerText = 'Starting date cannot be a previous date';
+    } else {
+        document.getElementById('startingDateError').innerText = '';
+    }
 
-  // Validate ending date
-  if (endingDate <= startingDate || endingDate < currentDate) {
-    document.getElementById('endingDateError').innerText = 'Ending date cannot be a previous date or the same as or before the starting date';
-  } else {
-    document.getElementById('endingDateError').innerText = '';
-  }
+    // Validate ending date
+    if (endingDate <= startingDate || endingDate < currentDate) {
+        document.getElementById('endingDateError').innerText = 'Ending date cannot be a previous date or the same as or before the starting date';
+    } else {
+        document.getElementById('endingDateError').innerText = '';
+    }
 }
-
-
-
 </script>
-
 </html>

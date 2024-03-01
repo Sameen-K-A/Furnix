@@ -48,6 +48,13 @@
 		width: 70px;
 		font-size: small;
 	}
+	.applycoupon {
+		background-color: rgb(0, 0, 0);
+		text-align: center;
+		width: 200px;
+		height: 43px;
+		color: white;
+	}
 
 	.swal-custom {
 		background: linear-gradient(94deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.8240546218487395) 26%, rgba(0, 0, 0, 1) 53%, rgba(0, 0, 0, 0.8492647058823529) 79%, rgba(227, 227, 227, 0) 100%);
@@ -235,6 +242,13 @@
 															</ul>
 														</div>
 													</div>
+													<div class="shipping-totals shipping">
+														<input type="text" id="cpncode" style="width: 80%;" placeholder="Apply coupon">
+														<button class="applycoupon" onclick="cpnApply()">Apply</button><br>
+														
+													</div>
+													<p style="margin-top: -20px; text-align: right; color: red;" id="cpnerror"></p>
+
 													<div class="order-total">
 														<h2>Total</h2>
 														<div class="total-price">
@@ -645,6 +659,67 @@
 			}
 		}
 
+	}
+
+	function cpnApply(){
+		const code = document.getElementById("cpncode").value;
+		if(!code){
+			document.getElementById("cpnerror").textContent="Enter your available coupon code";
+			setTimeout(() => {
+				document.getElementById("cpnerror").textContent="";
+			}, 2000);
+		}else{
+			$.ajax({
+				url: "/applyCoupon",
+				method: "post",
+				data: {
+					code
+				},
+				success: (response) => {
+					if (response.status === "true") {
+						window.location.href = "/orderSuccessfull"
+					} else if (response.status === "stocklimit") {
+						Swal.fire({
+							icon: "error",
+							iconColor: "red",
+							text: "This amount of stock is currently not available ! . . . Go to your cart and check again.",
+							customClass: {
+								popup: 'swal-custom',
+							},
+							confirmButtonColor: "#03c04a"
+						});
+					} else if (response.status === "blocked") {
+						Swal.fire({
+							title: "Oops ! . . .",
+							text: "Product has been temporaily discontinued",
+							showCancelButton: true,
+							confirmButtonColor: "#39e75f",
+							cancelButtonColor: "#ffffff",
+							confirmButtonText: "Okay",
+							customClass: {
+								popup: 'swal-custom',
+								cancelButton: 'swal-custom-ok-btn'
+							}
+						}).then((result) => {
+							if (result.isConfirmed) {
+								window.location.reload()
+							}
+						});
+					} else if (response.status === "network") {
+						Swal.fire({
+							icon: "error",
+							title: "Oops!.. Network is busy please refresh",
+							showConfirmButton: false,
+							customClass: {
+								popup: 'swal-custom',
+							},
+							timer: 1500
+						});
+					}
+				}
+			})
+		}
+		
 	}
 
 </script>

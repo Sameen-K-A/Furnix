@@ -50,6 +50,7 @@
         font-size: 14px;
         border-radius: 50px;
     }
+    
 </style>
 
 <body>
@@ -254,52 +255,81 @@
 
             <div class="card mb-4">
                 <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th class="text-center">Coupon name</th>
-                                    <th class="text-center">Coupon code</th>
-                                    <th class="text-center">Starting date</th>
-                                    <th class="text-center">Ending date</th>
-                                    <th class="text-center">Minimum amount</th>
-                                    <th class="text-center">Discount amount</th>
-                                    <th class="text-center">Active</th>
-                                    <th style="width: 200px;" class="text-center">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                
-                                    <tr class="text-center">
-                                        <td>
-                                            fgfbgb
-                                        </td>
-                                        <td>
-                                            fvfgf
-                                        </td>
-                                        <td>
-                                            2252522
-                                        </td>
-                                        <td>
-                                            12-21-2024
-                                        </td>
-                                        <td>
-                                            283832
-                                        </td>
-                                        <td>
-                                            283832
-                                        </td>
-                                        <td>
-                                            <p style="color: rgb(36, 206, 121);">Unblocked</p>
-                                        </td>
-                                        <td>
-                                            <button type="submit" class="custom-button1" id="Blockbtn">Block</button></a>
-                                        </td>
+                    <% if (coupens.length === 0) { %>
+                        <h5>No coupens founded</h5>
+                    <% } else { %>
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr style="background-color: black;">
+                                        <th class="text-center text-light">Coupon code</th>
+                                        <th class="text-center text-light">Coupon name</th>
+                                        <th class="text-center text-light">Starting date</th>
+                                        <th class="text-center text-light">Ending date</th>
+                                        <th class="text-center text-light">Minimum amount</th>
+                                        <th class="text-center text-light">Discount amount</th>
+                                        <th class="text-center text-light">Status</th>
+                                        <th class="text-center text-light">Coupon type</th>
+                                        <th class="text-center text-light">Action</th>
                                     </tr>
-
-                            </tbody>
-                        </table>
-                    </div>
+                                </thead>
+                                <tbody>
+                                    <% for( let i = 0; i < coupens.length; i++ ) { %>
+                                        <tr class="text-center">
+                                            <td>
+                                                <%= coupens[i].coupencode %>
+                                            </td>
+                                            <td>
+                                                <%= coupens[i].name %>
+                                            </td>
+                                            <td>
+                                                <%= coupens[i].startDate %>
+                                            </td>
+                                            <td>
+                                                <%= coupens[i].endDate %>
+                                            </td>
+                                            <td>
+                                                ₹<%= coupens[i].minBuyRate %>.00
+                                            </td>
+                                            <td>
+                                                ₹<%= coupens[i].discountAmount %>.00
+                                            </td>
+                                            <td>
+                                                <% if (coupens[i].couponStatus === "Awaiting" ) { %>
+                                                    <p style="color: rgb(255, 153, 0);">Awaiting</p>
+                                                <% } %>
+                                                <% if (coupens[i].couponStatus === "Active" ) { %>
+                                                    <p style="color: rgb(0, 255, 110);">Active</p>
+                                                <% } %>
+                                                <% if (coupens[i].couponStatus === "Expired" ) { %>
+                                                    <p style="color: rgb(255, 0, 0);">Expired</p>
+                                                <% } %>
+                                            </td>
+                                            <td>
+                                                <%= coupens[i].couponType %>
+                                            </td>
+                                            <td>
+                                                <% if (coupens[i].couponType === "Regular") { %>
+                                                    <% if (coupens[i].isBlocked===true) { %>
+                                                        <button onclick="unblock('<%= coupens[i]._id %>')" type="submit" class="custom-button2" id="Unblockbtn">Unblocked</button>
+                                                    <% } else { %>
+                                                        <button type="submit" class="custom-button1" onclick="block('<%= coupens[i]._id %>')" id="Blockbtn">Block</button></a>
+                                                    <% } %>
+                                                <% } else { %>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" height="14" width="12.25"onclick="deletecoupon('<%= coupens[i]._id %>')"
+                                                        viewBox="0 0 448 512">
+                                                        <path fill="#000000"
+                                                            d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z" />
+                                                    </svg>
+                                                <% } %>
+                                                
+                                            </td>
+                                        </tr>
+                                    <% } %>
+                                </tbody>
+                            </table>
+                        </div>
+                    <% } %>
                 </div> <!-- card-body end// -->
             </div> <!-- card end// -->
             <!-- <div class="pagination-area mt-15 mb-50">
@@ -325,29 +355,62 @@
     <!-- Main Script -->
     <script src="/admin-assets/js/main.js" type="text/javascript"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 
 </body>
 
 <script>
-    function unblock(email) {
-        const userMail = email;
+    function unblock(id) {
         Swal.fire({
             title: "Are you sure?",
-            text: "You want to unblock this user",
+            text: "You want to unblock this coupon",
             showCancelButton: true,
             confirmButtonColor: "#000000",
             cancelButtonColor: "#d33",
             confirmButtonText: "Confirm"
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = `/admin/userUnblock?email=${userMail}`
+                $.ajax({
+                    url: "/admin/couponUnblock",
+                    method: "post",
+                    data: {
+                        id
+                    },
+                    success: (response) => {
+                        if (response.status === "okay") {
+                            Swal.fire({
+                                icon: "success",
+                                title: "Coupon Unblocked",
+                                showConfirmButton: false,
+                                customClass: {
+                                    popup: 'swal-custom',
+                                },
+                                timer: 1500
+                            });
+                            setTimeout(() => {
+                                window.location.reload()
+                            }, 1000);
+                        } else if (response.status === "oops") {
+                            Swal.fire({
+                                icon: "error",
+                                title: "Somthing wrong",
+                                showConfirmButton: false,
+                                customClass: {
+                                    popup: 'swal-custom',
+                                },
+                                timer: 1500
+                            });
+                        }
+                    }
+			    })
             }
         });
     }
 
-    function block(email) {
-        const userMail = email;
+    function block(id) {
         Swal.fire({
             title: "Are you sure?",
             text: "You want to block this user",
@@ -357,7 +420,90 @@
             confirmButtonText: "Confirm"
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = `/admin/userBlock?email=${userMail}`
+                $.ajax({
+                    url: "/admin/couponBlock",
+                    method: "post",
+                    data: {
+                        id
+                    },
+                    success: (response) => {
+                        if (response.status === "okay") {
+                            Swal.fire({
+                                icon: "success",
+                                title: "Coupon blocked",
+                                showConfirmButton: false,
+                                customClass: {
+                                    popup: 'swal-custom',
+                                },
+                                timer: 1500
+                            });
+                            setTimeout(() => {
+                                window.location.reload()
+                            }, 1000);
+                        } else if (response.status === "oops") {
+                            Swal.fire({
+                                icon: "error",
+                                title: "Somthing wrong",
+                                showConfirmButton: false,
+                                customClass: {
+                                    popup: 'swal-custom',
+                                },
+                                timer: 1500
+                            });
+                        }
+                    }
+			    })
+            }
+        });
+    }
+
+    function deletecoupon(id){
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You want to delete this coupon?",
+            showCancelButton: true,
+            confirmButtonColor: "#FF0000",
+            cancelButtonColor: "#000000",
+            confirmButtonText: "Delete",
+            customClass: {
+                popup: 'swal-custom',
+                cancelButton: 'swal-custom-ok-btn'
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: "/admin/addCoupon",
+                    method: "delete",
+                    data: {
+                        id
+                    },
+                    success: (response) => {
+                        if (response.status === "okay") {
+                            Swal.fire({
+                                icon: "success",
+                                title: "Coupon removed",
+                                showConfirmButton: false,
+                                customClass: {
+                                    popup: 'swal-custom',
+                                },
+                                timer: 1500
+                            });
+                            setTimeout(() => {
+                                window.location.reload()
+                            }, 1000);
+                        } else if (response.status === "oops") {
+                            Swal.fire({
+                                icon: "error",
+                                title: "Somthing wrong",
+                                showConfirmButton: false,
+                                customClass: {
+                                    popup: 'swal-custom',
+                                },
+                                timer: 1500
+                            });
+                        }
+                    }
+			})
             }
         });
     }

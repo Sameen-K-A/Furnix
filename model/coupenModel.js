@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const dateGenerator = require("../config/dateGenerator")
 const couponSchema = new mongoose.Schema({
     name : {
         type : String,
@@ -7,11 +6,9 @@ const couponSchema = new mongoose.Schema({
     },
     startDate : {
         type : String,
-        default : dateGenerator()
     },
     endDate : {
         type : String,
-        default : "No expairy date"
     },
     coupencode : {
         type : String
@@ -19,9 +16,23 @@ const couponSchema = new mongoose.Schema({
     minBuyRate : {
         type : Number
     },
-    discountAmound : {
+    discountAmount : {
         type : Number
     },
+    couponType : {
+        type : String,
+        required : true
+    },
+    isBlocked : {
+        type : Boolean,
+        default : false
+    },
+    couponStatus : {
+        type : String,
+        required : true
+    }
+},{
+    versionKey : false
 })
 const Coupon = mongoose.model("Coupons" , couponSchema);
 module.exports = Coupon

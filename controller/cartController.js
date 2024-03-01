@@ -4,6 +4,7 @@ const Order = require("../model/orderModel")
 const dateGenerator = require("../config/dateGenerator");
 const idGenerator = require("../config/randomID");
 const timeGenerator = require("../config/timeGenerator");
+const Coupon = require("../model/coupenModel");
 
 //========================================= Cart page rendering ==============================================
 
@@ -218,6 +219,34 @@ const checkout = async (req, res) => {
 
 //========================================= User checkout page post store datas to database  ==============================================
 
+const applyCoupon = async (req, res)=>{
+    try {
+        const userCouponcode = req.body.code;
+        const coupon = await Coupon.findOne({coupencode : userCouponcode});
+        const userCoupons = await User.findOne({email : req.session.user});
+        let cpnFound = false;
+        if(coupon){
+            for (let i = 0; i < userCoupons.coupens.length; i++) {
+                if(userCoupons.coupens[i] === coupon._id.toString() && coupon.isBlocked === false){
+                    console.log("founded");
+                    cpnFound = true;
+                    break
+                }
+            }
+            if(!cpnFound){
+                console.log("not founded");
+                res.json({status : "notfound"})
+            }
+        } else{
+            console.log("not founded");
+            res.json({status : "notfound"})
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+//========================================= User checkout page post store datas to database  ==============================================
+
 const checkoutPost = async (req, res) => {
     try {
         const addressID = req.body.addressChecked;
@@ -325,6 +354,7 @@ module.exports = {
     cartMinus,
     checkingCheckout,
     checkout,
+    applyCoupon,
     checkoutPost,
     orderSuccessfull
 }

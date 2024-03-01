@@ -2,7 +2,8 @@ const User = require("../model/userModel");
 const bcrypt = require("bcrypt");
 const Order = require("../model/orderModel");
 const Product = require("../model/productModel");
-
+const Coupon = require("../model/coupenModel");
+const date = require("../config/dateGenerator");
 //========================================= inside user profile page change password session rendering ==============================================
 
 const changepassword = (req, res) => {
@@ -139,10 +140,8 @@ const deleteAddress = async (req, res) => {
         const addressID = req.body.ID;
         const deleteProcess = await User.updateOne({ email: req.session.user }, { $pull: { address: { _id: addressID } } });
         if (deleteProcess.modifiedCount == 1) {
-            console.log("delete done");
             res.json({ status: "deleted" });
         } else {
-            console.log("not deleted somthing wrong");
             res.json({ status: "wrong" })
         }
     } catch (error) {
@@ -282,7 +281,19 @@ const returnorder = async (req, res) => {
 
 const coupons = async (req, res) => {
     try {
-        res.render("userProfile/userCoupon")
+        const userData = await User.findOne({email : req.session.user});
+        const orginalCoupons = await Coupon.find({}).sort({_id : -1});
+        const currentDate = new Date(date());
+        const userCoupons = [];
+        for (let i = 0; i < userData.coupens.length; i++) {
+            for(let j=0 ; j<orginalCoupons.length ; j++){
+                if(userData.coupens[i] === orginalCoupons[j]._id.toString()){
+                    userCoupons.push(orginalCoupons[j])
+                    break;
+                }
+            }
+        }
+        res.render("userProfile/userCoupon" , {userData , userCoupons})
     } catch (error) {
         console.log(error);
     }

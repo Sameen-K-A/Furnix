@@ -8,6 +8,7 @@ const sendOTPmail = require("../controller/OTP controller/sendOTP");
 const dateGenerator = require("../config/dateGenerator");
 const randomID = require("../config/randomID");
 const bcrypt = require("bcrypt");
+const Coupon = require("../model/coupenModel");
 
 //========================================= Render default page ==============================================
 
@@ -199,7 +200,14 @@ const userRegisterOTPpost = async (req, res) => {
                     password: req.session.tempuserDetail.secretPass,
                     referCode : referelcode
                 }
-                await User.create(UserData);
+                const newUser = await User.create(UserData);
+                // first order coupon
+                newUser.coupens.push("65e1e0b6c86f3075fe4292d5");
+                const availcoupons = await Coupon.find({couponType : "Special" , couponStatus : "Active"});
+                for (let i = 0; i < availcoupons.length; i++) {
+                    newUser.coupens.push(availcoupons[i]._id.toString());
+                }
+                newUser.save()
                 delete req.session.tempuserDetail;
                 res.json({ status: true })
             } catch (error) {

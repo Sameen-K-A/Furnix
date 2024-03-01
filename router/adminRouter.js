@@ -40,5 +40,9 @@ router.post("/changeStatus" , isAdmin , adminController.statusChanger);
 // coupon side
 router.get("/coupon" , isAdmin , couponController.coupenget);
 router.get("/addCoupon" , isAdmin , couponController.addCoupen);
+router.post("/addCoupon" , isAdmin , couponController.addCoupenPost);
+router.delete("/addCoupon" , isAdmin , couponController.deleteCoupon);
+router.post("/couponBlock" , isAdmin , couponController.BlockCoupon);
+router.post("/couponUnblock" , isAdmin , couponController.couponUnblock);
 
 module.exports = router;

@@ -80,6 +80,7 @@ router.post("/wishlist" , userController.wishlistpost);
 router.delete("/wishlist" , userController.deletewish);
 
 // user Coupon side
-router.get("/Coupons" , isUser , isBlocked, userProfileController.coupons)
+router.get("/Coupons" , isUser , isBlocked, userProfileController.coupons);
+router.post("/applyCoupon" , isUser , isBlocked, cartController.applyCoupon);
 
 module.exports = router;
