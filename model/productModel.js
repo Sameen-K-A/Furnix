@@ -20,6 +20,12 @@ const productSchema = new mongoose.Schema({
         type : Number,
         required : true
     },
+    offerPercentage : {
+        type : Number,
+    },
+    offerPrice : {
+        type : Number
+    },
     capacity : {
         type : Number,
         required : true

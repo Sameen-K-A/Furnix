@@ -82,5 +82,6 @@ router.delete("/wishlist" , userController.deletewish);
 // user Coupon side
 router.get("/Coupons" , isUser , isBlocked, userProfileController.coupons);
 router.post("/applyCoupon" , isUser , isBlocked, cartController.applyCoupon);
+router.post("/cancelCoupon" , isUser , isBlocked, cartController.cancelCoupon);
 
 module.exports = router;

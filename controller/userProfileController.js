@@ -224,6 +224,10 @@ const cancelOrder = async (req, res) => {
         const cancelProcess = await Order.updateOne({ _id: cancelID }, { status: "Cancelled" });
         if (cancelProcess.modifiedCount === 1) {
             const cancelProducts = await Order.findOne({ _id: cancelID });
+             // recover coupon
+             const usedCoupon = await Coupon.findOne({coupencode : cancelProducts.couponCode});
+            await User.updateOne({email : req.session.user} , {$push : {coupens : usedCoupon._id.toString()}});
+            // product quantity push back
             for (let j = 0; j < cancelProducts.product.length; j++) {
                 const cancelProduct = cancelProducts.product[j];
                 const product = await Product.findById(cancelProduct._id);

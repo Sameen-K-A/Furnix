@@ -2,6 +2,7 @@ const User = require("../model/userModel");
 const Category = require("../model/categoryModel");
 const Order = require("../model/orderModel");
 const Product = require("../model/productModel");
+const Coupon = require("../model/coupenModel")
 const date = require("../config/dateGenerator");
 const time = require("../config/timeGenerator");
 
@@ -263,12 +264,16 @@ const statusChanger = async (req, res) => {
             if(newStatus === "Delivered"){
                 currentTime = time();
                 currentDate = date();
-                const dateTime = currentTime + " / " + currentDate;
+                const dateTime = currentTime + " - " + currentDate;
                 orderData.deliveredDateTime = dateTime;
             }
             orderData.status = newStatus;
             orderData.save();
             if (newStatus === "Cancelled" || newStatus === "Returned order recieved") {
+                 // recover coupon
+                const usedCoupon = await Coupon.findOne({coupencode : orderData.couponCode});
+                await User.updateOne({email : orderData.userEmail} , {$push : {coupens : usedCoupon._id.toString()}});
+                // product stock reassign
                 for( let i=0 ; i<orderData.product.length ; i++){
                     const product = await Product.findById({_id : orderData.product[i]._id});;
                     if(product){

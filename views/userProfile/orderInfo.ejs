@@ -408,15 +408,23 @@
                                                                     <% if (orderInfodata.deliveredDateTime !== "false") { %>
                                                                         <a>Delivered time</a><br>
                                                                     <% } %>
+                                                                    <a>Coupon offer</a><br>
+                                                                    <% if (orderInfodata.couponCode !== "false") { %>
+                                                                        <a>Coupon code</a><br>
+                                                                    <% } %>
                                                                     <a>Shipping</a><br><br>
                                                                     <p style="font-size: 20px; color: black;">Total</p>
                                                                 </div>
                                                             </td>
                                                             <td style="margin: auto;">
                                                                 <div class="product-name">
-                                                                    <a>₹<%= orderInfodata.total %>.00</a><br>
+                                                                    <a>₹<%= orderInfodata.total + orderInfodata.couponOffer %>.00</a><br>
                                                                     <% if (orderInfodata.deliveredDateTime !== "false") { %>
                                                                         <a><%= orderInfodata.deliveredDateTime %></a><br>
+                                                                    <% } %>
+                                                                    <a>- ₹<%= orderInfodata.couponOffer %>.00</a><br>
+                                                                    <% if (orderInfodata.couponCode !== "false") { %>
+                                                                        <a><%= orderInfodata.couponCode %></a><br>
                                                                     <% } %>
                                                                     <a>free shipping</a><br><br>
                                                                     <p style="font-size: 20px; color: black;"><b>₹<%= orderInfodata.total %>.00</b></p>

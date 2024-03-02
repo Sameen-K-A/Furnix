@@ -119,16 +119,12 @@ const userRegisterpost = async (req, res) => {
                                 let matched = false
                                 let referral = false;
                                 if(registerReferralCode.length !=0){
-                                    const users = await User.find({});
-                                    for(let i=0 ; i<users.length ; i++){
-                                        if(users[i].referCode === registerReferralCode){
-                                            console.log(users[i].email + "is matched");
-                                            matched = users[i].email;
-                                            referral = false;
-                                            break;
-                                        } else{
-                                            referral = true
-                                        }
+                                    const referedUser = await User.findOne({referCode : registerReferralCode});
+                                    if(referedUser){
+                                        matched = referedUser.email
+                                        referral = false;
+                                    } else{
+                                        referral = true
                                     }
                                 }else{
                                     referral = false;
@@ -178,7 +174,6 @@ const userRegisterpost = async (req, res) => {
 const userRegisterOTP = (req, res) => {
     try {
         res.render("user/userRegisterOTP")
-        console.log(req.session.tempuserDetail);
     } catch (error) {
         console.log(error);
     }
@@ -203,9 +198,14 @@ const userRegisterOTPpost = async (req, res) => {
                 const newUser = await User.create(UserData);
                 // first order coupon
                 newUser.coupens.push("65e1e0b6c86f3075fe4292d5");
+                // special coupons pushing
                 const availcoupons = await Coupon.find({couponType : "Special" , couponStatus : "Active"});
                 for (let i = 0; i < availcoupons.length; i++) {
                     newUser.coupens.push(availcoupons[i]._id.toString());
+                }
+                // referral coupon pushing
+                if(req.session.tempuserDetail.referUser != false){
+                    await User.updateOne({email : req.session.tempuserDetail.referUser} , {$push : {coupens : "65e2c1ae818d33e9d08324ea"}});
                 }
                 newUser.save()
                 delete req.session.tempuserDetail;

@@ -242,18 +242,25 @@
 															</ul>
 														</div>
 													</div>
-													<div class="shipping-totals shipping">
-														<input type="text" id="cpncode" style="width: 80%;" placeholder="Apply coupon">
-														<button class="applycoupon" onclick="cpnApply()">Apply</button><br>
-														
+													<div id="shippingDiv" class="shipping-totals shipping">
+														<input type="text" id="cpncode" style="width: 80%;" onclick="clearbox()" placeholder="Apply coupon">
+														<button class="applycoupon" id="applyCoupon" onclick="cpnApply()">Apply</button><br>
 													</div>
-													<p style="margin-top: -20px; text-align: right; color: red;" id="cpnerror"></p>
+													<p style="margin-top: -20px; text-align: center; color: red;" id="cpnerror"></p>
+													
+
+													<div class="order-total">
+														<h2>Coupon discount amount</h2>
+														<div class="subtotal-price">
+															<span id="cpndiscountamount">₹0.00</span>
+														</div>
+													</div>
 
 													<div class="order-total">
 														<h2>Total</h2>
 														<div class="total-price">
 															<strong>
-																<span><b>₹<%= userData.total %>.00</b></span>
+																<span style="font-weight: bolder;" id="totalAmount">₹<%= userData.total %>.00</span>
 															</strong>
 														</div>
 													</div>
@@ -528,12 +535,12 @@
 	</div>
 
 	<!-- Page Loader -->
-	<div class="page-preloader">
+	<!-- <div class="page-preloader">
 		<div class="loader">
 			<div></div>
 			<div></div>
 		</div>
-	</div>
+	</div> -->
 
 	<!-- Dependency Scripts -->
 	<script src="libs/popper/js/popper.min.js"></script>
@@ -560,6 +567,10 @@
 <script>
 
 	function placeOrder(data, products) {
+		let couponUsed;
+		if(document.getElementById("applyCoupon").textContent ==="Cancel"){
+			couponUsed = document.getElementById("cpncode").value;
+		}
 		if (products == 0) {
 			document.getElementById("productlength").style.display = "block";
 			setTimeout(() => {
@@ -599,7 +610,8 @@
 							method: "post",
 							data: {
 								addressChecked,
-								paymentchecked
+								paymentchecked,
+								couponUsed
 							},
 							success: (response) => {
 								if (response.status === "true") {
@@ -662,65 +674,78 @@
 	}
 
 	function cpnApply(){
-		const code = document.getElementById("cpncode").value;
-		if(!code){
-			document.getElementById("cpnerror").textContent="Enter your available coupon code";
-			setTimeout(() => {
-				document.getElementById("cpnerror").textContent="";
-			}, 2000);
-		}else{
-			$.ajax({
-				url: "/applyCoupon",
-				method: "post",
-				data: {
-					code
-				},
-				success: (response) => {
-					if (response.status === "true") {
-						window.location.href = "/orderSuccessfull"
-					} else if (response.status === "stocklimit") {
-						Swal.fire({
-							icon: "error",
-							iconColor: "red",
-							text: "This amount of stock is currently not available ! . . . Go to your cart and check again.",
-							customClass: {
-								popup: 'swal-custom',
-							},
-							confirmButtonColor: "#03c04a"
-						});
-					} else if (response.status === "blocked") {
-						Swal.fire({
-							title: "Oops ! . . .",
-							text: "Product has been temporaily discontinued",
-							showCancelButton: true,
-							confirmButtonColor: "#39e75f",
-							cancelButtonColor: "#ffffff",
-							confirmButtonText: "Okay",
-							customClass: {
-								popup: 'swal-custom',
-								cancelButton: 'swal-custom-ok-btn'
-							}
-						}).then((result) => {
-							if (result.isConfirmed) {
-								window.location.reload()
-							}
-						});
-					} else if (response.status === "network") {
-						Swal.fire({
-							icon: "error",
-							title: "Oops!.. Network is busy please refresh",
-							showConfirmButton: false,
-							customClass: {
-								popup: 'swal-custom',
-							},
-							timer: 1500
-						});
-					}
+    const code = document.getElementById("cpncode");
+    if(document.getElementById("applyCoupon").textContent ==="Apply"){
+        if(!code.value){
+            document.getElementById("cpnerror").textContent="Enter your available coupon code";
+            setTimeout(() => {
+                document.getElementById("cpnerror").textContent="";
+            }, 2000);
+        }else{
+            $.ajax({
+                url: "/applyCoupon",
+                method: "post",
+                data: {
+                    code: code.value
+                },
+                success: (response) => {
+                    if (response.status === "notfound") {
+                        document.getElementById("cpnerror").textContent="Coupon not found. please check again your code";
+                    } else if(response.status === "expired"){
+                        document.getElementById("cpnerror").textContent="Coupon time is expired";
+                    } else if(response.status === "minAmount"){
+                        document.getElementById("cpnerror").textContent=`The coupon can only be accessed for purchases totaling more than ${response.amount}.`;
+                    }  else if(response.status === "okay"){
+                        Swal.fire({
+                            text: "Coupon applied",
+                            showConfirmButton: false,
+                            position : "bottom",
+                            timer: 1000
+                        });
+						document.getElementById("cpncode").readOnly = true;
+                        document.getElementById("cpndiscountamount").textContent ="- ₹"+response.discount+".00"
+                        document.getElementById("applyCoupon").textContent ="Cancel"
+						const ejsTotal = document.getElementById("totalAmount").textContent
+						const currentTotal = parseFloat(ejsTotal.replace(/[^\d.-]/g, ''));
+						const newTotal = currentTotal - response.discount;
+						document.getElementById("totalAmount").textContent = "₹"+newTotal+".00"
+                    }
+                }
+            })
+        }
+    } 
+    if(document.getElementById("applyCoupon").textContent ==="Cancel"){
+		$.ajax({
+			url: "/cancelCoupon",
+			method: "post",
+			data: {
+				code: code.value
+			},
+			success: (response) => {
+				if(response.status === "okay"){
+					Swal.fire({
+					text: "Coupon removed",
+					showConfirmButton: false,
+					position : "bottom",
+					timer: 1000
+				});	
+				document.getElementById("cpncode").readOnly = false;
+				document.getElementById("cpndiscountamount").textContent ="₹0.00"
+				document.getElementById("applyCoupon").textContent ="Apply"
+				code.value =""
+				const ejsTotal = document.getElementById("totalAmount").textContent;
+				const currentTotal = parseFloat(ejsTotal.replace(/[^\d.-]/g, ''));
+				const newTotal = currentTotal + response.discount;
+				document.getElementById("totalAmount").textContent = "₹"+newTotal+".00"
 				}
-			})
-		}
-		
-	}
+			}
+		})
+    }
+}
+
+function clearbox(){
+	document.getElementById("cpnerror").textContent =""
+}
 
 </script>
 

@@ -83,7 +83,7 @@ const addCoupenPost = async (req, res) => {
         }
         const insertProcess = await Coupon.create(newCouponData);
         if(insertProcess){
-            if(insertProcess.couponType === "Special" && insertProcess.couponStatus === "Active"){
+            if(insertProcess.couponType === "Special"){
                 await User.updateMany({} , {$push : {coupens : insertProcess._id.toString()}});
             }
             res.json({status : "okay"})

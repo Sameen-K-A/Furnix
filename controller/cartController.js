@@ -217,7 +217,7 @@ const checkout = async (req, res) => {
     }
 }
 
-//========================================= User checkout page post store datas to database  ==============================================
+//========================================= User coupon apply side ajax call  ==============================================
 
 const applyCoupon = async (req, res)=>{
     try {
@@ -228,19 +228,43 @@ const applyCoupon = async (req, res)=>{
         if(coupon){
             for (let i = 0; i < userCoupons.coupens.length; i++) {
                 if(userCoupons.coupens[i] === coupon._id.toString() && coupon.isBlocked === false){
-                    console.log("founded");
-                    cpnFound = true;
-                    break
+
+
+                    if (coupon.minBuyRate === 0 || userCoupons.total >= coupon.minBuyRate) {
+                        const currentDate = new Date(dateGenerator());
+                        const expiryDate = new Date(coupon.endDate);
+                    
+                        if (currentDate < expiryDate || coupon.endDate === "No expiry date") {
+                            res.json({ status: "okay", discount: coupon.discountAmount });
+                        } else {
+                            res.json({ status: "expired" });
+                        }
+                    } else {
+                        res.json({ status: "minAmount", amount: coupon.minBuyRate });
+                    }
+                    
+
+                    
                 }
             }
             if(!cpnFound){
-                console.log("not founded");
                 res.json({status : "notfound"})
             }
         } else{
-            console.log("not founded");
             res.json({status : "notfound"})
         }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+//========================================= User coupon apply side ajax call  ==============================================
+
+const cancelCoupon = async (req, res)=>{
+    try {
+        const userCouponcode = req.body.code;
+        const coupon = await Coupon.findOne({coupencode : userCouponcode});
+        res.json({status : "okay" , discount : coupon.discountAmount})        
     } catch (error) {
         console.log(error);
     }
@@ -253,6 +277,9 @@ const checkoutPost = async (req, res) => {
         const payment = req.body.paymentchecked;
         const userData = await User.findOne({ email: req.session.user });
         const productData = await Product.find({});
+        const usedCouponCode = req.body.couponUsed;
+        let couponOffer = 0;
+        let couponCode = false;
         const orderProducts = [];
         let address;
         let notworking = false;
@@ -267,6 +294,19 @@ const checkoutPost = async (req, res) => {
                             if (productData[j].stock >= userData.cart[i].qty) {
                                 orderProducts.push(productData[j]);
                                 nextpage = true;
+                                // coupon ckecking
+                                if(usedCouponCode != undefined){
+                                    const findCoupon = await Coupon.findOne({coupencode : usedCouponCode});
+                                    if(findCoupon.isBlocked === false){
+                                        couponOffer = findCoupon.discountAmount;
+                                        couponCode = usedCouponCode;
+                                        userData.total -= findCoupon.discountAmount;
+                                        userData.save()
+                                        // pull that coupon from user coupons
+                                        const removeID = findCoupon._id.toString();
+                                        await User.updateOne({email : req.session.user} , {$pull : {coupens : removeID}})
+                                    }
+                                }
                             } else {
                                 nextpage = false;
                                 break;
@@ -299,12 +339,14 @@ const checkoutPost = async (req, res) => {
                     time: timeGenerator(),
                     total: userData.total,
                     itemsCount: userData.cart.length,
-                    paymentMethod: payment
+                    paymentMethod: payment,
+                    couponOffer : couponOffer,
+                    couponCode : couponCode
                 }
                 if (nextpage) {
                     const orderProcess = await Order.create(orderData);
                     if (orderProcess) {
-                        res.json({ status: "true" })
+                        res.json({ status: "true"  })
                     } else {
                         res.json({ status: "network" })
                     }
@@ -355,6 +397,7 @@ module.exports = {
     checkingCheckout,
     checkout,
     applyCoupon,
+    cancelCoupon,
     checkoutPost,
     orderSuccessfull
 }

@@ -43,6 +43,14 @@ const productSchema = new mongoose.Schema({
     deliveredDateTime : {
         type : String,
         default : false
+    },
+    couponOffer : {
+        type : Number,
+        default : 0
+    },
+    couponCode : {
+        type : String,
+        default : false
     }
 }, {
     versionKey: false
