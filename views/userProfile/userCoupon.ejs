@@ -53,7 +53,7 @@
         background-color: transparent !important;
     }
     .swal2-popup {
-        background-color: black !important;
+        background-color: rgb(0, 0, 0);
         color: white !important;
     }
    .admincpn{
@@ -61,18 +61,18 @@
         height: 280px;
         border-radius: 40px;
         margin-bottom: 20px;
-        background: linear-gradient(315deg, rgb(0, 0, 0) 0%, rgb(58, 58, 58) 100%);
+        background: linear-gradient(315deg, rgba(54,54,54,1) 0%, rgba(0,0,0,1) 48%, rgba(48,48,48,1) 71%, rgba(0,0,0,1) 100%);
         position: relative;
         gap: 10px;
-        padding-left: 3px;
-        padding-right: 3px;
+        padding-left: 10px;
+        padding-right: 10px;
     }
     .event-info {
-            text-align: left !important;
-        }
-        .event-info p {
-            text-align: center; /* Center the columns */
-        }
+        text-align: left !important;
+    }
+    .event-info p {
+        text-align: center; /* Center the columns */
+    }
    
    .copybtn{
 		background-color: #CCBEA5;
@@ -81,28 +81,28 @@
 		color: rgb(0, 0, 0);
 	}
     .wrapper {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.container {
-    width: calc(33.33% - 20px);
-    margin: 10px; 
-}
-
-@media (max-width: 768px) {
-    .container {
-        width: calc(50% - 20px);
+        display: flex;
+        flex-wrap: wrap;
     }
-}
 
-@media (max-width: 576px) {
     .container {
-        width: calc(100% - 20px);
+        width: calc(33.33% - 20px);
+        margin: 10px; 
     }
-}
 
-.outofstock {
+    @media (max-width: 768px) {
+        .container {
+            width: calc(50% - 20px);
+        }
+    }
+
+    @media (max-width: 576px) {
+        .container {
+            width: calc(100% - 20px);
+        }
+    }
+
+    .outofstock {
 		position: absolute;
 		top: 40%;
 		left: 0;
@@ -117,8 +117,18 @@
 		width: 100%;
 		height: 107%;
 		background-color: rgba(255, 255, 255, 0.533);
-		z-index: 9997;
+		z-index: 1;
 	}
+    .swal-custom {
+        z-index: 99999;
+        background: linear-gradient(94deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.8240546218487395) 26%, rgba(0, 0, 0, 1) 53%, rgba(0, 0, 0, 0.8492647058823529) 79%, rgba(227, 227, 227, 0) 100%);
+        color: #ffffff;
+        width: 100%;
+    }
+
+    .swal-custom-ok-btn {
+        color: black !important;
+    }
 
 </style>
 
@@ -272,183 +282,75 @@
                                             </ul>
                                         </nav>
                                         <div class="my-account-content tab-content">
-                                            <!-- <div
-                                                class="my-account-account-details d-flex justify-content-center align-items-center">
-                                                <div class="edit-account col-lg-8">
-                                                    <div style="width: 100%; height: 100px; background-color:
-                                                    rgb(255, 255, 255); display: flex; justify-content: center;
-                                                    align-items: center; border: 1px solid black;">
-                                                        <p style="color: black; margin-top: 10px;">Address not
-                                                            found! Please insert</p>
-                                                    </div>
-                                                </div>
-                                            </div> -->
-
-
-
-                                            <!-- <div class="container d-flex">
-                                                        <div class="firstbook d-flex align-items-center justify-content-center">
-                                                            <div class="text-center">
-                                                                <h3 style="color: #CCBEA5;"><b>First order</b></h3><br>
-                                                                <p style="color: #CCBEA5; font-size: 13px;">Make your first purchase with the FURNIX exclusive coupon to receive a ₹1000 discount offer on any product.</p>
-                                                                <br>
-                                                                <div style="width: 100%; height: 35px; border: 1px solid #CCBEA5; margin-top: -10px;" class="d-flex justify-content-between align-items-center">
-                                                                    <p id="myText" style="margin: 0 ; padding-left: 20px; color: #CCBEA5;">svdbftgb</p>
-                                                                    <button onclick="copyContent()" class="copybtn"><svg xmlns="http://www.w3.org/2000/svg" height="20px" width="20px" viewBox="0 0 448 512">
-                                                                        <path fill="#090606" d="M208 0H332.1c12.7 0 24.9 5.1 33.9 14.1l67.9 67.9c9 9 14.1 21.2 14.1 33.9V336c0 26.5-21.5 48-48 48H208c-26.5 0-48-21.5-48-48V48c0-26.5 21.5-48 48-48zM48 128h80v64H64V448H256V416h64v48c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V176c0-26.5 21.5-48 48-48z"/>
-                                                                    </svg>
-                                                                    </button>
-                                                                </div><br>
-                                                                <h1 style="font-weight: 800; color: #CCBEA5;">₹1000/-</h1>
-                                                            </div>
-                                                        </div>
-                                                    </div>  
-                                                    <div class="container d-flex">
-                                                        <div class="refercpn d-flex align-items-center justify-content-center">
-                                                            <div class="text-center">
-                                                                <h3 style="color: #ffffff;"><b>Gift coupon</b></h3><br>
-                                                                <p style="color: #ffffff; font-size: 13px;">Invite more friends and earn extra coupons with each referral</p>
-                                                                <br>
-                                                                <div style="width: 100%; height: 35px; border: 1px solid #ffffff; margin-top: -10px;" class="d-flex justify-content-between align-items-center">
-                                                                    <p id="myText" style="margin: 0 ; padding-left: 20px; color: #ffffff;">svdbftgb</p>
-                                                                    <button onclick="copyContent()" style="background-color: white;" class="copybtn"><svg xmlns="http://www.w3.org/2000/svg" height="20px" width="20px" viewBox="0 0 448 512">
-                                                                        <path fill="#090606" d="M208 0H332.1c12.7 0 24.9 5.1 33.9 14.1l67.9 67.9c9 9 14.1 21.2 14.1 33.9V336c0 26.5-21.5 48-48 48H208c-26.5 0-48-21.5-48-48V48c0-26.5 21.5-48 48-48zM48 128h80v64H64V448H256V416h64v48c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V176c0-26.5 21.5-48 48-48z"/>
-                                                                    </svg>
-                                                                    </button>
-                                                                </div><br>
-                                                                <h1 style="font-weight: 800; color: #ffffff;">₹2000/-</h1>
-                                                            </div>
-                                                        </div>
-                                                    </div>   -->
-                                                    <% if (userCoupons) { %>
-                                                        <% if (userData.coupens.length === 0) { %>
-                                                            no coupons founded
-                                                         <% } else { %>
-                                                             <div class="wrapper d-flex">
-                                                                 <% for( let i = 0; i < userData.coupens.length; i++ ) { %>
-                                                                    <% if (userCoupons[i].isBlocked === false) { %>
-                                                                        <% if (userCoupons[i].couponType === "Regular") { %>
-                                                                            <div class="container d-flex">
-                                                                                <div class="firstbook d-flex align-items-center justify-content-center">
-                                                                                    <% if (userCoupons[i].couponStatus === "Expired") { %>
-                                                                                        <div class="outofstockbackground">
-                                                                                            <div
-                                                                                                class="outofstock text-light d-flex justify-content-center align-items-center">
-                                                                                                <b>Expired</b>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    <% } %>
-                                                                                    <% if (userCoupons[i].couponStatus === "Awaiting") { %>
-                                                                                        <div class="outofstockbackground">
-                                                                                            <div
-                                                                                                class="outofstock text-light d-flex justify-content-center align-items-center">
-                                                                                                <b>Comming soon</b>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    <% } %>
-
-                                                                                    <div class="text-center">
-                                                                                        <h3 style="color: #CCBEA5;"><b><%= userCoupons[i].name %></b></h3><br>
-                                                                                           <div class="table-responsive" style="margin-top: -10px;">
-                                                                                            <table class="table" cellspacing="0">
-                                                                                                <tbody>
-                                                                                                    <tr class=" align-right">
-                                                                                                        <td style="margin: auto;">
-                                                                                                            <div class="product-name">
-                                                                                                                <a style="font-size: 13px; color: #CCBEA5;">Event starting date </a><br>
-                                                                                                                <a style="font-size: 13px; color: #CCBEA5;">Event Ending date </a><br>
-                                                                                                                <a style="font-size: 13px; color: #CCBEA5;">Purchase amount </a>
-                                                                                                            </div>
-                                                                                                        </td>
-                                                                                                        <td style="margin: auto;">
-                                                                                                            <div class="product-name">
-                                                                                                                <a> <b><span style="color: #CCBEA5;"><%= userCoupons[i].startDate %></span></b></a><br>
-                                                                                                                <a> <b><span style="color: #CCBEA5;"><%= userCoupons[i].endDate %></span></b></a><br>
-                                                                                                                <a> <b><span style="color: #CCBEA5;">₹<%= userCoupons[i].minBuyRate %>.00</span></b></a>
-                                                                                                            </div>
-                                                                                                        </td>
-                                                                                                    </tr>
-                                                                                                </tbody>
-                                                                                            </table>
-                                                                                        </div>
-                                                                                        
-                                                                                        <br>
-                                                                                        <div style="width: 100%; height: 35px; border: 1px solid #CCBEA5; margin-top: -30px;" class="d-flex justify-content-between align-items-center">
-                                                                                            <p id="myText<%= i %>" style="margin: 0 ; padding-left: 20px; color: #CCBEA5;"><%= userCoupons[i].coupencode %></p>
-                                                                                            <button onclick="copyContent('<%= i %>')" style="background-color: #CCBEA5;" class="copybtn">
-                                                                                                <svg xmlns="http://www.w3.org/2000/svg" height="20px" width="20px" viewBox="0 0 448 512">
-                                                                                                    <path fill="#090606" d="M208 0H332.1c12.7 0 24.9 5.1 33.9 14.1l67.9 67.9c9 9 14.1 21.2 14.1 33.9V336c0 26.5-21.5 48-48 48H208c-26.5 0-48-21.5-48-48V48c0-26.5 21.5-48 48-48zM48 128h80v64H64V448H256V416h64v48c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V176c0-26.5 21.5-48 48-48z"/>
-                                                                                                </svg>
-                                                                                            </button>
-                                                                                        </div><br>
-                                                                                        <h1 style="font-weight: 800; color: #CCBEA5;"><span style="color: rgb(94, 94, 94);">OFF</span> &nbsp;₹<%= userCoupons[i].discountAmount %>/- </h1>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div> 
-                                                                        <% } else { %>
-                                                                            <div class="container d-flex">
-                                                                                <div class="admincpn d-flex align-items-center justify-content-center">
-                                                                                    <% if (userCoupons[i].couponStatus === "Expired") { %>
-                                                                                        <div class="outofstockbackground">
-                                                                                            <div
-                                                                                                class="outofstock text-light d-flex justify-content-center align-items-center">
-                                                                                                <b>Expired</b>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    <% } %>
-                                                                                    <% if (userCoupons[i].couponStatus === "Awaiting") { %>
-                                                                                        <div class="outofstockbackground">
-                                                                                            <div
-                                                                                                class="outofstock text-light d-flex justify-content-center align-items-center">
-                                                                                                <b>Comming soon</b>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    <% } %>
-                                                                                    <div class="text-center">
-                                                                                        <h3 style="color: #ffffff;"><b><%= userCoupons[i].name %></b></h3><br>
-                                                                                           <div class="table-responsive" style="margin-top: -10px;">
-                                                                                            <table class="table" cellspacing="0">
-                                                                                                <tbody>
-                                                                                                    <tr class=" align-right">
-                                                                                                        <td style="margin: auto;">
-                                                                                                            <div class="product-name">
-                                                                                                                <a style="font-size: 13px; color: rgb(224, 224, 224);">Event starting date </a><br>
-                                                                                                                <a style="font-size: 13px; color: rgb(224, 224, 224);">Event Ending date </a><br>
-                                                                                                                <a style="font-size: 13px; color: rgb(224, 224, 224);">Purchase amount </a>
-                                                                                                            </div>
-                                                                                                        </td>
-                                                                                                        <td style="margin: auto;">
-                                                                                                            <div class="product-name">
-                                                                                                                <a> <b><span style="color: rgb(255, 255, 255);"><%= userCoupons[i].startDate %></span></b></a><br>
-                                                                                                                <a> <b><span style="color: rgb(255, 255, 255);"><%= userCoupons[i].endDate %></span></b></a><br>
-                                                                                                                <a> <b><span style="color: rgb(255, 255, 255);">₹<%= userCoupons[i].minBuyRate %>.00</span></b></a>
-                                                                                                            </div>
-                                                                                                        </td>
-                                                                                                    </tr>
-                                                                                                </tbody>
-                                                                                            </table>
-                                                                                        </div>
-                                                                                        
-                                                                                        <br>
-                                                                                        <div style="width: 100%; height: 35px; border: 1px solid #ffffff; margin-top: -30px;" class="d-flex justify-content-between align-items-center">
-                                                                                            <p id="myText<%= i %>" style="margin: 0 ; padding-left: 20px; color: #ffffff;"><%= userCoupons[i].coupencode %></p>
-                                                                                            <button onclick="copyContent('<%= i %>')" style="background-color: white;" class="copybtn">
-                                                                                                <svg xmlns="http://www.w3.org/2000/svg" height="20px" width="20px" viewBox="0 0 448 512">
-                                                                                                    <path fill="#090606" d="M208 0H332.1c12.7 0 24.9 5.1 33.9 14.1l67.9 67.9c9 9 14.1 21.2 14.1 33.9V336c0 26.5-21.5 48-48 48H208c-26.5 0-48-21.5-48-48V48c0-26.5 21.5-48 48-48zM48 128h80v64H64V448H256V416h64v48c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V176c0-26.5 21.5-48 48-48z"/>
-                                                                                                </svg>
-                                                                                            </button>
-                                                                                        </div><br>
-                                                                                        <h1 style="font-weight: 800; color: #ffffff;"><span style="color: rgb(94, 94, 94);">OFF</span> &nbsp;₹<%= userCoupons[i].discountAmount %>/- </h1>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div> 
-                                                                        <% } %>
+                                            <% if (userCoupons) { %>
+                                                <% if (userCoupons.length === 0) { %>
+                                                    no coupons founded
+                                                <% } else { %>
+                                                    <div class="wrapper d-flex">
+                                                        <% for( let i = 0; i < userCoupons.length; i++ ) { %>
+                                                        <% if (userCoupons[i].isBlocked === false) { %>
+                                                            <div class="container d-flex">
+                                                                <div class="admincpn d-flex align-items-center justify-content-center">
+                                                                    <% if (userCoupons[i].couponStatus === "Awaiting") { %>
+                                                                        <div class="outofstockbackground">
+                                                                            <div
+                                                                                class="outofstock text-light d-flex justify-content-center align-items-center">
+                                                                                <b class="text-danger">Comming soon</b>
+                                                                            </div>
+                                                                        </div>
                                                                     <% } %>
-                                                                 <% } %>
-                                                             </div>
-                                                         <% } %>
-                                                    <% } %>
-                                            
+                                                                    <% if (userCoupons[i].couponStatus === "Expired") { %>
+                                                                        <div class="outofstockbackground">
+                                                                            <div
+                                                                                class="outofstock text-light d-flex justify-content-center align-items-center">
+                                                                                <b class="text-danger">Expired</b>
+                                                                            </div>
+                                                                        </div>
+                                                                    <% } %>
+                                                                    <div class="text-center">
+                                                                        <h3 style="color: white"><b><%= userCoupons[i].name %></b></h3><br>
+                                                                            <div class="table-responsive" style="margin-top: -10px;">
+                                                                            <table class="table" cellspacing="0">
+                                                                                <tbody>
+                                                                                    <tr class=" align-right">
+                                                                                        <td style="margin: auto;">
+                                                                                            <div class="product-name">
+                                                                                                <a style="font-size: 13px; color: white">Event starting date </a><br>
+                                                                                                <a style="font-size: 13px; color: white">Event Ending date </a><br>
+                                                                                                <a style="font-size: 13px; color: white">Purchase amount </a>
+                                                                                                <a style="font-size: 13px; color: white">Limit offer amount </a>
+                                                                                            </div>
+                                                                                        </td>
+                                                                                        <td style="margin: auto;">
+                                                                                            <div class="product-name">
+                                                                                                <a> <b><span style="color: white"><%= userCoupons[i].startDate %></span></b></a><br>
+                                                                                                <a> <b><span style="color: white"><%= userCoupons[i].endDate %></span></b></a><br>
+                                                                                                <a> <b><span style="color: white">₹<%= userCoupons[i].minBuyRate %>.00</span></b></a>
+                                                                                                <a> <b><span style="color: white">₹<%= userCoupons[i].maxBuyRate %>.00</span></b></a>
+                                                                                            </div>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                        <br>
+                                                                        <div style="width: 100%; height: 35px; border: 1px solid white; margin-top: -30px;" class="d-flex justify-content-between align-items-center">
+                                                                            <p id="myText<%= i %>" style="margin: 0 ; padding-left: 20px; color: white"><%= userCoupons[i].coupencode %></p>
+                                                                            <button onclick="copyContent('<%= i %>')" style="background-color: white" class="copybtn">
+                                                                                <svg xmlns="http://www.w3.org/2000/svg" height="20px" width="20px" viewBox="0 0 448 512">
+                                                                                    <path fill="#090606" d="M208 0H332.1c12.7 0 24.9 5.1 33.9 14.1l67.9 67.9c9 9 14.1 21.2 14.1 33.9V336c0 26.5-21.5 48-48 48H208c-26.5 0-48-21.5-48-48V48c0-26.5 21.5-48 48-48zM48 128h80v64H64V448H256V416h64v48c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V176c0-26.5 21.5-48 48-48z"/>
+                                                                                </svg>
+                                                                            </button>
+                                                                        </div><br>
+                                                                        <h1 style="font-weight: 800; color: white; margin-top: -15px;"> <%= userCoupons[i].discountPercentage %>% &nbsp;<span style="color: rgb(94, 94, 94);">OFF</span> </h1>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        <% } %>
+                                                        <% } %>
+                                                    </div>
+                                                <% } %>
+                                            <% } %>
                                         </div>
                                     </div>
                                 </div>
@@ -645,5 +547,23 @@
             });
         }
 	}
+    function logout() {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You want to Logout from FURNIX?",
+            showCancelButton: true,
+            confirmButtonColor: "#FF0000",
+            cancelButtonColor: "#ffffff",
+            confirmButtonText: "Logout",
+            customClass: {
+                popup: 'swal-custom',
+                cancelButton: 'swal-custom-ok-btn'
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "/userLogout"
+            }
+        });
+    }
 </script>
 </html>

@@ -178,12 +178,12 @@
                                                         </div>
                                                     </a>
                                                 </td>
-                                                <td class="align-middle">₹<%= orderDetails.product[i].regularPrice %>.00
+                                                <td class="align-middle">₹<%= orderDetails.product[i].offerPrice %>.00
                                                 </td>
                                                 <td class="align-middle">
                                                     <%= orderDetails.product[i].cartQty %>
                                                 </td>
-                                                <td class="align-middle">₹<%= orderDetails.product[i].regularPrice *
+                                                <td class="align-middle">₹<%= orderDetails.product[i].offerPrice *
                                                         orderDetails.product[i].cartQty %>.00</td>
                                             </tr>
                                             <% } %>
@@ -207,8 +207,31 @@
                                                             </dl>
                                                             <dl class="dlist">
                                                                 <dt>Subtotal:</dt>
-                                                                <dd>₹<%= orderDetails.total %>.00</dd>
+                                                                <dd>₹<%= orderDetails.subTotal %>.00</dd>
                                                             </dl>
+                                                            
+
+
+                                                            <% if (orderDetails.deliveredDateTime !== "false") { %>
+                                                                <dl class="dlist">
+                                                                    <dt>Delivered time:</dt>
+                                                                    <dd><%= orderDetails.deliveredDateTime %></dd>
+                                                                </dl>
+                                                            <% } %>
+                                                            <% if (orderDetails.couponCode !== "false") { %>
+                                                                <dl class="dlist">
+                                                                    <dt>Coupon code:</dt>
+                                                                    <dd><%= orderDetails.couponCode %></dd>
+                                                                </dl>
+                                                            <% } %>
+                                                            <% if (orderDetails.couponCode !== "false") { %>
+                                                                <dl class="dlist">
+                                                                    <dt>Coupon discount price:</dt>
+                                                                    <dd>₹<%= orderDetails.couponOffer %>.00</dd>
+                                                                </dl>
+                                                            <% } %>
+
+
                                                             <dl class="dlist">
                                                                 <dt>Shipping cost:</dt>
                                                                 <dd>Free</dd>

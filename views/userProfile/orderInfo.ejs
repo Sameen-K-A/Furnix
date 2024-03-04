@@ -361,7 +361,7 @@
                                                                 </td>
                                                                 <td class="product-price text-center">
                                                                     <div class="product-name">
-                                                                        <a>₹<%= orderInfodata.product[i].regularPrice %>
+                                                                        <a>₹<%= orderInfodata.product[i].offerPrice %>
                                                                                 .00</a>
                                                                     </div>
                                                                 </td>
@@ -375,7 +375,7 @@
                                                                 <td class="product-price text-center">
                                                                     <div class="product-name">
                                                                         <a>
-                                                                            <%= orderInfodata.product[i].regularPrice *
+                                                                            <%= orderInfodata.product[i].offerPrice *
                                                                                 orderInfodata.product[i].cartQty %>.00
                                                                         </a>
                                                                     </div>
@@ -408,8 +408,8 @@
                                                                     <% if (orderInfodata.deliveredDateTime !== "false") { %>
                                                                         <a>Delivered time</a><br>
                                                                     <% } %>
-                                                                    <a>Coupon offer</a><br>
                                                                     <% if (orderInfodata.couponCode !== "false") { %>
+                                                                        <a>Coupon discount price</a><br>
                                                                         <a>Coupon code</a><br>
                                                                     <% } %>
                                                                     <a>Shipping</a><br><br>
@@ -418,12 +418,12 @@
                                                             </td>
                                                             <td style="margin: auto;">
                                                                 <div class="product-name">
-                                                                    <a>₹<%= orderInfodata.total + orderInfodata.couponOffer %>.00</a><br>
+                                                                    <a>₹<%= orderInfodata.subTotal %>.00</a><br>
                                                                     <% if (orderInfodata.deliveredDateTime !== "false") { %>
                                                                         <a><%= orderInfodata.deliveredDateTime %></a><br>
                                                                     <% } %>
-                                                                    <a>- ₹<%= orderInfodata.couponOffer %>.00</a><br>
                                                                     <% if (orderInfodata.couponCode !== "false") { %>
+                                                                        <a>- ₹<%= orderInfodata.couponOffer %>.00</a><br>
                                                                         <a><%= orderInfodata.couponCode %></a><br>
                                                                     <% } %>
                                                                     <a>free shipping</a><br><br>
@@ -529,7 +529,7 @@
                                                                                 
                                                                                 <td class="product-price text-center">
                                                                                     <div class="product-name">
-                                                                                        <a>₹<%= orderInfodata.product[i].regularPrice %>
+                                                                                        <a>₹<%= orderInfodata.product[i].offerPrice %>
                                                                                                 .00</a>
                                                                                     </div>
                                                                                 </td>
@@ -543,7 +543,7 @@
                                                                                 <td class="product-price text-center">
                                                                                     <div class="product-name">
                                                                                         <a>
-                                                                                            <%= orderInfodata.product[i].regularPrice *
+                                                                                            <%= orderInfodata.product[i].offerPrice *
                                                                                                 orderInfodata.product[i].cartQty %>.00
                                                                                         </a>
                                                                                     </div>

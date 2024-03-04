@@ -44,6 +44,9 @@ const productSchema = new mongoose.Schema({
         type : String,
         default : false
     },
+    subTotal : {
+        type : Number
+    },
     couponOffer : {
         type : Number,
         default : 0

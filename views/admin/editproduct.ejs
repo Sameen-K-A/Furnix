@@ -114,7 +114,7 @@
                                     <label class="form-label">Category</label>
                                     <select class="form-select " id="categorySelect" name="category">
                                         <option>
-                                            <%= productDetails.category %>
+                                            <%= productDetails.categoryName %>
                                         </option>
                                         <% catDetails.forEach(element=> { %>
                                             <% if (element.name !==productDetails.category) { %>
@@ -136,6 +136,16 @@
                                                 value="<%= productDetails.regularPrice %>">
                                         </div>
                                         <p class="text-danger text-center mb-15 " id="regularError"></p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="mb-4">
+                                        <label class="form-label">Offer price</label>
+                                        <div class="row gx-2">
+                                            <input placeholder="₹" type="text" class="form-control" id="product_offer"
+                                                onkeyup="offerValidation()" name="offerPrice" value="<%= productDetails.offerPrice %>">
+                                        </div>
+                                        <p class="text-danger text-center mb-15 " id="offerError"></p>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -171,17 +181,6 @@
                                     <button class="custom-button1" onclick="cancel(event)">Cancel</button>
                                     <button class="custom-button2" type="submit" id="add">Add</button>
                                 </div>
-                                <!-- <div class="col-lg-12 mt-15">
-                                    <label class="form-label">Product Images</label>
-                                    <img alt="">
-                                    <input class="form-control" type="file" multiple accept=".png, .jpeg, .jpg"
-                                        onkeyup="imageValidation()" name="image" id="product_images">
-                                    <p class="text-danger text-center mb-15 mt-15 " id="imageError"></p>
-                                </div> -->
-
-
-
-
                             </div>
 
                         </div>
@@ -239,6 +238,7 @@
         const nameError = document.getElementById("minName");
         const descriptionError = document.getElementById("descriptionError");
         const regularError = document.getElementById("regularError");
+        const offerError = document.getElementById("offerError");
         const capacityError = document.getElementById("capacityError");
         const upoError = document.getElementById("materialError");
         const stockError = document.getElementById("stockError");
@@ -247,6 +247,7 @@
         nameError.textContent = "";
         descriptionError.textContent = "";
         regularError.textContent = "";
+        offerError.textContent = "";
         capacityError.textContent = "";
         upoError.textContent = "";
         stockError.textContent = "";
@@ -312,6 +313,29 @@
                 return false
             }
             regularError.textContent = "";
+            return true
+        }
+
+        // offer price validation
+
+        function offerValidation() {
+            const offer = document.getElementById("product_offer").value;
+            if (offer.trim() === "") {
+                offerError.textContent = "Please enter valid amount"
+                return false
+            } else if (/^\d+$/.test(offer)) {
+                const regular = document.getElementById("product_regular").value;
+                const offerNumber = parseInt(offer);
+                const regularNumber = parseInt(regular);
+                if (offerNumber > regularNumber) {
+                    offerError.textContent = "Offer price must be less than regular price";
+                    return false;
+                }
+            } else {
+                offerError.textContent = "Price can't contain characters other numbers"
+                return false
+            }
+            offerError.textContent = "";
             return true
         }
 
@@ -412,12 +436,12 @@
             const nameValid = namValidation();
             const descriptionValid = desValidation();
             const regularValid = regValidation();
+            const offerValid = offerValidation();
             const capacityValid = capValidation();
             const materialValid = matValidation();
             const stockValid = stockValidation();
             const colorValid = colorValidation();
-            // const imgValid = imageValidation();
-            if (nameValid && descriptionValid && regularValid && capacityValid && materialValid && stockValid && colorValid) {
+            if (nameValid && descriptionValid && regularValid && capacityValid && materialValid && stockValid && colorValid && offerValid) {
                 form.submit();
                 return true;
             } else {
@@ -433,6 +457,8 @@
                 desValidation();
             } else if (event.target.id === "product_regular") {
                 regValidation();
+            } else if (event.target.id === "product_offer") {
+                offerValidation();
             } else if (event.target.id === "product_capacity") {
                 capValidation();
             } else if (event.target.id === "product_material") {
@@ -442,9 +468,6 @@
             } else if (event.target.id === "product_color") {
                 colorValidation();
             }
-            //  else if (event.target.id === "product_images") {
-            //     imageValidation();
-            // }
         });
 
     });
@@ -505,18 +528,17 @@
 
 
     function cancel(event) {
-
         event.preventDefault()
-
         const name = document.getElementById("product_name").value;
         const description = document.getElementById("product_description").value;
         const regularPrice = document.getElementById("product_regular").value;
+        const offerPrice = document.getElementById("product_offer").value;
         const capacity = document.getElementById("product_capacity").value;
         const material = document.getElementById("product_material").value;
         const stock = document.getElementById("product_stock").value;
         const color = document.getElementById("product_color").value;
-        if (name.trim() === "" && description.trim() === "" && regularPrice.trim() === "" && capacity.trim() === "" && material.trim() === "" && stock.trim() === "" && color.trim() === "") {
-            window.location.href = "http://localhost:5000/admin/productPage";
+        if (name.trim() === "" && description.trim() === "" && regularPrice.trim() === "" && offerPrice.trim()==="" && capacity.trim() === "" && material.trim() === "" && stock.trim() === "" && color.trim() === "") {
+            window.history.back()
         } else {
             Swal.fire({
                 title: "Are you sure?",
@@ -527,7 +549,7 @@
                 confirmButtonText: "Discard"
             }).then((result) => {
                 if (result.isConfirmed) {
-                    window.location.href = "http://localhost:5000/admin/productPage"
+                    window.history.back()
                 }
             });
         }

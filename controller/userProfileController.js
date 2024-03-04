@@ -3,7 +3,6 @@ const bcrypt = require("bcrypt");
 const Order = require("../model/orderModel");
 const Product = require("../model/productModel");
 const Coupon = require("../model/coupenModel");
-const date = require("../config/dateGenerator");
 //========================================= inside user profile page change password session rendering ==============================================
 
 const changepassword = (req, res) => {
@@ -225,8 +224,11 @@ const cancelOrder = async (req, res) => {
         if (cancelProcess.modifiedCount === 1) {
             const cancelProducts = await Order.findOne({ _id: cancelID });
              // recover coupon
-             const usedCoupon = await Coupon.findOne({coupencode : cancelProducts.couponCode});
-            await User.updateOne({email : req.session.user} , {$push : {coupens : usedCoupon._id.toString()}});
+            const user = await User.findOne({email : cancelProducts.userEmail});
+            const usedCoupon = await Coupon.findOne({coupencode : cancelProducts.couponCode});
+            if(usedCoupon != null){
+                await Coupon.updateOne({ coupencode: cancelProducts.couponCode },{$push: { availableUsers: user._id.toString() }, $pull: { redeemedUsers: user._id.toString() }});
+            }
             // product quantity push back
             for (let j = 0; j < cancelProducts.product.length; j++) {
                 const cancelProduct = cancelProducts.product[j];
@@ -286,14 +288,12 @@ const returnorder = async (req, res) => {
 const coupons = async (req, res) => {
     try {
         const userData = await User.findOne({email : req.session.user});
-        const orginalCoupons = await Coupon.find({}).sort({_id : -1});
-        const currentDate = new Date(date());
+        const coupons = await Coupon.find({});
         const userCoupons = [];
-        for (let i = 0; i < userData.coupens.length; i++) {
-            for(let j=0 ; j<orginalCoupons.length ; j++){
-                if(userData.coupens[i] === orginalCoupons[j]._id.toString()){
-                    userCoupons.push(orginalCoupons[j])
-                    break;
+        for (let i = 0; i < coupons.length; i++) {
+            for(let j = 0 ; j < coupons[i].availableUsers.length ; j++){
+                if(userData._id.toString() === coupons[i].availableUsers[j]){
+                    userCoupons.push(coupons[i])
                 }
             }
         }

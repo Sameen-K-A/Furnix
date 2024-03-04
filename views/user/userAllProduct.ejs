@@ -370,13 +370,12 @@
                                                                                             <%= productDetails[i].name %>
                                                                                         </h3>
                                                                                         <span class="price">
-                                                                                            <del aria-hidden="true"><span>₹
-                                                                                                    <%= productDetails[i].regularPrice
-                                                                                                        %>.00
-                                                                                                </span></del>
-                                                                                            <ins><span>₹<%=
-                                                                                                        productDetails[i].regularPrice
-                                                                                                        %>.00</span></ins>
+																							<ins><span>₹<%=productDetails[i].offerPrice%>.00</span></ins>
+																							<del aria-hidden="true"><span>₹<%=productDetails[i].regularPrice%>.00</span></del>
+                                                                                        </span>
+                                                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="price">
+                                                                                            <ins><span style="color: black;"><%=productDetails[i].offerPercentage%>% off</span></ins>
+                                                                                        </span>
                                                                                             <div class="rating" style="margin-top: 10px;">
                                                                                                 <% if (productDetails[i].avgStar === 1) { %>
                                                                                                     <div class="star star-1"></div>

@@ -38,15 +38,32 @@
 		rel="stylesheet">
 </head>
 <style>
-	 .swal-custom {
-        background: linear-gradient(94deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.8240546218487395) 26%, rgba(0, 0, 0, 1) 53%, rgba(0, 0, 0, 0.8492647058823529) 79%, rgba(227, 227, 227, 0) 100%);
-        color: #ffffff;
-        width: 100%;
-    }
 
-    .swal-custom-ok-btn {
-        color: black !important;
-    }
+	#addcart{
+		background-color: black;
+		color: white;
+		width: 110px;
+		height: 32px;
+	}
+	#viewCart{
+		background-color: rgb(255, 255, 255);
+		color: rgb(0, 0, 0);
+		border:  1px solid black;
+		width: 110px;
+		height: 32px;
+	}
+	.swal-custom {
+		background: linear-gradient(94deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.8240546218487395) 26%, rgba(0, 0, 0, 1) 53%, rgba(0, 0, 0, 0.8492647058823529) 79%, rgba(227, 227, 227, 0) 100%);
+		color: #ffffff;
+		width: 100%;
+	}
+
+	.swal-custom-ok-btn {
+		color: black !important;
+	}
+	.swal2-container {
+		z-index: 99999 !important;
+	}
 </style>
 
 <body class="shop">
@@ -196,10 +213,35 @@
 																<div class="wishlist-item-name">
 																	<a href="shop-details.html"><%= wishProducts[i].name %></a>
 																</div>
-																<div class="wishlist-item-price">
-																	<span>₹<%= wishProducts[i].regularPrice %>.00</span>
-																</div>
+																<span class="price">
+																	<ins><span>₹<%=wishProducts[i].offerPrice%>.00</span></ins>
+																	<del aria-hidden="true"><span>₹<%=wishProducts[i].regularPrice%>.00</span></del>
+															</span>
 															</td>
+															<td style="text-align: right;">
+															<% if (userData.cart.length != 0) { %>
+																<% let productFound = false; %>
+																<% for (let j = 0; j < userData.cart.length; j++) { %>
+																	<% const cartIDString = userData.cart[j].productID.toString(); %>
+																	<% const wishIDString = wishProducts[i]._id.toString(); %>
+																	<% if (cartIDString === wishIDString) { %>
+																		<a href="/cart"><button id="viewCart">View cart</button></a>
+																		<% productFound = true; %>
+																		<% break; %>
+																	<% } %>
+																<% } %>
+																	<% if (!productFound) { %>
+																		<button id="addcart" onclick="addtoCart('<%=wishProducts[i]._id%>')">Add to cart</button>
+																	<% } %>
+																<% } else { %>
+																	<button id="addcart" onclick="addtoCart('<%=wishProducts[i]._id%>')">Add to cart</button>
+																<% } %>
+															</td>
+
+
+
+
+
 															<td style="text-align: right;"><svg onclick="deleteproduct('<%= wishProducts[i]._id %>')" xmlns="http://www.w3.org/2000/svg" height="14" width="12.25"
 																	viewBox="0 0 448 512">
 																	<path fill="#000000"
@@ -433,11 +475,11 @@
 
 		Swal.fire({
             title: "Are you sure?",
-            text: "You want to discard this details?",
+            text: "You want to Remove this product from your wishlist?",
             showCancelButton: true,
             confirmButtonColor: "#FF0000",
             cancelButtonColor: "#ffffff",
-            confirmButtonText: "Discard",
+            confirmButtonText: "Remove",
             customClass: {
                 popup: 'swal-custom',
                 cancelButton: 'swal-custom-ok-btn'
@@ -454,13 +496,14 @@
 					if (response.status === "okay") {
 						Swal.fire({
 							icon: "success",
-							title: "Product removed in your wishlist",
+							title: "Product removed",
 							showConfirmButton: false,
 							customClass: {
 								popup: 'swal-custom',
 							},
 							timer: 1500
 						});
+
 						setTimeout(() => {
 							window.location.reload()
 						}, 1000);
@@ -502,6 +545,45 @@
 			})
             }
         });
+	}
+
+	function addtoCart(id){
+		$.ajax({
+			url: "/cart",
+			method: "post",
+			data: {
+				id
+			},
+			success: (response) => {
+				if (response.status === "okay") {
+					Swal.fire({
+						icon: "success",
+						title: "Product added into your cart",
+						showConfirmButton: false,
+						customClass: {
+							popup: 'swal-custom',
+						},
+						timer: 1500
+					});
+					setTimeout(() => {
+							window.location.reload()
+						}, 1000);
+				}  else if (response.status === "blocked") {
+					Swal.fire({
+						title: "Oops ! . . .",
+						text: "This product has been temporaily discontinued",
+						showCancelButton: true,
+						confirmButtonColor: "#39e75f",
+						cancelButtonColor: "#ffffff",
+						confirmButtonText: "Okay",
+						customClass: {
+							popup: 'swal-custom',
+							cancelButton: 'swal-custom-ok-btn'
+						}
+					});
+				}
+			}
+		})
 	}
 
 </script>

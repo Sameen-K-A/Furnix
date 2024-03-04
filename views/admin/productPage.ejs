@@ -264,7 +264,13 @@
                                 <a href="/admin/productinfo?id=<%= product[i]._id %>"><img src="/uploads/<%= product[i].images[0] %>" alt="Product"></a>
                                 <div class="info-wrap">
                                     <a href="#" class="title"><%= product[i].name %></a>
-                                    <div class="price mt-1">₹<%= product[i].regularPrice.toFixed(2) %></div>
+                                    <div class="price mt-1 d-flex">
+                                        ₹<%= product[i].offerPrice.toFixed(2) %>
+                                         &nbsp;&nbsp;&nbsp;&nbsp; <span style="color: rgb(255, 0, 0); font-size: 13px; text-decoration: line-through;">₹<%= product[i].regularPrice.toFixed(2) %></span>
+                                    </div>
+                                    <div class="price mt-1 d-flex">
+                                        <span style="color: rgb(130, 130, 130);"><%= product[i].offerPercentage%>% off</span>
+                                    </div>
                                 </div>
                                 <div class="d-flex gap-2 mb-15" style="margin: auto;">
                                     <a href="/admin/editproduct?id=<%= product[i]._id %>">

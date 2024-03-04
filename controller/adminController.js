@@ -51,7 +51,7 @@ const adminHome = async (req, res) => {
         const user = await User.find({});
         const category = await Category.find({})
         const product = await Product.find({})
-        const order = await Order.find({status : "Delivered"})
+        const order = await Order.find({status: { $nin: ["Ordered", "Shipped", "Cancelled"]}})
         let revenue = 0;
         for(let i=0 ; i< order.length ; i++){
             revenue += order[i].total
@@ -272,7 +272,10 @@ const statusChanger = async (req, res) => {
             if (newStatus === "Cancelled" || newStatus === "Returned order recieved") {
                  // recover coupon
                 const usedCoupon = await Coupon.findOne({coupencode : orderData.couponCode});
-                await User.updateOne({email : orderData.userEmail} , {$push : {coupens : usedCoupon._id.toString()}});
+                if(usedCoupon != null){
+                    const user = await User.findOne({email : orderData.userEmail})
+                    await Coupon.updateOne({ coupencode: orderData.couponCode },{$push: { availableUsers: user._id.toString() }, $pull: { redeemedUsers: user._id.toString() }});
+                }
                 // product stock reassign
                 for( let i=0 ; i<orderData.product.length ; i++){
                     const product = await Product.findById({_id : orderData.product[i]._id});;

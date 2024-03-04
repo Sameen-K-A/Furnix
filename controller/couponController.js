@@ -10,19 +10,17 @@ const coupenget = async (req, res) => {
         const coupens = await Coupon.find({}).sort({_id : -1});
         const currentDate = new Date(date());
         for (let i = 0; i < coupens.length; i++) {
-            if(coupens[i].couponStatus !== "No expiry date"){
-                const expairyDate = new Date(coupens[i].endDate)
-                if(currentDate > expairyDate){
-                    coupens[i].couponStatus = "Expired";
-                    await coupens[i].save()
-                    break;
-                }
-                const startingDate = new Date(coupens[i].startDate)
-                if(currentDate == startingDate){
-                    coupens[i].couponStatus = "Active";
-                    await coupens[i].save()
-                    break;
-                }
+            const expairyDate = new Date(coupens[i].endDate)
+            if(currentDate > expairyDate){
+                coupens[i].couponStatus = "Expired";
+                await coupens[i].save()
+                break;
+            }
+            const startingDate = new Date(coupens[i].startDate)
+            if(currentDate == startingDate){
+                coupens[i].couponStatus = "Active";
+                await coupens[i].save()
+                break;
             }
         }
         res.render("admin/coupons" , {coupens})
@@ -45,72 +43,41 @@ const addCoupen = async (req, res) => {
 
 const addCoupenPost = async (req, res) => {
     try {
+        let offer_StartingDate = req.body.startingDate;
+            offer_StartingDate = offer_StartingDate.replace(/-/g, '/');
+        let offer_EndingDate = req.body.endingDate;
+            offer_EndingDate = offer_EndingDate.replace(/-/g, '/');
         const offer_CouponName = req.body.name;
-        let   offer_StartingDate = req.body.startingDate;
-        let   offer_EndingDate = req.body.endingDate;
         let   offer_MinimumAmount = parseInt(req.body.minimumAmount);
-        const offer_DiscountAmount = parseInt(req.body.discountamount);
-        const couponType = req.body.couponType;
+        let   offer_MaximumAmount = parseInt(req.body.maximumAmount);
+        const offer_Percentage = parseInt(req.body.discountamount);
         let couponStatus;
-
-        if (!offer_StartingDate) {
-            offer_StartingDate = date();
+        const currentDate = date()
+        if (offer_StartingDate === currentDate) {
             couponStatus = "Active"
         }else{
-            offer_StartingDate = offer_StartingDate.replace(/-/g, '/');
             couponStatus  = "Awaiting"
         }
-
-        if (!offer_EndingDate) {
-            offer_EndingDate = "No expiry date";
-        }else{
-            offer_EndingDate = offer_EndingDate.replace(/-/g, '/');
-        }
-
-        if (isNaN(offer_MinimumAmount)) {
-            offer_MinimumAmount = 0;
-        }
-
         const newCouponData = {
             name : offer_CouponName,
             startDate : offer_StartingDate,
             endDate : offer_EndingDate,
             coupencode : "Furnix" + randomID(),
             minBuyRate : offer_MinimumAmount,
-            discountAmount : offer_DiscountAmount,
-            couponType : couponType,
+            maxBuyRate : offer_MaximumAmount,
+            discountPercentage : offer_Percentage,
             couponStatus : couponStatus
         }
         const insertProcess = await Coupon.create(newCouponData);
         if(insertProcess){
-            if(insertProcess.couponType === "Special"){
-                await User.updateMany({} , {$push : {coupens : insertProcess._id.toString()}});
+            const users = await User.find({});
+            for (let i = 0; i < users.length; i++) {
+                insertProcess.availableUsers.push(users[i]._id.toString())
             }
+            insertProcess.save()
             res.json({status : "okay"})
         }else{
             res.json({status : "oops"})
-        }
-    } catch (error) {
-        console.log(error);
-    }
-}
-
-//========================================= delete coupon side ==============================================
-
-const deleteCoupon = async (req, res)=>{
-    try {
-        const deletedID = req.body.id;
-        const deleteProcess = await Coupon.deleteOne({_id: deletedID});
-
-        if (deleteProcess.deletedCount === 1) {
-            const pullProcess = await User.updateMany({},{ $pull: { coupens: deletedID }});
-            if (pullProcess.modifiedCount !== 0) {
-                return res.json({ status: "okay" });
-            } else {
-                return res.json({ status: "oops" });
-            }
-        } else {
-            return res.json({ status: "oops" });
         }
     } catch (error) {
         console.log(error);
@@ -155,7 +122,6 @@ module.exports = {
     coupenget,
     addCoupen,
     addCoupenPost,
-    deleteCoupon,
     BlockCoupon,
     couponUnblock
 }

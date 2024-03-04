@@ -21,7 +21,7 @@ const cartpage = async (req, res) => {
                     if (cartproductIdString === productIdString) {
                         ProductResultarray.push(productData[j]);
                         if (productData[j].stock === 0) {
-                            userData.total -= userData.cart[i].qty * productData[j].regularPrice;
+                            userData.total -= userData.cart[i].qty * productData[j].offerPrice;
                             userData.cart[i].qty = 0;
                         }
                         break;
@@ -48,7 +48,7 @@ const cartpagepost = async (req, res) => {
         }
         if (req.session.user) {
             if (product.isBlocked === false) {
-                await User.updateOne({ email: req.session.user }, { $push: { cart: obj }, $inc: { total: product.regularPrice } });
+                await User.updateOne({ email: req.session.user }, { $push: { cart: obj }, $inc: { total: product.offerPrice } });
                 res.json({ status: "okay" })
             } else {
                 res.json({ status: "blocked" })
@@ -223,32 +223,35 @@ const applyCoupon = async (req, res)=>{
     try {
         const userCouponcode = req.body.code;
         const coupon = await Coupon.findOne({coupencode : userCouponcode});
-        const userCoupons = await User.findOne({email : req.session.user});
-        let cpnFound = false;
+        const user = await User.findOne({email : req.session.user});
         if(coupon){
-            for (let i = 0; i < userCoupons.coupens.length; i++) {
-                if(userCoupons.coupens[i] === coupon._id.toString() && coupon.isBlocked === false){
-
-
-                    if (coupon.minBuyRate === 0 || userCoupons.total >= coupon.minBuyRate) {
-                        const currentDate = new Date(dateGenerator());
-                        const expiryDate = new Date(coupon.endDate);
-                    
-                        if (currentDate < expiryDate || coupon.endDate === "No expiry date") {
-                            res.json({ status: "okay", discount: coupon.discountAmount });
-                        } else {
-                            res.json({ status: "expired" });
-                        }
-                    } else {
-                        res.json({ status: "minAmount", amount: coupon.minBuyRate });
-                    }
-                    
-
-                    
+            let cpnFound = false;
+            for (let i = 0; i < coupon.availableUsers.length; i++) {
+                if(user._id.toString() === coupon.availableUsers[i]){
+                    cpnFound = true;
+                    break;
                 }
             }
-            if(!cpnFound){
-                res.json({status : "notfound"})
+            if(cpnFound){
+                if(coupon.isBlocked === false){
+                    if(coupon.couponStatus === "Active"){
+                        if(user.total >= coupon.minBuyRate && coupon.maxBuyRate >= user.total){
+                            const total_amount = user.total;
+                            const descount_percentage = coupon.discountPercentage;
+                            let balanceAmount = total_amount - (total_amount * (descount_percentage / 100));
+                            balanceAmount.toFixed(1)
+                            res.json({ status: "okay", balance: balanceAmount });
+                        } else{
+                            res.json({ status: "minAmount", minamount: coupon.minBuyRate , maxAmount : coupon.maxBuyRate});
+                        }
+                    } else{
+                        res.json({status : "notfound"});
+                    }
+                } else{
+                    res.json({status : "notfound"});
+                }
+            }else{
+                res.json({status : "notfound"});
             }
         } else{
             res.json({status : "notfound"})
@@ -258,17 +261,6 @@ const applyCoupon = async (req, res)=>{
     }
 }
 
-//========================================= User coupon apply side ajax call  ==============================================
-
-const cancelCoupon = async (req, res)=>{
-    try {
-        const userCouponcode = req.body.code;
-        const coupon = await Coupon.findOne({coupencode : userCouponcode});
-        res.json({status : "okay" , discount : coupon.discountAmount})        
-    } catch (error) {
-        console.log(error);
-    }
-}
 //========================================= User checkout page post store datas to database  ==============================================
 
 const checkoutPost = async (req, res) => {
@@ -278,8 +270,6 @@ const checkoutPost = async (req, res) => {
         const userData = await User.findOne({ email: req.session.user });
         const productData = await Product.find({});
         const usedCouponCode = req.body.couponUsed;
-        let couponOffer = 0;
-        let couponCode = false;
         const orderProducts = [];
         let address;
         let notworking = false;
@@ -294,19 +284,6 @@ const checkoutPost = async (req, res) => {
                             if (productData[j].stock >= userData.cart[i].qty) {
                                 orderProducts.push(productData[j]);
                                 nextpage = true;
-                                // coupon ckecking
-                                if(usedCouponCode != undefined){
-                                    const findCoupon = await Coupon.findOne({coupencode : usedCouponCode});
-                                    if(findCoupon.isBlocked === false){
-                                        couponOffer = findCoupon.discountAmount;
-                                        couponCode = usedCouponCode;
-                                        userData.total -= findCoupon.discountAmount;
-                                        userData.save()
-                                        // pull that coupon from user coupons
-                                        const removeID = findCoupon._id.toString();
-                                        await User.updateOne({email : req.session.user} , {$pull : {coupens : removeID}})
-                                    }
-                                }
                             } else {
                                 nextpage = false;
                                 break;
@@ -318,6 +295,22 @@ const checkoutPost = async (req, res) => {
                     }
                 }
             }
+
+            const subTotal = userData.total
+            // coupon ckecking
+            let couponOffer = 0;
+            let couponCode = false;
+            if(usedCouponCode != undefined){
+                const findCoupon = await Coupon.findOne({coupencode : usedCouponCode});
+                if(findCoupon.isBlocked === false){
+                    couponCode = findCoupon.coupencode;
+                    let newTotal = userData.total - (userData.total * (findCoupon.discountPercentage / 100))
+                    couponOffer = userData.total - newTotal
+                    userData.total = newTotal;
+                    userData.save()
+                }
+            }
+
             if (notworking === false) {
                 for (let i = 0; i < userData.address.length; i++) {
                     const stringID = userData.address[i]._id.toString();
@@ -338,6 +331,7 @@ const checkoutPost = async (req, res) => {
                     date: dateGenerator(),
                     time: timeGenerator(),
                     total: userData.total,
+                    subTotal : subTotal,
                     itemsCount: userData.cart.length,
                     paymentMethod: payment,
                     couponOffer : couponOffer,
@@ -346,6 +340,11 @@ const checkoutPost = async (req, res) => {
                 if (nextpage) {
                     const orderProcess = await Order.create(orderData);
                     if (orderProcess) {
+                        if(usedCouponCode != undefined){
+                            // pull that userID from coupons available users and push that userID into redeemed user list into coupon
+                            const removeID = userData._id.toString();
+                            await Coupon.updateOne({ coupencode: usedCouponCode },{$pull: { availableUsers: removeID }, $push: { redeemedUsers: removeID }});
+                        }
                         res.json({ status: "true"  })
                     } else {
                         res.json({ status: "network" })
@@ -397,7 +396,6 @@ module.exports = {
     checkingCheckout,
     checkout,
     applyCoupon,
-    cancelCoupon,
     checkoutPost,
     orderSuccessfull
 }

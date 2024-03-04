@@ -141,11 +141,11 @@ const userRegisterpost = async (req, res) => {
                                         serverOTP: serverSideOTP,
                                         referUser : matched
                                     }
+                                    console.log(req.session.tempuserDetail);
                                     res.json({ status: true });
                                 } else{
                                     res.json({status : "refcodeerror"})
                                 }
-                                
                             } else {
                                 res.json({ status: "confpass" });
                             }
@@ -196,16 +196,11 @@ const userRegisterOTPpost = async (req, res) => {
                     referCode : referelcode
                 }
                 const newUser = await User.create(UserData);
-                // first order coupon
-                newUser.coupens.push("65e1e0b6c86f3075fe4292d5");
-                // special coupons pushing
-                const availcoupons = await Coupon.find({couponType : "Special" , couponStatus : "Active"});
+                // Coupons pushing
+                const availcoupons = await Coupon.find({couponStatus : {$in : ["Active" , "Awaiting"]}});
                 for (let i = 0; i < availcoupons.length; i++) {
-                    newUser.coupens.push(availcoupons[i]._id.toString());
-                }
-                // referral coupon pushing
-                if(req.session.tempuserDetail.referUser != false){
-                    await User.updateOne({email : req.session.tempuserDetail.referUser} , {$push : {coupens : "65e2c1ae818d33e9d08324ea"}});
+                    availcoupons[i].availableUsers.push(newUser._id.toString())
+                    await availcoupons[i].save();
                 }
                 newUser.save()
                 delete req.session.tempuserDetail;

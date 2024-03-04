@@ -22,9 +22,6 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-    coupens : {
-        type :Array
-    },
     referCode : {
         type : String,
         required : true

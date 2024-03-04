@@ -286,9 +286,9 @@
 													<%= productDetails.name %>
 												</h1>
 												<span class="price">
-													<del aria-hidden="true"><span>₹<%= productDetails.regularPrice %>.00
-														</span></del>
-													<ins><span>₹<%= productDetails.regularPrice %>.00</span></ins>
+														<ins><span>₹<%=productDetails.offerPrice%>.00</span></ins>
+														<del aria-hidden="true"><span>₹<%=productDetails.regularPrice%>.00</span></del>
+														&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-dark"><%=productDetails.offerPercentage%>% off</span>
 												</span>
 												<div class="rating">
 
@@ -880,7 +880,7 @@ function wish(id){
 					text : "Product added into your wishlist",
 					showConfirmButton: false,
 					position : "bottom",
-					timer: 2000
+					timer: 1000
 				});
 				document.getElementById("serverwish").style.display = "none";
 				document.getElementById("removewish").style.display = "block";
@@ -936,7 +936,7 @@ function removewishlist(id){
 						text: "Product removed from wishlist",
 						showConfirmButton: false,
 						position : "bottom",
-						timer: 2000
+						timer: 1000
 					});
 					document.getElementById("serverwish").style.display = "none";
 					document.getElementById("addwish").style.display = "block";

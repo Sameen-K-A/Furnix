@@ -79,31 +79,29 @@
                             <p class="text-danger text-center mb-15 " id="minName"></p>
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <label class="form-label">Starting date &nbsp; (Default current date)</label>
-                                    <input type="date" placeholder="Enter starting date" class="form-control" id="startingDate">
+                                    <label class="form-label">Starting date</label>
+                                    <input type="date" placeholder="Enter starting date" class="form-control" id="startingDate" onclick="startclear()">
                                     <p class="text-danger text-center mb-15 " id="startingDateError"></p>
                                 </div>
                                 <div class="col-lg-6">
-                                    <label class="form-label">Ending date &nbsp; (Default no expiary date)</label>
-                                    <input type="date" placeholder="Enter starting date" class="form-control" id="endingDate">
+                                    <label class="form-label">Ending date</label>
+                                    <input type="date" placeholder="Enter starting date" class="form-control" id="endingDate" onclick="endclear()">
                                     <p class="text-danger text-center mb-15 " id="endingDateError"></p>
                                 </div>
                                 <div class="col-lg-6" style="margin-top: 20px;">
-                                    <label class="form-label">Minimum order amount &nbsp; (Default 0 amount)</label>
-                                    <input type="text" placeholder="Enter minimum order amount" class="form-control" id="minimumAmount">
-                                    <p class="text-danger text-center mb-15 " id="materialError"></p>
+                                    <label class="form-label">Minimum order amount</label>
+                                    <input type="text" placeholder="Enter minimum order amount" class="form-control" id="minimumAmount" onkeydown="minimclear()">
+                                    <p class="text-danger text-center mb-15 " id="minmumError"></p>
                                 </div>
                                 <div class="col-lg-6" style="margin-top: 20px;">
-                                    <label class="form-label">Discount amount*</label>
-                                    <input type="text" placeholder="Enter discount amount" class="form-control" id="discountamount" onkeydown="amountclear()">
+                                    <label class="form-label">Maximum order amount</label>
+                                    <input type="text" placeholder="Enter maximum order amount" class="form-control" id="maximumAmount" onkeydown="maxclear()">
+                                    <p class="text-danger text-center mb-15 " id="maxError"></p>
+                                </div>
+                                <div class="col-lg-6" style="margin-top: 20px;">
+                                    <label class="form-label">Discount percentage</label>
+                                    <input type="text" placeholder="Enter discount percentage" class="form-control" id="discountamount" onkeydown="descountclear()">
                                     <p class="text-danger text-center mb-15 " id="discounterror"></p>
-                                </div>
-                                <div class="col-lg-6" style="margin-top: 20px;">
-                                    <label class="form-label">Discount amount*</label>
-                                    <select class="form-control" id="couponType">
-                                        <option value="Special">Special coupon</option>
-                                        <option value="Regular">Regular coupon</option>
-                                    </select>
                                 </div>
 
                             </div>
@@ -133,46 +131,116 @@
 
     function validation() {
 
+        const currentDate = new Date();
         const name = document.getElementById("couponName").value;
         const startingDate = document.getElementById("startingDate").value;
         const endingDate = document.getElementById("endingDate").value;
         const minimumAmount = document.getElementById("minimumAmount").value;
+        const maximumAmount = document.getElementById("maximumAmount").value;
         const discountamount = document.getElementById("discountamount").value;
-        const couponType = document.getElementById("couponType").value;
         
         const nameError = document.getElementById("minName");
+        const startError = document.getElementById("startingDateError");
+        const endError = document.getElementById("endingDateError");
         const discounterror = document.getElementById("discounterror");
+        const minimumAmounterror = document.getElementById("minmumError");
+        const maxError = document.getElementById("maxError");
+
         nameError.textContent = "";
+        startError.textContent = "";
+        endError.textContent = "";
         discounterror.textContent = "";
+        minmumError.textContent = "";
+        maxError.textContent = "";
 
         // name validation
         if (name.trim() === "") {
-            nameError.textContent = "Please enter valid name"
+            nameError.textContent = "Coupon name is required"
         } else if (name.length <= 3) {
             nameError.textContent = "Name must need atleast 3 character"
-        } else if (name.length >= 20) {
-            nameError.textContent = "Name can't exceed 20 character"
+        } else if (name.length >= 15) {
+            nameError.textContent = "Name can't exceed 15 character"
         } else if ((!/^[A-Za-z\s]+$/.test(name))) {
             nameError.textContent = "Name can't contain characters other than alphabets"
         }else{
             nameError.textContent = "";
         }
 
-            
-            
+        // Discount percentage validation
         if (discountamount.trim() === "") {
-            discounterror.textContent = "Discount amount is required"
-        } else if (/^\d+$/.test(discountamount)) {
-            const capNumber = parseInt(discountamount);
-            if (capNumber <= 0) {
-                discounterror.textContent = "Discount amount not allowed in zero"
+            discounterror.textContent = "Discount percentage is required";
+        } else if (!/^\d+$/.test(discountamount)) {
+            discounterror.textContent = "Discount percentage can only contain digits";
+        } else {
+            const percentage = parseInt(discountamount);
+            if (percentage < 0 || percentage > 99) {
+                discounterror.textContent = "Discount percentage must be between 0 and 99";
+            } else {
+                discounterror.textContent = "";
             }
-        } else if(!/^\d+$/.test(discountamount)) {
-            discounterror.textContent = "Discount amount can't contain characters other numbers"
-        } else{
-            discounterror.textContent = "";
         }
-        if(nameError.textContent === "" && discounterror.textContent === ""){
+
+        // Starting date validation
+        const oneYearLater = new Date();
+        oneYearLater.setFullYear(oneYearLater.getFullYear() + 1); // Set date one year later
+
+        if (!startingDate) {
+            startError.textContent = "Starting date is required";
+        } else if (new Date(startingDate) < new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate())) {
+            startError.textContent = "Starting date must be today or a future date";
+        } else if (new Date(startingDate) > oneYearLater) {
+            startError.textContent = "Starting date must be within the one year";
+        } else {
+            startError.textContent = "";
+        }
+
+
+        // Ending date validation
+        if (!endingDate) {
+            endError.textContent = "Ending date is required";
+        } else if (new Date(endingDate) < new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate())) {
+            endError.textContent = "Ending date must be today or a future date";
+        } else if (new Date(endingDate) > oneYearLater) {
+            endError.textContent = "Ending date must be within the one year";
+        } else if (new Date(endingDate) <= new Date(startingDate)) {
+            endError.textContent = "Ending date must be a future date after starting date";
+        } else {
+            endError.textContent = "";
+        }
+
+        // Minimum amount validation
+        if (minimumAmount.trim() === "") {
+            minimumAmounterror.textContent = "Minimum amount is required";
+        } else if (!/^\d+$/.test(minimumAmount)) {
+            minimumAmounterror.textContent = "Minimum amount can only contain digits";
+        } else {
+            const minAmount = parseInt(minimumAmount);
+            if (minAmount < 5000 || minAmount > 25000) {
+                minimumAmounterror.textContent = "Minimum amount must be between 5000 and 25000";
+            } else {
+                minimumAmounterror.textContent = "";
+            }
+        }
+
+        // Maximum amount validation
+        if (maximumAmount.trim() === "") {
+            maxError.textContent = "Maximum amount is required";
+        } else if (!/^\d+$/.test(maximumAmount)) {
+            maxError.textContent = "Maximum amount can only contain digits";
+        } else {
+            const minAmount = parseInt(minimumAmount);
+            const maxAmount = parseInt(maximumAmount);
+            if (maxAmount <= minAmount) {
+                maxError.textContent = "Maximum amount must be bigger that minimum amount";
+            } else if(maxAmount > 50000){
+                maxError.textContent = "Maximum amount must be less than 50,000";
+            }else {
+                maxError.textContent = "";
+            }
+        }
+
+            
+        if(nameError.textContent === "" && startError.textContent === "" && endError.textContent === "" && minmumError.textContent === "" && discounterror.textContent === "" && maxError.textContent === ""){
             $.ajax({
                 url: "/admin/addCoupon",
                 method: "post",
@@ -181,8 +249,8 @@
                     startingDate,
                     endingDate,
                     minimumAmount,
+                    maximumAmount,
                     discountamount,
-                    couponType
                 },
                 success: (response) => {
                     if (response.status === "okay") {
@@ -229,36 +297,49 @@
     function nameclear(){
         document.getElementById("minName").textContent = ""
     }
-    function amountclear(){
+    function startclear(){
+        document.getElementById("startingDateError").textContent = ""
+    }
+    function endclear(){
+        document.getElementById("endingDateError").textContent = ""
+    }
+    function minimclear(){
+        document.getElementById("minmumError").textContent = ""
+    }
+    function descountclear(){
         document.getElementById("discounterror").textContent = ""
     }
-
-// Get references to the input elements
-const startingDateInput = document.getElementById('startingDate');
-const endingDateInput = document.getElementById('endingDate');
-
-// Attach event listeners
-startingDateInput.addEventListener('change', validateDates);
-endingDateInput.addEventListener('change', validateDates);
-
-function validateDates() {
-    const startingDate = new Date(startingDateInput.value);
-    const endingDate = new Date(endingDateInput.value);
-    const currentDate = new Date();
-
-    // Validate starting date
-    if (startingDate < currentDate) {
-        document.getElementById('startingDateError').innerText = 'Starting date cannot be a previous date';
-    } else {
-        document.getElementById('startingDateError').innerText = '';
+    function maxclear(){
+        document.getElementById("maxError").textContent = ""
     }
+    
 
-    // Validate ending date
-    if (endingDate <= startingDate || endingDate < currentDate) {
-        document.getElementById('endingDateError').innerText = 'Ending date cannot be a previous date or the same as or before the starting date';
-    } else {
-        document.getElementById('endingDateError').innerText = '';
-    }
-}
+    // // Get references to the input elements
+//     const startingDateInput = document.getElementById('startingDate');
+//     const endingDateInput = document.getElementById('endingDate');
+
+//     // Attach event listeners
+//     startingDateInput.addEventListener('change', validateDates);
+//     endingDateInput.addEventListener('change', validateDates);
+
+//     function validateDates() {
+//         const startingDate = new Date(startingDateInput.value);
+//         const endingDate = new Date(endingDateInput.value);
+//         const currentDate = new Date();
+
+//         // Validate starting date
+//         if (startingDate < currentDate) {
+//             document.getElementById('startingDateError').innerText = 'Starting date cannot be a previous date';
+//         } else {
+//             document.getElementById('startingDateError').innerText = '';
+//         }
+
+//         // Validate ending date
+//         if (endingDate <= startingDate || endingDate < currentDate) {
+//             document.getElementById('endingDateError').innerText = 'Ending date cannot be a previous date or the same as or before the starting date';
+//         } else {
+//             document.getElementById('endingDateError').innerText = '';
+//         }
+//     }
 </script>
 </html>

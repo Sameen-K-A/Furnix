@@ -217,7 +217,7 @@
 																	</div>
 																</div>
 																<div class="product-total">
-																	<span>₹<%= ProductResultarray[i].regularPrice %>
+																	<span>₹<%= ProductResultarray[i].offerPrice %>
 																			.00</span>
 																</div>
 															</div>
@@ -226,7 +226,7 @@
 													<div class="cart-subtotal">
 														<h2>Subtotal</h2>
 														<div class="subtotal-price">
-															<span>₹<%= userData.total %>.00</span>
+															<span id="subtotalProduct">₹<%= userData.total %>.00</span>
 														</div>
 													</div>
 													<div class="shipping-totals shipping">
@@ -691,10 +691,8 @@
                 success: (response) => {
                     if (response.status === "notfound") {
                         document.getElementById("cpnerror").textContent="Coupon not found. please check again your code";
-                    } else if(response.status === "expired"){
-                        document.getElementById("cpnerror").textContent="Coupon time is expired";
                     } else if(response.status === "minAmount"){
-                        document.getElementById("cpnerror").textContent=`The coupon can only be accessed for purchases totaling more than ${response.amount}.`;
+                        document.getElementById("cpnerror").textContent=`The coupon can only be accessed for purchaseing between ₹${response.minamount} to ₹${response.maxAmount}`;
                     }  else if(response.status === "okay"){
                         Swal.fire({
                             text: "Coupon applied",
@@ -703,43 +701,31 @@
                             timer: 1000
                         });
 						document.getElementById("cpncode").readOnly = true;
-                        document.getElementById("cpndiscountamount").textContent ="- ₹"+response.discount+".00"
                         document.getElementById("applyCoupon").textContent ="Cancel"
-						const ejsTotal = document.getElementById("totalAmount").textContent
-						const currentTotal = parseFloat(ejsTotal.replace(/[^\d.-]/g, ''));
-						const newTotal = currentTotal - response.discount;
-						document.getElementById("totalAmount").textContent = "₹"+newTotal+".00"
+						document.getElementById("totalAmount").textContent = "₹" + response.balance;
+						
+						const subtotalProduct = document.getElementById("subtotalProduct").textContent
+						const SubtotalPrice = parseFloat(subtotalProduct.replace('₹', ''));
+						let discountCalculate = parseFloat(SubtotalPrice - response.balance).toFixed(2);
+                        document.getElementById("cpndiscountamount").textContent ="- ₹"+discountCalculate
                     }
                 }
             })
         }
     } 
     if(document.getElementById("applyCoupon").textContent ==="Cancel"){
-		$.ajax({
-			url: "/cancelCoupon",
-			method: "post",
-			data: {
-				code: code.value
-			},
-			success: (response) => {
-				if(response.status === "okay"){
-					Swal.fire({
-					text: "Coupon removed",
-					showConfirmButton: false,
-					position : "bottom",
-					timer: 1000
-				});	
-				document.getElementById("cpncode").readOnly = false;
-				document.getElementById("cpndiscountamount").textContent ="₹0.00"
-				document.getElementById("applyCoupon").textContent ="Apply"
-				code.value =""
-				const ejsTotal = document.getElementById("totalAmount").textContent;
-				const currentTotal = parseFloat(ejsTotal.replace(/[^\d.-]/g, ''));
-				const newTotal = currentTotal + response.discount;
-				document.getElementById("totalAmount").textContent = "₹"+newTotal+".00"
-				}
-			}
-		})
+		Swal.fire({
+			text: "Coupon removed",
+			showConfirmButton: false,
+			position : "bottom",
+			timer: 1000
+		});	
+		document.getElementById("cpncode").readOnly = false;
+		document.getElementById("cpndiscountamount").textContent ="₹0.00"
+		document.getElementById("applyCoupon").textContent ="Apply"
+		code.value =""
+		const newTotal = document.getElementById("subtotalProduct").textContent
+		document.getElementById("totalAmount").textContent = newTotal
     }
 }
 

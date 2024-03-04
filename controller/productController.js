@@ -28,21 +28,27 @@ const addProduct = async (req, res) => {
 
 const addProductPOST = async (req, res) => {
     try {
-        const { name, description, category, regularPrice, capacity, material, stock, color } = req.body;
+        const { name, description, category, regularPrice, offerPrice , capacity, material, stock, color } = req.body;
         const images = req.files.map(file => file.originalname);
         const catID = await Category.findOne({name : category});
+        const regPrice = parseInt(regularPrice);
+        const offPrice = parseInt(offerPrice);
+        const offerPercentage = Math.round(((regPrice - offPrice) / regPrice) * 100)
         const productData = {
-            name,
-            description,
+            name : name,
+            description : description,
             categoryName : catID.name,
             categoryID: catID._id.toString(),
-            regularPrice,
-            capacity,
-            material,
-            stock,
-            color,
-            images
+            regularPrice : regularPrice,
+            offerPercentage : offerPercentage,
+            offerPrice : offerPrice,
+            capacity : capacity,
+            material : material,
+            stock : stock,
+            color : color,
+            images : images
         }
+        console.log(productData);
         await Product.create(productData);
         res.redirect("/admin/productPage")
     } catch (error) {
@@ -56,7 +62,7 @@ const editproduct = async (req, res) => {
     try {
         const proID = req.query.id;
         const productDetails = await Product.findOne({ _id: proID });
-        const catDetails = await Category.find({ isBlocked: true });
+        const catDetails = await Category.find({ isBlocked: false });
         res.render("admin/editproduct", { productDetails, catDetails })
     } catch (error) {
         console.log(error);
@@ -68,16 +74,23 @@ const editproduct = async (req, res) => {
 const editproductPOST = async (req, res) => {
     try {
         const productID = req.query.id;
-        const { name, description, category, regularPrice, capacity, material, stock, color } = req.body;
+        const { name, description, category, regularPrice, offerPrice , capacity, material, stock, color } = req.body;
+        const catID = await Category.findOne({name : category});
+        const regPrice = parseInt(regularPrice);
+        const offPrice = parseInt(offerPrice);
+        const offerPercentage = Math.round(((regPrice - offPrice) / regPrice) * 100)
         const editProDetails = {
-            name: name,
-            description: description,
-            category: category,
-            regularPrice: regularPrice,
-            capacity: capacity,
-            material: material,
-            stock: stock,
-            color: color,
+            name : name,
+            description : description,
+            categoryName : catID.name,
+            categoryID: catID._id.toString(),
+            regularPrice : regularPrice,
+            offerPercentage : offerPercentage,
+            offerPrice : offerPrice,
+            capacity : capacity,
+            material : material,
+            stock : stock,
+            color : color
         }
         await Product.updateOne({ _id: productID } , editProDetails)
         res.redirect("/admin/productPage");

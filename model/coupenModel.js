@@ -16,12 +16,17 @@ const couponSchema = new mongoose.Schema({
     minBuyRate : {
         type : Number
     },
-    discountAmount : {
+    maxBuyRate : {
         type : Number
     },
-    couponType : {
-        type : String,
-        required : true
+    availableUsers : {
+        type : Array
+    },
+    redeemedUsers : {
+        type : Array
+    },
+    discountPercentage : {
+        type : Number
     },
     isBlocked : {
         type : Boolean,
