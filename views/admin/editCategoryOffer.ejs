@@ -1,0 +1,268 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:title" content="">
+    <meta property="og:type" content="">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
+    <title>FURNIX Admin</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="/admin-assets/imgs/theme/favicon-16x16.png">
+
+    <!-- Template CSS -->
+    <link href="/admin-assets/css/main.css" rel="stylesheet" type="text/css" />
+</head>
+<style>
+    .custom-button1 {
+        width: 100px;
+        height: 40px;
+        padding: 5px;
+        background-color: rgb(255, 255, 255);
+        color: rgb(0, 0, 0);
+        font-size: 14px;
+        border-radius: 50px;
+    }
+
+    .custom-button2 {
+        width: 100px;
+        height: 40px;
+        padding: 5px;
+        background-color: rgb(0, 0, 0);
+        color: rgb(255, 255, 255);
+        font-size: 14px;
+        border-radius: 50px;
+    }
+</style>
+
+<body>
+
+
+    <header class="main-header navbar">
+        <div class="col-search">
+        </div>
+        <div class="col-nav">
+            <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside"> <i
+                    class="material-icons md-apps"></i> </button>
+            <ul class="nav">
+                <li class="dropdown nav-item">
+                    <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount"
+                        aria-expanded="false"> <img class="img-xs rounded-circle"
+                            src="/admin-assets/imgs/people/profile.jpg" alt="User"></a>
+                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
+                        <a class="dropdown-item text-danger" href="/admin/adminLogout"><i
+                                class="material-icons md-exit_to_app"></i>Logout</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </header>
+    <section class="content-main">
+            <div class="row justify-content-center">
+                <div class="content-header">
+                    <h2 class="content-title fw-bold" style="margin: auto;">Edit category offer</h2>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card mb-4">
+                        <div class="card-body">
+
+
+                            <div class="mb-4">
+                                <label for="product_name" class="form-label">Name</label>
+                                <input type="text" placeholder="Enter coupon name" id="catname" class="form-control" readonly value="<%= findCat.name %>">
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <label class="form-label">Starting date</label>
+                                    <input type="date" placeholder="Enter starting date" class="form-control" id="startingDate" onclick="startclear()">
+                                    <p class="text-danger text-center mb-15 " id="startingDateError"></p>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label class="form-label">Ending date</label>
+                                    <input type="date" placeholder="Enter starting date" class="form-control" id="endingDate" onclick="endclear()">
+                                    <p class="text-danger text-center mb-15 " id="endingDateError"></p>
+                                </div>
+                                <div class="col-lg-6" style="margin-top: 20px;">
+                                    <label class="form-label">Offer available starting price</label>
+                                    <input type="text" placeholder="Enter Offer available starting price eg: 5000 " class="form-control" id="minimumAmount" onkeydown="minimclear()">
+                                    <p class="text-danger text-center mb-15 " id="minmumError"></p>
+                                </div>
+                                <div class="col-lg-6" style="margin-top: 20px;">
+                                    <label class="form-label">Discount amount</label>
+                                    <input type="text" placeholder="Enter discount percentage" class="form-control" id="discountamount" onkeydown="descountclear()">
+                                    <p class="text-danger text-center mb-15 " id="discounterror"></p>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-50 text-center">
+                    <button class="custom-button1" onclick="cancel()">Cancel</button>
+                    <button class="custom-button2" onclick="validation()">Add</button>
+                </div>
+            </div>
+    </section>
+    </main>
+    <script src="/admin-assets/js/vendors/jquery-3.6.0.min.js"></script>
+    <script src="/admin-assets/js/vendors/bootstrap.bundle.min.js"></script>
+    <script src="/admin-assets/js/vendors/select2.min.js"></script>
+    <script src="/admin-assets/js/vendors/perfect-scrollbar.js"></script>
+    <script src="/admin-assets/js/vendors/jquery.fullscreen.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="/admin-assets/js/main.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</body>
+
+<script>
+
+    function validation() {
+
+        const name = document.getElementById("catname").value;
+        const currentDate = new Date();
+        const startingDate = document.getElementById("startingDate").value;
+        const endingDate = document.getElementById("endingDate").value;
+        const minimumAmount = document.getElementById("minimumAmount").value;
+        const discountamount = document.getElementById("discountamount").value;
+        
+        const startError = document.getElementById("startingDateError");
+        const endError = document.getElementById("endingDateError");
+        const discounterror = document.getElementById("discounterror");
+        const minimumAmounterror = document.getElementById("minmumError");
+
+        startError.textContent = "";
+        endError.textContent = "";
+        discounterror.textContent = "";
+        minmumError.textContent = "";
+
+        // Discount percentage validation
+        if (discountamount.trim() === "") {
+            discounterror.textContent = "Discount amount is required";
+        } else if (!/^\d+$/.test(discountamount)) {
+            discounterror.textContent = "Discount percentage can only contain digits";
+        } else {
+            const percentage = parseInt(discountamount);
+            if (percentage < 0) {
+                discounterror.textContent = "Discount amount must be need more than zero";
+            } else {
+                discounterror.textContent = "";
+            }
+        }
+
+        // Starting date validation
+        const oneYearLater = new Date();
+        oneYearLater.setFullYear(oneYearLater.getFullYear() + 1); // Set date one year later
+
+        if (!startingDate) {
+            startError.textContent = "Starting date is required";
+        } else if (new Date(startingDate) < new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate())) {
+            startError.textContent = "Starting date must be today or a future date";
+        } else if (new Date(startingDate) > oneYearLater) {
+            startError.textContent = "Starting date must be within the one year";
+        } else {
+            startError.textContent = "";
+        }
+
+
+        // Ending date validation
+        if (!endingDate) {
+            endError.textContent = "Ending date is required";
+        } else if (new Date(endingDate) < new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate())) {
+            endError.textContent = "Ending date must be today or a future date";
+        } else if (new Date(endingDate) > oneYearLater) {
+            endError.textContent = "Ending date must be within the one year";
+        } else if (new Date(endingDate) <= new Date(startingDate)) {
+            endError.textContent = "Ending date must be a future date after starting date";
+        } else {
+            endError.textContent = "";
+        }
+
+        // Minimum amount validation
+        if (minimumAmount.trim() === "") {
+            minimumAmounterror.textContent = "Minimum amount is required";
+        } else if (!/^\d+$/.test(minimumAmount)) {
+            minimumAmounterror.textContent = "Minimum amount can only contain digits";
+        } else {
+            const minAmount = parseInt(minimumAmount);
+            if (minAmount < 1000 || minAmount > 25000) {
+                minimumAmounterror.textContent = "Minimum amount must be between 1000 and 25000";
+            } else {
+                minimumAmounterror.textContent = "";
+            }
+        }
+
+            
+        if(startError.textContent === "" && endError.textContent === "" && minmumError.textContent === "" && discounterror.textContent === ""){
+            $.ajax({
+                url: "/admin/editcategoryoffer",
+                method: "patch",
+                data: {
+                    name,
+                    startingDate,
+                    endingDate,
+                    minimumAmount,
+                    discountamount,
+                },
+                success: (response) => {
+                    if (response.status === "okay") {
+                        Swal.fire({
+                            icon: "success",
+                            title: "Your work has been saved",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        setTimeout(() => {
+                            window.history.back()
+                        }, 1500);   
+                    } else if(response.status === "oops"){
+                        Swal.fire({
+                            icon: "error",
+                            title: "Something wrong",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    }
+                }
+            })
+        }
+    }
+
+    function cancel() {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You want to discard all changes?",
+            showCancelButton: true,
+            confirmButtonColor: "#000000",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Discard"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.history.back()
+            }
+        });
+    }
+
+    function startclear(){
+        document.getElementById("startingDateError").textContent = ""
+    }
+    function endclear(){
+        document.getElementById("endingDateError").textContent = ""
+    }
+    function minimclear(){
+        document.getElementById("minmumError").textContent = ""
+    }
+    function descountclear(){
+        document.getElementById("discounterror").textContent = ""
+    }
+    function maxclear(){
+        document.getElementById("maxError").textContent = ""
+    }
+</script>
+</html>

@@ -297,7 +297,15 @@ const coupons = async (req, res) => {
                 }
             }
         }
-        res.render("userProfile/userCoupon" , {userData , userCoupons})
+        const redeemedCoupons = [];
+        for (let i = 0; i < coupons.length; i++) {
+            for(let j = 0 ; j < coupons[i].redeemedUsers.length ; j++){
+                if(userData._id.toString() === coupons[i].redeemedUsers[j]){
+                    redeemedCoupons.push(coupons[i])
+                }
+            }
+        }
+        res.render("userProfile/userCoupon" , {userData , userCoupons , redeemedCoupons})
     } catch (error) {
         console.log(error);
     }

@@ -11,6 +11,21 @@ const catSchema = new mongoose.Schema({
     isBlocked : {
         type : Boolean,
         default : false
+    },
+    OfferStartDate : {      // offer side
+        type : String
+    },
+    OfferEndDate : {
+        type : String
+    },
+    OfferDiscount : {
+        type : Number
+    },
+    OfferStartingPrice : {
+        type : Number
+    },
+    createDate : {
+        type : String
     }
 },{
     versionKey : false

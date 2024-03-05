@@ -108,6 +108,105 @@ const category = async (req, res) => {
     }
 }
 
+//========================================= Render categoryoffer page ==============================================
+
+const categoryoffer = async (req, res) => {
+    try {
+        const catDetails = await Category.find({})
+        res.render("admin/categoryoffer" , { catDetails });
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+//========================================= Render categoryoffer edit page ==============================================
+
+const editcategoryoffer = async (req, res) => {
+    try {
+        const catID = req.query.id;
+        const findCat = await Category.findOne({_id : catID});
+        res.render("admin/editCategoryOffer" , {findCat})
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+//========================================= categoryoffer edit patch details ==============================================
+
+const editcategoryofferPatch = async (req, res) => {
+    try {
+        const catName = req.body.name;
+        let offer_StartingDate = req.body.startingDate;
+            offer_StartingDate = offer_StartingDate.replace(/-/g, '/');
+        let offer_EndingDate = req.body.endingDate;
+            offer_EndingDate = offer_EndingDate.replace(/-/g, '/');
+        const offer_startPrice = parseInt(req.body.minimumAmount);
+        const offer_Amount = parseInt(req.body.discountamount);
+
+        const newCouponData = {
+            OfferStartDate : offer_StartingDate,
+            OfferEndDate : offer_EndingDate,
+            OfferDiscount : offer_Amount,
+            OfferStartingPrice : offer_startPrice,
+            createDate : new Date()
+        }
+        // new offer updating process
+        const updateProcess = await Category.updateOne({name : catName} , newCouponData);
+        if(updateProcess.modifiedCount !=0){
+            const findingcategory = await Category.findOne({name : catName});
+            const products = await Product.find({categoryID : findingcategory._id , regularPrice : {$gt : offer_startPrice}});
+            if(products.length != 0){
+                for (let i = 0; i < products.length; i++) {
+                    products[i].offerPrice = products[i].regularPrice - offer_Amount;
+                    products[i].offerPercentage = Math.round(((products[i].regularPrice - products[i].offerPrice) / products[i].regularPrice) * 100);
+                    await products[i].save()
+                }
+                res.json({status : "okay"})
+            } else{
+                res.json({status : "okay"})
+            }
+        } else{
+            res.json({status : "oops"})
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+//========================================= categoryoffer edit patch details ==============================================
+
+const Deletecategoryoffer = async (req, res) => {
+    try {
+        const catID = req.body.id;
+        const catDetails = await Category.findOne({_id : catID});
+        const products = await Product.find({categoryID : catDetails._id , regularPrice : {$gt : catDetails.OfferStartingPrice}});
+        const changeData = {
+            OfferStartDate : false,
+            OfferEndDate : false,
+            OfferDiscount : false,
+            OfferStartingPrice : false,
+            createDate : false
+        }
+        const updateProcess = await Category.updateOne({_id : catID} , changeData);
+        if(updateProcess.modifiedCount !=0){
+            if(products.length != 0){
+                for (let i = 0; i < products.length; i++) {
+                    products[i].offerPrice = products[i].regularPrice;
+                    products[i].offerPercentage = 0;
+                    await products[i].save()
+                }
+                res.json({status : "okay"})
+            } else{
+                res.json({status : "okay"})
+            }
+        } else{
+            res.json({status : "oops"})
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 //========================================= Add new category ==============================================
 
 const categoryAdd = async (req, res) => {
@@ -304,6 +403,10 @@ module.exports = {
     userBlock,
     userUnblock,
     category,
+    Deletecategoryoffer,
+    categoryoffer,
+    editcategoryoffer,
+    editcategoryofferPatch,
     categoryAdd,
     blockCategory,
     UnblockCategory,
