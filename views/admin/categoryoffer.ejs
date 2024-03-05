@@ -86,8 +86,8 @@
                                         <th class="text-center text-light">Expairy date</th>
                                         <th class="text-center text-light">Offer starting at</th>
                                         <th class="text-center text-light">Discount amount</th>
-                                        <th class="text-end text-light">Edit</th>
-                                        <th class="text-center text-light">Delete</th>
+                                        <th class="text-center text-light">Status</th>
+                                        <th class="text-end text-light">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -97,41 +97,59 @@
                                             <td><%= catDetails[i].name %></td>
                                             
                                             <!-- starting date-->
-                                            <% if (catDetails[i].OfferStartDate === false) { %>
-                                                <td><%= catDetails[i].OfferStartDate %></td>
-                                            <% } else { %>
+                                            <% if (catDetails[i].OfferStartDate === "false") { %>
                                                 <td>------</td>
+                                            <% } else { %>
+                                                <td><%= catDetails[i].OfferStartDate %></td>
                                             <% } %>
 
                                             <!-- ending date-->
-                                            <% if (catDetails[i].OfferEndDate === false) { %>
-                                                <td><%= catDetails[i].OfferEndDate %></td>
-                                            <% } else { %>
+                                            <% if (catDetails[i].OfferEndDate === "false") { %>
                                                 <td>------</td>
+                                            <% } else { %>
+                                                <td><%= catDetails[i].OfferEndDate %></td>
                                             <% } %>
                                             
                                             <!-- MinBuyAmount-->
-                                            <% if (catDetails[i].OfferStartingPrice) { %>
-                                                <td>₹<%= catDetails[i].OfferStartingPrice %>.00</td>
-                                            <% } else { %>
+                                            <% if (catDetails[i].OfferStartingPrice === 0) { %>
                                                 <td>------</td>
+                                            <% } else { %>
+                                                <td>₹<%= catDetails[i].OfferStartingPrice %>.00</td>
                                             <% } %>
 
                                             <!-- OfferDiscount-->
-                                            <% if (catDetails[i].OfferDiscount) { %>
+                                            <% if (catDetails[i].OfferDiscount === 0) { %>
+                                                <td>------</td>
+                                            <% } else { %>
                                                 <td>₹<%= catDetails[i].OfferDiscount %>.00</td>
+                                            <% } %>
+
+                                            <!-- status-->
+                                            <% if (catDetails[i].catOfferStatus !== "false") { %>
+
+                                                <% if (catDetails[i].catOfferStatus === "Active") { %>
+                                                    <td><p style="color: rgb(0, 225, 143);">Active</p></td>
+                                                <% } %>
+
+                                                <% if (catDetails[i].catOfferStatus === "Awaiting") { %>
+                                                    <td><p style="color: rgb(218, 131, 0);">Awaiting</p></td>
+                                                <% } %>
+
+                                                <% if (catDetails[i].catOfferStatus === "Expaired") { %>
+                                                    <td><p style="color: rgb(188, 0, 0);">Expired</p></td>
+                                                <% } %>
+
                                             <% } else { %>
                                                 <td>------</td>
                                             <% } %>
                                             
 
-                                            <td style="text-align: right;"><a href="/admin/editcategoryoffer?id=<%= catDetails[i]._id %>"><button class="custom-button2"><svg xmlns="http://www.w3.org/2000/svg" height="12" width="12" viewBox="0 0 512 512"><path fill="#000000" d="M362.7 19.3L314.3 67.7 444.3 197.7l48.4-48.4c25-25 25-65.5 0-90.5L453.3 19.3c-25-25-65.5-25-90.5 0zm-71 71L58.6 323.5c-10.4 10.4-18 23.3-22.2 37.4L1 481.2C-1.5 489.7 .8 498.8 7 505s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L421.7 220.3 291.7 90.3z"/></svg></button></a></td>
-
+                                            
                                             <!-- OfferDiscount-->
-                                            <% if (catDetails[i].OfferDiscount) { %>
-                                                <td ><a><button class="custom-button2" onclick="deleteOffer('<%= catDetails[i]._id %>')"><svg xmlns="http://www.w3.org/2000/svg" height="12" width="10.5" viewBox="0 0 448 512"><path fill="#000000" d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"/></svg></button></a></td>
+                                            <% if (catDetails[i].OfferDiscount === 0) { %>
+                                                <td style="text-align: right;"><a href="/admin/editcategoryoffer?id=<%= catDetails[i]._id %>"><button class="custom-button2"><svg xmlns="http://www.w3.org/2000/svg" height="12" width="12" viewBox="0 0 512 512"><path fill="#000000" d="M362.7 19.3L314.3 67.7 444.3 197.7l48.4-48.4c25-25 25-65.5 0-90.5L453.3 19.3c-25-25-65.5-25-90.5 0zm-71 71L58.6 323.5c-10.4 10.4-18 23.3-22.2 37.4L1 481.2C-1.5 489.7 .8 498.8 7 505s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L421.7 220.3 291.7 90.3z"/></svg></button></a></td>
                                             <% } else { %>
-                                                <td></td>
+                                                <td style="text-align: right;"><a><button class="custom-button2" onclick="deleteOffer('<%= catDetails[i]._id %>')"><svg xmlns="http://www.w3.org/2000/svg" height="12" width="10.5" viewBox="0 0 448 512"><path fill="#000000" d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"/></svg></button></a></td>
                                             <% } %>
                                         </tr>
                                     <% } %>

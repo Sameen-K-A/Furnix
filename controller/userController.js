@@ -9,12 +9,22 @@ const dateGenerator = require("../config/dateGenerator");
 const randomID = require("../config/randomID");
 const bcrypt = require("bcrypt");
 const Coupon = require("../model/coupenModel");
+const Category = require("../model/categoryModel");
 
 //========================================= Render default page ==============================================
 
 const userhomeGET = async (req, res) => {
     try {
         const productDetails = await Product.find({ isBlocked: false }).limit(4).sort({ _id: -1 });
+        const catData = await Category.find({});
+        const offerBanner = [];
+        for (let i = 0; i < catData.length; i++) {
+            if(catData[i].OfferDiscount !== 0){
+                offerBanner.push(catData[i])
+            }
+        }
+        const sortedOfferBanner = offerBanner.sort((a, b) => new Date(b.createDate) - new Date(a.createDate)).slice(0, 3);
+        console.log(sortedOfferBanner);        
         res.render("user/userHome", { productDetails });
     } catch (error) {
         console.log(error);

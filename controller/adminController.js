@@ -101,6 +101,47 @@ const userUnblock = async (req, res) => {
 
 const category = async (req, res) => {
     try {
+        // checking active category is expaired or not
+        const activeCat = await Category.find({catOfferStatus : "Active"});
+        if(activeCat.length !=0){
+            const currentDate = new Date(date());
+            for (let i = 0; i < activeCat.length; i++) {
+                const endingDate = new Date(activeCat[i].OfferEndDate) ;
+                if(currentDate > endingDate){
+                    activeCat[i].catOfferStatus = "Expaired";
+                    const products = await Product.find({categoryID : activeCat[i]._id , regularPrice : {$gt : activeCat[i].OfferStartingPrice}});
+                    if(products.length != 0){
+                        for (let j = 0; j < products.length; j++) {
+                            products[j].offerPrice = products[j].regularPrice;
+                            products[j].offerPercentage = 0;
+                            await products[j].save()
+                        }
+                    }
+                    await activeCat[i].save()
+                }
+            }
+        }
+        // checking awaiting category offer time is ready for active;
+        const AwaitingCat = await Category.find({catOfferStatus : "Awaiting"});
+        if(AwaitingCat.length !=0){
+            const currentDate = date();
+            for (let i = 0; i < AwaitingCat.length; i++) {
+                const startDate = AwaitingCat[i].OfferStartDate;
+                if(currentDate === startDate){
+                    AwaitingCat[i].catOfferStatus = "Active";
+                    const products = await Product.find({categoryID : AwaitingCat[i]._id , regularPrice : {$gt : AwaitingCat[i].OfferStartingPrice}});
+                    if(products.length != 0){
+                        for (let j = 0; j < products.length; j++) {
+                            products[j].offerPrice = products[j].regularPrice - AwaitingCat[i].OfferDiscount;
+                            products[j].offerPercentage = Math.round(((products[j].regularPrice - products[j].offerPrice) / products[j].regularPrice) * 100);
+                            await products[j].save()
+                        }
+                    }
+                    await AwaitingCat[i].save()
+                }
+            }
+        }
+        // render category page
         const catDetails = await Category.find({})
         res.render("admin/addCategory", { catDetails });
     } catch (error) {
@@ -112,7 +153,7 @@ const category = async (req, res) => {
 
 const categoryoffer = async (req, res) => {
     try {
-        const catDetails = await Category.find({})
+        const catDetails = await Category.find({});
         res.render("admin/categoryoffer" , { catDetails });
     } catch (error) {
         console.log(error);
@@ -142,13 +183,21 @@ const editcategoryofferPatch = async (req, res) => {
             offer_EndingDate = offer_EndingDate.replace(/-/g, '/');
         const offer_startPrice = parseInt(req.body.minimumAmount);
         const offer_Amount = parseInt(req.body.discountamount);
+        const currentDate = date();
+        let catOfferStatus = false;
+        if (offer_StartingDate === currentDate) {
+            catOfferStatus = "Active"
+        }else{
+            catOfferStatus  = "Awaiting"
+        }
 
         const newCouponData = {
             OfferStartDate : offer_StartingDate,
             OfferEndDate : offer_EndingDate,
             OfferDiscount : offer_Amount,
             OfferStartingPrice : offer_startPrice,
-            createDate : new Date()
+            createDate : new Date(),
+            catOfferStatus : catOfferStatus
         }
         // new offer updating process
         const updateProcess = await Category.updateOne({name : catName} , newCouponData);
@@ -156,15 +205,17 @@ const editcategoryofferPatch = async (req, res) => {
             const findingcategory = await Category.findOne({name : catName});
             const products = await Product.find({categoryID : findingcategory._id , regularPrice : {$gt : offer_startPrice}});
             if(products.length != 0){
+                if(catOfferStatus === "Active"){
                 for (let i = 0; i < products.length; i++) {
                     products[i].offerPrice = products[i].regularPrice - offer_Amount;
                     products[i].offerPercentage = Math.round(((products[i].regularPrice - products[i].offerPrice) / products[i].regularPrice) * 100);
                     await products[i].save()
                 }
-                res.json({status : "okay"})
-            } else{
-                res.json({status : "okay"})
             }
+            res.json({status : "okay"})
+        } else{
+            res.json({status : "okay"})
+        }
         } else{
             res.json({status : "oops"})
         }
@@ -185,11 +236,12 @@ const Deletecategoryoffer = async (req, res) => {
             OfferEndDate : false,
             OfferDiscount : false,
             OfferStartingPrice : false,
-            createDate : false
+            createDate : false,
+            catOfferStatus : false
         }
         const updateProcess = await Category.updateOne({_id : catID} , changeData);
         if(updateProcess.modifiedCount !=0){
-            if(products.length != 0){
+            if(products.length != 0 && catDetails.catOfferStatus === "Active"){
                 for (let i = 0; i < products.length; i++) {
                     products[i].offerPrice = products[i].regularPrice;
                     products[i].offerPercentage = 0;

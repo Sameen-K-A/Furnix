@@ -13,20 +13,29 @@ const catSchema = new mongoose.Schema({
         default : false
     },
     OfferStartDate : {      // offer side
-        type : String
+        type : String,
+        default : "false"
     },
     OfferEndDate : {
-        type : String
+        type : String,
+        default : "false"
     },
     OfferDiscount : {
-        type : Number
+        type : Number,
+        default : 0
     },
     OfferStartingPrice : {
-        type : Number
+        type : Number,
+        default : 0
+    },
+    catOfferStatus : {
+        type : String,
+        default : "false"
     },
     createDate : {
-        type : String
-    }
+        type : String,
+        default : "false"
+    }   
 },{
     versionKey : false
 });
