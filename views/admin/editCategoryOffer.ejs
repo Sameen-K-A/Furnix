@@ -152,7 +152,13 @@
             if (percentage < 0) {
                 discounterror.textContent = "Discount amount must be need more than zero";
             } else {
-                discounterror.textContent = "";
+                const minAmount = parseInt(minimumAmount);
+                const maxDiscount = minAmount * 0.5;
+                if (percentage > maxDiscount) {
+                    discounterror.textContent = "Discount percentage cannot exceed 50% of the minimum order amount";
+                } else {
+                    discounterror.textContent = "";
+                }
             }
         }
 

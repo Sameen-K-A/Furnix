@@ -24,8 +24,7 @@ const userhomeGET = async (req, res) => {
             }
         }
         const sortedOfferBanner = offerBanner.sort((a, b) => new Date(b.createDate) - new Date(a.createDate)).slice(0, 3);
-        console.log(sortedOfferBanner);        
-        res.render("user/userHome", { productDetails });
+        res.render("user/userHome", { productDetails , sortedOfferBanner});
     } catch (error) {
         console.log(error);
     }
@@ -425,10 +424,12 @@ const wishlistget = async (req, res) => {
         if(userData){
             const wishData  = await Wishlist.findOne({ userID : userData._id });
             const productData = await Product.find({isBlocked : false})
-            for(let i=0 ; i <wishData.products.length ; i++){
-                for(let j=0 ; j<productData.length ; j++){
-                    if(wishData.products[i].productID.toString() === productData[j]._id.toString()){
-                        wishProducts.push(productData[j])
+            if (wishData) {
+                for(let i=0 ; i <wishData.products.length ; i++){
+                    for(let j=0 ; j<productData.length ; j++){
+                        if(wishData.products[i].productID.toString() === productData[j]._id.toString()){
+                            wishProducts.push(productData[j])
+                        }
                     }
                 }
             }

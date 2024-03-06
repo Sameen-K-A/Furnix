@@ -119,6 +119,17 @@ const category = async (req, res) => {
                     }
                     await activeCat[i].save()
                 }
+                // checking aall products is got offer;
+                const products = await Product.find({categoryID : activeCat[i]._id , regularPrice : {$gt : activeCat[i].OfferStartingPrice}});
+                if(products.length != 0){
+                    for (let j = 0; j < products.length; j++) {
+                        if(products[j].offerPrice !== products[j].regularPrice - activeCat[i].OfferDiscount){
+                            products[j].offerPrice = products[j].regularPrice - activeCat[i].OfferDiscount;
+                            products[j].offerPercentage = Math.round(((products[j].regularPrice - products[j].offerPrice) / products[j].regularPrice) * 100);
+                            await products[j].save()
+                        }
+                    }
+                }
             }
         }
         // checking awaiting category offer time is ready for active;
@@ -445,6 +456,47 @@ const statusChanger = async (req, res) => {
     }
 }
 
+//========================================= Sales report page rendering ==============================================
+
+const salesreport = async (req , res) => {
+    try {
+        const customValue = req.query.value;
+        // all delivered orderes
+        if(customValue === undefined || customValue === "All"){
+            const deliveredOrders = await Order.find({status: "Delivered"})
+            res.render("admin/salesreport" , {deliveredOrders , customValue})
+        
+        // today delivered orderes
+        }else if(customValue === "Today"){
+            const currentDate = date()
+            const deliveredOrders = await Order.find({ status: "Delivered", deliveredDateTime : {$regex : currentDate}})
+            res.render("admin/salesreport" , {deliveredOrders , customValue})
+
+        // this Month delivered orders
+        } else if(customValue === "Month"){
+            const currentDate = date()
+            const currentMonth = currentDate.split('/')[1];
+            const deliveredOrders = await Order.find({status: "Delivered",deliveredDateTime: { $regex: `\/${currentMonth}\/` }});
+            res.render("admin/salesreport" , {deliveredOrders , customValue})
+
+        // this year delivered orders
+        } else if(customValue === "Year"){
+            const currentDate = date()
+            const currentYear = currentDate.split('/')[0];
+            const deliveredOrders = await Order.find({status: "Delivered",deliveredDateTime: { $regex: `${currentYear}` }});
+            res.render("admin/salesreport" , {deliveredOrders , customValue})
+
+        // this year delivered orders
+        }  else{
+            let customDate = customValue.replace(/-/g, '/');
+            const deliveredOrders = await Order.find({status: "Delivered",deliveredDateTime: { $regex: customDate }});
+            res.render("admin/salesreport" , {deliveredOrders , customValue})
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 //========================================= Export all modules ==============================================
 
 module.exports = {
@@ -468,6 +520,7 @@ module.exports = {
     orderget,
     orderInfo,
     statusChanger,
+    salesreport
 }
 
 

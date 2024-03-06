@@ -197,8 +197,15 @@
 													</div>
 													<div class="item-info horizontal-start vertical-middle">
 														<div class="content">
-															<div class="subtitle-slider">Its time to change</div>
-															<h2 class="title-slider">Living room furniture</h2>
+															<% if (sortedOfferBanner[0]) { %>
+																<div class="subtitle-slider"><%= sortedOfferBanner[0].OfferStartDate %> &nbsp;&nbsp; to &nbsp;&nbsp; <%= sortedOfferBanner[0].OfferEndDate %> </div>
+																<div class="subtitle-slider">Save up to ₹<%= sortedOfferBanner[0].OfferDiscount %>.00 on all products above ₹<%= sortedOfferBanner[0].OfferStartingPrice %>.00 </div>
+																<h2 class="title-slider">In <%= sortedOfferBanner[0].name %> category</h2>
+															<% } else { %>
+																<div class="subtitle-slider">Its time to change</div>
+																<h2 class="title-slider">Living room furniture</h2>
+															<% } %>
+															
 															<!-- <a class="button-slider button-white"
 																href="shop-grid-left.html">SHOP NOW</a> -->
 														</div>
@@ -213,8 +220,14 @@
 													</div>
 													<div class="item-info horizontal-start vertical-middle">
 														<div class="content">
-															<div class="subtitle-slider text-light">Make your kitchen is unique</div>
-															<h2 class="title-slider text-light">Kitchen and Dining</h2>
+															<% if (sortedOfferBanner[1]) { %>
+																<div class="subtitle-slider text-light"><%= sortedOfferBanner[0].OfferStartDate %> &nbsp;&nbsp; to &nbsp;&nbsp; <%= sortedOfferBanner[0].OfferEndDate %> </div>
+																<div class="subtitle-slider text-light">Save up to ₹<%= sortedOfferBanner[1].OfferDiscount %>.00 on all products above ₹<%= sortedOfferBanner[1].OfferStartingPrice %>.00 </div>
+																<h2 class="title-slider text-light">In <%= sortedOfferBanner[1].name %> category</h2>
+															<% } else { %>
+																<div class="subtitle-slider text-light">Make your kitchen is unique</div>
+																<h2 class="title-slider text-light">Kitchen and Dining</h2>
+															<% } %>
 															<!-- <a class="button-slider button-white"
 																href="shop-grid-left.html">SHOP NOW</a> -->
 														</div>
@@ -224,13 +237,19 @@
 											<div class="item slick-slide">
 												<div class="item-content">
 													<div class="content-image">
-														<img width="1920" height="1080" src="media/slider/30.jpg"
+														<img width="1920" height="1080" src="media/slider/7.jpg"
 															alt="Image Slider">
 													</div>
 													<div class="item-info horizontal-start vertical-middle">
 														<div class="content">
-															<div class="subtitle-slider text-light">Wake up with calmness</div>
-															<h2 class="title-slider text-light">Bedroom furniture</h2>
+															<% if (sortedOfferBanner[2]) { %>
+																<div class="subtitle-slider"><%= sortedOfferBanner[0].OfferStartDate %> &nbsp;&nbsp; to &nbsp;&nbsp; <%= sortedOfferBanner[0].OfferEndDate %> </div>
+																<div class="subtitle-slider">Save up to ₹<%= sortedOfferBanner[2].OfferDiscount %>.00 on all products above ₹<%= sortedOfferBanner[2].OfferStartingPrice %>.00 </div>
+																<h2 class="title-slider">In <%= sortedOfferBanner[2].name %> category</h2>
+															<% } else { %>
+																<div class="subtitle-slider">Wake up with calmness</div>
+																<h2 class="title-slider">Bedroom furniture</h2>
+															<% } %>
 															<!-- <a class="button-slider button-white"
 																href="shop-grid-left.html">SHOP NOW</a> -->
 														</div>

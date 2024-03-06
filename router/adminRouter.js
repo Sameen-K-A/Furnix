@@ -48,4 +48,7 @@ router.post("/addCoupon" , isAdmin , couponController.addCoupenPost);
 router.post("/couponBlock" , isAdmin , couponController.BlockCoupon);
 router.post("/couponUnblock" , isAdmin , couponController.couponUnblock);
 
+// sales report side
+router.get("/salesreport" , isAdmin , adminController.salesreport);
+
 module.exports = router;
