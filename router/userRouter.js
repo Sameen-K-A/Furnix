@@ -83,4 +83,7 @@ router.delete("/wishlist" , userController.deletewish);
 router.get("/Coupons" , isUser , isBlocked, userProfileController.coupons);
 router.post("/applyCoupon" , isUser , isBlocked, cartController.applyCoupon);
 
+// search products
+router.post("/search" , userController.search)
+
 module.exports = router;

@@ -50,5 +50,6 @@ router.post("/couponUnblock" , isAdmin , couponController.couponUnblock);
 
 // sales report side
 router.get("/salesreport" , isAdmin , adminController.salesreport);
+router.post("/excelDownload" , isAdmin , adminController.excelDownload);
 
 module.exports = router;

@@ -5,6 +5,7 @@ const Product = require("../model/productModel");
 const Coupon = require("../model/coupenModel")
 const date = require("../config/dateGenerator");
 const time = require("../config/timeGenerator");
+const exceljs = require("exceljs");
 
 //========================================= Render admin login page==============================================
 
@@ -497,6 +498,46 @@ const salesreport = async (req , res) => {
     }
 }
 
+//========================================= download excel file ==============================================
+
+const excelDownload = async (req, res)=>{
+    try {
+        const ExcelData = req.body.salesDataArray;
+
+        const workBook = new exceljs.Workbook();
+        const workSheet = workBook.addWorksheet("Sales report");
+
+        workSheet.columns = [
+            { header: "ORDER ID", key: "orderid", width: 25 }, 
+            { header: "Customer Email", key: "email", width: 40 }, 
+            { header: "Total Price", key: "total", width: 20 }, 
+            { header: "Delivered Date", key: "date", width: 30 }, 
+            { header: "Coupon code", key: "couponcode", width: 20 }, 
+            { header: "Coupon discount", key: "coupondiscount", width: 20 }, 
+            { header: "Payment Method", key: "paymentMethod", width: 30 }, 
+        ]
+
+        ExcelData.forEach(data => { 
+            workSheet.addRow({
+                orderid : data.orderID,
+                email : data.customerEmail,
+                total : data.total,
+                date : data.deliveredDate,
+                couponcode : data.couponcode,
+                coupondiscount : data.coupondiscount,
+                paymentMethod : data.paymentMethod
+            }); 
+        });
+        res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        res.setHeader('Content-Disposition', `attachment; filename=salesReport.xlsx`);
+
+        await workBook.xlsx.write(res);
+
+
+    } catch (error) {
+        console.log(error);
+    }
+}
 //========================================= Export all modules ==============================================
 
 module.exports = {
@@ -520,7 +561,8 @@ module.exports = {
     orderget,
     orderInfo,
     statusChanger,
-    salesreport
+    salesreport,
+    excelDownload
 }
 
 

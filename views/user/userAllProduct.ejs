@@ -186,61 +186,80 @@
                         <section class="section section-padding m-b-15">
                             <div class="section-container large">
                                 <div class="block block-sliders layout-2 nav-center">
-                                    <div class="block-widget-wrap">
-                                        <div class="slick-sliders" data-autoplay="true" data-dots="true"
-                                            data-nav="false" data-columns4="1" data-columns3="1" data-columns2="1"
-                                            data-columns1="1" data-columns1440="1" data-columns="1">
-                                            <div class="item slick-slide">
-                                                <div class="item-content">
-                                                    <div class="content-image">
-                                                        <img width="1920" height="1080" src="media/slider/5.jpg"
-                                                            alt="Image Slider">
-                                                    </div>
-                                                    <div class="item-info horizontal-start vertical-middle">
-                                                        <div class="content">
-                                                            <div class="subtitle-slider">SALE UP TO 30% OFF</div>
-                                                            <h2 class="title-slider">Accessories</h2>
-                                                            <a class="button-slider button-white"
-                                                                href="shop-grid-left.html">SHOP NOW</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="item slick-slide">
-                                                <div class="item-content">
-                                                    <div class="content-image">
-                                                        <img width="1920" height="1080" src="media/slider/4.jpg"
-                                                            alt="Image Slider">
-                                                    </div>
-                                                    <div class="item-info horizontal-start vertical-middle">
-                                                        <div class="content">
-                                                            <div class="subtitle-slider">SALE UP TO 30% OFF</div>
-                                                            <h2 class="title-slider">Outdoor Chair</h2>
-                                                            <a class="button-slider button-white"
-                                                                href="shop-grid-left.html">SHOP NOW</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="item slick-slide">
-                                                <div class="item-content">
-                                                    <div class="content-image">
-                                                        <img width="1920" height="1080" src="media/slider/6.jpg"
-                                                            alt="Image Slider">
-                                                    </div>
-                                                    <div class="item-info horizontal-start vertical-middle">
-                                                        <div class="content">
-                                                            <div class="subtitle-slider">SALE UP TO 30% OFF</div>
-                                                            <h2 class="title-slider">Kitchen Sale</h2>
-                                                            <a class="button-slider button-white"
-                                                                href="shop-grid-left.html">SHOP NOW</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+									<div class="block-widget-wrap">
+										<div class="slick-sliders" data-autoplay="true" data-dots="true"
+											data-nav="false" data-columns4="1" data-columns3="1" data-columns2="1"
+											data-columns1="1" data-columns1440="1" data-columns="1">
+											<div class="item slick-slide">
+												<div class="item-content">	
+													<div class="content-image">
+														<img width="1920" height="1080" src="media/slider/28.jpg"
+															alt="Image Slider">
+													</div>
+													<div class="item-info horizontal-center vertical-middle">
+														<div class="content">
+															<% if (sortedOfferBanner[0]) { %>
+																<div class="subtitle-slider"><%= sortedOfferBanner[0].OfferStartDate %> &nbsp;&nbsp; to &nbsp;&nbsp; <%= sortedOfferBanner[0].OfferEndDate %> </div>
+																<div class="subtitle-slider">Save up to ₹<%= sortedOfferBanner[0].OfferDiscount %>.00 on all products above ₹<%= sortedOfferBanner[0].OfferStartingPrice %>.00 </div>
+																<h2 class="title-slider">In <%= sortedOfferBanner[0].name %> category</h2>
+															<% } else { %>
+																<div class="subtitle-slider">Its time to change</div>
+																<h2 class="title-slider">Living room furniture</h2>
+															<% } %>
+															
+															<!-- <a class="button-slider button-white"
+																href="shop-grid-left.html">SHOP NOW</a> -->
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="item slick-slide">
+												<div class="item-content">
+													<div class="content-image">
+														<img width="1920" height="1080" src="media/slider/22.jpg"
+															alt="Image Slider">
+													</div>
+													<div class="item-info horizontal-start vertical-middle">
+														<div class="content">
+															<% if (sortedOfferBanner[1]) { %>
+																<div class="subtitle-slider "><%= sortedOfferBanner[0].OfferStartDate %> &nbsp;&nbsp; to &nbsp;&nbsp; <%= sortedOfferBanner[0].OfferEndDate %> </div>
+																<div class="subtitle-slider ">Save up to ₹<%= sortedOfferBanner[1].OfferDiscount %>.00 on all products above ₹<%= sortedOfferBanner[1].OfferStartingPrice %>.00 </div>
+																<h2 class="title-slider ">In <%= sortedOfferBanner[1].name %> category</h2>
+															<% } else { %>
+																<div class="subtitle-slider">Make your kitchen is unique</div>
+																<h2 class="title-slider">Kitchen and Dining</h2>
+															<% } %>
+															<!-- <a class="button-slider button-white"
+																href="shop-grid-left.html">SHOP NOW</a> -->
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="item slick-slide">
+												<div class="item-content">
+													<div class="content-image">
+														<img width="1920" height="1080" src="media/slider/20.jpg"
+															alt="Image Slider">
+													</div>
+													<div class="item-info horizontal-center vertical-middle">
+														<div class="content">
+															<% if (sortedOfferBanner[2]) { %>
+																<div class="subtitle-slider"><%= sortedOfferBanner[0].OfferStartDate %> &nbsp;&nbsp; to &nbsp;&nbsp; <%= sortedOfferBanner[0].OfferEndDate %> </div>
+																<div class="subtitle-slider">Save up to ₹<%= sortedOfferBanner[2].OfferDiscount %>.00 on all products above ₹<%= sortedOfferBanner[2].OfferStartingPrice %>.00 </div>
+																<h2 class="title-slider">In <%= sortedOfferBanner[2].name %> category</h2>
+															<% } else { %>
+																<div class="subtitle-slider">Wake up with calmness</div>
+																<h2 class="title-slider">Bedroom furniture</h2>
+															<% } %>
+															<!-- <a class="button-slider button-white"
+																href="shop-grid-left.html">SHOP NOW</a> -->
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
                             </div>
                         </section>
 
@@ -572,42 +591,33 @@
 
     <!-- Search -->
     <div class="search-overlay">
-		<div class="close-search"></div>
 		<div class="wrapper-search">
-			<form role="search" method="get" class="search-from ajax-search" action="#">
+            <div class="search-from">
 				<div class="search-box">
-					<button id="searchsubmit" class="btn" type="submit">
-						<i class="icon-search"></i>
-					</button>
-					<input id="myInput" type="text" autocomplete="off" value="" name="s" class="input-search s"
-						placeholder="Search..." onkeyup="search()">
-					<div class="search-top">
-						<div class="close-search">Cancel</div>
-					</div>
-                    <% for( let i = 0; i < productDetails.length; i++ ) { %>
-                        <div class="d-flex align-items-center">
-                            <div id="imageDiv" style="width: 80px; height: 80px; background-color: rgb(255, 255, 255); margin-right: 30px;">
-                                <img src="/uploads/bd43f791-3c4c-4822-8f51-5093de8f372c.jpg" alt="product image">
-                            </div>
-                            <div style="display: flex; flex-direction: column; justify-content: center;">
-                                <h5 style="margin: 0;">Product name</h5>
-                                <p style="margin: 0;">Product price</p>
-                            </div>
-                        </div>                                       
-                        <hr>
-                    <% } %>
+                    <div class="d-flex">
+                        <button id="searchsubmit" class="btn" onclick="search()">
+                            <i class="icon-search"></i>
+                        </button>
+                        <input id="myInput" type="text" autocomplete="off" value="" name="s" class="input-search s"
+                            placeholder="Search...">
+                        <div class="close-search" onclick="cancelsearch()">Cancel</div>
+                    </div>
+                    <h4 id="noproduct" style="display: none;">No products founded</h4>
+                    <div id="prodatas">
+                        
+                    </div>
 				</div>
-			</form>
+            </div>
 		</div>
 	</div>
 
     <!-- Page Loader -->
-   <div class="page-preloader">
+   <!-- <div class="page-preloader">
         <div class="loader">
             <div></div>
             <div></div>
         </div>
-    </div>
+    </div> -->
 
     <script src="libs/popper/js/popper.min.js"></script>
     <script src="libs/jquery/js/jquery.min.js"></script>
@@ -621,8 +631,19 @@
 		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </body>
 <script>
+
+    const searchValue = document.getElementById("myInput")
+    let clearTimer;
+    searchValue.addEventListener("keyup", () => {
+        document.getElementById("prodatas").innerHTML= "";
+        document.getElementById("noproduct").style.display = "none"
+        clearTimeout(clearTimer);
+        clearTimer = setTimeout(() => {
+            search();
+        }, 1000)
+    });
     function search(){
-        const searchValue = document.getElementById("myInput").value;
+        const searchValue = document.getElementById("myInput").value
         $.ajax({
 			url: "/search",
 			method: "post",
@@ -631,12 +652,56 @@
 			},
 			success: (response) => {
 				if (response.status === "okay") {
-					
+					document.getElementById("prodatas").innerHTML= ""
+                    displaySearch(response.products)
 				} else {
-					
+					document.getElementById("noproduct").style.display = "block"
 				}
 			}
 		})
     }
+
+    function displaySearch(data) {
+    const prodatasDiv = document.getElementById("prodatas");
+    prodatasDiv.innerHTML = ""; // Clear previous search results
+    
+    data.forEach(product => {
+        const productDiv = document.createElement("div");
+        productDiv.classList.add("d-flex", "align-items-center");
+
+        const imageDiv = document.createElement("div");
+        imageDiv.style.width = "80px";
+        imageDiv.style.height = "80px";
+        imageDiv.style.backgroundColor = "rgb(255, 255, 255)";
+        imageDiv.style.marginRight = "30px";
+        imageDiv.innerHTML = `<img src="/uploads/${product.images[0]}" alt="product image">`;
+        imageDiv.onclick = function() {
+            window.location.href = `/productDetailspage?id=${product._id}`;
+        };
+
+        const infoDiv = document.createElement("div");
+        infoDiv.style.display = "flex";
+        infoDiv.style.flexDirection = "column";
+        infoDiv.style.justifyContent = "center";
+        infoDiv.innerHTML = `
+            <h5 style="margin: 0;">${product.name}</h5>
+            <p style="margin: 0;">₹${product.regularPrice}.00</p>
+        `;
+
+        productDiv.appendChild(imageDiv);
+        productDiv.appendChild(infoDiv);
+        prodatasDiv.appendChild(productDiv);
+
+        const hr = document.createElement("hr");
+        prodatasDiv.appendChild(hr);
+    });
+}
+
+
+function cancelsearch(){
+    document.getElementById("noproduct").style.display = "none"
+    const prodatasDiv = document.getElementById("prodatas").innerHTML = "";
+    const searchValue = document.getElementById("myInput").value =""
+}
 </script>
 </html>

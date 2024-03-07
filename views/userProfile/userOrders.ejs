@@ -431,31 +431,25 @@
 
     <!-- Search -->
     <div class="search-overlay">
-        <div class="close-search"></div>
-        <div class="wrapper-search">
-            <form role="search" method="get" class="search-from ajax-search" action="#">
-                <div class="search-box">
-                    <button id="searchsubmit" class="btn" type="submit">
-                        <i class="icon-search"></i>
-                    </button>
-                    <input id="myInput" type="text" autocomplete="off" value="" name="s" class="input-search s"
-                        placeholder="Search...">
-                    <div class="search-top">
-                        <div class="close-search">Cancel</div>
+		<div class="wrapper-search">
+            <div class="search-from">
+				<div class="search-box">
+                    <div class="d-flex">
+                        <button id="searchsubmit" class="btn" onclick="search()">
+                            <i class="icon-search"></i>
+                        </button>
+                        <input id="myInput" type="text" autocomplete="off" value="" name="s" class="input-search s"
+                            placeholder="Search...">
+                        <div class="close-search" onclick="cancelsearch()">Cancel</div>
                     </div>
-                    <div class="content-menu_search">
-                        <label>Suggested</label>
-                        <ul id="menu_search" class="menu">
-                            <li><a href="#">Furniture</a></li>
-                            <li><a href="#">Home Décor</a></li>
-                            <li><a href="#">Industrial</a></li>
-                            <li><a href="#">Kitchen</a></li>
-                        </ul>
+                    <h4 id="noproduct" style="display: none;">No products founded</h4>
+                    <div id="prodatas">
+                        
                     </div>
-                </div>
-            </form>
-        </div>
-    </div>
+				</div>
+            </div>
+		</div>
+	</div>
 
 
 
@@ -775,6 +769,78 @@
             }
         });
     }
+
+    const searchValue = document.getElementById("myInput")
+    let clearTimer;
+    searchValue.addEventListener("keyup", () => {
+        document.getElementById("prodatas").innerHTML= "";
+        document.getElementById("noproduct").style.display = "none"
+        clearTimeout(clearTimer);
+        clearTimer = setTimeout(() => {
+            search();
+        }, 1000)
+    });
+    function search(){
+        const searchValue = document.getElementById("myInput").value
+        $.ajax({
+			url: "/search",
+			method: "post",
+			data: {
+				searchValue
+			},
+			success: (response) => {
+				if (response.status === "okay") {
+					document.getElementById("prodatas").innerHTML= ""
+                    displaySearch(response.products)
+				} else {
+					document.getElementById("noproduct").style.display = "block"
+				}
+			}
+		})
+    }
+
+    function displaySearch(data) {
+    const prodatasDiv = document.getElementById("prodatas");
+    prodatasDiv.innerHTML = ""; // Clear previous search results
+    
+    data.forEach(product => {
+        const productDiv = document.createElement("div");
+        productDiv.classList.add("d-flex", "align-items-center");
+
+        const imageDiv = document.createElement("div");
+        imageDiv.style.width = "80px";
+        imageDiv.style.height = "80px";
+        imageDiv.style.backgroundColor = "rgb(255, 255, 255)";
+        imageDiv.style.marginRight = "30px";
+        imageDiv.innerHTML = `<img src="/uploads/${product.images[0]}" alt="product image">`;
+        imageDiv.onclick = function() {
+            window.location.href = `/productDetailspage?id=${product._id}`;
+        };
+
+        const infoDiv = document.createElement("div");
+        infoDiv.style.display = "flex";
+        infoDiv.style.flexDirection = "column";
+        infoDiv.style.justifyContent = "center";
+        infoDiv.innerHTML = `
+            <h5 style="margin: 0;">${product.name}</h5>
+            <p style="margin: 0;">₹${product.regularPrice}.00</p>
+        `;
+
+        productDiv.appendChild(imageDiv);
+        productDiv.appendChild(infoDiv);
+        prodatasDiv.appendChild(productDiv);
+
+        const hr = document.createElement("hr");
+        prodatasDiv.appendChild(hr);
+    });
+}
+
+
+function cancelsearch(){
+    document.getElementById("noproduct").style.display = "none"
+    const prodatasDiv = document.getElementById("prodatas").innerHTML = "";
+    const searchValue = document.getElementById("myInput").value =""
+}
 
 </script>
 

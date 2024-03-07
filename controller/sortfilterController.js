@@ -7,7 +7,14 @@ const allproduct = async (req, res) => {
     try {
         const productDetails = await Product.find({ isBlocked: false });
         const catDetails = await Category.find({isBlocked : false})
-        res.render("user/userAllProduct", { productDetails , catDetails});
+        const offerBanner = [];
+        for (let i = 0; i < catDetails.length; i++) {
+            if(catDetails[i].OfferDiscount !== 0){
+                offerBanner.push(catDetails[i])
+            }
+        }
+        const sortedOfferBanner = offerBanner.sort((a, b) => new Date(b.createDate) - new Date(a.createDate)).slice(0, 3);
+        res.render("user/userAllProduct", { productDetails , catDetails , sortedOfferBanner});
     } catch (error) {
         console.log(error);
     }

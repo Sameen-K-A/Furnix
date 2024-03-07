@@ -501,6 +501,23 @@ const deletewish = async (req, res) => {
     }
 }
 
+//========================================= search products ==============================================
+
+const search = async (req, res)=>{
+    try {
+        const searchName = req.body.searchValue;
+        if(searchName){
+            const products = await Product.find({ name: { $regex: searchName, $options: 'i' } }).limit(5);
+            if(products.length !=0){
+                res.json({status : "okay" , products : products})
+            }else{
+                res.json({status : "Notfound"})
+            }
+        }
+    } catch (error) {
+        
+    }
+}
 //========================================= Export all modules ==============================================
 
 module.exports = {
@@ -524,4 +541,5 @@ module.exports = {
     wishlistget,
     wishlistpost,
     deletewish,
+    search
 }
