@@ -25,15 +25,16 @@ router.get("/productDetailspage" , isProductBlocked  ,isBlocked,  userController
 
 //user all product page and sorting
 router.get("/allproduct" , isBlocked, sortFilterController.allproduct);
-router.get("/nameascending" , isBlocked, sortFilterController.nameascending);
-router.get("/namedescending" , isBlocked, sortFilterController.namedescending);
-router.get("/fiverated" , isBlocked, sortFilterController.fiverated);
-router.get("/fourrated" , isBlocked, sortFilterController.fourrated);
-router.get("/threerated" , isBlocked, sortFilterController.threerated);
-router.get("/tworated" , isBlocked, sortFilterController.tworated);
-router.get("/onerated" , isBlocked, sortFilterController.onerated);
-router.get("/leatest" , isBlocked, sortFilterController.leatest);
-router.get("/oldest" , isBlocked, sortFilterController.oldest);
+router.post("/categorysort" , isBlocked, sortFilterController.categorysort);
+// router.get("/nameascending" , isBlocked, sortFilterController.nameascending);
+// router.get("/namedescending" , isBlocked, sortFilterController.namedescending);
+// router.get("/fiverated" , isBlocked, sortFilterController.fiverated);
+// router.get("/fourrated" , isBlocked, sortFilterController.fourrated);
+// router.get("/threerated" , isBlocked, sortFilterController.threerated);
+// router.get("/tworated" , isBlocked, sortFilterController.tworated);
+// router.get("/onerated" , isBlocked, sortFilterController.onerated);
+// router.get("/leatest" , isBlocked, sortFilterController.leatest);
+// router.get("/oldest" , isBlocked, sortFilterController.oldest);
 
 // product review;
 router.post("/feedback" , isUser , isBlocked , userController.feedback)

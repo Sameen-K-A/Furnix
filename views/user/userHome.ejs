@@ -374,6 +374,9 @@
 																<div class="products-entry clearfix product-wapper">
 																	<div class="position-relative">
 																		<div class="products-thumb">
+																			<div class="product-lable">
+																				<div class="hot" style="color: rgb(34, 227, 0);">New arrivals</div>
+																			</div>
 																			<% if (productDetails[i].stock===0) { %>
 																				<a
 																					href="/productDetailspage?id=<%= productDetails[i]._id %>">
@@ -463,27 +466,26 @@
 														<div class="lookbook-content">
 															<div class="item">
 																<img width="869" height="702"
-																	src="media/banner/lookbook-1.jpg" alt="Look Book 1">
+																	src="media/banner/lookbook-2.jpg" alt="Look Book 1">
 																<div class="item-lookbook"
 																	style="height:30px; width:30px; left:78.37%; top:50%">
 																	<span class="number-lookbook">1</span>
 																	<div class="content-lookbook"
 																		style="right:33px; top:10px;">
 																		<div class="item-thumb">
-																			<a href="shop-details.html">
+																			<a href="/productDetailspage?id=<%= randomProduct[1]._id %>">
 																				<img width="1000" height="1000"
-																					src="media/product/7.jpg" alt="">
+																					src="uploads/<%= randomProduct[1].images[0] %>" alt="">
 																			</a>
 																		</div>
 																		<div class="content-lookbook-bottom">
 																			<div class="item-title">
-																				<a href="shop-details.html">Pillar
-																					Dining Table Round</a>
+																				<a><%= randomProduct[1].name %></a>
 																			</div>
 																			<span class="price">
 																				<del
-																					aria-hidden="true"><span>$150.00</span></del>
-																				<ins><span>$100.00</span></ins>
+																					aria-hidden="true"><span>₹<%= randomProduct[1].regularPrice %>.00</span></del>
+																				<ins><span>₹<%= randomProduct[1].offerPrice %>.00</span></ins>
 																			</span>
 																		</div>
 																	</div>
@@ -494,17 +496,20 @@
 																	<div class="content-lookbook"
 																		style="left:33px; bottom:10px;">
 																		<div class="item-thumb">
-																			<a href="shop-details.html">
+																			<a href="/productDetailspage?id=<%= randomProduct[0]._id %>">
 																				<img width="1000" height="1000"
-																					src="media/product/4.jpg" alt="">
+																					src="uploads/<%= randomProduct[0].images[0] %>" alt="">
 																			</a>
 																		</div>
 																		<div class="content-lookbook-bottom">
 																			<div class="item-title">
-																				<a href="shop-details.html">Mags Sofa
-																					2.5 Seater</a>
+																				<a><%= randomProduct[0].name %></a>
 																			</div>
-																			<span class="price">$150.00</span>
+																			<span class="price">
+																				<del
+																					aria-hidden="true"><span>₹<%= randomProduct[0].regularPrice %>.00</span></del>
+																				<ins><span>₹<%= randomProduct[0].offerPrice %>.00</span></ins>
+																			</span>
 																		</div>
 																	</div>
 																</div>
@@ -514,12 +519,10 @@
 												</div>
 											</div>
 											<div class="col-md-6">
-												<div class="lookbook-intro-wrap position-center text-center">
+												<div class="lookbook-intro-wrap position-center text-center" style="background-color: rgb(240, 240, 240);">
 													<div class="lookbook-intro">
-														<h4 class="sub-title">Discover the new Koti Sofa</h4>
-														<h2 class="title">Like lounging on<br> a cloud</h2>
-														<a href="shop-grid-left.html" class="button button-white">SHOP
-															NOW</a>
+														<h4 class="sub-title">Explore the world of furniture with FURNIX</h4>
+														<h2 class="title">Find your own<br>choices</h2>
 													</div>
 												</div>
 											</div>
@@ -554,10 +557,10 @@
 														<div class="testimonial-image image-position-top">
 															<div class="thumbnail">
 																<img width="62" height="62"
-																	src="media/testimonial/1.jpg" alt="">
+																	src="media/testimonial/vishnu.png" alt="">
 															</div>
 															<div class="testimonial-info">
-																<h2 class="testimonial-customer-name">Robet Smith</h2>
+																<h2 class="testimonial-customer-name">Vishnu prem</h2>
 															</div>
 														</div>
 													</div>
@@ -569,19 +572,16 @@
 																<div class="star star-4"></div>
 															</div>
 															<div class="testimonial-excerpt">
-																” Wonderful communication and your company even sent a
-																generous amount of samples to me, making my decision to
-																spend money on an internet item easy. Thank you. Product
-																quality is perfect. “
+																”Your company's communication was excellent, and the samples provided made my online purchase decision effortless. Thank you for the outstanding product quality.“
 															</div>
 														</div>
 														<div class="testimonial-image image-position-top">
 															<div class="thumbnail">
 																<img width="62" height="62"
-																	src="media/testimonial/2.jpg" alt="">
+																	src="media/testimonial/jasir.png" alt="">
 															</div>
 															<div class="testimonial-info">
-																<h2 class="testimonial-customer-name">Saitama One</h2>
+																<h2 class="testimonial-customer-name">Jasir</h2>
 															</div>
 														</div>
 													</div>
@@ -593,19 +593,16 @@
 																<div class="star star-5"></div>
 															</div>
 															<div class="testimonial-excerpt">
-																” Wonderful communication and your company even sent a
-																generous amount of samples to me, making my decision to
-																spend money on an internet item easy. Thank you. Product
-																quality is perfect. “
+																”I appreciate your company's exceptional communication and the generous sample selection, which helped me decide on my online purchase. The product quality exceeded expectations. Thank you.“
 															</div>
 														</div>
 														<div class="testimonial-image image-position-top">
 															<div class="thumbnail">
 																<img width="62" height="62"
-																	src="media/testimonial/3.jpg" alt="">
+																	src="media/testimonial/sirimol.png" alt="">
 															</div>
 															<div class="testimonial-info">
-																<h2 class="testimonial-customer-name">Sara Colinton</h2>
+																<h2 class="testimonial-customer-name">Sreeraj K R</h2>
 															</div>
 														</div>
 													</div>

@@ -265,62 +265,47 @@
 
 
                         <div class="col-lg-12">
-                            <div class="row  d-flex justify-content-center" style="gap: 50px;">
-                                <div class="col-lg-2 "
-                                    style="background-color: rgb(244, 244, 244); padding: 20px; margin-left: 20px; margin-bottom: 20px;">
-                                    <h3 class="text-center">Filter</h3>
-                                    <hr>
-                                    <p class="text-dark text-center" style="margin-top: 30px;">Category</p>
-                                    <ul style="font-size: small;">
-                                        <% for( let i = 0; i < catDetails.length; i++ ) { %>
-                                            <a href="/category?id=<%= catDetails[i]._id %>">
-                                                <li><%= catDetails[i].name %></li>
-                                            </a>
-                                        <% } %>
-                                    </ul>
-                                    <hr>
-                                    <p class="text-dark text-center" style="margin-top: 30px;">Rating</p>
-                                    <ul style="font-size: small;">
-                                        <a href="/fiverated"><li>★ ★ ★ ★ ★</li></a>
-                                        <a href="/fourrated"><li>★ ★ ★ ★ ☆</li></a>
-                                        <a href="/threerated"><li>★ ★ ★ ☆ ☆</li></a>
-                                        <a href="/tworated"><li>★ ★ ☆ ☆ ☆</li></a>
-                                        <a href="/onerated"><li>★ ☆ ☆ ☆ ☆</li></a>
-
-                                    </ul>
-                                    <hr>
-                                    <!-- <p class="text-dark text-center" style="margin-top: 30px;">Top category</p>
-                                    <ul style="font-size: small;">
-                                        <a href="/category?name=livingroom"><li>Living Room</li></a>
-                                        <a href="/category?name=bedroom"><li>Bedroom</li></a>
-                                        <a href="/category?name=kitchen"><li>Kitchen</li></a>
-                                        <a href="/category?name=dining"><li>Dining</li></a>
-                                    </ul>
-                                    <hr> -->
-                                    <p class="text-dark text-center" style="margin-top: 30px;">Sort</p>
-                                    <ul style="font-size: small;">
-                                        <a href="/nameascending">
-                                            <li>aA to zZ</li>
-                                        </a>
-                                        <a href="/namedescending">
-                                            <li>zZ to aA</li>
-                                        </a>
-
-                                    </ul>
-                                    <hr>
-                                    <p class="text-dark text-center" style="margin-top: 30px;">Date</p>
-                                    <ul style="font-size: small;">
-                                        <a href="/leatest">
-                                            <li>Leatest products</li>
-                                        </a>
-                                        <a href="/oldest">
-                                            <li>Oldest products</li>
-                                        </a>
-
-                                    </ul>
-                                    <hr>
+                            <div class="row">
+                                <div class="col-xl-2 col-lg-2 col-md-12 col-12 sidebar left-sidebar md-b-50 px-5 mt-5">
+                                    <!-- Block Product Categories -->
+                                    <h3 style="text-align: center; margin-bottom: 50px;">Sort by</h3>
+                                    <div class="block block-product-cats">
+                                        <div class="block-title"><h2>Categories</h2></div>
+                                        <div class="block-content">
+                                            <div class="product-cats-list">
+                                                <ul>
+                                                    <% for( let i = 0; i < catDetails.length; i++ ) { %>
+                                                        <a onclick="catsort('<%= catDetails[i]._id %>')">
+                                                            <li><%= catDetails[i].name %></li>
+                                                        </a>
+                                                    <% } %>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <section class="section section-padding m-b-70 col-lg-9">
+                                <section class="section section-padding m-b-70 col-lg-10">
+                                    <div class="products-topbar clearfix" style="margin-right: 10px; ">
+                                        <div class="products-topbar-right">
+                                            <div class="products-sort dropdown" >
+                                                <span class="sort-toggle dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Sort by Rating Price</span>
+                                                <ul class="sort-list dropdown-menu" x-placement="bottom-start">
+                                                    <li><a>Sort by price: low to high</a></li>
+                                                    <li><a>Sort by price: high to low</a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="products-sort dropdown"  style="margin-right: 10px;">
+                                                <span class="sort-toggle dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Sort by Rating</span>
+                                                <ul class="sort-list dropdown-menu" x-placement="bottom-start">
+                                                    <li><a href="#">★ ★ ★ ★ ★</a></li>
+                                                    <li><a href="#">★ ★ ★ ★ </a></li>
+                                                    <li><a href="#">★ ★ ★</a></li>
+                                                    <li><a href="#">★ ★</a></li>
+                                                    <li><a href="#">★</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <% if (productDetails.length === 0) { %>
                                         <div class="justify-content-center d-flex align-center"
 												style="margin-bottom: 20px; margin-top: 100px;">
@@ -331,30 +316,21 @@
 												</div>
 											</div>
                                     <% } else { %>
-                                        <div class="section-container large">
+                                        <div class="section-container large" id="ajaxproductDiv">
                                             <div class="block block-products loadmore">
                                                 <div class="block-widget-wrap">
                                                     <div class="block-content">
                                                         <div class="products-list grid">
                                                             <div class="row">
-                                                                
-                                                                
                                                                 <% for( let i=0; i < productDetails.length; i++ ) { %>
                                                                     <div class="col-xl-4 col-lg-4 col-md-5 col-sm-6">
-    
                                                                         <div class="items">
-    
-                                                                            <div
-                                                                                class="products-entry clearfix product-wapper">
+                                                                            <div class="products-entry clearfix product-wapper">
                                                                                 <div class="products-thumb">
-    
                                                                                     <% if (productDetails[i].stock===0) { %>
-                                                                                        <a
-                                                                                            href="/productDetailspage?id=<%= productDetails[i]._id %>">
-                                                                                            <div
-                                                                                                class="outofstockbackground">
-                                                                                                <div
-                                                                                                    class="outofstock text-danger d-flex justify-content-center align-items-center">
+                                                                                        <a href="/productDetailspage?id=<%= productDetails[i]._id %>">
+                                                                                            <div class="outofstockbackground">
+                                                                                                <div class="outofstock text-danger d-flex justify-content-center align-items-center">
                                                                                                     Out of stock
                                                                                                 </div>
                                                                                             </div>
@@ -374,14 +350,6 @@
                                                                                                         alt="">
                                                                                                 </a>
                                                                                             </div>
-                                                                                    <!-- <div class="product-button" style="z-index: 9999;">
-                                                                                        <div class="btn-add-to-cart" data-title="Add to cart">
-                                                                                            <a class="product-btn">Add to cart</a>
-                                                                                        </div>
-                                                                                        <div data-title="Add to wishlist">
-                                                                                            <button class="product-btn">Add to wishlist</button>
-                                                                                        </div>       
-                                                                                    </div> -->
                                                                                 </div>
                                                                                 <div class="products-content">
                                                                                     <div class="contents text-center">
@@ -418,15 +386,6 @@
                                                                     </div>
                                                                     <% } %>
                                                                 </div>
-                                                                <!-- <nav class="pagination">
-                                                                    <ul class="page-numbers">
-                                                                        <li><a class="prev page-numbers" href="#">Previous</a></li>
-                                                                        <li><span aria-current="page" class="page-numbers current">1</span></li>
-                                                                        <li><a class="page-numbers" href="#">2</a></li>
-                                                                        <li><a class="page-numbers" href="#">3</a></li>
-                                                                        <li><a class="next page-numbers" href="#">Next</a></li>
-                                                                    </ul>
-                                                                </nav> -->
                                                         </div>
                                                     </div>
                                                 </div>
@@ -702,6 +661,74 @@ function cancelsearch(){
     document.getElementById("noproduct").style.display = "none"
     const prodatasDiv = document.getElementById("prodatas").innerHTML = "";
     const searchValue = document.getElementById("myInput").value =""
+}
+
+function catsort(category){
+    $.ajax({
+    url: "/categorysort",
+    method: "post",
+    data: {
+        category
+    },
+    success: (response) => {
+        if (response.status === "okay") {
+            const productListContainer = document.getElementById("ajaxproductDiv");
+            productListContainer.innerHTML = ""; // Clear existing products
+            
+            response.products.forEach(product => {
+                const productEntry = document.createElement("div");
+                productEntry.classList.add("col-xl-4", "col-lg-4", "col-md-5", "col-sm-6");
+                productEntry.innerHTML = `
+                    <div class="items">
+                        <div class="products-entry clearfix product-wapper">
+                            <div class="products-thumb">
+                                ${product.stock === 0 ? `
+                                    <a href="/productDetailspage?id=${product._id}">
+                                        <div class="outofstockbackground">
+                                            <div class="outofstock text-danger d-flex justify-content-center align-items-center">
+                                                Out of stock
+                                            </div>
+                                        </div>
+                                    </a>
+                                ` : `
+                                    <a href="/productDetailspage?id=${product._id}">
+                                        <div class="product-thumb-hover">
+                                            <img width="600" height="600" src="/uploads/${product.images[0]}" class="post-image" alt="">
+                                            <img width="600" height="600" src="/uploads/${product.images[3]}" class="hover-image back" alt="">
+                                        </div>
+                                    </a>
+                                `}
+                            </div>
+                            <div class="products-content">
+                                <div class="contents text-center">
+                                    <h3 class="product-title">${product.name}</h3>
+                                    <span class="price">
+                                        <ins><span>₹${product.offerPrice}.00</span></ins>
+                                        <del aria-hidden="true"><span>₹${product.regularPrice}.00</span></del>
+                                    </span>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="price">
+                                        <ins><span style="color: black;">${product.offerPercentage}% off</span></ins>
+                                    </span>
+                                    <div class="rating" style="margin-top: 10px;">
+                                        ${product.avgStar === 0 ? `
+                                            <div class="star star-0"></div>
+                                        ` : ''}
+                                        ${product.avgStar > 0 ? `
+                                            <div class="star star-${product.avgStar}"></div>
+                                        ` : ''}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                productListContainer.appendChild(productEntry);
+            });
+        }
+    }
+});
+
+
 }
 </script>
 </html>

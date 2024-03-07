@@ -24,7 +24,10 @@ const userhomeGET = async (req, res) => {
             }
         }
         const sortedOfferBanner = offerBanner.sort((a, b) => new Date(b.createDate) - new Date(a.createDate)).slice(0, 3);
-        res.render("user/userHome", { productDetails , sortedOfferBanner});
+
+        // 2 random product for banner displaying
+        const randomProduct = await Product.aggregate([{ $match: {} },{ $sample: { size: 2 } }]);
+        res.render("user/userHome", { productDetails , sortedOfferBanner , randomProduct});
     } catch (error) {
         console.log(error);
     }

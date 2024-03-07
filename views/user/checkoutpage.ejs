@@ -553,6 +553,7 @@
 		integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
 		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
 	<!-- Site Scripts -->
 	<script src="assets/js/app.js"></script>
@@ -648,6 +649,48 @@
 										timer: 1500
 									});
 								}
+
+								// razorpay ajax details
+								else if (response.status === "razorpayfailed") {
+									Swal.fire({
+										icon: "error",
+										title: "Oops!.. Network is busy please try again later ! . . .",
+										showConfirmButton: false,
+										customClass: {
+											popup: 'swal-custom',
+										},
+										timer: 1500
+									});
+								} else if (response.status === "razorpaytrue") {
+									var options = {
+										"key": "rzp_test_iqxC6hlqYjWODY",
+										"amount": response.razorpayOrder.amount,
+										"currency": "INR",
+										"name": "Furnix",
+										"description": "Test Transaction",
+										"image": "https://example.com/your_logo",
+										"order_id": response.razorpayOrder.id,
+										"handler": function (response) {
+											try {
+												console.log("Razorpay response:", response);
+												// Add your logic to handle the response here
+											} catch (error) {
+												console.error("Error in Razorpay handler:", error);
+											}
+										},
+										"prefill": { 
+											"name": response.orderDetails.address.name, //your customer's name
+											"email": response.orderDetails.userEmail, //your customer's name
+											"contact": response.orderDetails.address.number  //Provide the customer's phone number for better conversion rates 
+										},
+										"notes": {
+											"address": "Razorpay Corporate Office"
+										},
+										"theme": {
+											"color": "#3399cc"
+										}
+									};
+								}
 							}
 						})
 					} else {
@@ -727,7 +770,7 @@ function clearbox(){
 	document.getElementById("cpnerror").textContent =""
 }
 
-\const searchValue = document.getElementById("myInput")
+const searchValue = document.getElementById("myInput")
     let clearTimer;
     searchValue.addEventListener("keyup", () => {
         document.getElementById("prodatas").innerHTML= "";

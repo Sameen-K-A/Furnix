@@ -20,6 +20,18 @@ const allproduct = async (req, res) => {
     }
 }
 
+//========================================= All product page rendering ==============================================
+
+const categorysort = async (req, res) => {
+    try {
+        const ajaxCategory = req.body.category;
+        const products = await Product.find({categoryID : ajaxCategory , isBlocked : false});
+        res.json({status : "okay" , products : products})
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 //========================================= Sort product based on name Ascending order ==============================================
 
 const nameascending = async (req, res) => {
@@ -122,6 +134,7 @@ const oldest = async (req, res) => {
 //========================================= Export all modules ==============================================
 
 module.exports = {
+    categorysort,
     fiverated,
     fourrated,
     threerated,

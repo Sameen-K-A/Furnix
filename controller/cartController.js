@@ -5,6 +5,15 @@ const dateGenerator = require("../config/dateGenerator");
 const idGenerator = require("../config/randomID");
 const timeGenerator = require("../config/timeGenerator");
 const Coupon = require("../model/coupenModel");
+const razorpay = require("razorpay");
+
+// ========================================= instance of razorpay =========================================
+
+const {razorpayKeyID , razorpayKeySecret} = process.env
+const razorpayInstance = new razorpay({
+    key_id: razorpayKeyID,
+    key_secret: razorpayKeySecret
+})
 
 //========================================= Cart page rendering ==============================================
 
@@ -13,6 +22,7 @@ const cartpage = async (req, res) => {
         const userData = await User.findOne({ email: req.session.user });
         const productData = await Product.find({});
         const ProductResultarray = [];
+        let total =0;
         if (userData) {
             for (let i = 0; i < userData.cart.length; i++) {
                 const cartproductIdString = userData.cart[i].productID.toString();
@@ -20,6 +30,8 @@ const cartpage = async (req, res) => {
                     const productIdString = productData[j]._id.toString();
                     if (cartproductIdString === productIdString) {
                         ProductResultarray.push(productData[j]);
+                        total += userData.cart[i].qty * productData[j].offerPrice;
+                        userData.total = total
                         if (productData[j].stock === 0) {
                             userData.total -= userData.cart[i].qty * productData[j].offerPrice;
                             userData.cart[i].qty = 0;
@@ -272,7 +284,7 @@ const checkoutPost = async (req, res) => {
         const usedCouponCode = req.body.couponUsed;
         const orderProducts = [];
         let address;
-        let notworking = false;
+        // let notworking = false;
         let nextpage = false;
         if (userData) {
             for (let i = 0; i < userData.cart.length; i++) {
@@ -289,14 +301,15 @@ const checkoutPost = async (req, res) => {
                                 break;
                             }
                         } else {
-                            notworking = true
+                            // notworking = true
                             res.json({ status: "blocked" })
                         }
                     }
                 }
             }
+            // set subtotal
+            const subTotal = userData.total;
 
-            const subTotal = userData.total
             // coupon ckecking
             let couponOffer = 0;
             let couponCode = false;
@@ -311,32 +324,39 @@ const checkoutPost = async (req, res) => {
                 }
             }
 
-            if (notworking === false) {
-                for (let i = 0; i < userData.address.length; i++) {
-                    const stringID = userData.address[i]._id.toString();
-                    if (stringID === addressID) {
-                        address = userData.address[i]
-                    }
+            // store full aaddress details
+            for (let i = 0; i < userData.address.length; i++) {
+                const stringID = userData.address[i]._id.toString();
+                if (stringID === addressID) {
+                    address = userData.address[i]
                 }
-                for (let i = 0; i < orderProducts.length; i++) {
-                    for (let j = 0; j < userData.cart.length; j++) {
-                        orderProducts[i].cartQty = userData.cart[i].qty
-                    }
+            }
+
+            // quantity of all items
+            for (let i = 0; i < orderProducts.length; i++) {
+                for (let j = 0; j < userData.cart.length; j++) {
+                    orderProducts[i].cartQty = userData.cart[i].qty
                 }
-                const orderData = {
-                    product: orderProducts,
-                    address: address,
-                    orderID: idGenerator(),
-                    userEmail: req.session.user,
-                    date: dateGenerator(),
-                    time: timeGenerator(),
-                    total: userData.total,
-                    subTotal : subTotal,
-                    itemsCount: userData.cart.length,
-                    paymentMethod: payment,
-                    couponOffer : couponOffer,
-                    couponCode : couponCode
-                }
+            }
+            // create new order data
+            const orderData = {
+                product: orderProducts,
+                address: address,
+                orderID: idGenerator(),
+                userEmail: req.session.user,
+                date: dateGenerator(),
+                time: timeGenerator(),
+                total: userData.total,
+                subTotal : subTotal,
+                itemsCount: userData.cart.length,
+                paymentMethod: payment,
+                couponOffer : couponOffer,
+                couponCode : couponCode
+            }
+
+            // cash on delivery
+            if(payment === "Cash on delivery"){
+                // if (notworking === false) {
                 if (nextpage) {
                     const orderProcess = await Order.create(orderData);
                     if (orderProcess) {
@@ -350,9 +370,31 @@ const checkoutPost = async (req, res) => {
                         res.json({ status: "network" })
                     }
                 } else {
-                    res.json({ status: "stocklimit" })
+                    res.json({ status: "stocklimit" });
                 }
+                // }
             }
+
+
+            // razorpay
+            else if(payment === "Razorpay"){
+                // create a option for razorpay
+                const options = {
+                    amount: userData.total,
+                    currency: 'INR',
+                    receipt: userData._id+idGenerator()+timeGenerator()
+                };
+
+                // create a new order for razorpay
+                razorpayInstance.orders.create(options , async (error , order)=>{
+                    if(error){
+                        res.json({status : "razorpayfailed"})
+                    } else{
+                        res.json({status : "razorpaytrue" , razorpayOrder : order , orderDetails : orderData})
+                    }
+                })
+            }
+
         }
     } catch (error) {
         console.log(error);
