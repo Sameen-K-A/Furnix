@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const Order = require("../model/orderModel");
 const Product = require("../model/productModel");
 const Coupon = require("../model/coupenModel");
+const Wallet = require("../model/walletModel");
 //========================================= inside user profile page change password session rendering ==============================================
 
 const changepassword = (req, res) => {
@@ -234,7 +235,8 @@ const cancelOrder = async (req, res) => {
                 const cancelProduct = cancelProducts.product[j];
                 const product = await Product.findById(cancelProduct._id);
                 if (product) {
-                    product.stock += cancelProduct.cartQty;
+                    const quantity = parseInt(cancelProduct.cartQty);
+                    product.stock += quantity;
                     await product.save();
                 }
             }
@@ -311,6 +313,17 @@ const coupons = async (req, res) => {
     }
 }
 
+//========================================= Wallet rendering ==============================================
+
+const wallet = async (req , res) => {
+    try {
+        const userData = await User.findOne({email : req.session.user});
+        const userWallet = await Wallet.findOne({userID : userData._id});
+        res.render("userProfile/Wallet" , {userWallet})
+    } catch (error) {
+        console.log(error);
+    }
+}
 //========================================= Exporting all modules ==============================================
 
 module.exports = {
@@ -329,5 +342,6 @@ module.exports = {
     cancelOrder,
     returnorder,
     cancelreturnOrder,
-    coupons
+    coupons,
+    wallet
 }

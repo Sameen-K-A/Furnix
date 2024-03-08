@@ -6,6 +6,7 @@ const idGenerator = require("../config/randomID");
 const timeGenerator = require("../config/timeGenerator");
 const Coupon = require("../model/coupenModel");
 const razorpay = require("razorpay");
+const crypto = require("crypto");
 
 // ========================================= instance of razorpay =========================================
 
@@ -328,14 +329,14 @@ const checkoutPost = async (req, res) => {
             for (let i = 0; i < userData.address.length; i++) {
                 const stringID = userData.address[i]._id.toString();
                 if (stringID === addressID) {
-                    address = userData.address[i]
+                    address = userData.address[i];
                 }
             }
 
             // quantity of all items
             for (let i = 0; i < orderProducts.length; i++) {
                 for (let j = 0; j < userData.cart.length; j++) {
-                    orderProducts[i].cartQty = userData.cart[i].qty
+                    orderProducts[i].cartQty = userData.cart[i].qty;
                 }
             }
             // create new order data
@@ -356,7 +357,6 @@ const checkoutPost = async (req, res) => {
 
             // cash on delivery
             if(payment === "Cash on delivery"){
-                // if (notworking === false) {
                 if (nextpage) {
                     const orderProcess = await Order.create(orderData);
                     if (orderProcess) {
@@ -372,30 +372,66 @@ const checkoutPost = async (req, res) => {
                 } else {
                     res.json({ status: "stocklimit" });
                 }
-                // }
             }
 
 
             // razorpay
             else if(payment === "Razorpay"){
-                // create a option for razorpay
-                const options = {
-                    amount: userData.total,
-                    currency: 'INR',
-                    receipt: userData._id+idGenerator()+timeGenerator()
-                };
+                if (nextpage) {
+                    // create a option for razorpay
+                    const options = {
+                        amount: userData.total * 100,
+                        currency: 'INR',
+                        receipt: userData._id+idGenerator()+timeGenerator()
+                    };
 
-                // create a new order for razorpay
-                razorpayInstance.orders.create(options , async (error , order)=>{
-                    if(error){
-                        res.json({status : "razorpayfailed"})
-                    } else{
-                        res.json({status : "razorpaytrue" , razorpayOrder : order , orderDetails : orderData})
-                    }
-                })
+                    // create a new order for razorpay
+                    razorpayInstance.orders.create(options , async (error , order)=>{
+                        if(error){
+                            res.json({status : "razorpayfailed"})
+                        } else{
+                            res.json({status : "razorpaytrue" , razorpayOrder : order , orderDetails : orderData})
+                        }
+                    })
+                }
             }
-
         }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+//========================================= User order successfully page rendering ==============================================
+
+const razorpaysuccess = async (req, res) => {
+    try {
+        const {response , orderDetails} = req.body;
+        const userData = await User.findOne({email : req.session.user});
+        if(userData){
+            // hmac checking
+            let hmac=crypto.createHmac('sha256',razorpayKeySecret);
+            hmac.update(response.razorpay_order_id+"|"+response.razorpay_payment_id)
+            hmac=hmac.digest("hex")
+            if(hmac == response.razorpay_signature){
+                // creating order
+                const orderProcess = await Order.create(orderDetails);
+                    if (orderProcess) {
+                        if(orderDetails.couponCode != "false"){
+                            console.log("coupon used");
+                            // pull that userID from coupons available users and push that userID into redeemed user list into coupon
+                            const removeID = userData._id.toString();
+                            await Coupon.updateOne({ coupencode: orderDetails.couponCode },{$pull: { availableUsers: removeID }, $push: { redeemedUsers: removeID }});
+                        }
+                        res.json({ status: "true"  })
+                    } else {
+                        res.json({ status: "network" })
+                    }
+            }else{
+                console.log("falied");
+                res.json({status : "somthingwrong"})
+            }
+        }
+
     } catch (error) {
         console.log(error);
     }
@@ -439,5 +475,6 @@ module.exports = {
     checkout,
     applyCoupon,
     checkoutPost,
+    razorpaysuccess,
     orderSuccessfull
 }

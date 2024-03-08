@@ -443,8 +443,9 @@ const statusChanger = async (req, res) => {
                 for( let i=0 ; i<orderData.product.length ; i++){
                     const product = await Product.findById({_id : orderData.product[i]._id});;
                     if(product){
-                        product.stock += orderData.product[i].cartQty;
-                        product.save();
+                        const quantity = parseInt(orderData.product[i].cartQty);
+                        product.stock += quantity;
+                        await product.save();
                     }
                 }
             }

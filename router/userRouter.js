@@ -73,6 +73,7 @@ router.post("/cartMinus" , isBlocked , cartController.cartMinus);
 router.get("/checkingCheckout" , isUser , isBlocked , cartController.checkingCheckout)
 router.get("/checkout" , isUser , isBlocked , cartController.checkout);
 router.post("/checkout" , isUser , isBlocked , cartController.checkoutPost);
+router.post("/razorpaysuccess" , isUser , isBlocked , cartController.razorpaysuccess)
 router.get("/orderSuccessfull" , isUser , isBlocked , cartController.orderSuccessfull);
 
 //user wishlist side
@@ -86,5 +87,8 @@ router.post("/applyCoupon" , isUser , isBlocked, cartController.applyCoupon);
 
 // search products
 router.post("/search" , userController.search)
+
+// wallet
+router.get("/wallet" , isUser , isBlocked , userProfileController.wallet)
 
 module.exports = router;

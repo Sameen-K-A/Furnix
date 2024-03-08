@@ -348,9 +348,9 @@
 												<li class="payment-method">
 													<input type="radio" class="input-radio" name="payment_method"
 														value="Razorpay">
-													<label>Razorpay</label>
+													<label>Online payment</label>
 													<div class="payment-box">
-														<p>Make your payment directly into Razorpay.
+														<p>Make your payment directly into Online payment.
 															Please use your Order ID as the payment reference.
 															Your order will not be shipped until the funds have
 															cleared in our account.</p>
@@ -662,6 +662,7 @@
 										timer: 1500
 									});
 								} else if (response.status === "razorpaytrue") {
+									const orderDetails = response.orderDetails
 									var options = {
 										"key": "rzp_test_iqxC6hlqYjWODY",
 										"amount": response.razorpayOrder.amount,
@@ -671,12 +672,7 @@
 										"image": "https://example.com/your_logo",
 										"order_id": response.razorpayOrder.id,
 										"handler": function (response) {
-											try {
-												console.log("Razorpay response:", response);
-												// Add your logic to handle the response here
-											} catch (error) {
-												console.error("Error in Razorpay handler:", error);
-											}
+											successgreen(response , orderDetails)
 										},
 										"prefill": { 
 											"name": response.orderDetails.address.name, //your customer's name
@@ -687,9 +683,19 @@
 											"address": "Razorpay Corporate Office"
 										},
 										"theme": {
-											"color": "#3399cc"
+											"color": "#000000"
 										}
 									};
+									var rzp1 = new Razorpay(options);
+									rzp1.on('payment.failed', function (response) {
+										Swal.fire({
+											title: "Payment failed",
+											html: response.error.reason,
+											icon: "error",
+											timer: 2000
+										});
+									});
+									rzp1.open();
 								}
 							}
 						})
@@ -708,6 +714,42 @@
 			}
 		}
 
+	}
+
+	function successgreen(response , orderDetails){
+		$.ajax({
+			url: "/razorpaysuccess",
+			method: "post",
+			data: {
+				response,
+				orderDetails
+			},
+			success: (response) => {
+				if(response.status === "true"){
+					window.location.href = "/orderSuccessfull"
+				} else if (response.status === "network") {
+					Swal.fire({
+						icon: "error",
+						title: "Oops!.. Network is busy please refresh",
+						showConfirmButton: false,
+						customClass: {
+							popup: 'swal-custom',
+						},
+						timer: 1500
+					});
+				} else if (response.status === "somthingwrong") {
+					Swal.fire({
+						icon: "error",
+						title: "Oops!.. Somthing worng please try again",
+						showConfirmButton: false,
+						customClass: {
+							popup: 'swal-custom',
+						},
+						timer: 1500
+					});
+				}
+			} 
+		})
 	}
 
 	function cpnApply(){

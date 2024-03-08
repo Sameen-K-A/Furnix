@@ -38,89 +38,7 @@
         rel="stylesheet">
 </head>
 <style>
-   .firstbook{
-        width: 280px;
-        height: 280px;
-        border-radius: 40px;
-        margin-bottom: 20px;
-        background: linear-gradient(315deg, rgba(9,6,6,1) 0%, rgb(94, 82, 79) 100%);
-        position: relative;
-        gap: 10px;
-        padding-left: 10px;
-        padding-right: 10px;
-    }
-    .swal2-container {
-        background-color: transparent !important;
-    }
-    .swal2-popup {
-        background-color: rgb(0, 0, 0);
-        color: white !important;
-    }
-   .admincpn{
-        width: 280px;
-        height: 280px;
-        border-radius: 40px;
-        margin-bottom: 20px;
-        background: linear-gradient(315deg, rgba(54,54,54,1) 0%, rgba(0,0,0,1) 48%, rgba(48,48,48,1) 71%, rgba(0,0,0,1) 100%);
-        position: relative;
-        gap: 10px;
-        padding-left: 10px;
-        padding-right: 10px;
-    }
-    .event-info {
-        text-align: left !important;
-    }
-    .event-info p {
-        text-align: center; /* Center the columns */
-    }
-   
-   .copybtn{
-		background-color: #CCBEA5;
-		height: 100%;
-		width: 40px;
-		color: rgb(0, 0, 0);
-	}
-    .wrapper {
-        display: flex;
-        flex-wrap: wrap;
-    }
-
-    .container {
-        width: calc(33.33% - 20px);
-        margin: 10px; 
-    }
-
-    @media (max-width: 768px) {
-        .container {
-            width: calc(50% - 20px);
-        }
-    }
-
-    @media (max-width: 576px) {
-        .container {
-            width: calc(100% - 20px);
-        }
-    }
-
-    .outofstock {
-		position: absolute;
-		top: 40%;
-		left: 0;
-		width: 100%;
-		height: 50px;
-		background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.824) 18%, rgb(0, 0, 0) 53%, rgba(0, 0, 0, 0.877) 82%, rgba(255, 255, 255, 0) 100%);
-		z-index: 9998;
-	}
-
-	.outofstockbackground {
-		position: absolute;
-		width: 100%;
-		height: 107%;
-		background-color: rgba(255, 255, 255, 0.533);
-		z-index: 1;
-	}
-    .swal-custom {
-        z-index: 99999;
+     .swal-custom {
         background: linear-gradient(94deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.8240546218487395) 26%, rgba(0, 0, 0, 1) 53%, rgba(0, 0, 0, 0.8492647058823529) 79%, rgba(227, 227, 227, 0) 100%);
         color: #ffffff;
         width: 100%;
@@ -128,6 +46,118 @@
 
     .swal-custom-ok-btn {
         color: black !important;
+    }
+ /* Styles for the main container and inner divs */
+.edit-account {
+    width: 100%;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.left-side, .right-side {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; /* Stack inner divs vertically */
+}
+
+.left-side {
+    width: 40%;
+    background-color: rgb(244, 244, 244);
+}
+
+.right-side {
+    width: 60%;
+    border: 1px solid rgb(233, 233, 233);
+    display: flex;
+    flex-direction: column; /* Stack inner divs vertically */
+    justify-content: flex-start; /* Align content to the top */
+    padding: 20px;
+}
+
+.inner-div {
+    width: 90%;
+    height: 130px;
+    background-color: rgb(233, 233, 233);
+    margin-bottom: 10px; /* Add some bottom margin between inner divs */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.paymentadd-div {
+    width: 90%;
+    height: 130px;
+    margin-bottom: 10px; /* Add some bottom margin between inner divs */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Styles for the text elements */
+.inner-div h2,
+.paymentadd-div,
+.inner-div h6 {
+    margin: 0; /* Remove default margin */
+}
+
+/* Style for the table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border-top: 1px solid rgb(212, 212, 212); /* Only horizontal border */
+    padding: 8px;
+    text-align: center;
+}
+
+th {
+    background-color: rgb(0, 0, 0); /* Background color for table headers */
+    color: white;
+}
+
+/* Additional styles for the input box, paragraph, and button */
+.add-money-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.add-money-section input[type="number"] {
+    width: 90%;
+    margin-top: 10px;
+    border: 1px solid #000000; /* Add border color */
+}
+
+
+.add-money-section button {
+    background-color: #000000;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    width: 100px;
+    height: 35px;
+}
+
+.add-money-section button:hover {
+    background-color: #1b1b1b;
+}
+    .amount-div {
+        background-color: rgb(220, 220, 220);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 15px;
+        height: 120px; /* Set height for vertical centering */
+        width: 90%;
     }
 
 </style>
@@ -270,11 +300,11 @@
                                                 <li class="nav-item">
                                                     <a class="nav-link" href="/accountDetails">Account details</a>
                                                 </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" href="/wallet">Wallet</a>
+                                                <li class="nav-item" style="background-color: rgb(0, 0, 0); ">
+                                                    <a class="nav-link  text-light" href="/wallet">Wallet</a>
                                                 </li>
-                                                <li class="nav-item" style="background-color: rgb(0, 0, 0);">
-													<a class="nav-link text-light">Coupons</a>
+                                                <li class="nav-item">
+													<a class="nav-link" href="/Coupons">Coupons</a>
 												</li>
                                                 <li class="nav-item">
                                                     <a class="nav-link" href="/changepassword">Change password</a>
@@ -284,123 +314,60 @@
                                                 </li>
                                             </ul>
                                         </nav>
-                                        <div class="my-account-content tab-content">
-                                            <% if (userCoupons) { %>
-                                                <% if (userCoupons.length === 0) { %>
-                                                    no coupons founded
-                                                <% } else { %>
-                                                    <div class="wrapper d-flex">
-                                                        <% for( let i = 0; i < userCoupons.length; i++ ) { %>
-                                                        <% if (userCoupons[i].isBlocked === false && (userCoupons[i].couponStatus === "Expired" || userCoupons[i].couponStatus === "Active")) { %>
-                                                            <div class="container d-flex">
-                                                                <div class="admincpn d-flex align-items-center justify-content-center">
-                                                                    <% if (userCoupons[i].couponStatus === "Expired") { %>
-                                                                        <div class="outofstockbackground">
-                                                                            <div
-                                                                                class="outofstock text-light d-flex justify-content-center align-items-center">
-                                                                                <b class="text-danger">Expired</b>
-                                                                            </div>
-                                                                        </div>
-                                                                    <% } %>
-                                                                    <div class="text-center">
-                                                                        <h3 style="color: white"><b><%= userCoupons[i].name %></b></h3><br>
-                                                                            <div class="table-responsive" style="margin-top: -10px;">
-                                                                            <table class="table" cellspacing="0">
-                                                                                <tbody>
-                                                                                    <tr class=" align-right">
-                                                                                        <td style="margin: auto;">
-                                                                                            <div class="product-name">
-                                                                                                <a style="font-size: 13px; color: white">Valid until </a><br>
-                                                                                                <a style="font-size: 13px; color: white">Purchase amount </a>
-                                                                                                <a style="font-size: 13px; color: white">Limited offer amount </a>
-                                                                                            </div>
-                                                                                        </td>
-                                                                                        <td style="margin: auto;">
-                                                                                            <div class="product-name">
-                                                                                                <a> <b><span style="color: white"><%= userCoupons[i].endDate %></span></b></a><br>
-                                                                                                <a> <b><span style="color: white">₹<%= userCoupons[i].minBuyRate %>.00</span></b></a>
-                                                                                                <a> <b><span style="color: white">₹<%= userCoupons[i].maxBuyRate %>.00</span></b></a>
-                                                                                            </div>
-                                                                                        </td>
-                                                                                    </tr>
-                                                                                </tbody>
-                                                                            </table>
-                                                                        </div>
-                                                                        <br>
-                                                                        <div style="width: 100%; height: 35px; border: 1px solid white; margin-top: -30px;" class="d-flex justify-content-between align-items-center">
-                                                                            <p id="myText<%= i %>" style="margin: 0 ; padding-left: 20px; color: white"><%= userCoupons[i].coupencode %></p>
-                                                                            <button onclick="copyContent('<%= i %>')" style="background-color: white" class="copybtn">
-                                                                                <svg xmlns="http://www.w3.org/2000/svg" height="20px" width="20px" viewBox="0 0 448 512">
-                                                                                    <path fill="#090606" d="M208 0H332.1c12.7 0 24.9 5.1 33.9 14.1l67.9 67.9c9 9 14.1 21.2 14.1 33.9V336c0 26.5-21.5 48-48 48H208c-26.5 0-48-21.5-48-48V48c0-26.5 21.5-48 48-48zM48 128h80v64H64V448H256V416h64v48c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V176c0-26.5 21.5-48 48-48z"/>
-                                                                                </svg>
-                                                                            </button>
-                                                                        </div><br>
-                                                                        <h1 style="font-weight: 800; color: white;"> <%= userCoupons[i].discountPercentage %>% &nbsp;<span style="color: rgb(94, 94, 94);">OFF</span> </h1>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        <% } %>
+                                        <div class="my-account-account-details d-flex justify-content-center align-items-center col-lg-8 col-md-12 col-sm-12">
+                                            <div class="edit-account col-lg-12 col-md-12 col-sm-12">
+                                                <div class="left-side ">
+                                                    <h3><b>Wallet</b></h3>
+                                                    <div class="amount-div">
+                                                        <p class="text-dark" style="margin-top: 5px;">Total amount in your wallet is</p>
+                                                        <% if (userWallet) { %>
+                                                            <h1 style="margin-top: -15px;"><b><%= userWallet.walletAmount %>₹</b></h1>
+                                                        <% } else { %>
+                                                            <h1 style="margin-top: -15px;"><b>0₹</b></h1>
                                                         <% } %>
                                                     </div>
-                                                <% } %>
-                                            <% } %>
-
-                                            <!-- Redeemed coupons-->
-                                            <% if (redeemedCoupons) { %>
-                                                <button style="width: 100%; background-color: #eeeeee; border: 1px solid black; padding-top: 15px; padding-bottom: 12px; padding-left: 20px; margin-bottom: 20px;">
-                                                    <h6><b>Redeemed coupons</b></h6>
-                                                </button>
-                                                <div class="wrapper d-flex">
-                                                    <% for( let i = 0; i < redeemedCoupons.length; i++ ) { %>
-                                                        <div class="container d-flex">
-                                                            <div class="admincpn d-flex align-items-center justify-content-center">
-                                                                <div class="outofstockbackground">
-                                                                    <div
-                                                                        class="outofstock text-light d-flex justify-content-center align-items-center">
-                                                                        <b class="text-success">Redeemed</b>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="text-center">
-                                                                    <h3 style="color: white"><b><%= redeemedCoupons[i].name %></b></h3><br>
-                                                                        <div class="table-responsive" style="margin-top: -10px;">
-                                                                        <table class="table" cellspacing="0">
-                                                                            <tbody>
-                                                                                <tr class=" align-right">
-                                                                                    <td style="margin: auto;">
-                                                                                        <div class="product-name">
-                                                                                            <a style="font-size: 13px; color: white">Valid until </a><br>
-                                                                                            <a style="font-size: 13px; color: white">Purchase amount </a>
-                                                                                            <a style="font-size: 13px; color: white">Limited offer amount </a>
-                                                                                        </div>
-                                                                                    </td>
-                                                                                    <td style="margin: auto;">
-                                                                                        <div class="product-name">
-                                                                                            <a> <b><span style="color: white"><%= redeemedCoupons[i].endDate %></span></b></a><br>
-                                                                                            <a> <b><span style="color: white">₹<%= redeemedCoupons[i].minBuyRate %>.00</span></b></a>
-                                                                                            <a> <b><span style="color: white">₹<%= redeemedCoupons[i].maxBuyRate %>.00</span></b></a>
-                                                                                        </div>
-                                                                                    </td>
-                                                                                </tr>
-                                                                            </tbody>
-                                                                        </table>
-                                                                    </div>
-                                                                    <br>
-                                                                    <div style="width: 100%; height: 35px; border: 1px solid white; margin-top: -30px;" class="d-flex justify-content-between align-items-center">
-                                                                        <p id="myText<%= i %>" style="margin: 0 ; padding-left: 20px; color: white"><%= redeemedCoupons[i].coupencode %></p>
-                                                                        <button style="background-color: white; " class="copybtn">
-                                                                            <svg xmlns="http://www.w3.org/2000/svg" height="20px" width="20px" viewBox="0 0 448 512">
-                                                                                <path fill="#090606" d="M208 0H332.1c12.7 0 24.9 5.1 33.9 14.1l67.9 67.9c9 9 14.1 21.2 14.1 33.9V336c0 26.5-21.5 48-48 48H208c-26.5 0-48-21.5-48-48V48c0-26.5 21.5-48 48-48zM48 128h80v64H64V448H256V416h64v48c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V176c0-26.5 21.5-48 48-48z"/>
-                                                                            </svg>
-                                                                        </button>
-                                                                    </div><br>
-                                                                    <h1 style="font-weight: 800; color: white;"> <%= redeemedCoupons[i].discountPercentage %>% &nbsp;<span style="color: rgb(94, 94, 94);">OFF</span> </h1>
-                                                                </div>
-                                                            </div>
+                                                    <div style="margin-top: 15px; height: 1px; width: 100%; background-color: rgb(216, 216, 216);"></div>
+                                                    <div class="paymentadd-div" style="margin-top: 20px;">
+                                                        <div class="add-money-section">
+                                                            <p style="color: rgb(0, 0, 0);">Add money to wallet</p>
+                                                            <input  style="margin-top: -10px;" type="number" style="width: 90%;" id="moneyInput" placeholder="Enter amount" onclick="clearerror()">
+                                                            <button  style="margin-top: 10px;" onclick="validateInput()">Pay</button>
+                                                            <p class="text-danger" id="amountError"></p>
                                                         </div>
+                                                    </div>
+                                                </div>
+                                                <div class="right-side">
+                                                    <h3><b>Last transactions</b></h3>
+                                                    <% if (userWallet) { %>
+                                                        <table style="margin-top: 15px;">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Column 1</th>
+                                                                    <th>Column 2</th>
+                                                                    <th>Column 3</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>Data 1</td>
+                                                                    <td>Data 2</td>
+                                                                    <td>Data 3</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Data 1</td>
+                                                                    <td>Data 2</td>
+                                                                    <td>Data 3</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    <% } else { %>
+                                                        <p>No transactions found</p>
                                                     <% } %>
                                                 </div>
-                                            <% } %>
+                                            </div>
                                         </div>
+                                        
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -524,27 +491,27 @@
         <i class="arrow_carrot-up"></i>
     </div>
 
-   <!-- Search -->
-   <div class="search-overlay">
-    <div class="wrapper-search">
-        <div class="search-from">
-            <div class="search-box">
-                <div class="d-flex">
-                    <button id="searchsubmit" class="btn" onclick="search()">
-                        <i class="icon-search"></i>
-                    </button>
-                    <input id="myInput" type="text" autocomplete="off" value="" name="s" class="input-search s"
-                        placeholder="Search...">
-                    <div class="close-search" onclick="cancelsearch()">Cancel</div>
-                </div>
-                <h4 id="noproduct" style="display: none;">No products founded</h4>
-                <div id="prodatas">
-                    
-                </div>
+    <!-- Search -->
+    <div class="search-overlay">
+		<div class="wrapper-search">
+            <div class="search-from">
+				<div class="search-box">
+                    <div class="d-flex">
+                        <button id="searchsubmit" class="btn" onclick="search()">
+                            <i class="icon-search"></i>
+                        </button>
+                        <input id="myInput" type="text" autocomplete="off" value="" name="s" class="input-search s"
+                            placeholder="Search...">
+                        <div class="close-search" onclick="cancelsearch()">Cancel</div>
+                    </div>
+                    <h4 id="noproduct" style="display: none;">No products founded</h4>
+                    <div id="prodatas">
+                        
+                    </div>
+				</div>
             </div>
-        </div>
-    </div>
-</div>
+		</div>
+	</div>
 
 
 
@@ -573,45 +540,8 @@
         integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </body>
-<script>
-    const copyContent = async (id) => {
-        let text = document.getElementById('myText' + id).innerHTML;
-        try {
-            await navigator.clipboard.writeText(text);
-                Swal.fire({
-                text: "Copied to your clipboard",
-                showConfirmButton: false,
-                position : "bottom",
-                timer: 1000
-            });
-        } catch (err) {
-            Swal.fire({
-                text: "Something wrong",
-                showConfirmButton: false,
-                position : "bottom",
-                timer: 1000
-            });
-        }
-	}
-    function logout() {
-        Swal.fire({
-            title: "Are you sure?",
-            text: "You want to Logout from FURNIX?",
-            showCancelButton: true,
-            confirmButtonColor: "#FF0000",
-            cancelButtonColor: "#ffffff",
-            confirmButtonText: "Logout",
-            customClass: {
-                popup: 'swal-custom',
-                cancelButton: 'swal-custom-ok-btn'
-            }
-        }).then((result) => {
-            if (result.isConfirmed) {
-                window.location.href = "/userLogout"
-            }
-        });
-    }
 
+<script>
     const searchValue = document.getElementById("myInput")
     let clearTimer;
     searchValue.addEventListener("keyup", () => {
@@ -683,5 +613,44 @@ function cancelsearch(){
     const prodatasDiv = document.getElementById("prodatas").innerHTML = "";
     const searchValue = document.getElementById("myInput").value =""
 }
+function logout() {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You want to Logout from FURNIX?",
+            showCancelButton: true,
+            confirmButtonColor: "#FF0000",
+            cancelButtonColor: "#ffffff",
+            confirmButtonText: "Logout",
+            customClass: {
+                popup: 'swal-custom',
+                cancelButton: 'swal-custom-ok-btn'
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "/userLogout"
+            }
+        });
+    }
+
+    function validateInput() {
+        var amount = document.getElementById("moneyInput").value;
+        var errorElement = document.getElementById("amountError");
+        errorElement.textContent = "";
+        if (amount.trim() === "") {
+            errorElement.textContent = "Amount is required.";
+        } else if (!/^\d+$/.test(amount)) {
+            errorElement.textContent = "Amount must contain only digits.";
+        } else if (amount <= 0) {
+            errorElement.textContent = "Amount must be only more than zero.";
+        } else if (amount > 25000) {
+            errorElement.textContent = "Amount cannot exceed 25000.";
+        } else {
+            alert("Input is valid.");
+        }
+    }
+    function clearerror(){
+        document.getElementById("amountError").textContent = ""
+    }
 </script>
+
 </html>
