@@ -10,6 +10,7 @@ const randomID = require("../config/randomID");
 const bcrypt = require("bcrypt");
 const Coupon = require("../model/coupenModel");
 const Category = require("../model/categoryModel");
+const Wallet = require("../model/walletModel");
 
 //========================================= Render default page ==============================================
 
@@ -186,6 +187,7 @@ const userRegisterpost = async (req, res) => {
 const userRegisterOTP = (req, res) => {
     try {
         res.render("user/userRegisterOTP")
+        console.log(req.session.tempuserDetail);
     } catch (error) {
         console.log(error);
     }
@@ -214,7 +216,51 @@ const userRegisterOTPpost = async (req, res) => {
                     availcoupons[i].availableUsers.push(newUser._id.toString())
                     await availcoupons[i].save();
                 }
-                newUser.save()
+                newUser.save();
+
+                // referral reward;
+                if(req.session.tempuserDetail.referUser){
+                    const referedUser = await User.findOne({email : req.session.tempuserDetail.referUser})
+                    const referedUserWallet = await Wallet.findOne({userID : referedUser._id});
+                    if(referedUserWallet){
+                        const newTransaction = {
+                            transactionID : "Furnix" + randomID(),
+                            amount : 200,
+                            date : dateGenerator(),
+                            status : "Reward"
+                        }
+                        referedUserWallet.transactions.push(newTransaction);
+                        referedUserWallet.walletAmount +=200;
+                        referedUserWallet.save();
+                    } else{
+                        const newData = {
+                            userID : referedUser._id,
+                            walletAmount : 500,
+                            transactions : {
+                                transactionID : "Furnix" + randomID(),
+                                amount : 200,
+                                date : dateGenerator(),
+                                status : "Reward"
+                            }
+                        };
+                        await Wallet.create(newData);
+                    }
+
+                    // new user also get reward
+                    const newUserWalletData = {
+                        userID : newUser._id,
+                        walletAmount : 200,
+                        transactions : {
+                            transactionID : "Furnix" + randomID(),
+                            amount : 200,
+                            date : dateGenerator(),
+                            status : "Reward"
+                        }
+                    };
+                    await Wallet.create(newUserWalletData);
+                }
+
+                // end referral reward side and delete session
                 delete req.session.tempuserDetail;
                 res.json({ status: true })
             } catch (error) {

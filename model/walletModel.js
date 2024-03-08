@@ -7,6 +7,7 @@ const walletSchema = new mongoose.Schema({
     },
     walletAmount : {
         type : Number,
+        default : 0
     },
     transactions : [{
         transactionID : {
@@ -17,6 +18,9 @@ const walletSchema = new mongoose.Schema({
         },
         date : {
             type : String
+        },
+        status : {
+            type : String,
         }
     }]
 },{

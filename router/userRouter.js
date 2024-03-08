@@ -89,6 +89,8 @@ router.post("/applyCoupon" , isUser , isBlocked, cartController.applyCoupon);
 router.post("/search" , userController.search)
 
 // wallet
-router.get("/wallet" , isUser , isBlocked , userProfileController.wallet)
+router.get("/wallet" , isUser , isBlocked , userProfileController.wallet);
+router.post("/wallet" , isUser , isBlocked , userProfileController.walletpost);
+router.post("/successwallet" , isUser , isBlocked , userProfileController.successwallet);
 
 module.exports = router;

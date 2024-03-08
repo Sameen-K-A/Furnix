@@ -75,7 +75,9 @@
     display: flex;
     flex-direction: column; /* Stack inner divs vertically */
     justify-content: flex-start; /* Align content to the top */
-    padding: 20px;
+    padding-top: 20px;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 .inner-div {
@@ -321,9 +323,9 @@ th {
                                                     <div class="amount-div">
                                                         <p class="text-dark" style="margin-top: 5px;">Total amount in your wallet is</p>
                                                         <% if (userWallet) { %>
-                                                            <h1 style="margin-top: -15px;"><b><%= userWallet.walletAmount %>₹</b></h1>
+                                                            <h1 style="margin-top: -15px;"><b>₹<%= userWallet.walletAmount %></b></h1>
                                                         <% } else { %>
-                                                            <h1 style="margin-top: -15px;"><b>0₹</b></h1>
+                                                            <h1 style="margin-top: -15px;"><b>₹0</b></h1>
                                                         <% } %>
                                                     </div>
                                                     <div style="margin-top: 15px; height: 1px; width: 100%; background-color: rgb(216, 216, 216);"></div>
@@ -342,22 +344,21 @@ th {
                                                         <table style="margin-top: 15px;">
                                                             <thead>
                                                                 <tr>
-                                                                    <th>Column 1</th>
-                                                                    <th>Column 2</th>
-                                                                    <th>Column 3</th>
+                                                                    <th>TransactionID</th>
+                                                                    <th>Date</th>
+                                                                    <th>Status</th>
+                                                                    <th>Amount</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                <tr>
-                                                                    <td>Data 1</td>
-                                                                    <td>Data 2</td>
-                                                                    <td>Data 3</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>Data 1</td>
-                                                                    <td>Data 2</td>
-                                                                    <td>Data 3</td>
-                                                                </tr>
+                                                                <% for( let i = 0; i < sortedTransactions.length; i++ ) { %>
+                                                                    <tr>
+                                                                        <td><%= sortedTransactions[i].transactionID %></td>
+                                                                        <td><%= sortedTransactions[i].date %></td>
+                                                                        <td><%= sortedTransactions[i].status %></td>
+                                                                        <td>₹<%= sortedTransactions[i].amount %></td>
+                                                                    </tr>
+                                                                <% } %>
                                                             </tbody>
                                                         </table>
                                                     <% } else { %>
@@ -539,6 +540,7 @@ th {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
         integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </body>
 
 <script>
@@ -645,9 +647,103 @@ function logout() {
         } else if (amount > 25000) {
             errorElement.textContent = "Amount cannot exceed 25000.";
         } else {
-            alert("Input is valid.");
+            $.ajax({
+                url: "/wallet",
+                method: "post",
+                data: {
+                    amount
+                },
+                success: (response) => {
+                    if (response.status === "razorpayfailed") {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Oops!.. Network is busy please try again later ! . . .",
+                            showConfirmButton: false,
+                            customClass: {
+                                popup: 'swal-custom',
+                            },
+                            timer: 1500
+                        });
+                    } else if (response.status === "razorpaytrue") {
+                        const userData = response.userData;
+                        const amount = response.amount;
+                        const razorpayOrder = response.razorpayOrder;
+                        var options = {
+                            "key": "rzp_test_iqxC6hlqYjWODY",
+                            "amount": amount,
+                            "currency": "INR",
+                            "name": "Furnix",
+                            "description": "Test Transaction",
+                            "image": "images\logo\furnix f figma.png",
+                            "order_id": razorpayOrder.id,
+                            "handler": function (response) {
+                                successgreen(response , amount)
+                            },
+                            "prefill": { 
+                                "name": userData.name, //your customer's name
+                                "email": userData.email, //your customer's name
+                                "contact": userData.phone  //Provide the customer's phone number for better conversion rates 
+                            },
+                            "notes": {
+                                "address": "Razorpay Corporate Office"
+                            },
+                            "theme": {
+                                "color": "#000000"
+                            }
+                        };
+                        var rzp1 = new Razorpay(options);
+                        rzp1.on('payment.failed', function (response) {
+                            Swal.fire({
+                                title: "Payment failed",
+                                html: response.error.reason,
+                                icon: "error",
+                                timer: 2000
+                            });
+                        });
+                        rzp1.open();
+                    }
+                }
+            })
         }
     }
+
+    function successgreen(response , amount){
+		$.ajax({
+			url: "/successwallet",
+			method: "post",
+			data: {
+				response,
+                amount
+			},
+			success: (response) => {
+				if(response.status === "true"){
+					window.location.reload()
+				} else if (response.status === "network") {
+					Swal.fire({
+						icon: "error",
+						title: "Oops!.. Network is busy please refresh",
+						showConfirmButton: false,
+						customClass: {
+							popup: 'swal-custom',
+						},
+						timer: 1500
+					});
+				} else if (response.status === "somthingwrong") {
+					Swal.fire({
+						icon: "error",
+						title: "Oops!.. Somthing worng please try again",
+						showConfirmButton: false,
+						customClass: {
+							popup: 'swal-custom',
+						},
+						timer: 1500
+					});
+				}
+			} 
+		})
+	}
+
+
     function clearerror(){
         document.getElementById("amountError").textContent = ""
     }

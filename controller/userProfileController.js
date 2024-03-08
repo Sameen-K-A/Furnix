@@ -4,6 +4,20 @@ const Order = require("../model/orderModel");
 const Product = require("../model/productModel");
 const Coupon = require("../model/coupenModel");
 const Wallet = require("../model/walletModel");
+const razorpay = require("razorpay");
+const crypto = require("crypto");
+const idGenerator = require("../config/randomID");
+const timeGenerator = require("../config/timeGenerator");
+const dateGenerator = require("../config/dateGenerator")
+
+// ========================================= instance of razorpay =========================================
+
+const {razorpayKeyID , razorpayKeySecret} = process.env
+const razorpayInstance = new razorpay({
+    key_id: razorpayKeyID,
+    key_secret: razorpayKeySecret
+});
+
 //========================================= inside user profile page change password session rendering ==============================================
 
 const changepassword = (req, res) => {
@@ -319,11 +333,93 @@ const wallet = async (req , res) => {
     try {
         const userData = await User.findOne({email : req.session.user});
         const userWallet = await Wallet.findOne({userID : userData._id});
-        res.render("userProfile/Wallet" , {userWallet})
+        let sortedTransactions;
+        if (userWallet) {
+            sortedTransactions = userWallet.transactions.sort((a, b) => b._id.getTimestamp() - a._id.getTimestamp()).slice(0, 5);
+        };
+        res.render("userProfile/Wallet" , {userWallet , sortedTransactions})
     } catch (error) {
         console.log(error);
     }
 }
+
+//========================================= Wallet amount post and razorpay starting  ==============================================
+
+const walletpost = async (req , res) => {
+    try {
+        const userData = await User.findOne({email : req.session.user});
+        const amount = parseInt(req.body.amount);
+        if(userData){
+            const options = {
+                amount: amount * 100,
+                currency: 'INR',
+                receipt: userData._id+idGenerator()+timeGenerator()
+            };
+    
+            // create a new order for razorpay
+            razorpayInstance.orders.create(options , async (error , order)=>{
+                if(error){
+                    res.json({status : "razorpayfailed"})
+                } else{
+                    res.json({status : "razorpaytrue" , razorpayOrder : order , userData : userData , amount : amount})
+                }
+            })
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+//========================================= Razorpay wallet payment success controlling  ==============================================
+
+const successwallet = async (req , res) => {
+    try {
+        const response = req.body.response;
+        const amount = parseInt(req.body.amount);
+        const userData = await User.findOne({email : req.session.user});
+        let hmac=crypto.createHmac('sha256',razorpayKeySecret);
+            hmac.update(response.razorpay_order_id+"|"+response.razorpay_payment_id)
+            hmac=hmac.digest("hex")
+            if(hmac == response.razorpay_signature){
+                // search user have already wallet
+                const userWallet = await Wallet.findOne({userID : userData._id});
+                if(userWallet){
+                    const newTransaction = {
+                        transactionID : "Furnix" + idGenerator(),
+                        amount : amount,
+                        date : dateGenerator(),
+                        status : "Add on"
+                    }
+                    userWallet.transactions.push(newTransaction);
+                    userWallet.walletAmount +=amount;
+                    userWallet.save();
+                    res.json({ status : "true"  })
+                } else{
+                    const newData = {
+                        userID : userData._id,
+                        walletAmount : amount,
+                        transactions : {
+                            transactionID : "Furnix" + idGenerator(),
+                            amount : amount,
+                            date : dateGenerator(),
+                            status : "Add on"
+                        }
+                    };
+                    const createProcess = await Wallet.create(newData);
+                    if(createProcess){
+                        res.json({ status : "true" })
+                    } else{
+                        res.json({ status : "network" })
+                    }
+                }
+            }else{
+                res.json({status : "somthingwrong"})
+            }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 //========================================= Exporting all modules ==============================================
 
 module.exports = {
@@ -343,5 +439,7 @@ module.exports = {
     returnorder,
     cancelreturnOrder,
     coupons,
-    wallet
+    wallet,
+    walletpost,
+    successwallet
 }
