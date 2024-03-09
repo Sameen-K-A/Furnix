@@ -6,6 +6,15 @@ const cartController = require("../controller/cartController.js");
 const sortFilterController = require("../controller/sortfilterController.js")
 const { isBlocked ,isUser , isNoUser , isProductBlocked} = require("../Middleware/isLogged.js");
 
+router.use((req, res, next) => {
+    if (req.method === 'GET') {
+        if(req.session.categorySearch){
+            delete req.session.categorySearch
+        }
+    }
+    next();
+});
+
 router.get("/" , isBlocked , userController.userhomeGET);
 router.get('/userLogin'  , isNoUser , isBlocked , userController.userLogin);
 router.post('/userLoginpost' , isNoUser ,  userController.userLoginpost);
@@ -26,6 +35,8 @@ router.get("/productDetailspage" , isProductBlocked  ,isBlocked,  userController
 //user all product page and sorting
 router.get("/allproduct" , isBlocked, sortFilterController.allproduct);
 router.post("/categorysort" , isBlocked, sortFilterController.categorysort);
+router.post("/pricesort" , isBlocked, sortFilterController.pricesort);
+router.post("/ratingsort" , isBlocked, sortFilterController.ratingsort);
 // router.get("/nameascending" , isBlocked, sortFilterController.nameascending);
 // router.get("/namedescending" , isBlocked, sortFilterController.namedescending);
 // router.get("/fiverated" , isBlocked, sortFilterController.fiverated);
@@ -92,5 +103,7 @@ router.post("/search" , userController.search)
 router.get("/wallet" , isUser , isBlocked , userProfileController.wallet);
 router.post("/wallet" , isUser , isBlocked , userProfileController.walletpost);
 router.post("/successwallet" , isUser , isBlocked , userProfileController.successwallet);
+
+
 
 module.exports = router;

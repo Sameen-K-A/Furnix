@@ -771,7 +771,7 @@
                     if (response.status === "notfound") {
                         document.getElementById("cpnerror").textContent="Coupon not found. please check again your code";
                     } else if(response.status === "minAmount"){
-                        document.getElementById("cpnerror").textContent=`The coupon can only be accessed for purchaseing between ₹${response.minamount} to ₹${response.maxAmount}`;
+                        document.getElementById("cpnerror").textContent=`The coupon can only be accessed for purchaseing between ₹${response.minamount} to ₹${response.maxAmount}.00`;
                     }  else if(response.status === "okay"){
                         Swal.fire({
                             text: "Coupon applied",
@@ -781,12 +781,12 @@
                         });
 						document.getElementById("cpncode").readOnly = true;
                         document.getElementById("applyCoupon").textContent ="Cancel"
-						document.getElementById("totalAmount").textContent = "₹" + response.balance;
+						document.getElementById("totalAmount").textContent = "₹" + response.balance + ".00";
 						
 						const subtotalProduct = document.getElementById("subtotalProduct").textContent
 						const SubtotalPrice = parseFloat(subtotalProduct.replace('₹', ''));
-						let discountCalculate = parseFloat(SubtotalPrice - response.balance).toFixed(2);
-                        document.getElementById("cpndiscountamount").textContent ="- ₹"+discountCalculate
+						let discountCalculate = parseFloat(SubtotalPrice - response.balance);
+                        document.getElementById("cpndiscountamount").textContent ="- ₹"+discountCalculate+'.00'
                     }
                 }
             })

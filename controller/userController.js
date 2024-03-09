@@ -207,7 +207,8 @@ const userRegisterOTPpost = async (req, res) => {
                     email: req.session.tempuserDetail.email,
                     phone: req.session.tempuserDetail.registeruserphone,
                     password: req.session.tempuserDetail.secretPass,
-                    referCode : referelcode
+                    referCode : referelcode,
+                    createdOn : dateGenerator()
                 }
                 const newUser = await User.create(UserData);
                 // Coupons pushing

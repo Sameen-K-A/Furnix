@@ -251,8 +251,7 @@ const applyCoupon = async (req, res)=>{
                         if(user.total >= coupon.minBuyRate && coupon.maxBuyRate >= user.total){
                             const total_amount = user.total;
                             const descount_percentage = coupon.discountPercentage;
-                            let balanceAmount = total_amount - (total_amount * (descount_percentage / 100));
-                            balanceAmount.toFixed(1)
+                            let balanceAmount = Math.round(total_amount - (total_amount * (descount_percentage / 100)));
                             res.json({ status: "okay", balance: balanceAmount });
                         } else{
                             res.json({ status: "minAmount", minamount: coupon.minBuyRate , maxAmount : coupon.maxBuyRate});
@@ -311,20 +310,6 @@ const checkoutPost = async (req, res) => {
             // set subtotal
             const subTotal = userData.total;
 
-            // coupon ckecking
-            let couponOffer = 0;
-            let couponCode = false;
-            if(usedCouponCode != undefined){
-                const findCoupon = await Coupon.findOne({coupencode : usedCouponCode});
-                if(findCoupon.isBlocked === false){
-                    couponCode = findCoupon.coupencode;
-                    let newTotal = userData.total - (userData.total * (findCoupon.discountPercentage / 100))
-                    couponOffer = userData.total - newTotal
-                    userData.total = newTotal;
-                    userData.save()
-                }
-            }
-
             // store full aaddress details
             for (let i = 0; i < userData.address.length; i++) {
                 const stringID = userData.address[i]._id.toString();
@@ -339,25 +324,37 @@ const checkoutPost = async (req, res) => {
                     orderProducts[i].cartQty = userData.cart[i].qty;
                 }
             }
-            // create new order data
-            const orderData = {
-                product: orderProducts,
-                address: address,
-                orderID: idGenerator(),
-                userEmail: req.session.user,
-                date: dateGenerator(),
-                time: timeGenerator(),
-                total: userData.total,
-                subTotal : subTotal,
-                itemsCount: userData.cart.length,
-                paymentMethod: payment,
-                couponOffer : couponOffer,
-                couponCode : couponCode
-            }
-
             // cash on delivery
             if(payment === "Cash on delivery"){
                 if (nextpage) {
+                    // coupon ckecking
+                    let couponOffer = 0;
+                    let couponCode = false;
+                    if(usedCouponCode != undefined){
+                        const findCoupon = await Coupon.findOne({coupencode : usedCouponCode});
+                        if(findCoupon.isBlocked === false){
+                            couponCode = findCoupon.coupencode;
+                            let newTotal = Math.round(userData.total - (userData.total * (findCoupon.discountPercentage / 100)));
+                            couponOffer = Math.round(userData.total - newTotal);
+                            userData.total = newTotal;
+                            userData.save()
+                        }
+                    }
+                    // create new order data
+                    const orderData = {
+                        product: orderProducts,
+                        address: address,
+                        orderID: idGenerator(),
+                        userEmail: req.session.user,
+                        date: dateGenerator(),
+                        time: timeGenerator(),
+                        total: userData.total,
+                        subTotal : subTotal,
+                        itemsCount: userData.cart.length,
+                        paymentMethod: payment,
+                        couponOffer : couponOffer,
+                        couponCode : couponCode
+                    }
                     const orderProcess = await Order.create(orderData);
                     if (orderProcess) {
                         if(usedCouponCode != undefined){
@@ -378,6 +375,33 @@ const checkoutPost = async (req, res) => {
             // razorpay
             else if(payment === "Razorpay"){
                 if (nextpage) {
+                    // coupon ckecking
+                    let couponOffer = 0;
+                    let couponCode = false;
+                    if(usedCouponCode != undefined){
+                        const findCoupon = await Coupon.findOne({coupencode : usedCouponCode});
+                        if(findCoupon.isBlocked === false){
+                            couponCode = findCoupon.coupencode;
+                            let newTotal = Math.round(userData.total - (userData.total * (findCoupon.discountPercentage / 100)));
+                            couponOffer = Math.round(userData.total - newTotal);
+                            userData.total = newTotal;
+                        }
+                    }
+                    // create new order data
+                    const orderData = {
+                        product: orderProducts,
+                        address: address,
+                        orderID: idGenerator(),
+                        userEmail: req.session.user,
+                        date: dateGenerator(),
+                        time: timeGenerator(),
+                        total: userData.total,
+                        subTotal : subTotal,
+                        itemsCount: userData.cart.length,
+                        paymentMethod: payment,
+                        couponOffer : couponOffer,
+                        couponCode : couponCode
+                    }
                     // create a option for razorpay
                     const options = {
                         amount: userData.total * 100,

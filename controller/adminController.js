@@ -2,9 +2,11 @@ const User = require("../model/userModel");
 const Category = require("../model/categoryModel");
 const Order = require("../model/orderModel");
 const Product = require("../model/productModel");
-const Coupon = require("../model/coupenModel")
+const Coupon = require("../model/coupenModel");
+const Wallet = require("../model/walletModel")
 const date = require("../config/dateGenerator");
 const time = require("../config/timeGenerator");
+const id = require("../config/randomID");
 const exceljs = require("exceljs");
 
 //========================================= Render admin login page==============================================
@@ -448,6 +450,40 @@ const statusChanger = async (req, res) => {
                         await product.save();
                     }
                 }
+                // if payment methos is online payment the amount will give back into user wallet
+                if(orderData.paymentMethod === "Razorpay"){
+                    const cancelUser = await User.findOne({email : orderData.userEmail});
+                    const userWallet = await Wallet.findOne({userID : cancelUser._id});
+                    let status;
+                    if(newStatus === "Cancelled"){
+                        status = "Order cancel"
+                    }else{
+                        status = "Order returned"
+                    }
+                    if(userWallet){
+                        const newTransaction = {
+                            transactionID : "Furnix" + id(),
+                            amount : orderData.total,
+                            date : date(),
+                            status : status
+                        }
+                        userWallet.transactions.push(newTransaction);
+                        userWallet.walletAmount += orderData.total;
+                        userWallet.save();
+                    } else{
+                        const newData = {
+                            userID : cancelUser._id,
+                            walletAmount : orderData.total,
+                            transactions : {
+                                transactionID : "Furnix" + id(),
+                                amount : orderData.total,
+                                date : date(),
+                                status : status
+                            }
+                        };
+                        await Wallet.create(newData);
+                    }
+                }
             }
             res.json({ status: "okay" })
         } else {
@@ -563,7 +599,7 @@ module.exports = {
     orderInfo,
     statusChanger,
     salesreport,
-    excelDownload
+    excelDownload,
 }
 
 

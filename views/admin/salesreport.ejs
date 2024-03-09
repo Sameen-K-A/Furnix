@@ -171,13 +171,13 @@ input[type="date"]::-webkit-calendar-picker-indicator {
                 <div class="card-body">
                     <% if (deliveredOrders.length !=0) { %>
                         <div class="table-responsive">
-                            <table class="table table-hover" id="sales-table">
+                            <table class="table table-hover" id="sales-table" style="border-collapse: collapse; width: 100%; border: 1px solid black;">
                                 <thead class="text-center" style="background-color: black; color: white;">
                                     <tr>
                                         <th>OrderID</th>
                                         <th scope="col">Email</th>
                                         <th scope="col">Total</th>
-                                        <th scope="col">Deliverd date</th>
+                                        <th scope="col">Delivered date</th>
                                         <th scope="col">Coupon code</th>
                                         <th scope="col">Coupon discount</th>
                                         <th scope="col">Payment method</th>
@@ -185,10 +185,10 @@ input[type="date"]::-webkit-calendar-picker-indicator {
                                 </thead>
                                 <tbody class="text-center">
                                     <% for( let i = 0; i < deliveredOrders.length; i++ ) { %>
-                                        <tr>
+                                        <tr style="border-bottom: 1px solid black;">
                                             <td><%= deliveredOrders[i].orderID %></td>
                                             <td><%= deliveredOrders[i].userEmail %></td>
-                                            <td>₹<%= deliveredOrders[i].total %>.00</td>
+                                            <td>₹<%= deliveredOrders[i].total %></td>
                                             <td><%= deliveredOrders[i].deliveredDateTime %></td>
                                             <td>
                                                 <% if (deliveredOrders[i].couponCode === "false") { %>
@@ -196,13 +196,12 @@ input[type="date"]::-webkit-calendar-picker-indicator {
                                                 <% } else { %>
                                                     <%= deliveredOrders[i].couponCode %>
                                                 <% } %>
-                                                
                                             </td>
                                             <td>
                                                 <% if (deliveredOrders[i].couponCode === "false") { %>
                                                     Not used
                                                 <% } else { %>
-                                                    ₹<%= deliveredOrders[i].couponOffer %>.00
+                                                    ₹<%= deliveredOrders[i].couponOffer %>
                                                 <% } %>
                                             </td>
                                             <td><%= deliveredOrders[i].paymentMethod %></td>
@@ -210,10 +209,50 @@ input[type="date"]::-webkit-calendar-picker-indicator {
                                     <% } %>
                                 </tbody>
                             </table>
-                        </div> 
+                        </div>
+                        
+                        
                     <% } else { %>
                         <h5>No orders found </h5>
                     <% } %>
+
+                    <!-- Total table-->
+                    <div class="table-responsive col-lg-4" style="margin-top: 40px;">
+                        <table class="table table-hover" style="border-collapse: collapse; width: 100%; border: 1px solid black;">
+                            <thead class="text-center" style="background-color: black; color: white;">
+                                <tr>
+                                    <th colspan="2">Overall sales summary</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-center">
+                                <tr>
+                                    <td style="border-bottom: 1px solid black;">Total sales</td>
+                                    <td style="border-bottom: 1px solid black;"><%= deliveredOrders.length %></td>
+                                </tr>
+                                <tr>
+                                    <% let totalAmount = 0 %>
+                                    <% if (deliveredOrders.length > 0) { %>
+                                        <% for( let i = 0; i < deliveredOrders.length; i++ ) { %>
+                                            <% totalAmount += deliveredOrders[i].subTotal %>
+                                        <% } %>
+                                    <% } %>
+                                    <td style="border-bottom: 1px solid black;">Total amount</td>
+                                    <td style="border-bottom: 1px solid black;">₹<%= totalAmount %></td>
+                                </tr>                                
+                                <tr>
+                                    <% let offerAmount = 0 %>
+                                    <% if (deliveredOrders.length > 0) { %>
+                                        <% for( let i = 0; i < deliveredOrders.length; i++ ) { %>
+                                            <% offerAmount += deliveredOrders[i].couponOffer %>
+                                        <% } %>
+                                    <% } %>
+                                    <td style="border-bottom: 1px solid black;">Total discount</td>
+                                    <td style="border-bottom: 1px solid black;">₹<%= offerAmount %></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
                 </div>
             </div>
         </section> 
@@ -257,7 +296,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     }
 
     function generatePDF(type) {
-    const downloadData = document.querySelector(".table-responsive");
+    const downloadData = document.querySelector(".card-body");
     if (type === 'pdf') {
         html2pdf().from(downloadData).save();
     } else if (type === 'excel') {

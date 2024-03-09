@@ -236,15 +236,15 @@ const cancelOrder = async (req, res) => {
     try {
         const cancelID = req.body.id;
         const cancelProcess = await Order.updateOne({ _id: cancelID }, { status: "Cancelled" });
-        if (cancelProcess.modifiedCount === 1) {
+        if (cancelProcess.modifiedCount === 1) {    
             const cancelProducts = await Order.findOne({ _id: cancelID });
-             // recover coupon
+        //      // recover coupon
             const user = await User.findOne({email : cancelProducts.userEmail});
             const usedCoupon = await Coupon.findOne({coupencode : cancelProducts.couponCode});
             if(usedCoupon != null){
                 await Coupon.updateOne({ coupencode: cancelProducts.couponCode },{$push: { availableUsers: user._id.toString() }, $pull: { redeemedUsers: user._id.toString() }});
             }
-            // product quantity push back
+        //     // product quantity push back
             for (let j = 0; j < cancelProducts.product.length; j++) {
                 const cancelProduct = cancelProducts.product[j];
                 const product = await Product.findById(cancelProduct._id);
@@ -252,6 +252,34 @@ const cancelOrder = async (req, res) => {
                     const quantity = parseInt(cancelProduct.cartQty);
                     product.stock += quantity;
                     await product.save();
+                }
+            }
+            // if payment methos is online payment the amount will give back into user wallet
+            if(cancelProducts.paymentMethod === "Razorpay"){
+                const cancelUser = await User.findOne({email : req.session.user});
+                const userWallet = await Wallet.findOne({userID : cancelUser._id});
+                if(userWallet){
+                    const newTransaction = {
+                        transactionID : "Furnix" + idGenerator(),
+                        amount : cancelProducts.total,
+                        date : dateGenerator(),
+                        status : "Order cancel"
+                    }
+                    userWallet.transactions.push(newTransaction);
+                    userWallet.walletAmount += cancelProducts.total;
+                    userWallet.save();
+                } else{
+                    const newData = {
+                        userID : cancelUser._id,
+                        walletAmount : cancelProducts.total,
+                        transactions : {
+                            transactionID : "Furnix" + idGenerator(),
+                            amount : cancelProducts.total,
+                            date : dateGenerator(),
+                            status : "Order cancel"
+                        }
+                    };
+                    await Wallet.create(newData);
                 }
             }
             res.json({ status: "okay" });
