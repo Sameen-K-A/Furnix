@@ -448,6 +448,38 @@ const successwallet = async (req , res) => {
     }
 }
 
+
+//========================================= Invoice download page is rendering ==============================================
+
+const invoicepost = async (req , res) => {
+    try {
+        const details= req.body.orderID;
+        if(details){
+            req.session.invoiceID = details;
+            res.json({status : "okay"})
+        }else{
+            res.json({status : "oops"})
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+//========================================= Invoice download page is rendering ==============================================
+
+const invoice = async (req , res) => {
+    try {
+        const orderData = await Order.findOne({_id : req.session.invoiceID});
+        const invoiceData = {
+            id : "Invoice" + idGenerator(),
+            date : dateGenerator()
+        }
+        res.render("userProfile/invoice" , {orderData , invoiceData})
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 //========================================= Exporting all modules ==============================================
 
 module.exports = {
@@ -469,5 +501,7 @@ module.exports = {
     coupons,
     wallet,
     walletpost,
-    successwallet
+    successwallet,
+    invoicepost,
+    invoice
 }

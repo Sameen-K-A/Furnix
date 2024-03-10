@@ -251,7 +251,7 @@ const applyCoupon = async (req, res)=>{
                         if(user.total >= coupon.minBuyRate && coupon.maxBuyRate >= user.total){
                             const total_amount = user.total;
                             const descount_percentage = coupon.discountPercentage;
-                            let balanceAmount = Math.round(total_amount - (total_amount * (descount_percentage / 100)));
+                            let balanceAmount = Math.round(total_amount - (total_amount * (descount_percentage / 100)));        
                             res.json({ status: "okay", balance: balanceAmount });
                         } else{
                             res.json({ status: "minAmount", minamount: coupon.minBuyRate , maxAmount : coupon.maxBuyRate});

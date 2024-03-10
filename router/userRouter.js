@@ -37,15 +37,6 @@ router.get("/allproduct" , isBlocked, sortFilterController.allproduct);
 router.post("/categorysort" , isBlocked, sortFilterController.categorysort);
 router.post("/pricesort" , isBlocked, sortFilterController.pricesort);
 router.post("/ratingsort" , isBlocked, sortFilterController.ratingsort);
-// router.get("/nameascending" , isBlocked, sortFilterController.nameascending);
-// router.get("/namedescending" , isBlocked, sortFilterController.namedescending);
-// router.get("/fiverated" , isBlocked, sortFilterController.fiverated);
-// router.get("/fourrated" , isBlocked, sortFilterController.fourrated);
-// router.get("/threerated" , isBlocked, sortFilterController.threerated);
-// router.get("/tworated" , isBlocked, sortFilterController.tworated);
-// router.get("/onerated" , isBlocked, sortFilterController.onerated);
-// router.get("/leatest" , isBlocked, sortFilterController.leatest);
-// router.get("/oldest" , isBlocked, sortFilterController.oldest);
 
 // product review;
 router.post("/feedback" , isUser , isBlocked , userController.feedback)
@@ -103,6 +94,10 @@ router.post("/search" , userController.search)
 router.get("/wallet" , isUser , isBlocked , userProfileController.wallet);
 router.post("/wallet" , isUser , isBlocked , userProfileController.walletpost);
 router.post("/successwallet" , isUser , isBlocked , userProfileController.successwallet);
+
+// invoice
+router.get("/invoice" ,isUser , isBlocked , userProfileController.invoice)
+router.post("/invoice" ,isUser , isBlocked , userProfileController.invoicepost)
 
 
 

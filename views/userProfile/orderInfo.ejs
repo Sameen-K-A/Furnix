@@ -39,6 +39,13 @@
         rel="stylesheet">
 </head>
 <style>
+    .invoice-button {
+    background-color: black;
+    color: white;
+    width: 100px;
+    height: 30px;
+}
+
     .custom-button1 {
         width: 100px;
         height: 40px;
@@ -452,8 +459,18 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
-                                    <div>
+                                    <hr style="margin-top: 70px;">
+                                    <div class="d-flex justify-content-around align-items-center">
+                                        <h5>More action</h5>
+                                        <div class="d-flex align-items-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 384 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#5e5e5e" d="M64 0C28.7 0 0 28.7 0 64V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V160H256c-17.7 0-32-14.3-32-32V0H64zM256 0V128H384L256 0zM112 256H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16z"/></svg>
+                                            download invoice
+                                        </div>
+                                        <button class="invoice-button" onclick="invoice('<%= JSON.stringify(orderInfodata._id) %>')">
+                                            Invoice
+                                        </button>                                        
+                                    </div>                                    
+                                    <div >
                                         <% if (orderInfodata.status === "Delivered") { %>
                                             <hr>
                                             <button style="width: 100%; background-color: #e8e8e8; padding-top: 15px; padding-bottom: 12px; padding-left: 20px;" onclick="questionopen()" id="returnbtn">
@@ -992,6 +1009,35 @@ function cancelsearch(){
     const prodatasDiv = document.getElementById("prodatas").innerHTML = "";
     const searchValue = document.getElementById("myInput").value =""
 }
+
+function invoice(orderID) {
+    var orderID= JSON.parse(orderID);
+    $.ajax({
+        url: "/invoice",
+			method: "post",
+			data: {
+				orderID
+			},
+			success: (response) => {
+				if (response.status === "okay") {
+					window.location.href = "/invoice"
+				} else {
+					Swal.fire({
+                        icon: "error",
+                        iconColor: "#ff0000",
+                        title: "Some network issue please try again later",
+                        showConfirmButton: false,
+                        customClass: {
+                            popup: 'swal-custom',
+                        },
+                        timer: 1500
+                    });
+				}
+			}
+    })
+}
+
+
 
 </script>
 
