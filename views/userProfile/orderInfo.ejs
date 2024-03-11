@@ -441,7 +441,7 @@
                                                     </tbody>
                                                 </table>
                                                 <div class="justify-content-center align-items-center d-flex">
-                                                    <% if (orderInfodata.status != "Cancelled" && orderInfodata.status != "Delivered" && orderInfodata.status != "Return order processing" && orderInfodata.status != "Returned order recieved" && orderInfodata.status != "Return order cancel" ) { %>
+                                                    <% if (orderInfodata.status != "Cancelled" && orderInfodata.status != "Delivered" && orderInfodata.status != "Return order processing" && orderInfodata.status != "Returned order recieved" && orderInfodata.status != "Return order cancel" && orderInfodata.status != "Payment failed") { %>
                                                         <button style="background-color: rgb(0, 0, 0); width: 50%; color: #ffffff; border-radius: 50px; height: 35px;" onclick="cancelorder('<%= orderInfodata._id %>')">Cancel order</button>
                                                     <% } %>
                                                     <% if (orderInfodata.status === "Delivered" && orderInfodata.status === "Returned order recieved") { %>
@@ -455,21 +455,26 @@
                                                     <% if (orderInfodata.status === "Return order processing") { %>
                                                         <button style="background-color: rgb(0, 0, 0); width: 50%; color: #ffffff; border-radius: 50px; height: 35px;" onclick="cancelreturnorder('<%= orderInfodata._id %>')">Cancel return order</button>
                                                     <% } %>
+                                                    <% if (orderInfodata.status === "Payment failed") { %>
+                                                        <button style="background-color: rgb(0, 0, 0); width: 50%; color: #ffffff; border-radius: 50px; height: 35px;" onclick="continueoPayment('<%= JSON.stringify(orderInfodata) %>')">Continue payment</button>
+                                                    <% } %>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <hr style="margin-top: 70px;">
-                                    <div class="d-flex justify-content-around align-items-center">
-                                        <h5>More action</h5>
-                                        <div class="d-flex align-items-center">
-                                            <svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 384 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#5e5e5e" d="M64 0C28.7 0 0 28.7 0 64V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V160H256c-17.7 0-32-14.3-32-32V0H64zM256 0V128H384L256 0zM112 256H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16z"/></svg>
-                                            download invoice
-                                        </div>
-                                        <button class="invoice-button" onclick="invoice('<%= JSON.stringify(orderInfodata._id) %>')">
-                                            Invoice
-                                        </button>                                        
-                                    </div>                                    
+                                    <% if (orderInfodata.status === "Delivered") { %>
+                                        <div class="d-flex justify-content-around align-items-center">
+                                            <h5>More action</h5>
+                                            <div class="d-flex align-items-center">
+                                                <svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 384 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#5e5e5e" d="M64 0C28.7 0 0 28.7 0 64V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V160H256c-17.7 0-32-14.3-32-32V0H64zM256 0V128H384L256 0zM112 256H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16z"/></svg>
+                                                download invoice
+                                            </div>
+                                            <button class="invoice-button" onclick="invoice('<%= JSON.stringify(orderInfodata._id) %>')">
+                                                Invoice
+                                            </button>                                        
+                                        </div>                                    
+                                    <% } %>
                                     <div >
                                         <% if (orderInfodata.status === "Delivered") { %>
                                             <hr>
@@ -1037,7 +1042,16 @@ function invoice(orderID) {
     })
 }
 
-
+function continueoPayment(details){
+    const orderDetails = JSON.parse(details);
+    $.ajax({
+        url: "/payFailedpayment",
+        method: "post",
+        data: {
+            orderDetails
+        },
+    })
+}
 
 </script>
 

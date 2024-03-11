@@ -480,6 +480,40 @@ const invoice = async (req , res) => {
     }
 }
 
+//========================================= Invoice download page is rendering ==============================================
+
+const payFailedpayment = async (req , res) => {
+    try {
+        const details = req.body.orderDetails;
+        let processing = false;
+        for (let i = 0; i < details.product.length; i++) {
+            const products = details.product[i];
+            console.log(typeof(products.isBlocked));
+            if(products.isBlocked === "false"){
+                if(products.cartQty <= products.stock){
+                    processing = true;
+                } else{
+                    processing = false;
+                    console.log("stock unavailable");
+                    res.json({status : "stock"});
+                    break;
+                }
+            } else{
+                processing = false;
+                console.log("Product blocked");
+                res.json({status : "Blocked"});
+                break;
+            }
+        }
+        if(processing === true){
+            res.json({status : "okay"});
+            console.log("okay");
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 //========================================= Exporting all modules ==============================================
 
 module.exports = {
@@ -503,5 +537,6 @@ module.exports = {
     walletpost,
     successwallet,
     invoicepost,
-    invoice
+    invoice,
+    payFailedpayment
 }

@@ -276,6 +276,8 @@
                                                                                                     <span class="orderStatus">Return cancelled</span>
                                                                                                 <% } else if (orderData[i].status==="Delivered" ) { %>
                                                                                                     <span class="orderStatus">Delivered</span>
+                                                                                                <% } else if (orderData[i].status==="Payment failed") { %>
+                                                                                                    <span class="orderStatus">Payment failed</span>
                                                                                                 <% } %>
 
                                                                                         </td>

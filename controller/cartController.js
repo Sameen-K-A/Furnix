@@ -337,7 +337,6 @@ const checkoutPost = async (req, res) => {
                             let newTotal = Math.round(userData.total - (userData.total * (findCoupon.discountPercentage / 100)));
                             couponOffer = Math.round(userData.total - newTotal);
                             userData.total = newTotal;
-                            userData.save()
                         }
                     }
                     // create new order data
@@ -355,16 +354,21 @@ const checkoutPost = async (req, res) => {
                         couponOffer : couponOffer,
                         couponCode : couponCode
                     }
-                    const orderProcess = await Order.create(orderData);
-                    if (orderProcess) {
-                        if(usedCouponCode != undefined){
-                            // pull that userID from coupons available users and push that userID into redeemed user list into coupon
-                            const removeID = userData._id.toString();
-                            await Coupon.updateOne({ coupencode: usedCouponCode },{$pull: { availableUsers: removeID }, $push: { redeemedUsers: removeID }});
+                    if(orderData.total <= 2000){
+                        userData.save();
+                        const orderProcess = await Order.create(orderData);
+                        if (orderProcess) {
+                            if(usedCouponCode != undefined){
+                                // pull that userID from coupons available users and push that userID into redeemed user list into coupon
+                                const removeID = userData._id.toString();
+                                await Coupon.updateOne({ coupencode: usedCouponCode },{$pull: { availableUsers: removeID }, $push: { redeemedUsers: removeID }});
+                            }
+                            res.json({ status: "true"  })
+                        } else {
+                            res.json({ status: "network" })
                         }
-                        res.json({ status: "true"  })
-                    } else {
-                        res.json({ status: "network" })
+                    } else{
+                        res.json({status : "cashondeliverylimit"})
                     }
                 } else {
                     res.json({ status: "stocklimit" });
@@ -461,6 +465,33 @@ const razorpaysuccess = async (req, res) => {
     }
 }
 
+//========================================= User order failed handling page rendering ==============================================
+
+const razorpayfailed = async (req, res) => {
+    try {
+        const {orderDetails} = req.body;
+        const userData = await User.findOne({email : req.session.user});
+        if(userData){
+            // creating order
+            const orderProcess = await Order.create(orderDetails);
+            if (orderProcess) {
+                if(orderDetails.couponCode != "false"){
+                    console.log("coupon used");
+                    // pull that userID from coupons available users and push that userID into redeemed user list into coupon
+                    const removeID = userData._id.toString();
+                    await Coupon.updateOne({ coupencode: orderDetails.couponCode },{$pull: { availableUsers: removeID }, $push: { redeemedUsers: removeID }});
+                }
+                orderProcess.status = "Payment failed";
+                orderProcess.save();
+                res.json({ status: "true"  })
+            }
+        }
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 //========================================= User order successfully page rendering ==============================================
 
 const orderSuccessfull = async (req, res) => {
@@ -500,5 +531,6 @@ module.exports = {
     applyCoupon,
     checkoutPost,
     razorpaysuccess,
+    razorpayfailed,
     orderSuccessfull
 }

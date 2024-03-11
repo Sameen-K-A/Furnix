@@ -638,7 +638,19 @@
 											window.location.reload()
 										}
 									});
-								} else if (response.status === "network") {
+								}else if (response.status === "cashondeliverylimit") {
+									Swal.fire({
+										title: "Amount reached",
+										text: "Cash on delivery is only available for payments below 2000. Please use another payment method for amounts exceeding this limit.",
+										showCancelButton: false,
+										confirmButtonColor: "#39e75f",
+										confirmButtonText: "Okay",
+										customClass: {
+											popup: 'swal-custom',
+											cancelButton: 'swal-custom-ok-btn'
+										}
+									});
+								}else if (response.status === "network") {
 									Swal.fire({
 										icon: "error",
 										title: "Oops!.. Network is busy please refresh",
@@ -688,12 +700,7 @@
 									};
 									var rzp1 = new Razorpay(options);
 									rzp1.on('payment.failed', function (response) {
-										Swal.fire({
-											title: "Payment failed",
-											html: response.error.reason,
-											icon: "error",
-											timer: 2000
-										});
+										failedpayment(orderDetails)
 									});
 									rzp1.open();
 								}
@@ -747,6 +754,21 @@
 						},
 						timer: 1500
 					});
+				}
+			} 
+		})
+	}
+
+	function failedpayment(orderDetails){
+		$.ajax({
+			url: "/razorpayfailed",
+			method: "post",
+			data: {
+				orderDetails
+			},
+			success: (response) => {
+				if(response.status === "true"){
+					window.history.back()
 				}
 			} 
 		})

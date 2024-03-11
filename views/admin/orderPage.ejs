@@ -47,7 +47,6 @@
         color: rgb(0, 0, 0);
         border: 1px solid black;
     }
-    np
 
     
 </style>
@@ -269,7 +268,7 @@
                             </thead>
                             <tbody class="text-center">
                                 <% for( let i=0; i < orderData.length; i++ ) { %>
-                                    <% if (orderData[i].status==="Ordered" || orderData[i].status==="Cancelled" || orderData[i].status==="Shipped" || orderData[i].status==="Delivered") { %>
+                                    <% if (orderData[i].status==="Ordered" || orderData[i].status==="Cancelled" || orderData[i].status==="Shipped" || orderData[i].status==="Delivered" || orderData[i].status==="Payment failed") { %>
                                         <tr>
                                             <td>
                                                 <%= orderData[i].orderID %>
@@ -284,7 +283,9 @@
                                                 <% } else if (orderData[i].status==="Cancelled") { %>
                                                     <span class="orderStatus">Cancelled</span>
                                                 <% } else if (orderData[i].status==="Shipped") { %>
-                                                        <span class="orderStatus">Shipped</span>
+                                                    <span class="orderStatus">Shipped</span>
+                                                <% } else if (orderData[i].status==="Payment failed") { %>
+                                                    <span class="orderStatus">Payment failed</span>
                                                 <% } else if (orderData[i].status==="Delivered" ) { %>
                                                     <span class="orderStatus">Delivered</span>
                                                 <% } %>

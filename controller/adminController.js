@@ -5,7 +5,6 @@ const Product = require("../model/productModel");
 const Coupon = require("../model/coupenModel");
 const Wallet = require("../model/walletModel")
 const date = require("../config/dateGenerator");
-const time = require("../config/timeGenerator");
 const id = require("../config/randomID");
 const exceljs = require("exceljs");
 
@@ -59,7 +58,71 @@ const adminHome = async (req, res) => {
         for(let i=0 ; i< order.length ; i++){
             revenue += order[i].total
         }
-        res.render("admin/adminHome" , {user , category , product , order , revenue})
+        // line chart user line
+        const UserdayArray = [0,0,0,0,0,0,0];
+        for (let i = 0; i < user.length; i++) {
+            let createddate = new Date(user[i].createdOn);
+            createddate = createddate.getDay();
+            UserdayArray[createddate] += 1;
+        };
+        // line chart order counting each day
+        const orderData = await Order.find({});
+        const orderdayArray = [0,0,0,0,0,0,0];
+        for (let i = 0; i < orderData.length; i++) {
+            let dateOfOrder = new Date(orderData[i].date);
+            dateOfOrder = dateOfOrder.getDay();
+            orderdayArray[dateOfOrder] += 1
+        };
+        // Bar chart weekly revenew
+        const revenewDayaArray = [0,0,0,0,0,0,0];
+        for (let i = 0; i < orderData.length; i++) {
+            if(orderData[i].paymentMethod === "Cash on delivery"){
+                if(orderData[i].status === "Delivered" || orderData[i].status === "Return order processing" || orderData[i].status === "Return order cancel"){
+                    let dateOfOrder = new Date(orderData[i].date);
+                    dateOfOrder = dateOfOrder.getDay();
+                    revenewDayaArray[dateOfOrder] += orderData[i].total;
+                }
+            }
+            if(orderData[i].paymentMethod === "Razorpay"){
+                if(!orderData[i].status === "Cancelled" || !orderData[i].status === "Return order recieved"){
+                    let dateOfOrder = new Date(orderData[i].date);
+                    dateOfOrder = dateOfOrder.getDay();
+                    revenewDayaArray[dateOfOrder] += orderData[i].total;
+                }
+            }
+        }
+        // Category based rewnew chart
+        // const catNames = []
+        // for (let i = 0; i < category.length; i++) {
+        //     catNames.push(category[i].name);
+        // }
+
+        // top 5 products
+        const productCounts = await Order.aggregate([
+            { $unwind: "$product" },{ $group: { _id: "$product.name", count: { $sum: 1 } } },
+            { $sort: { count: -1 } }, { $limit: 5 },{ $project: { _id: 0, product: "$_id" } }
+        ]);
+        const productList = productCounts.map(item => item.product);
+        const top5products = await Product.find({ name: { $in: productList } });
+
+        // top 5 category
+        const productCategoryCounts = await Order.aggregate([
+            { $unwind: "$product" },
+            { $group: { _id: "$product.categoryName", count: { $sum: 1 } } },
+            { $sort: { count: -1 } },
+            { $limit: 5 },
+            { $project: { _id: 0, category: "$_id", count: 1 } }
+        ]);
+        let productcatList = productCategoryCounts.map(item => item.category);
+        for (const categoryItem of category) {
+            if (productcatList.length >= 5) break;
+            if (!productcatList.includes(categoryItem.name)) {
+                productcatList.push(categoryItem.name);
+            }
+        }
+
+        
+        res.render("admin/adminHome" , {user , category , product , order , revenue , UserdayArray , orderdayArray , revenewDayaArray , top5products , productcatList})
     } catch (error) {
         console.log(error);
     }
@@ -427,9 +490,8 @@ const statusChanger = async (req, res) => {
         const orderData = await Order.findById({ _id: changeOrderID });
         if (orderData.status !== newStatus) {
             if(newStatus === "Delivered"){
-                currentTime = time();
                 currentDate = date();
-                const dateTime = currentTime + " - " + currentDate;
+                const dateTime = currentDate;
                 orderData.deliveredDateTime = dateTime;
             }
             orderData.status = newStatus;

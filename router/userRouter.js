@@ -75,8 +75,13 @@ router.post("/cartMinus" , isBlocked , cartController.cartMinus);
 router.get("/checkingCheckout" , isUser , isBlocked , cartController.checkingCheckout)
 router.get("/checkout" , isUser , isBlocked , cartController.checkout);
 router.post("/checkout" , isUser , isBlocked , cartController.checkoutPost);
-router.post("/razorpaysuccess" , isUser , isBlocked , cartController.razorpaysuccess)
+router.post("/razorpaysuccess" , isUser , isBlocked , cartController.razorpaysuccess);
+router.post("/razorpayfailed" , isUser , isBlocked , cartController.razorpayfailed);
 router.get("/orderSuccessfull" , isUser , isBlocked , cartController.orderSuccessfull);
+
+// failed payment
+router.post("/payFailedpayment" , isUser , isBlocked , userProfileController.payFailedpayment);
+
 
 //user wishlist side
 router.get("/wishlist" , userController.wishlistget);
