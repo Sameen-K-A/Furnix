@@ -1,5 +1,6 @@
 const Product = require("../model/productModel");
 const Category = require("../model/categoryModel");
+const { name } = require("ejs");
 
 //========================================= All product page rendering ==============================================
 
@@ -80,19 +81,39 @@ const ratingsort = async (req, res) => {
         let products;
         if(req.session.categorySearch){
             if(starCount === 5){
-                products = await Product.find({categoryID : req.session.categorySearch , avgStar : starCount , isBlocked : false});
+                if(req.session.categorySearch === "All"){
+                    products = await Product.find({avgStar : starCount , isBlocked : false});
+                } else{
+                    products = await Product.find({categoryID : req.session.categorySearch , avgStar : starCount , isBlocked : false});
+                }
             }
             if(starCount === 4){
-                products = await Product.find({categoryID : req.session.categorySearch , avgStar : starCount , isBlocked : false});
+                if(req.session.categorySearch === "All"){
+                    products = await Product.find({avgStar : starCount , isBlocked : false});
+                } else{
+                    products = await Product.find({categoryID : req.session.categorySearch , avgStar : starCount , isBlocked : false});
+                }
             }
             if(starCount === 3){
-                products = await Product.find({categoryID : req.session.categorySearch , avgStar : starCount , isBlocked : false});
+                if(req.session.categorySearch === "All"){
+                    products = await Product.find({avgStar : starCount , isBlocked : false});
+                } else{
+                    products = await Product.find({categoryID : req.session.categorySearch , avgStar : starCount , isBlocked : false});
+                }
             }
             if(starCount === 2){
-                products = await Product.find({categoryID : req.session.categorySearch , avgStar : starCount , isBlocked : false});
+                if(req.session.categorySearch === "All"){
+                    products = await Product.find({avgStar : starCount , isBlocked : false});
+                } else{
+                    products = await Product.find({categoryID : req.session.categorySearch , avgStar : starCount , isBlocked : false});
+                }
             }
             if(starCount === 1){
-                products = await Product.find({categoryID : req.session.categorySearch , avgStar : starCount , isBlocked : false});
+                if(req.session.categorySearch === "All"){
+                    products = await Product.find({avgStar : starCount , isBlocked : false});
+                } else{
+                    products = await Product.find({categoryID : req.session.categorySearch , avgStar : starCount , isBlocked : false});
+                }
             }
         } else{
             if(starCount === 5){
@@ -117,105 +138,95 @@ const ratingsort = async (req, res) => {
     }
 }
 
+//========================================= category and name based sort ajax call rendering ==============================================
 
-//========================================= Sort product based on name Ascending order ==============================================
+const nameSort = async (req, res) => {
+    try {
+        const sortingType = req.body.value;
+        let products;
+        if(req.session.categorySearch){
+            if(sortingType === "default"){
+                if(req.session.categorySearch === "All"){
+                    products = await Product.find({isBlocked : false});
+                } else{
+                    products = await Product.find({categoryID : req.session.categorySearch , isBlocked : false});
+                }
+            }
+            if(sortingType === "ascending"){
+                if(req.session.categorySearch === "All"){
+                    products = await Product.find({isBlocked : false}).sort({name : 1});
+                } else{
+                    products = await Product.find({categoryID : req.session.categorySearch ,isBlocked : false}).sort({name : 1});
+                }
+            }
+            if(sortingType === "descending"){
+                if(req.session.categorySearch === "All"){
+                    products = await Product.find({isBlocked : false}).sort({name : -1});
+                } else{
+                    products = await Product.find({categoryID : req.session.categorySearch ,isBlocked : false}).sort({name : -1});
+                }
+            }
+        } else{
+            if(sortingType === "default"){
+                products = await Product.find({isBlocked : false});
+            }
+            if(sortingType === "ascending"){
+                products = await Product.find({isBlocked : false}).sort({name : 1});
+            }
+            if(sortingType === "descending"){
+                products = await Product.find({isBlocked : false}).sort({name : -1});
+            }
+        }
+        res.json({status : "okay" , products : products})
+    } catch (error) {
+        console.log(error);
+    }
+}
 
-// const nameascending = async (req, res) => {
-//     try {
-//         const productDetails = await Product.find({isBlocked: false}).sort({ name: 1 })
-//         res.render("user/userAllProduct", { productDetails })
-//     } catch (error) {
-//         console.log(error);
-//     }
-// }
+//========================================= category and name based sort ajax call rendering ==============================================
 
-// //========================================= Sort product based on name ascending order ==============================================
-
-// const namedescending = async (req, res) => {
-//     try {
-//         const productDetails = await Product.find({isBlocked: false}).sort({ name: -1 })
-//         res.render("user/userAllProduct", { productDetails })
-//     } catch (error) {
-//         console.log(error);
-//     }
-// }
-
-// //========================================= Sort product based on 5 star rated products ==============================================
-
-// const fiverated = async (req, res) => {
-//     try {
-//         const productDetails = await Product.find({isBlocked: false , avgStar : 5})
-//         res.render("user/userAllProduct", { productDetails })
-//     } catch (error) {
-//         console.log(error);
-//     }
-// }
-
-// //========================================= Sort product based on 4 star rated products ==============================================
-
-// const fourrated = async (req, res) => {
-//     try {
-//         const productDetails = await Product.find({isBlocked: false , avgStar : 4})
-//         res.render("user/userAllProduct", { productDetails })
-//     } catch (error) {
-//         console.log(error);
-//     }
-// }
-
-// //========================================= Sort product based on 3 star rated products ==============================================
-
-// const threerated = async (req, res) => {
-//     try {
-//         const productDetails = await Product.find({isBlocked: false , avgStar : 3})
-//         res.render("user/userAllProduct", { productDetails })
-//     } catch (error) {
-//         console.log(error);
-//     }
-// }
-
-// //========================================= Sort product based on 2 star rated products ==============================================
-
-// const tworated = async (req, res) => {
-//     try {
-//         const productDetails = await Product.find({isBlocked: false , avgStar : 2})
-//         res.render("user/userAllProduct", { productDetails })
-//     } catch (error) {
-//         console.log(error);
-//     }
-// }
-
-// //========================================= Sort product based on 1 star rated products ==============================================
-
-// const onerated = async (req, res) => {
-//     try {
-//         const productDetails = await Product.find({isBlocked: false , avgStar : 1})
-//         res.render("user/userAllProduct", { productDetails })
-//     } catch (error) {
-//         console.log(error);
-//     }
-// }
-
-// //========================================= Sort product based on name ascending order ==============================================
-
-// const leatest = async (req, res) => {
-//     try {
-//         const productDetails = await Product.find({isBlocked: false}).sort({ _id: -1 })
-//         res.render("user/userAllProduct", { productDetails })
-//     } catch (error) {
-//         console.log(error);
-//     }
-// }
-
-// //========================================= Sort product based on name ascending order ==============================================
-
-// const oldest = async (req, res) => {
-//     try {
-//         const productDetails = await Product.find({isBlocked: false}).sort({ _id: 1 })
-//         res.render("user/userAllProduct", { productDetails })
-//     } catch (error) {
-//         console.log(error);
-//     }
-// }
+const dateSort = async (req, res) => {
+    try {
+        const sortingType = req.body.value;
+        let products;
+        if(req.session.categorySearch){
+            if(sortingType === "default"){
+                if(req.session.categorySearch === "All"){
+                    products = await Product.find({isBlocked : false});
+                } else{
+                    products = await Product.find({categoryID : req.session.categorySearch , isBlocked : false});
+                }
+            }
+            if(sortingType === "new"){
+                if(req.session.categorySearch === "All"){
+                    products = await Product.find({isBlocked : false}).sort({_id : -1});
+                } else{
+                    products = await Product.find({categoryID : req.session.categorySearch ,isBlocked : false}).sort({_id : -1});
+                }
+            }
+            if(sortingType === "old"){
+                if(req.session.categorySearch === "All"){
+                    products = await Product.find({isBlocked : false}).sort({_id : 1});
+                } else{
+                    products = await Product.find({categoryID : req.session.categorySearch ,isBlocked : false}).sort({_id : 1});
+                }
+            }
+        } else{
+            if(sortingType === "default"){
+                products = await Product.find({isBlocked : false});
+            }
+            if(sortingType === "new"){
+                products = await Product.find({isBlocked : false}).sort({_id : -1});
+            }
+            if(sortingType === "old"){
+                products = await Product.find({isBlocked : false}).sort({_id : 1});
+            }
+        }
+        res.json({status : "okay" , products : products})
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 //========================================= Export all modules ==============================================
 
@@ -224,13 +235,6 @@ module.exports = {
     categorysort,
     pricesort,
     ratingsort,
-    // fiverated,
-    // fourrated,
-    // threerated,
-    // tworated,
-    // onerated,
-    // nameascending,
-    // namedescending,
-    // leatest,
-    // oldest,
+    nameSort,
+    dateSort
 }

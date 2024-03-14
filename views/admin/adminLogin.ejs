@@ -85,9 +85,11 @@
                     </div> <!-- form-group// -->
                     <div class="mb-3">
                         <p>Password</p>
-                        <input class="form-control" placeholder="Enter Password" type="password" id="passwordbox" value="000">
-                        <p class="text-danger text-center" id="passwordwrong" style="display: none;">Password is wrong
-                        </p>
+                        <div style="position: relative;">
+                            <input class="form-control" placeholder="Enter Password" type="password" id="passwordbox" value="000">
+                            <i id="togglePassword" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%);" class="fa fa-eye"></i>
+                        </div>
+                        <p class="text-danger text-center" id="passwordwrong" style="display: none;">Password is wrong</p>
                     </div> <br><!-- form-group// -->
                     <!-- <div class="mb-3">
                             <a href="#" class="float-end font-sm text-muted">Forgot password?</a>
@@ -135,8 +137,23 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
         integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </body>
 <script>
+    const togglePassword = document.querySelector('#togglePassword');
+    const password = document.querySelector('#passwordbox');
+
+    togglePassword.addEventListener('click', function (e) {
+        // toggle the type attribute
+        const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+        password.setAttribute('type', type);
+        // toggle the eye slash icon
+        this.classList.toggle('fa-eye-slash');
+    });
+
+
+
+
     const email = document.getElementById("emailbox")
     let clearTimer;
     email.addEventListener("keypress", () => {

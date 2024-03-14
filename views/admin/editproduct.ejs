@@ -482,8 +482,6 @@
                 let img = event.target.previousElementSibling;
                 img.src = URL.createObjectURL(file);
                 const imagename = file.name;
-
-
                 if(imagename && index && productID){
                     $.ajax({
 					url: "/admin/editproductImagePOST",

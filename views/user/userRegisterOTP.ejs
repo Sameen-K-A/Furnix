@@ -37,10 +37,17 @@
 		href="https://fonts.googleapis.com/css?family=EB+Garamond:100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic&amp;display=swap"
 		rel="stylesheet">
 </head>
+<style>
+	.swal2-toast {
+      z-index: 1 !important;
+      color: white !important;
+      background-color: black !important;
+    }
+</style>
 
 <body class="page">
 	<div id="page" class="hfeed page-wrapper">
-		<header id="site-header" class="site-header header-v1 absolute">
+		<header id="site-header" class="site-header header-v1 absolute" style="z-index: 1;">
 			<div class="header-mobile">
 				<div class="section-padding">
 					<div class="section-container">
@@ -329,6 +336,7 @@
 	<script src="libs/slider/js/jquery.dependClass-0.1.js"></script>
 	<script src="libs/slider/js/draggable-0.1.js"></script>
 	<script src="libs/slider/js/jquery.slider.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
 		integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
 		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -337,7 +345,6 @@
 	<script src="assets/js/app.js"></script>
 </body>
 <script>
-
 	function registerOTPvalidation() {
 		const userSideOTP = document.getElementById("registerOTP").value;
 		if (userSideOTP.trim() === "") {
@@ -354,7 +361,24 @@
 				},
 				success: (response) => {
 					if (response.status === true) {
-						window.location.href = "/userLogin"
+						const Toast = Swal.mixin({
+							toast: true,
+							position: "top",
+							showConfirmButton: false,
+							timer: 2000,
+							timerProgressBar: false,
+							didOpen: (toast) => {
+							toast.onmouseenter = Swal.stopTimer;
+							toast.onmouseleave = Swal.resumeTimer;
+							}
+						});
+						Toast.fire({
+							icon: "success",
+							title: "Registration successfully"
+						});
+						setTimeout(() => {
+							window.location.href = "/userLogin"
+						}, 2000);
 					}
 					else if (response.status === false) {
 						document.getElementById("worngOTP").style.display = "block";

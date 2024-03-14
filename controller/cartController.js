@@ -391,36 +391,40 @@ const checkoutPost = async (req, res) => {
                             userData.total = newTotal;
                         }
                     }
-                    // create new order data
-                    const orderData = {
-                        product: orderProducts,
-                        address: address,
-                        orderID: idGenerator(),
-                        userEmail: req.session.user,
-                        date: dateGenerator(),
-                        time: timeGenerator(),
-                        total: userData.total,
-                        subTotal : subTotal,
-                        itemsCount: userData.cart.length,
-                        paymentMethod: payment,
-                        couponOffer : couponOffer,
-                        couponCode : couponCode
-                    }
-                    // create a option for razorpay
-                    const options = {
-                        amount: userData.total * 100,
-                        currency: 'INR',
-                        receipt: userData._id+idGenerator()+timeGenerator()
-                    };
-
-                    // create a new order for razorpay
-                    razorpayInstance.orders.create(options , async (error , order)=>{
-                        if(error){
-                            res.json({status : "razorpayfailed"})
-                        } else{
-                            res.json({status : "razorpaytrue" , razorpayOrder : order , orderDetails : orderData})
+                    if(userData.total <= 15000){
+                        // create new order data
+                        const orderData = {
+                            product: orderProducts,
+                            address: address,
+                            orderID: idGenerator(),
+                            userEmail: req.session.user,
+                            date: dateGenerator(),
+                            time: timeGenerator(),
+                            total: userData.total,
+                            subTotal : subTotal,
+                            itemsCount: userData.cart.length,
+                            paymentMethod: payment,
+                            couponOffer : couponOffer,
+                            couponCode : couponCode
                         }
-                    })
+                        // create a option for razorpay
+                        const options = {
+                            amount: userData.total * 100,
+                            currency: 'INR',
+                            receipt: userData._id+idGenerator()+timeGenerator()
+                        };
+
+                        // create a new order for razorpay
+                        razorpayInstance.orders.create(options , async (error , order)=>{
+                            if(error){
+                                res.json({status : "razorpayfailed"})
+                            } else{
+                                res.json({status : "razorpaytrue" , razorpayOrder : order , orderDetails : orderData})
+                            }
+                        })
+                    } else{
+                        res.json({status : "15000limit"})
+                    }
                 }
             }
         }

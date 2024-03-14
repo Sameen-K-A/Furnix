@@ -179,24 +179,23 @@
 														<p class="text-danger text-center" id="numberexist"
 															style="display: none;">Number already existed</p>
 
-														<div class="password text-left">
-															<label for="password">Password</label>
-															<input class="input-text" type="password"
-																name="registeruserpass" id="registeruserpass">
-														</div>
-														<p class="text-danger text-center" id="passstrength"
-															style="display: none;">Password must contain at least one <br> lowercase letter, one uppercase letter,<br> and one number
-														</p>
-														<p class="text-danger text-center" id="passlength"
-															style="display: none;">Password must need more than 8
-															character</p>
-														<div class="password text-left">
-															<label for="password">Confirm Password</label>
-															<input class="input-text" type="password"
-																name="registeruserconfpass" id="registeruserconfpass">
-														</div>
-														<p class="text-danger text-center" id="confpass"
-															style="display: none;">Confirm password is wrong</p>
+															<div class="password text-left">
+																<label for="password">Password</label>
+																<div style="position: relative;">
+																	<input class="input-text" type="password" name="registeruserpass" id="registeruserpass">
+																	<i id="togglePassword" style="position: absolute; right: 10px; top: calc(50% - 6px); transform: translateY(-50%);" class="fa fa-eye"></i>
+																</div>
+																<p class="text-danger text-center" id="passstrength" style="display: none;">Password must contain at least one <br> lowercase letter, one uppercase letter,<br> and one number</p>
+																<p class="text-danger text-center" id="passlength" style="display: none;">Password must need more than 8 character</p>
+															</div>
+															<div class="password text-left">
+																<label for="password">Confirm Password</label>
+																<div style="position: relative;">
+																	<input class="input-text" type="password" name="registeruserconfpass" id="registeruserconfpass">
+																	<i id="togglePasswordConfirm" style="position: absolute; right: 10px; top: calc(50% - 6px); transform: translateY(-50%);" class="fa fa-eye"></i>
+																</div>
+																<p class="text-danger text-center" id="confpass" style="display: none;">Confirm password is wrong</p>
+															</div>
 														<div class="password text-left">
 															<label>Referral code <span style="font-size: 13px;"> (Option)</span></label>
 															<input class="input-text" type="text"
@@ -355,6 +354,7 @@
 	</div>
 
 	<!-- Dependency Scripts -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<script src="libs/popper/js/popper.min.js"></script>
 	<script src="libs/jquery/js/jquery.min.js"></script>
 	<script src="libs/bootstrap/js/bootstrap.min.js"></script>
@@ -372,6 +372,30 @@
 </body>
 
 <script>
+	    const togglePassword = document.querySelector('#togglePassword');
+    const password = document.querySelector('#registeruserpass');
+
+    togglePassword.addEventListener('click', function (e) {
+        // toggle the type attribute
+        const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+        password.setAttribute('type', type);
+        // toggle the eye slash icon
+        this.classList.toggle('fa-eye-slash');
+    });
+
+    const togglePasswordConfirm = document.querySelector('#togglePasswordConfirm');
+    const passwordConfirm = document.querySelector('#registeruserconfpass');
+
+    togglePasswordConfirm.addEventListener('click', function (e) {
+        // toggle the type attribute
+        const type = passwordConfirm.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordConfirm.setAttribute('type', type);
+        // toggle the eye slash icon
+        this.classList.toggle('fa-eye-slash');
+    });
+
+
+
 	function registervalidation() {
 		const registername = document.getElementById("registerusername").value;
 		const registeremail = document.getElementById("registeruseremail").value;

@@ -6,6 +6,7 @@ const Coupon = require("../model/coupenModel");
 const Wallet = require("../model/walletModel")
 const date = require("../config/dateGenerator");
 const id = require("../config/randomID");
+const color = require("../config/colorGenerator");
 const exceljs = require("exceljs");
 
 //========================================= Render admin login page==============================================
@@ -91,11 +92,6 @@ const adminHome = async (req, res) => {
                 }
             }
         }
-        // Category based rewnew chart
-        // const catNames = []
-        // for (let i = 0; i < category.length; i++) {
-        //     catNames.push(category[i].name);
-        // }
 
         // top 5 products
         const productCounts = await Order.aggregate([
@@ -123,6 +119,27 @@ const adminHome = async (req, res) => {
 
         
         res.render("admin/adminHome" , {user , category , product , order , revenue , UserdayArray , orderdayArray , revenewDayaArray , top5products , productcatList})
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+//========================================= Product counts based on category sales caht details send through ajax ==============================================
+
+const CatChart = async (req, res) => {
+    try {
+        const category = await Category.find({});
+        const catNames = category.map(cat => cat.name);
+        const allOrders = await Order.aggregate([
+            { $unwind: "$product" },
+            { $group: { _id: "$product.categoryName", cartQty: { $sum: { $toInt: "$product.cartQty" } } } }
+        ]);
+        const cartQtyArray = catNames.map(catName => {
+            const order = allOrders.find(order => order._id === catName);
+            return order ? order.cartQty : 0;
+        });
+        chartColores = color(category.length);
+        res.json({status : "true" , catNames : catNames , chartColores: chartColores , cartQtyArray : cartQtyArray})
     } catch (error) {
         console.log(error);
     }
@@ -643,6 +660,7 @@ module.exports = {
     adminLogin,
     adminLoginPOST,
     adminHome,
+    CatChart,
     adminUserList,
     userBlock,
     userUnblock,

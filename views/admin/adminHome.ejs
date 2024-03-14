@@ -295,7 +295,7 @@
                 <div class="col-lg-5">
                     <div class="card mb-4">
                         <article class="card-body">
-                            <h5 class="card-title" style="text-align: center;">Revenew based on Category</h5>
+                            <h5 class="card-title" style="text-align: center;">Product counts based on category sales</h5>
                             <canvas id="samplechart" style="width:100%; max-width:700px; height: 300px;"></canvas>
                         </article>
                     </div>
@@ -392,36 +392,12 @@
     <script src="/admin-assets/js/main.js" type="text/javascript"></script>
     <script src="/admin-assets/js/custom-chart.js" type="text/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"> </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+    integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </body>
 
 <script>
-    // Sample data for the chart
-    const xValues = ["Living room", "Bedroom", "Dining", "Kitchen"];
-    const yValues = [12, 19,  2, 3];
-    const barColors = [
-        'rgba(255, 99, 132, 1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(255, 206, 86, 1)',
-        'rgba(75, 192, 192, 1)'
-    ];
-
-    // Create a pie chart
-    new Chart("samplechart", {
-        type: 'doughnut',
-        data: {
-            labels: xValues,
-            datasets: [{
-                backgroundColor: barColors,
-                data: yValues
-            }]
-        },
-        options: {
-            title: {
-                display: true,
-            }
-        }
-    });
-
 
     // Sample data for the chart
     const x2Values = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" , "Saturday"];
@@ -484,6 +460,40 @@ new Chart("linechart", {
             }
         },
     }
+});
+window.addEventListener("load" , ()=> {
+    $.ajax({
+        url: "/admin/CatChart",
+        method: "get",
+        success: (response) => {
+            if (response.status === "true") {
+                catNames = response.catNames;
+                chartColores = response.chartColores;
+                cartQtyArray = response.cartQtyArray;
+                // Sample data for the chart
+                const xValues = catNames;
+                const yValues = cartQtyArray;
+                const barColors = chartColores;
+
+                // Create a pie chart
+                new Chart("samplechart", {
+                    type: 'doughnut',
+                    data: {
+                        labels: xValues,
+                        datasets: [{
+                            backgroundColor: barColors,
+                            data: yValues
+                        }]
+                    },
+                    options: {
+                        title: {
+                            display: true,
+                        }
+                    }
+                });
+            }
+        }
+    })
 });
 </script>
 

@@ -178,11 +178,13 @@
 														</div>
 														<p class="text-danger text-center" id="emailwrong"
 															style="display: none;">Email not found</p>
-														<div class="password text-left">
-															<label for="password">Password</label>
-															<input class="input-text" type="password"
-																name="userloginpassword" id="userloginpassword" value="Sameen77">
-														</div>
+															<div class="password text-left">
+																<label for="password">Password</label>
+																<div style="position: relative;">
+																	<input class="input-text" type="password" name="userloginpassword" id="userloginpassword" value="Sameen77">
+																	<i id="togglePassword" style="position: absolute; right: 10px; top: calc(50% - 6px); transform: translateY(-50%);" class="fa fa-eye"></i>
+																</div>
+															</div>
 														<p class="text-danger text-center" id="passwordwrong"
 															style="display: none;">Password is wrong</p>
 
@@ -355,10 +357,26 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
 		integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
 		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<!-- Site Scripts -->
 	<script src="assets/js/app.js"></script>
 </body>
 <script>
+
+const togglePassword = document.querySelector('#togglePassword');
+    const password = document.querySelector('#userloginpassword');
+
+    togglePassword.addEventListener('click', function (e) {
+        // toggle the type attribute
+        const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+        password.setAttribute('type', type);
+        // toggle the eye slash icon
+        this.classList.toggle('fa-eye-slash');
+    });
+
+
+
+
 	function emailPassverify() {
 
 		const email = document.getElementById("userloginemail").value;

@@ -391,7 +391,7 @@ const walletpost = async (req , res) => {
                 } else{
                     res.json({status : "razorpaytrue" , razorpayOrder : order , userData : userData , amount : amount})
                 }
-            })
+            });
         }
     } catch (error) {
         console.log(error);
@@ -488,26 +488,74 @@ const payFailedpayment = async (req , res) => {
         let processing = false;
         for (let i = 0; i < details.product.length; i++) {
             const products = details.product[i];
-            console.log(typeof(products.isBlocked));
-            if(products.isBlocked === "false"){
-                if(products.cartQty <= products.stock){
+            const orginalProduct = await Product.findOne({_id : products._id });
+            if(orginalProduct.isBlocked === false){
+                if(products.cartQty <= orginalProduct.stock){
+                    // if(details.couponCode !== "false"){
+                    //     const usedCoupon = await Coupon.findOne({couponCode : details.couponCode});
+                    //     if(usedCoupon.couponStatus === "Expired"){
+                    //         processing = false;
+                    //         res.json({status : "CouponExpaired"});
+                    //     } else{
+                    //         processing = true
+                    //     }
+                    // } else{
+                    //     processing = true;
+                    // }
                     processing = true;
                 } else{
                     processing = false;
-                    console.log("stock unavailable");
                     res.json({status : "stock"});
                     break;
                 }
             } else{
                 processing = false;
-                console.log("Product blocked");
                 res.json({status : "Blocked"});
                 break;
             }
         }
         if(processing === true){
-            res.json({status : "okay"});
-            console.log("okay");
+            const options = {
+                amount: details.total * 100,
+                currency: 'INR',
+                receipt: details._id+idGenerator()+timeGenerator()
+            };
+    
+            // create a new order for razorpay
+            razorpayInstance.orders.create(options , async (error , order)=>{
+                if(error){
+                    res.json({status : "razorpayfailed"})
+                } else{
+                    res.json({status : "razorpaytrue" , razorpayOrder : order , orderData : details})
+                }
+            });
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+//========================================= Invoice download page is rendering ==============================================
+
+const pendingpaymentSuccess = async (req , res) => {
+    try {
+        const {response , orderDetails} = req.body;
+        let hmac=crypto.createHmac('sha256',razorpayKeySecret);
+        hmac.update(response.razorpay_order_id+"|"+response.razorpay_payment_id)
+        hmac=hmac.digest("hex")
+        if(hmac == response.razorpay_signature){
+            // change order status to ordered;
+            const updateProcess = await Order.updateOne({_id : orderDetails._id} , {status : "Ordered"});
+            if(updateProcess.modifiedCount === 1){
+                for (let i = 0; i < orderDetails.product.length; i++) {
+                    const orderedProduct = await Product.findOne({_id : orderDetails.product[i]._id});
+                    orderedProduct.stock -= parseInt(orderDetails.product[i].cartQty);
+                    await orderedProduct.save()
+                }
+                res.json({status : "complete"})
+            }
+        }else{
+            res.json({status : "paymentfailed"})
         }
     } catch (error) {
         console.log(error);
@@ -538,5 +586,6 @@ module.exports = {
     successwallet,
     invoicepost,
     invoice,
-    payFailedpayment
+    payFailedpayment,
+    pendingpaymentSuccess
 }

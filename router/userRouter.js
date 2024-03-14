@@ -37,6 +37,8 @@ router.get("/allproduct" , isBlocked, sortFilterController.allproduct);
 router.post("/categorysort" , isBlocked, sortFilterController.categorysort);
 router.post("/pricesort" , isBlocked, sortFilterController.pricesort);
 router.post("/ratingsort" , isBlocked, sortFilterController.ratingsort);
+router.post("/nameSort" , isBlocked, sortFilterController.nameSort);
+router.post("/dateSort" , isBlocked, sortFilterController.dateSort);
 
 // product review;
 router.post("/feedback" , isUser , isBlocked , userController.feedback)
@@ -81,6 +83,7 @@ router.get("/orderSuccessfull" , isUser , isBlocked , cartController.orderSucces
 
 // failed payment
 router.post("/payFailedpayment" , isUser , isBlocked , userProfileController.payFailedpayment);
+router.post("/pendingpaymentSuccess" , isUser , isBlocked , userProfileController.pendingpaymentSuccess);
 
 
 //user wishlist side

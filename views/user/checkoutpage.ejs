@@ -661,6 +661,19 @@
 										timer: 1500
 									});
 								}
+								else if (response.status === "15000limit") {
+									Swal.fire({
+										title: "Amount reached",
+										text: "Online payment is only available for payments below 15000₹.",
+										showCancelButton: false,
+										confirmButtonColor: "#39e75f",
+										confirmButtonText: "Okay",
+										customClass: {
+											popup: 'swal-custom',
+											cancelButton: 'swal-custom-ok-btn'
+										}
+									});
+								}
 
 								// razorpay ajax details
 								else if (response.status === "razorpayfailed") {
@@ -700,7 +713,7 @@
 									};
 									var rzp1 = new Razorpay(options);
 									rzp1.on('payment.failed', function (response) {
-										failedpayment(orderDetails)
+										failedpayment(orderDetails);
 									});
 									rzp1.open();
 								}

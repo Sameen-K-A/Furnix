@@ -456,7 +456,7 @@
                                                         <button style="background-color: rgb(0, 0, 0); width: 50%; color: #ffffff; border-radius: 50px; height: 35px;" onclick="cancelreturnorder('<%= orderInfodata._id %>')">Cancel return order</button>
                                                     <% } %>
                                                     <% if (orderInfodata.status === "Payment failed") { %>
-                                                        <button style="background-color: rgb(0, 0, 0); width: 50%; color: #ffffff; border-radius: 50px; height: 35px;" onclick="continueoPayment('<%= JSON.stringify(orderInfodata) %>')">Continue payment</button>
+                                                        <button style="background-color: rgb(0, 0, 0); width: 50%; color: #ffffff; border-radius: 50px; height: 35px;" onclick="continuePayment('<%= JSON.stringify(orderInfodata) %>')">Continue payment</button>
                                                     <% } %>
                                                 </div>
                                             </div>
@@ -778,6 +778,7 @@
         integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
     <!-- Site Scripts -->
     <script src="assets/js/app.js"></script>
@@ -1042,7 +1043,7 @@ function invoice(orderID) {
     })
 }
 
-function continueoPayment(details){
+function continuePayment(details){
     const orderDetails = JSON.parse(details);
     $.ajax({
         url: "/payFailedpayment",
@@ -1050,6 +1051,92 @@ function continueoPayment(details){
         data: {
             orderDetails
         },
+        success : (response) =>{
+            if(response.status === "razorpaytrue"){
+                const orderDetails = response.orderData
+                var options = {
+                    "key": "rzp_test_iqxC6hlqYjWODY",
+                    "amount": response.razorpayOrder.amount,
+                    "currency": "INR",
+                    "name": "Furnix",
+                    "description": "Test Transaction",
+                    "image": "https://example.com/your_logo",
+                    "order_id": response.razorpayOrder.id,
+                    "handler": function (response) {
+                        pendingpayment(response , orderDetails)
+                    },
+                    "prefill": { 
+                        "name": orderDetails.address.name, //your customer's name
+                        "email": orderDetails.userEmail, //your customer's name
+                        "contact": orderDetails.address.number  //Provide the customer's phone number for better conversion rates 
+                    },
+                    "notes": {
+                        "address": "Razorpay Corporate Office"
+                    },
+                    "theme": {
+                        "color": "#000000"
+                    }
+                };
+                var rzp1 = new Razorpay(options);
+                rzp1.open();
+            } else if(response.status === "Blocked"){
+                Swal.fire({
+                    title: "Oops",
+                    text: "Product has been temporaily discontinued",
+                    showCancelButton: false,
+                    confirmButtonColor: "#39e75f",
+                    confirmButtonText: "Okay",
+                    customClass: {
+                        popup: 'swal-custom',
+                        cancelButton: 'swal-custom-ok-btn'
+                    }
+                })
+            } else if(response.status === "stock"){
+                Swal.fire({
+                    icon: "error",
+                    iconColor: "red",
+                    text: "This amount of stock is currently not available ! . . . Go to your cart and check again.",
+                    customClass: {
+                        popup: 'swal-custom',
+                    },
+                    confirmButtonColor: "#03c04a"
+                });
+            }
+        }
+    })
+}
+
+function pendingpayment(response , orderDetails){
+    $.ajax({
+        url: "/pendingpaymentSuccess",
+        method: "post",
+        data: {
+            response,
+            orderDetails
+        },
+        success: (response) => {
+            if(response.status === "complete"){
+                Swal.fire({
+                    text: "Payment successfully",
+                    showConfirmButton: false,
+                    position : "bottom",
+                    timer: 1000
+                });
+                setTimeout(() => {
+                    window.location.reload()
+                }, 1000);
+            } else if (response.status === "paymentfailed") {
+                Swal.fire({
+                    icon: "error",
+                    title: "Payment failed",
+                    showConfirmButton: false,
+                    customClass: {
+                        popup: 'swal-custom',
+                    },
+                    timer: 1500
+                });
+            }
+        } 
     })
 }
 

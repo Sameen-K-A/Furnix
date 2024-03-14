@@ -9,6 +9,7 @@ const upload = require("../controller/multer folder/multer");
 router.get("/" , adminController.adminLogin);
 router.post("/adminloginPost" , adminController.adminLoginPOST);
 router.get("/adminHome" ,isAdmin, adminController.adminHome);
+router.get("/CatChart" ,isAdmin, adminController.CatChart);
 router.get("/adminUserList" ,isAdmin, adminController.adminUserList);
 router.get("/userBlock" ,isAdmin, adminController.userBlock);
 router.get("/userUnblock" ,isAdmin, adminController.userUnblock);
