@@ -107,7 +107,7 @@
 								<div class="site-logo">
 									<a href="/">
 										<img width="400" height="79" src="media/logo.png"
-											alt="Ruper – Furniture HTML Theme" />
+											alt="Ruper  Furniture HTML Theme" />
 									</a>
 								</div>
 							</div>
@@ -183,28 +183,41 @@
 									<div class="header-page-link">
 
 										<!-- Search -->
-										<div class="search-box">
+										<div class="search-box" style="margin-right: -8px;">
 											<div class="search-toggle"><i class="icon-search"></i></div>
 										</div>
 
 										<!-- Wishlist -->
 										<div class="wishlist-box">
 											<a href="/wishlist"><i class="icon-heart"></i></a>
+											<% if (wishCount != undefined) { %>
+												<span class="count-wishlist" id="wishCount"><%= wishCount %></span>
+											<% } else { %>
+												<span class="count-wishlist">0</span>
+											<% } %>
+												
 										</div>
-
+										
+										
 										<!-- Cart -->
 										<div class="mini-cart top-cart wishlist-box">
 											<a class="cart-icon" href="/cart">
-												<div class="icons-cart"><i class="icon-large-paper-bag"></i>
+												<% if (CartCount != undefined) { %>
+													<div class="icons-cart"><i class="icon-large-paper-bag"></i><span class="cart-count"><%= CartCount %></span></div>
+												<% } else { %>
+													<div class="icons-cart"><i class="icon-large-paper-bag"></i><span class="cart-count">0</span></div>
+												<% } %>
+												
 											</a>
 										</div>
-
-									</div>
-
-									<!-- profile -->
-									<div class="wishlist-box">
+										<!-- profile -->
+									<div class="wishlist-box" style="margin-left: -0px;">
 										<a href="/userprofilepage"><i class="wpb-icon-user"></i></a>
 									</div>
+
+									</div>
+
+									
 								</div>
 							</div>
 						</div>
@@ -876,6 +889,11 @@ function wish(id){
 					position : "bottom",
 					timer: 1000
 				});
+				let wishCount = document.getElementById("wishCount").textContent;
+				wishCount = parseInt(wishCount);
+				const newCount = wishCount+1;
+				document.getElementById("wishCount").textContent = newCount;
+
 				document.getElementById("serverwish").style.display = "none";
 				document.getElementById("removewish").style.display = "block";
 				document.getElementById("addwish").style.display = "none";
@@ -932,6 +950,11 @@ function removewishlist(id){
 						position : "bottom",
 						timer: 1000
 					});
+					let wishCount = document.getElementById("wishCount").textContent;
+					wishCount = parseInt(wishCount);
+					const newCount = wishCount-1;
+					document.getElementById("wishCount").textContent = newCount;
+					
 					document.getElementById("serverwish").style.display = "none";
 					document.getElementById("addwish").style.display = "block";
 					document.getElementById("removewish").style.display = "none";

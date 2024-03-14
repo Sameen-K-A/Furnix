@@ -1,11 +1,12 @@
 const Product = require("../model/productModel");
 const Category = require("../model/categoryModel");
-const { name } = require("ejs");
 
 //========================================= All product page rendering ==============================================
 
 const allproduct = async (req, res) => {
     try {
+        const CartCount = req.session.CartCount
+        const wishCount = req.session.wishCount
         const productDetails = await Product.find({ isBlocked: false });
         const catDetails = await Category.find({isBlocked : false})
         const offerBanner = [];
@@ -15,7 +16,7 @@ const allproduct = async (req, res) => {
             }
         }
         const sortedOfferBanner = offerBanner.sort((a, b) => new Date(b.createDate) - new Date(a.createDate)).slice(0, 3);
-        res.render("user/userAllProduct", { productDetails , catDetails , sortedOfferBanner});
+        res.render("user/userAllProduct", { productDetails , catDetails , sortedOfferBanner , CartCount , wishCount});
     } catch (error) {
         console.log(error);
     }

@@ -3,8 +3,11 @@ const router = express.Router();
 const userController = require("../controller/userController.js");
 const userProfileController = require("../controller/userProfileController.js");
 const cartController = require("../controller/cartController.js");
-const sortFilterController = require("../controller/sortfilterController.js")
+const sortFilterController = require("../controller/sortfilterController.js");
+const countFunction = require("../Middleware/cartWishCount.js")
 const { isBlocked ,isUser , isNoUser , isProductBlocked} = require("../Middleware/isLogged.js");
+
+router.use(countFunction);
 
 router.use((req, res, next) => {
     if (req.method === 'GET') {

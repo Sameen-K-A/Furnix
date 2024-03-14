@@ -32,7 +32,9 @@ app.use('/' , userRouter);
 
 
 app.use("*",(req,res)=>{
-    res.status(404).render("user/page-404")
+    const CartCount = req.session.CartCount
+    const wishCount = req.session.wishCount
+    res.status(404).render("user/page-404" , {CartCount , wishCount})
 });
 app.use((req, res, next) => {
     if (req.method === 'GET') {

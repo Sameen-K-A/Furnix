@@ -165,16 +165,27 @@
 										<div class="search-box">
 											<div class="search-toggle"><i class="icon-search"></i></div>
 										</div>
-
-										<!-- Wishlist -->
+                                        <!-- Wishlist -->
 										<div class="wishlist-box">
 											<a href="/wishlist"><i class="icon-heart"></i></a>
+											<% if (wishCount != undefined) { %>
+												<span class="count-wishlist"><%= wishCount %></span>
+											<% } else { %>
+												<span class="count-wishlist">0</span>
+											<% } %>
+											 
 										</div>
-
+										
+										
 										<!-- Cart -->
 										<div class="mini-cart top-cart wishlist-box">
 											<a class="cart-icon" href="/cart">
-												<div class="icons-cart"><i class="icon-large-paper-bag"></i>
+												<% if (CartCount != undefined) { %>
+													<div class="icons-cart"><i class="icon-large-paper-bag"></i><span class="cart-count"><%= CartCount %></span></div>
+												<% } else { %>
+													<div class="icons-cart"><i class="icon-large-paper-bag"></i><span class="cart-count">0</span></div>
+												<% } %>
+												
 											</a>
 										</div>
 
@@ -186,7 +197,6 @@
 				</div>
 			</div>
 		</header>
-
         <div id="site-main" class="site-main">
             <div id="main-content" class="main-content">
                 <div id="primary" class="content-area">

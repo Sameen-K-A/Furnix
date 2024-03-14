@@ -175,7 +175,7 @@
 							</div>
 							<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 header-center">
 								<div class="site-logo">
-									<a href="/">
+									<a href="index2.html">
 										<img width="400" height="79" src="media/logo.png"
 											alt="Ruper – Furniture HTML Theme" />
 									</a>
@@ -188,13 +188,13 @@
 				<div class="header-mobile-fixed">
 					<!-- Shop -->
 					<div class="shop-page">
-						<a href="/"><i class="wpb-icon-shop"></i></a>
+						<a href="shop-grid-left.html"><i class="wpb-icon-shop"></i></a>
 					</div>
 
 					<!-- Login -->
 					<div class="my-account">
 						<div class="login-header">
-							<a href="/userProfile"><i class="wpb-icon-user"></i></a>
+							<a href="page-my-account.html"><i class="wpb-icon-user"></i></a>
 						</div>
 					</div>
 
@@ -210,8 +210,7 @@
 				</div>
 			</div>
 
-			<div class="header-desktop"
-				style="background: linear-gradient(94deg, rgba(226,226,226,1) 0%, rgba(255,255,255,1) 53%, rgba(227,227,227,1) 100%);">
+			<div class="header-desktop" style="background: linear-gradient(94deg, rgba(226,226,226,1) 0%, rgba(255,255,255,1) 53%, rgba(227,227,227,1) 100%);">
 				<div class="header-wrapper">
 					<div class="section-padding">
 						<div class="section-container large p-l-r">
@@ -256,24 +255,30 @@
 										<div class="search-box">
 											<div class="search-toggle"><i class="icon-search"></i></div>
 										</div>
-
-										<!-- Wishlist -->
+                                        <!-- Wishlist -->
 										<div class="wishlist-box">
 											<a href="/wishlist"><i class="icon-heart"></i></a>
+											<% if (wishCount != undefined) { %>
+												<span class="count-wishlist"><%= wishCount %></span>
+											<% } else { %>
+												<span class="count-wishlist">0</span>
+											<% } %>
+											 
 										</div>
-
+										
+										
 										<!-- Cart -->
 										<div class="mini-cart top-cart wishlist-box">
 											<a class="cart-icon" href="/cart">
-												<div class="icons-cart"><i class="icon-large-paper-bag"></i>
+												<% if (CartCount != undefined) { %>
+													<div class="icons-cart"><i class="icon-large-paper-bag"></i><span class="cart-count"><%= CartCount %></span></div>
+												<% } else { %>
+													<div class="icons-cart"><i class="icon-large-paper-bag"></i><span class="cart-count">0</span></div>
+												<% } %>
+												
 											</a>
 										</div>
 
-									</div>
-
-									<!-- profile -->
-									<div class="wishlist-box">
-										<a href="/userprofilepage"><i class="wpb-icon-user"></i></a>
 									</div>
 								</div>
 							</div>

@@ -22,7 +22,9 @@ const razorpayInstance = new razorpay({
 
 const changepassword = (req, res) => {
     try {
-        res.render("userProfile/userChangePassword");
+        const CartCount = req.session.CartCount
+        const wishCount = req.session.wishCount
+        res.render("userProfile/userChangePassword" , {CartCount , wishCount});
     } catch (error) {
         console.log(error);
     }
@@ -68,8 +70,10 @@ const changepasswordPost = async (req, res) => {
 
 const accountDetails = async (req, res) => {
     try {
+        const CartCount = req.session.CartCount
+        const wishCount = req.session.wishCount
         const userDetails = await User.findOne({ email: req.session.user })
-        res.render("userProfile/userAccountDetails", { userDetails })
+        res.render("userProfile/userAccountDetails", { userDetails , CartCount , wishCount})
     } catch (error) {
         console.log(error);
     }
@@ -79,8 +83,10 @@ const accountDetails = async (req, res) => {
 
 const editdetails = async (req, res) => {
     try {
+        const CartCount = req.session.CartCount
+        const wishCount = req.session.wishCount
         const userDetails = await User.findOne({ email: req.session.user });
-        res.render("userProfile/editAccountDetails", { userDetails });
+        res.render("userProfile/editAccountDetails", { userDetails , CartCount , wishCount});
     } catch (error) {
         console.log(error);
     }
@@ -112,8 +118,10 @@ const editdetailspost = async (req, res) => {
 
 const addressGet = async (req, res) => {
     try {
+        const CartCount = req.session.CartCount
+        const wishCount = req.session.wishCount
         const userDetails = await User.findOne({ email: req.session.user });
-        res.render("userProfile/userAddress", { userDetails });
+        res.render("userProfile/userAddress", { userDetails , CartCount , wishCount});
     } catch (error) {
         console.log();
     }
@@ -167,11 +175,13 @@ const deleteAddress = async (req, res) => {
 
 const editAddressget = async (req, res) => {
     try {
+        const CartCount = req.session.CartCount
+        const wishCount = req.session.wishCount
         const addressID = req.query.id;
         req.session.editAddressID = addressID;
         const userDetails = await User.findOne({ email: req.session.user });
         const editingAddress = userDetails.address.find(elems => elems._id == addressID)
-        res.render("userProfile/editAddress", { editingAddress });
+        res.render("userProfile/editAddress", { editingAddress , CartCount , wishCount});
     } catch (error) {
         console.log(error);
     }
@@ -211,8 +221,10 @@ const editAddress = async (req, res) => {
 
 const orders = async (req, res) => {
     try {
+        const CartCount = req.session.CartCount
+        const wishCount = req.session.wishCount
         const orderData = await Order.find({ userEmail: req.session.user }).sort({_id : -1})
-        res.render("userProfile/userOrders", { orderData })
+        res.render("userProfile/userOrders", { orderData , CartCount , wishCount})
     } catch (error) {
         console.log(error);
     }
@@ -222,9 +234,11 @@ const orders = async (req, res) => {
 
 const vieworderinfo = async (req, res) => {
     try {
+        const CartCount = req.session.CartCount
+        const wishCount = req.session.wishCount
         const orderID = req.query.id;
         const orderInfodata = await Order.findOne({ _id: orderID });
-        res.render("userProfile/orderInfo", { orderInfodata })
+        res.render("userProfile/orderInfo", { orderInfodata , CartCount , wishCount})
     } catch (error) {
         console.log(error);
     }
@@ -331,6 +345,8 @@ const returnorder = async (req, res) => {
 
 const coupons = async (req, res) => {
     try {
+        const CartCount = req.session.CartCount
+        const wishCount = req.session.wishCount
         const userData = await User.findOne({email : req.session.user});
         const coupons = await Coupon.find({});
         const userCoupons = [];
@@ -349,7 +365,7 @@ const coupons = async (req, res) => {
                 }
             }
         }
-        res.render("userProfile/userCoupon" , {userData , userCoupons , redeemedCoupons})
+        res.render("userProfile/userCoupon" , {userData , userCoupons , redeemedCoupons , CartCount , wishCount})
     } catch (error) {
         console.log(error);
     }
@@ -359,13 +375,15 @@ const coupons = async (req, res) => {
 
 const wallet = async (req , res) => {
     try {
+        const CartCount = req.session.CartCount
+        const wishCount = req.session.wishCount
         const userData = await User.findOne({email : req.session.user});
         const userWallet = await Wallet.findOne({userID : userData._id});
         let sortedTransactions;
         if (userWallet) {
             sortedTransactions = userWallet.transactions.sort((a, b) => b._id.getTimestamp() - a._id.getTimestamp()).slice(0, 5);
         };
-        res.render("userProfile/Wallet" , {userWallet , sortedTransactions})
+        res.render("userProfile/Wallet" , {userWallet , sortedTransactions , CartCount , wishCount})
     } catch (error) {
         console.log(error);
     }

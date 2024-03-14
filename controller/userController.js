@@ -16,6 +16,8 @@ const Wallet = require("../model/walletModel");
 
 const userhomeGET = async (req, res) => {
     try {
+        const CartCount = req.session.CartCount
+        const wishCount = req.session.wishCount
         const productDetails = await Product.find({ isBlocked: false }).limit(4).sort({ _id: -1 });
         const catData = await Category.find({});
         const offerBanner = [];
@@ -28,7 +30,7 @@ const userhomeGET = async (req, res) => {
 
         // 2 random product for banner displaying
         const randomProduct = await Product.aggregate([{ $match: {} },{ $sample: { size: 2 } }]);
-        res.render("user/userHome", { productDetails , sortedOfferBanner , randomProduct});
+        res.render("user/userHome", { productDetails , sortedOfferBanner , randomProduct , CartCount , wishCount});
     } catch (error) {
         console.log(error);
     }
@@ -49,8 +51,10 @@ const userLogin = (req, res) => {
 const userProfilePage = async (req, res) => {
     try {
         if (req.session.user) {
+            const CartCount = req.session.CartCount
+            const wishCount = req.session.wishCount
             const userData = await User.findOne({ email: req.session.user });
-            res.render("user/userProfile", { userData });
+            res.render("user/userProfile", { userData , CartCount , wishCount});
         } else {
             res.redirect("/userLogin");
         }
@@ -382,6 +386,8 @@ const userforgetResentOTPpost = (req, res) => {
 
 const productDetailspage = async (req, res) => {
     try {
+        const CartCount = req.session.CartCount
+        const wishCount = req.session.wishCount
         const productID = req.query.id;
         const userData = await User.findOne({ email: req.session.user });
         const productDetails = await Product.findOne({ _id: productID });
@@ -412,7 +418,7 @@ const productDetailspage = async (req, res) => {
                 }
             }
         }
-        res.render("user/productDetails", { productDetails, userData, boughtProductID, ratingData, wishproduct })
+        res.render("user/productDetails", { productDetails, userData, boughtProductID, ratingData, wishproduct , CartCount , wishCount})
     } catch (error) {
         console.log(error);
     }
@@ -423,6 +429,8 @@ const productDetailspage = async (req, res) => {
 const userLogout = (req, res) => {
     try {
         delete req.session.user;
+        delete req.session.CartCount;
+        delete req.session.wishCount;
         res.redirect("/");
     } catch (error) {
         console.log(error);
@@ -469,6 +477,8 @@ const feedback = async (req, res) => {
 
 const wishlistget = async (req, res) => {
     try {
+        const CartCount = req.session.CartCount
+        const wishCount = req.session.wishCount
         const userData = await User.findOne({ email: req.session.user });
         const wishProducts = [];
         if(userData){
@@ -484,7 +494,7 @@ const wishlistget = async (req, res) => {
                 }
             }
         }
-        res.render("user/wishlist", { userData , wishProducts })
+        res.render("user/wishlist", { userData , wishProducts , CartCount , wishCount})
     } catch (error) {
         console.log(error);
     }

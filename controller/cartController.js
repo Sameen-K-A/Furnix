@@ -20,6 +20,8 @@ const razorpayInstance = new razorpay({
 
 const cartpage = async (req, res) => {
     try {
+        const CartCount = req.session.CartCount
+        const wishCount = req.session.wishCount
         const userData = await User.findOne({ email: req.session.user });
         const productData = await Product.find({});
         const ProductResultarray = [];
@@ -44,7 +46,7 @@ const cartpage = async (req, res) => {
             userData.save()
         }
         const userCartproducts = ProductResultarray;
-        res.render("user/cart", { userData, userCartproducts })
+        res.render("user/cart", { userData, userCartproducts , CartCount , wishCount})
     } catch (error) {
         console.log(error);
     }
@@ -209,6 +211,8 @@ const checkingCheckout = async (req, res) => {
 
 const checkout = async (req, res) => {
     try {
+        const CartCount = req.session.CartCount
+        const wishCount = req.session.wishCount
         const userData = await User.findOne({ email: req.session.user });
         const productData = await Product.find({});
         const ProductResultarray = [];
@@ -224,7 +228,7 @@ const checkout = async (req, res) => {
                 }
             }
         }
-        res.render("user/checkoutpage", { userData, ProductResultarray })
+        res.render("user/checkoutpage", { userData, ProductResultarray , CartCount , wishCount})
     } catch (error) {
         console.log(error);
     }
@@ -500,6 +504,8 @@ const razorpayfailed = async (req, res) => {
 
 const orderSuccessfull = async (req, res) => {
     try {
+        const CartCount = req.session.CartCount
+        const wishCount = req.session.wishCount
         const productData = await Product.find({});
         const userData = await User.findOne({ email: req.session.user });
         for (let i = 0; i < userData.cart.length; i++) {
@@ -516,7 +522,7 @@ const orderSuccessfull = async (req, res) => {
         userData.cart = [];
         userData.total = 0;
         userData.save()
-        res.render("user/orderSuccess");
+        res.render("user/orderSuccess" , {CartCount , wishCount});
     } catch (error) {
         console.log(error);
     }
