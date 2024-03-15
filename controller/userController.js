@@ -394,7 +394,7 @@ const productDetailspage = async (req, res) => {
         let boughtProductID = false;
         let wishproduct = false;
         let oneReviewAdded = false
-        const ratingData = await Rating.find({ productID: productID })
+        const ratingData = await Rating.find({ productID: productID , email : {$nin : [req.session.user]}})
         if (userData) {
             const boughtProduct = await Order.find({ userEmail: req.session.user});
             for (let i = 0; i < boughtProduct.length; i++) {
@@ -469,6 +469,38 @@ const feedback = async (req, res) => {
             productData.avgStar = nearestInteger;
             productData.save();
             res.json({ status: "updated" })
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+//========================================= search product based on user entered name  ==============================================
+
+const deleteFeedback = async (req, res) => {
+    try {
+        const productID = req.body.id;
+        const userEmail = req.body.email;
+        const review = await Rating.deleteOne({productID : productID , email : userEmail});
+        if(review.deletedCount === 1){
+            const ratingData = await Rating.find({ productID: productID }, { star: true });
+            let totalStar = 0;
+            for (let i = 0; i < ratingData.length; i++) {
+                totalStar += ratingData[i].star
+            };
+            const productData = await Product.findOne({_id : productID});
+            let avgratingstar = totalStar / ratingData.length;
+            if (ratingData.length !== 0) {
+                avgratingstar = totalStar / ratingData.length;
+                const nearestInteger = Math.round(avgratingstar);
+                productData.avgStar = nearestInteger;
+            } else {
+                productData.avgStar = totalStar
+            }
+            await productData.save();
+            res.json({status : "okay"})
+        } else{
+            res.json({status : "nop"})
         }
     } catch (error) {
         console.log(error);
@@ -600,6 +632,7 @@ module.exports = {
     userLogout,
     productDetailspage,
     feedback,
+    deleteFeedback,
     wishlistget,
     wishlistpost,
     deletewish,

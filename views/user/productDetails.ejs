@@ -486,7 +486,7 @@
 												</li>
 												<li class="nav-item">
 													<a class="nav-link" data-toggle="tab" href="#reviews"
-														role="tab">Reviews (<%= ratingData.length %>)</a>
+														role="tab">Reviews</a>
 												</li>
 											</ul>
 											<div class="tab-content">
@@ -512,15 +512,8 @@
 												<div class="tab-pane fade" id="reviews" role="tabpanel">
 													<div id="reviews" class="product-reviews">
 														<div id="comments">
-															<h2 class="reviews-title"><%= ratingData.length %> review for <span><%= productDetails.name %></span></h2>
-															<% if (ratingData.length === 0) { %>
-																<div class="col-lg-12" style="width: 100%; height: 100px; background-color:
-																	rgb(255, 255, 255); display: flex; justify-content: center;
-																	align-items: center; border: 1px solid black; margin-bottom: 50px;">
-																	<p style="color: black; margin-top: 10px;">No reviews found</p>
-																</div>
-															<% } else { %>
-																<ol class="comment-list">
+															<ol class="comment-list">
+																<% if (userData) { %>
 																	<% if (oneReviewAdded !== null) { %>
 																		<li class="review col-lg-12">
 																			<div class="content-comment-container" style="position: relative;">
@@ -550,23 +543,27 @@
 																						<div class="buttons-container" style="position: absolute; top: 0; right: 0; display: flex; align-items: center;">
 																							<button class="edit-button" style="margin-left: 10px; background: none;">
 																								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" width="24" height="24">
-																									<path fill="#000000" d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H322.8c-3.1-8.8-3.7-18.4-1.4-27.8l15-60.1c2.8-11.3 8.6-21.5 16.8-29.7l40.3-40.3c-32.1-31-75.7-50.1-123.9-50.1H178.3zm435.5-68.3c-15.6-15.6-40.9-15.6-56.6 0l-29.4 29.4 71 71 29.4-29.4c15.6-15.6 15.6-40.9 0-56.6l-14.4-14.4zM375.9 417c-4.1 4.1-7 9.2-8.4 14.9l-15 60.1c-1.4 5.5 .2 11.2 4.2 15.2s9.7 5.6 15.2 4.2l60.1-15c5.6-1.4 10.8-4.3 14.9-8.4L576.1 358.7l-71-71L375.9 417z"/>
+																									<path fill="#696969" d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H322.8c-3.1-8.8-3.7-18.4-1.4-27.8l15-60.1c2.8-11.3 8.6-21.5 16.8-29.7l40.3-40.3c-32.1-31-75.7-50.1-123.9-50.1H178.3zm435.5-68.3c-15.6-15.6-40.9-15.6-56.6 0l-29.4 29.4 71 71 29.4-29.4c15.6-15.6 15.6-40.9 0-56.6l-14.4-14.4zM375.9 417c-4.1 4.1-7 9.2-8.4 14.9l-15 60.1c-1.4 5.5 .2 11.2 4.2 15.2s9.7 5.6 15.2 4.2l60.1-15c5.6-1.4 10.8-4.3 14.9-8.4L576.1 358.7l-71-71L375.9 417z"/>
 																								</svg>
 																							</button>
 	
-																							<button class="delete-button" style="background: none; margin-left: 10px;">
+																							<button class="delete-button" style="background: none; margin-left: 10px;"  onclick="deleteFeedback('<%= oneReviewAdded.email %>' , '<%= productDetails._id %>')">
 																								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="18" height="18">
-																									<path fill="#000000" d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"/>
+																									<path fill="#696969" d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"/>
 																								</svg>
 																							</button>
 																						</div>
+																					</div>
+																					<div class="description">
+																						<p><%= oneReviewAdded.description %></p>
+																					</div>
 																				</div>
-																				<div class="description">
-																					<p><%= oneReviewAdded.description %></p>
-																				</div>
-																			</div>
-																		</li>
+																			</li>
+																		<% } %>
 																	<% } %>
+																</ol>
+															<% if (ratingData.length !== 0) { %>
+																<ol class="comment-list">
 																	<% for (let i = 0; i < ratingData.length; i++) { %>
 																		<li class="review col-lg-12">
 																			<div class="content-comment-container" style="position: relative;">
@@ -601,6 +598,12 @@
 																		</li>
 																	<% } %>
 																</ol>
+															<% } else { %>
+																<div class="col-lg-12" style="width: 100%; height: 100px; background-color:
+																	rgb(255, 255, 255); display: flex; justify-content: center;
+																	align-items: center; border: 1px solid black; margin-bottom: 50px;">
+																	<p style="color: black; margin-top: 10px;">No reviews found</p>
+																</div>
 															<% } %>
 														</div>
 														<% if (userData) { %>
@@ -1150,6 +1153,90 @@ stars.forEach(star => {
 	});
 });
 
+
+function deleteFeedback(email , id){
+	Swal.fire({
+		title: "Delete your feedback?",
+		showCancelButton: true,
+		confirmButtonColor: "#ff0000",
+		cancelButtonColor: "#ffffff",
+		confirmButtonText: "Delete",
+		customClass: {
+			popup: 'swal-custom',
+			cancelButton: 'swal-custom-ok-btn'
+		}
+	}).then((result) => {
+		if (result.isConfirmed) {
+			$.ajax({
+				url: "/deleteFeedback",
+				method: "delete",
+				data: {
+					email,
+					id
+				},
+				success: (response) => {
+					if (response.status === "okay") {
+						const successToast = Swal.mixin({
+							toast: true,
+							position: "top",
+							showConfirmButton: false,
+							timer: 2000,
+							timerProgressBar: false,
+							customClass: {
+								popup: 'swal2-toast',
+								title: 'swal2-title',
+								icon: 'swal2-icon',
+							},
+							didOpen: (toast) => {
+								toast.onmouseenter = Swal.stopTimer;
+								toast.onmouseleave = Swal.resumeTimer;
+							}
+						});
+
+						successToast.fire({
+							icon: "success",
+							title: "Deleted successfully",
+							iconColor: '#00ff00',
+							titleColor: '#000000'
+						});
+
+						setInterval(() => {
+							window.location.reload()
+						}, 2000);
+					} else {
+						const errorToast = Swal.mixin({
+							toast: true,
+							position: "top",
+							showConfirmButton: false,
+							timer: 2000,
+							timerProgressBar: false,
+							customClass: {
+								popup: 'swal2-toast',
+								title: 'swal2-title',
+								icon: 'swal2-icon',
+							},
+							didOpen: (toast) => {
+								toast.onmouseenter = Swal.stopTimer;
+								toast.onmouseleave = Swal.resumeTimer;
+							}
+						});
+
+						errorToast.fire({
+							icon: "error",
+							title: "Oops something wrong",
+							iconColor: '#e60000',
+							titleColor: '#000000'
+						});
+
+						setInterval(() => {
+							window.location.reload()
+						}, 2000);
+					}
+				}
+			})
+		}
+	});
+}
 </script>
 
 </html>

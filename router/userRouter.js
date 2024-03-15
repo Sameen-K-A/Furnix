@@ -44,7 +44,8 @@ router.post("/nameSort" , isBlocked, sortFilterController.nameSort);
 router.post("/dateSort" , isBlocked, sortFilterController.dateSort);
 
 // product review;
-router.post("/feedback" , isUser , isBlocked , userController.feedback)
+router.post("/feedback" , isUser , isBlocked , userController.feedback);
+router.delete("/deleteFeedback" , isUser , isBlocked , userController.deleteFeedback);
 
 // user change passwords area
 router.get("/changepassword" , isUser , isBlocked , userProfileController.changepassword);
