@@ -479,6 +479,12 @@
         fileInput.onchange = function () {
             let file = this.files[0];
             if (file) {
+                const allowedExtensions = ['jpg', 'jpeg', 'png'];
+                const fileExtension = file.name.split('.').pop().toLowerCase();
+                if (!allowedExtensions.includes(fileExtension)) {
+                    alert("Please select a JPG, JPEG, or PNG file.");
+                    return;
+                }
                 let img = event.target.previousElementSibling;
                 img.src = URL.createObjectURL(file);
                 const imagename = file.name;
@@ -516,10 +522,7 @@
 						}
 					}
 				})
-                }
-
-
-                
+                } 
             }
         }
     }

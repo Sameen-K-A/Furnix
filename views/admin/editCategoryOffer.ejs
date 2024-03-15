@@ -142,20 +142,20 @@
         discounterror.textContent = "";
         minmumError.textContent = "";
 
-        // Discount percentage validation
+        // Discount amount validation
         if (discountamount.trim() === "") {
             discounterror.textContent = "Discount amount is required";
         } else if (!/^\d+$/.test(discountamount)) {
-            discounterror.textContent = "Discount percentage can only contain digits";
+            discounterror.textContent = "Discount amount can only contain digits";
         } else {
-            const percentage = parseInt(discountamount);
-            if (percentage < 0) {
+            const amountdiscount = parseInt(discountamount);
+            if (amountdiscount < 0) {
                 discounterror.textContent = "Discount amount must be need more than zero";
             } else {
                 const minAmount = parseInt(minimumAmount);
                 const maxDiscount = minAmount * 0.5;
-                if (percentage > maxDiscount) {
-                    discounterror.textContent = "Discount percentage cannot exceed 50% of the minimum order amount";
+                if (amountdiscount > maxDiscount) {
+                    discounterror.textContent = "Discount amount cannot exceed 50% of the offer starting price";
                 } else {
                     discounterror.textContent = "";
                 }

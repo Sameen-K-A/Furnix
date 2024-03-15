@@ -255,7 +255,7 @@ const applyCoupon = async (req, res)=>{
                         if(user.total >= coupon.minBuyRate && coupon.maxBuyRate >= user.total){
                             const total_amount = user.total;
                             const descount_percentage = coupon.discountPercentage;
-                            let balanceAmount = Math.round(total_amount - (total_amount * (descount_percentage / 100)));        
+                            let balanceAmount = Math.round(total_amount - (total_amount * (descount_percentage / 100)));    
                             res.json({ status: "okay", balance: balanceAmount });
                         } else{
                             res.json({ status: "minAmount", minamount: coupon.minBuyRate , maxAmount : coupon.maxBuyRate});
@@ -328,6 +328,9 @@ const checkoutPost = async (req, res) => {
                     orderProducts[i].cartQty = userData.cart[i].qty;
                 }
             }
+
+            // add 100₹ delivery charge into user total
+            userData.total += 100;
             // cash on delivery
             if(payment === "Cash on delivery"){
                 if (nextpage) {
@@ -338,9 +341,9 @@ const checkoutPost = async (req, res) => {
                         const findCoupon = await Coupon.findOne({coupencode : usedCouponCode});
                         if(findCoupon.isBlocked === false){
                             couponCode = findCoupon.coupencode;
-                            let newTotal = Math.round(userData.total - (userData.total * (findCoupon.discountPercentage / 100)));
-                            couponOffer = Math.round(userData.total - newTotal);
-                            userData.total = newTotal;
+                            let newTotal = Math.round(subTotal - (subTotal * (findCoupon.discountPercentage / 100)));
+                            couponOffer = Math.round(subTotal - newTotal);
+                            userData.total = newTotal + 100; // appliy delivery charge
                         }
                     }
                     // create new order data
@@ -356,7 +359,7 @@ const checkoutPost = async (req, res) => {
                         itemsCount: userData.cart.length,
                         paymentMethod: payment,
                         couponOffer : couponOffer,
-                        couponCode : couponCode
+                        couponCode : couponCode,
                     }
                     if(orderData.total <= 2000){
                         userData.save();
@@ -390,9 +393,9 @@ const checkoutPost = async (req, res) => {
                         const findCoupon = await Coupon.findOne({coupencode : usedCouponCode});
                         if(findCoupon.isBlocked === false){
                             couponCode = findCoupon.coupencode;
-                            let newTotal = Math.round(userData.total - (userData.total * (findCoupon.discountPercentage / 100)));
-                            couponOffer = Math.round(userData.total - newTotal);
-                            userData.total = newTotal;
+                            let newTotal = Math.round(subTotal - (subTotal * (findCoupon.discountPercentage / 100)));
+                            couponOffer = Math.round(subTotal - newTotal);
+                            userData.total = newTotal + 100;
                         }
                     }
                     if(userData.total <= 15000){

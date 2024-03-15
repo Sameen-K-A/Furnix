@@ -54,8 +54,12 @@ const productSchema = new mongoose.Schema({
     couponCode : {
         type : String,
         default : false
+    },
+    deliveryCharge : {
+        type : Number,
+        default : 100
     }
-}, {
+},{
     versionKey: false
 })
 

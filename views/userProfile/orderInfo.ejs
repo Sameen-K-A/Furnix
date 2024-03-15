@@ -424,7 +424,7 @@
                                                                         <a>Coupon discount price</a><br>
                                                                         <a>Coupon code</a><br>
                                                                     <% } %>
-                                                                    <a>Shipping</a><br><br>
+                                                                    <a>Shipping charge</a><br><br>
                                                                     <p style="font-size: 20px; color: black;">Total</p>
                                                                 </div>
                                                             </td>
@@ -438,7 +438,7 @@
                                                                         <a>- ₹<%= orderInfodata.couponOffer %>.00</a><br>
                                                                         <a><%= orderInfodata.couponCode %></a><br>
                                                                     <% } %>
-                                                                    <a>free shipping</a><br><br>
+                                                                    <a>₹<%= orderInfodata.deliveryCharge %>.00</a><br><br>
                                                                     <p style="font-size: 20px; color: black;"><b>₹<%= orderInfodata.total %>.00</b></p>
                                                                 </div>
                                                             </td>

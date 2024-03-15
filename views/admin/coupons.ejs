@@ -275,6 +275,7 @@
                                         <th class="text-center text-light">Maximum amount</th>
                                         <th class="text-center text-light">Discount percentage</th>
                                         <th class="text-center text-light">Status</th>
+                                        <th class="text-center text-light">Redeemed useres</th>
                                         <th class="text-center text-light">Action</th>
                                     </tr>
                                 </thead>
@@ -312,6 +313,9 @@
                                                 <% if (coupens[i].couponStatus === "Expired" ) { %>
                                                     <p style="color: rgb(188, 0, 0);">Expired</p>
                                                 <% } %>
+                                            </td>
+                                            <td>
+                                                <%= coupens[i].redeemedUsers.length %>
                                             </td>
                                             <td>
                                                 <% if (coupens[i].isBlocked===true) { %>

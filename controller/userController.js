@@ -240,7 +240,7 @@ const userRegisterOTPpost = async (req, res) => {
                     } else{
                         const newData = {
                             userID : referedUser._id,
-                            walletAmount : 500,
+                            walletAmount : 200,
                             transactions : {
                                 transactionID : "Furnix" + randomID(),
                                 amount : 200,
@@ -393,6 +393,7 @@ const productDetailspage = async (req, res) => {
         const productDetails = await Product.findOne({ _id: productID });
         let boughtProductID = false;
         let wishproduct = false;
+        let oneReviewAdded = false
         const ratingData = await Rating.find({ productID: productID })
         if (userData) {
             const boughtProduct = await Order.find({ userEmail: req.session.user});
@@ -417,8 +418,9 @@ const productDetailspage = async (req, res) => {
                     }
                 }
             }
+            oneReviewAdded = await Rating.findOne({productID: productID , email : req.session.user});
         }
-        res.render("user/productDetails", { productDetails, userData, boughtProductID, ratingData, wishproduct , CartCount , wishCount})
+        res.render("user/productDetails", { productDetails, userData, boughtProductID, oneReviewAdded, ratingData, wishproduct , CartCount , wishCount})
     } catch (error) {
         console.log(error);
     }
@@ -441,7 +443,7 @@ const userLogout = (req, res) => {
 
 const feedback = async (req, res) => {
     try {
-        const starcount = parseInt(req.body.star);
+        const starcount = parseInt(req.body.rating);
         const feedbackreview = req.body.feedback;
         const productid = req.body.productid;
         const userData = await User.findOne({ email: req.session.user });

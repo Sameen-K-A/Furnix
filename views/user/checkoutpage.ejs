@@ -117,7 +117,7 @@
 			</div>
 
 			<div class="header-desktop"
-				style="background: linear-gradient(94deg, rgba(226,226,226,1) 0%, rgba(255,255,255,1) 53%, rgba(227,227,227,1) 100%);">
+				style="background: linear-gradient(94deg, rgba(226,226,226,1) 0%, rgba(255,255,255,1) 53%, rgba(227,227,227,1) 100%); z-index: 1 !important;">
 				<div class="header-wrapper">
 					<div class="section-padding">
 						<div class="section-container large p-l-r">
@@ -230,8 +230,7 @@
 																	</div>
 																</div>
 																<div class="product-total">
-																	<span>₹<%= ProductResultarray[i].offerPrice %>
-																			.00</span>
+																	<span>₹<%= ProductResultarray[i].offerPrice %>.00</span>
 																</div>
 															</div>
 															<% } %>
@@ -242,17 +241,10 @@
 															<span id="subtotalProduct">₹<%= userData.total %>.00</span>
 														</div>
 													</div>
-													<div class="shipping-totals shipping">
-														<h2>Shipping</h2>
-														<div data-title="Shipping">
-															<ul class="shipping-methods custom-radio">
-																<li>
-																	<input type="radio" name="shipping_method"
-																		data-index="0" value="free_shipping"
-																		class="shipping_method"
-																		checked="checked"><label>Free shipping</label>
-																</li>
-															</ul>
+													<div class="order-total">
+														<h2>Shipping charge</h2>
+														<div class="subtotal-price">
+															<span >₹100.00</span>
 														</div>
 													</div>
 													<div id="shippingDiv" class="shipping-totals shipping">
@@ -273,7 +265,7 @@
 														<h2>Total</h2>
 														<div class="total-price">
 															<strong>
-																<span style="font-weight: bolder;" id="totalAmount">₹<%= userData.total %>.00</span>
+																<span style="font-weight: bolder;" id="totalAmount">₹<%= userData.total + 100 %>.00</span>
 															</strong>
 														</div>
 													</div>
@@ -341,6 +333,109 @@
 																<% } %>
 																	<% } %>
 												</div>
+												<% if (userData.address.length <3) { %>
+												 
+												
+												<!-- Button trigger modal -->
+												<button type="button" class="btn" style="width: 100%; background-color: black; color: white;" data-toggle="modal" data-target="#addressModal">
+													Add address
+												</button>
+
+												<!-- Modal -->
+												<div class="modal fade" id="addressModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+												aria-hidden="true" style="z-index: 1050;">
+												<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+													<div class="modal-content">
+														<div class="modal-body" style="padding: 50px;">
+																<!-- Your modal body content goes here -->
+																<div class="form-row row hidden" id="addressForm" style="margin-top: 30px;">
+																	<div class="col-lg-6">
+																		<label for="name">Name</label>
+																		<input type="text" name="name" id="name" style="width: 100%;" onclick="nameClear()">
+																		<b><p style="color:  red;" class="text-center" id="nameError"></p></b></p>
+																	</div>
+																	<div class="col-lg-6 ">
+																		<label for="phone">Phone number</label>
+																		<input type="text" style="width: 100%;" id="number" name="phone" onclick="phoneClear()">
+																		<b><p style="color:  red;" class="text-center" id="phoneError"></p></b>
+																	</div>
+																	<div class="col-lg-12">
+																		<label for="Address">Address</label>
+																		<textarea name="Address" id="address" class="col-lg-12" onclick="addressClear()"></textarea>
+																		<b><p style="color:  red;" class="text-center" id="addressError"></p></b>
+																	</div>
+																	<div class="col-lg-6">
+																		<label for="PIN">PIN code</label>
+																		<input type="text" id="pin" style="width: 100%;" name="PIN" onclick="pinClear()">
+																		<b><p style="color:  red;" class="text-center" id="pinError"></p></b>
+																	</div>
+																	<div class="col-lg-6">
+																		<label for="District">City / Town / District</label>
+																		<input type="text" id="district" style="width: 100%;" name="District" onclick="districtClear()">
+																		<b><p style="color:  red;" class="text-center" id="districtError"></p></b>
+																	</div>
+																	<div class="col-lg-6">
+																		<label for="State">State</label>
+																		<select id="state" style="width: 100%;" name="State" onchange="stateClear()">
+																			<option value="Andhra Pradesh">Andhra Pradesh</option>
+																			<option value="Arunachal Pradesh">Arunachal Pradesh</option>
+																			<option value="Assam">Assam</option>
+																			<option value="Bihar">Bihar</option>
+																			<option value="Chhattisgarh">Chhattisgarh</option>
+																			<option value="Goa">Goa</option>
+																			<option value="Gujarat">Gujarat</option>
+																			<option value="Haryana">Haryana</option>
+																			<option value="Himachal Pradesh">Himachal Pradesh</option>
+																			<option value="Jharkhand">Jharkhand</option>
+																			<option value="Karnataka">Karnataka</option>
+																			<option value="Kerala">Kerala</option>
+																			<option value="Madhya Pradesh">Madhya Pradesh</option>
+																			<option value="Maharashtra">Maharashtra</option>
+																			<option value="Manipur">Manipur</option>
+																			<option value="Meghalaya">Meghalaya</option>
+																			<option value="Mizoram">Mizoram</option>
+																			<option value="Nagaland">Nagaland</option>
+																			<option value="Odisha">Odisha</option>
+																			<option value="Punjab">Punjab</option>
+																			<option value="Rajasthan">Rajasthan</option>
+																			<option value="Sikkim">Sikkim</option>
+																			<option value="Tamil Nadu">Tamil Nadu</option>
+																			<option value="Telangana">Telangana</option>
+																			<option value="Tripura">Tripura</option>
+																			<option value="Uttar Pradesh">Uttar Pradesh</option>
+																			<option value="Uttarakhand">Uttarakhand</option>
+																			<option value="West Bengal">West Bengal</option>
+																		</select>
+																		<b><p style="color:  red;" class="text-center" id="stateError"></p></b></p>
+																	</div>
+																	<div class="col-lg-6">
+																		<label for="Address-type">Address type</label>
+																		<select name="Address-type" id="Address-type" style="width: 100%;">
+																			<option value="Home">Home</option>
+																			<option value="Work">Work</option>
+																		</select>
+																	</div>
+																	<div class="col-lg-6">
+																		<label for="Landmark">Landmark</label>
+																		<input type="text" id="Landmark" style="width: 100%;" name="Landmark" onclick="landClear()">
+																		<b><p style="color:  red;" class="text-center" id="landError"></p></b>
+																	</div>
+																	<div class="col-lg-6" style="margin-bottom: 50px;">
+																		<label for="District">Alternate Phone</label>
+																		<input type="text" id="altNumber" style="width: 100%;" name="District" onclick="altClear()">
+																		<b><p style="color:  red;" class="text-center" id="altError"></p></b>
+																	</div>
+																</div>
+															</div>
+															<div class="modal-footer justify-content-center" style="margin-top: -20px;">
+																<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+																<button type="button" class="btn btn-primary" onclick="addAddress()">Save changes</button>
+															</div>
+														</div>
+													</div>
+												</div>
+												<% } %>
+												<!--modal end-->
 											</div>
 										</div>
 									</div>
@@ -355,7 +450,7 @@
 														value="Cash on delivery">
 													<label>Cash on delivery</label>
 													<div class="payment-box">
-														<p>Pay with cash upon delivery.</p>
+														<p>Pay with cash upon delivery. Cash on delivery is only available for payments below 2000.</p>
 													</div>
 												</li>
 												<li class="payment-method">
@@ -363,7 +458,7 @@
 														value="Razorpay">
 													<label>Online payment</label>
 													<div class="payment-box">
-														<p>Make your payment directly into Online payment.
+														<p>Online payment is only available for payments below 15000₹. Make your payment directly into Online payment.
 															Please use your Order ID as the payment reference.
 															Your order will not be shipped until the funds have
 															cleared in our account.</p>
@@ -829,7 +924,9 @@
                         });
 						document.getElementById("cpncode").readOnly = true;
                         document.getElementById("applyCoupon").textContent ="Cancel"
-						document.getElementById("totalAmount").textContent = "₹" + response.balance + ".00";
+						let newTotal = response.balance;
+						newTotal += 100;
+						document.getElementById("totalAmount").textContent = "₹" + newTotal + ".00";
 						
 						const subtotalProduct = document.getElementById("subtotalProduct").textContent
 						const SubtotalPrice = parseFloat(subtotalProduct.replace('₹', ''));
@@ -851,8 +948,10 @@
 		document.getElementById("cpndiscountamount").textContent ="₹0.00"
 		document.getElementById("applyCoupon").textContent ="Apply"
 		code.value =""
-		const newTotal = document.getElementById("subtotalProduct").textContent
-		document.getElementById("totalAmount").textContent = newTotal
+		let newTotal = document.getElementById("subtotalProduct").textContent;
+		newTotal = parseFloat(newTotal.replace('₹', ''));
+		newTotal += 100; // this foe adding delivery charge
+		document.getElementById("totalAmount").textContent = `₹${newTotal}.00`
     }
 }
 
@@ -931,6 +1030,175 @@ function cancelsearch(){
     const prodatasDiv = document.getElementById("prodatas").innerHTML = "";
     const searchValue = document.getElementById("myInput").value =""
 }
+
+
+
+
+// add address button
+	function addAddress() {
+        // Inputs
+        const name = document.getElementById("name").value.trim();
+        const number = document.getElementById("number").value.trim();
+        const address = document.getElementById("address").value.trim();
+        const pin = document.getElementById("pin").value.trim();
+        const state = document.getElementById("state").value.trim();
+        const district = document.getElementById("district").value.trim();
+        const AddressType = document.getElementById("Address-type").value.trim();
+        const Landmark = document.getElementById("Landmark").value.trim();
+        const altNumber = document.getElementById("altNumber").value.trim();
+
+        // Errors
+        const nameError = document.getElementById("nameError");
+        const phoneError = document.getElementById("phoneError");
+        const addressError = document.getElementById("addressError");
+        const pinError = document.getElementById("pinError");
+        const stateError = document.getElementById("stateError");
+        const districtError = document.getElementById("districtError");
+        const landError = document.getElementById("landError");
+        const altError = document.getElementById("altError");
+
+        // Reset all error messages
+        nameError.textContent = "";
+        phoneError.textContent = "";
+        addressError.textContent = "";
+        pinError.textContent = "";
+        stateError.textContent = "";
+        districtError.textContent = "";
+        landError.textContent = "";
+        altError.textContent = "";
+
+        // Check individual field validations
+        if (name === "") {
+            nameError.textContent = "Name is required";
+        } else if (name.length < 3) {
+            nameError.textContent = "Name must have at least 3 characters";
+        } else if (!/^[A-Za-z\s]+$/.test(name)) {
+            nameError.textContent = "Name can only contain alphabets and spaces";
+        }
+
+        if (number === "") {
+            phoneError.textContent = "Phone number is required";
+        } else if (!/^\d+$/.test(number)) {
+            phoneError.textContent = "Phone number must contain only numbers";
+        } else if (number.length !== 10) {
+            phoneError.textContent = "Phone number must be 10 digits";
+        }
+
+        if (address === "") {
+            addressError.textContent = "Address is required";
+        } else if (!/^[a-zA-Z0-9\s,'-]+$/.test(address)) {
+            addressError.textContent = "Enter a valid address";
+        }
+
+        if (pin === "") {
+            pinError.textContent = "PIN code is required";
+        } else if (!/^\d+$/.test(pin)) {
+            pinError.textContent = "PIN code must contain only numbers";
+        } else if (pin.length !== 6) {
+            pinError.textContent = "PIN code must be 6 digits";
+        }
+
+        if (district === "") {
+            districtError.textContent = "District is required";
+        } else if (!/^[a-zA-Z0-9\s,'-]+$/.test(district)) {
+            districtError.textContent = "Enter a valid district name";
+        }
+
+        if (Landmark === "") {
+            landError.textContent = "Landmark is required";
+        } else if (!/^[a-zA-Z0-9\s,'-]+$/.test(Landmark)) {
+            landError.textContent = "Enter a valid landmark";
+        }
+
+        if (altNumber === "") {
+            altError.textContent = "Alternate phone number is required";
+        } else if (!/^\d+$/.test(altNumber)) {
+            altError.textContent = "Alternate phone number must contain only numbers";
+        } else if (altNumber.length !== 10) {
+            altError.textContent = "Alternate phone number must be 10 digits";
+        } else if (altNumber === number) {
+            altError.textContent = "Alternate phone number cannot be the same as primary number";
+        }
+
+
+        if (nameError.textContent !== "" || phoneError.textContent !== "" || addressError.textContent !== "" || pinError.textContent !== "" || districtError.textContent !== "" || landError.textContent !== "" || altError.textContent !== "") {
+            
+        } else {
+            $.ajax({
+                url: "/address",
+                method: "post",
+                data: {
+                    name,
+                    number,
+                    address,
+                    pin,
+                    state,
+                    district,
+                    AddressType,
+                    Landmark,
+                    altNumber
+                },
+                success: (response) => { 
+                    if (response.status === "success") {
+                        Swal.fire({
+                            icon: "success",
+                            title: "Changes saved successfully",
+                            showConfirmButton: false,
+                            customClass: {
+                                popup: 'swal-custom',
+                            },
+                            timer: 1500
+                        });
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 1500);
+
+                    } else if (response.status === "wrong") {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Changes saved successfully",
+                            showConfirmButton: false,
+                            customClass: {
+                                popup: 'swal-custom',
+                            },
+                            timer: 1500
+                        });
+                        setTimeout(() => {
+                            window.location.reload()
+                        }, 1500);
+                    }
+                }
+            })
+        }
+    }
+
+
+    // input box clear functions
+
+    function nameClear() {
+        document.getElementById("nameError").textContent = ""
+    }
+    function phoneClear() {
+        document.getElementById("phoneError").textContent = ""
+    }
+    function addressClear() {
+        document.getElementById("addressError").textContent = ""
+    }
+    function pinClear() {
+        document.getElementById("pinError").textContent = ""
+    }
+    function stateClear() {
+        document.getElementById("stateError").textContent = ""
+    }
+    function districtClear() {
+        document.getElementById("districtError").textContent = ""
+    }
+    function landClear() {
+        document.getElementById("landError").textContent = ""
+    }
+    function altClear() {
+        document.getElementById("altError").textContent = ""
+    }
 </script>
 
 </html>
