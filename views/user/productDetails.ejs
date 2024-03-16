@@ -321,7 +321,7 @@
 													<% } %>
 													
 													<div class="review-count">
-														(<%= ratingData.length %><span> reviews</span>)
+														(<%= fullrating.length %><span> reviews</span>)
 													</div>
 												</div>
 												<div class="variations">
@@ -541,7 +541,7 @@
 																						<div class="review-time"><%= oneReviewAdded.date %></div>
 																					</div>
 																						<div class="buttons-container" style="position: absolute; top: 0; right: 0; display: flex; align-items: center;">
-																							<button class="edit-button" style="margin-left: 10px; background: none;">
+																							<button class="edit-button" style="margin-left: 10px; background: none;"  data-toggle="modal" data-target="#editfeedback">
 																								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" width="24" height="24">
 																									<path fill="#696969" d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H322.8c-3.1-8.8-3.7-18.4-1.4-27.8l15-60.1c2.8-11.3 8.6-21.5 16.8-29.7l40.3-40.3c-32.1-31-75.7-50.1-123.9-50.1H178.3zm435.5-68.3c-15.6-15.6-40.9-15.6-56.6 0l-29.4 29.4 71 71 29.4-29.4c15.6-15.6 15.6-40.9 0-56.6l-14.4-14.4zM375.9 417c-4.1 4.1-7 9.2-8.4 14.9l-15 60.1c-1.4 5.5 .2 11.2 4.2 15.2s9.7 5.6 15.2 4.2l60.1-15c5.6-1.4 10.8-4.3 14.9-8.4L576.1 358.7l-71-71L375.9 417z"/>
 																								</svg>
@@ -553,6 +553,54 @@
 																								</svg>
 																							</button>
 																						</div>
+
+																						<!-- Modal -->
+																						<div class="modal fade" id="editfeedback" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+																						<div class="modal-dialog modal-dialog-centered" role="document">
+																							<div class="modal-content">
+																							<div class="modal-header">
+																								<h5 class="modal-title" id="exampleModalLongTitle">Edit your feeedback</h5>
+																								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																								<span aria-hidden="true">&times;</span>
+																								</button>
+																							</div>
+																							<div class="modal-body">
+																								<div id="review-form">
+																									<div id="respond" class="comment-respond comment-form">
+																											<div class="comment-form-rating" style="display: flex; align-items: center; margin-bottom: 30px;">
+																												<label for="rating" style="margin-right: 10px;">Your rating</label>
+																												<div class="custom-edit--star-rating" style="display: flex;">
+																													<input type="radio" id="star1" name="rating" value="1" style="display: none;" />
+																													<label for="star1" id="1-star" title="1 star" class="star" style="cursor: pointer; font-size: 24px; margin-left: 5px;">&#9733;</label>
+																													<input type="radio" id="star2" name="rating" value="2" style="display: none;" />
+																													<label for="star2" id="2-star" title="2 stars" class="star" style="cursor: pointer; font-size: 24px; margin-left: 5px;">&#9733;</label>
+																													<input type="radio" id="star4" name="rating" value="4" style="display: none;" />
+																													<input type="radio" id="star3" name="rating" value="3" style="display: none;" />
+																													<label for="star3" id="3-star" title="3 stars" class="star" style="cursor: pointer; font-size: 24px; margin-left: 5px;">&#9733;</label>
+																													<label for="star4" id="4-star" title="4 stars" class="star" style="cursor: pointer; font-size: 24px; margin-left: 5px;">&#9733;</label>
+																													<input type="radio" id="star5" name="rating" value="5" style="display: none;" />
+																													<label for="star5" id="5-star" title="5 stars" class="star" style="cursor: pointer; font-size: 24px; margin-left: 5px;">&#9733;</label>
+																												</div>
+																											</div>
+																											<div class="comment-form-rating" style="margin-top: -30px;">
+																												<label for="rating">Your Review</label>
+																											</div>
+																											<div class="content-info-reviews">
+																												<p class="comment-form-comment">
+																												<textarea id="editcomment" name="comment"  style="height: 100px;" placeholder="Enter your feedback"><%= oneReviewAdded.description %></textarea>
+																											</p>
+																											<p class="text-danger" style="text-align: center;" id="feedbackeditError"></p>
+																										</div>
+																									</div>
+																								</div>
+																							</div>
+																							<div class="modal-footer">
+																								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+																								<button type="button" class="btn btn-primary" onclick="editfeedback('<%= productDetails._id %>' , '<%= oneReviewAdded.email %>')">Save changes</button>
+																							</div>
+																							</div>
+																						</div>
+																						</div>
 																					</div>
 																					<div class="description">
 																						<p><%= oneReviewAdded.description %></p>
@@ -562,7 +610,7 @@
 																		<% } %>
 																	<% } %>
 																</ol>
-															<% if (ratingData.length !== 0) { %>
+															<% if (fullrating.length !== 0) { %>
 																<ol class="comment-list">
 																	<% for (let i = 0; i < ratingData.length; i++) { %>
 																		<li class="review col-lg-12">
@@ -824,6 +872,7 @@
 
 <script>
 	let rating = 1;
+	let editStar = 0;
 	function addtocart(id) {
 		$.ajax({
 			url: "/cart",
@@ -1236,6 +1285,102 @@ function deleteFeedback(email , id){
 			})
 		}
 	});
+}
+
+
+
+const editedstars = document.querySelectorAll('.custom-edit--star-rating input[type="radio"]');
+editedstars.forEach(star => {
+	star.addEventListener('click', () => {
+		editStar = star.value;
+		if (editStar == 5) {
+			document.getElementById("5-star").style.color = "#ffc107"
+			document.getElementById("4-star").style.color = "#ffc107"
+			document.getElementById("3-star").style.color = "#ffc107"
+			document.getElementById("2-star").style.color = "#ffc107"
+			document.getElementById("1-star").style.color = "#ffc107"
+		} else if (editStar == 4) {
+			document.getElementById("5-star").style.color = "#4f5d77"
+			document.getElementById("4-star").style.color = "#ffc107"
+			document.getElementById("3-star").style.color = "#ffc107"
+			document.getElementById("2-star").style.color = "#ffc107"
+			document.getElementById("1-star").style.color = "#ffc107"
+		} else if (editStar == 3) {
+			document.getElementById("5-star").style.color = "#4f5d77"
+			document.getElementById("4-star").style.color = "#4f5d77"
+			document.getElementById("3-star").style.color = "#ffc107"
+			document.getElementById("2-star").style.color = "#ffc107"
+			document.getElementById("1-star").style.color = "#ffc107"
+		} else if (editStar == 2) {
+			document.getElementById("5-star").style.color = "#4f5d77"
+			document.getElementById("4-star").style.color = "#4f5d77"
+			document.getElementById("3-star").style.color = "#4f5d77"
+			document.getElementById("2-star").style.color = "#ffc107"
+			document.getElementById("1-star").style.color = "#ffc107"
+		} else if (editStar == 1) {
+			document.getElementById("5-star").style.color = "#4f5d77"
+			document.getElementById("4-star").style.color = "#4f5d77"
+			document.getElementById("3-star").style.color = "#4f5d77"
+			document.getElementById("2-star").style.color = "#4f5d77"
+			document.getElementById("1-star").style.color = "#ffc107"
+		}
+	});
+});
+
+
+
+
+function editfeedback(productID , email){
+	const feedback  =document.getElementById("editcomment").value;
+	if(feedback.trim() === ""){
+		document.getElementById("feedbackeditError").textContent = "Please enter your feedback";
+		setTimeout(() => {
+			document.getElementById("feedbackeditError").textContent = "";
+		}, 3000);
+	}
+	else{
+		$.ajax({
+			url: "/feedback",
+			method: "patch",
+			data: {
+				editStar,
+				feedback,
+				productID,
+				email
+			},
+			success: (response) => {
+				if (response.status === "updated") {
+					const successToast = Swal.mixin({
+						toast: true,
+						position: "top",
+						showConfirmButton: false,
+						timer: 2000,
+						timerProgressBar: false,
+						customClass: {
+							popup: 'swal2-toast',
+							title: 'swal2-title',
+							icon: 'swal2-icon',
+						},
+						didOpen: (toast) => {
+							toast.onmouseenter = Swal.stopTimer;
+							toast.onmouseleave = Swal.resumeTimer;
+						}
+					});
+
+					successToast.fire({
+						icon: "success",
+						title: "feedback updated",
+						iconColor: '#00ff00',
+						titleColor: '#000000'
+					});
+
+					setInterval(() => {
+						window.location.reload()
+					}, 2000);
+				}
+			}
+		})
+	}
 }
 </script>
 

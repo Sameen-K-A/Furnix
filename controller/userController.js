@@ -395,6 +395,7 @@ const productDetailspage = async (req, res) => {
         let wishproduct = false;
         let oneReviewAdded = false
         const ratingData = await Rating.find({ productID: productID , email : {$nin : [req.session.user]}})
+        const fullrating = await Rating.find({ productID: productID})
         if (userData) {
             const boughtProduct = await Order.find({ userEmail: req.session.user});
             for (let i = 0; i < boughtProduct.length; i++) {
@@ -420,7 +421,7 @@ const productDetailspage = async (req, res) => {
             }
             oneReviewAdded = await Rating.findOne({productID: productID , email : req.session.user});
         }
-        res.render("user/productDetails", { productDetails, userData, boughtProductID, oneReviewAdded, ratingData, wishproduct , CartCount , wishCount})
+        res.render("user/productDetails", { productDetails, userData, boughtProductID, oneReviewAdded, ratingData, wishproduct , CartCount , wishCount , fullrating})
     } catch (error) {
         console.log(error);
     }
@@ -460,6 +461,43 @@ const feedback = async (req, res) => {
         const data = await Rating.create(ratingDetails);
         if (data) {
             const ratingData = await Rating.find({ productID: productid }, { star: true });
+            let totalStar = 0;
+            for (let i = 0; i < ratingData.length; i++) {
+                totalStar += ratingData[i].star
+            };
+            const avgratingstar = totalStar / ratingData.length;
+            const nearestInteger = Math.round(avgratingstar);
+            productData.avgStar = nearestInteger;
+            productData.save();
+            res.json({ status: "updated" })
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+//========================================= Edit user entered feed back about that product ==============================================
+
+const feedbackedit = async (req, res) => {
+    try {
+        const editStar = parseInt(req.body.editStar);
+        const feedback = req.body.feedback;
+        const productID = req.body.productID;
+        const email = req.body.email;
+        const productData = await Product.findOne({ _id: productID });
+        const userData = await User.findOne({email : email});
+        const newFeedbackdata = {
+            productID: productData._id,
+            name: userData.name,
+            email: userData.email,
+            date: dateGenerator(),
+            description: feedback,
+            star: editStar
+        }
+        
+        const ratingDetails = await Rating.updateOne({productID : productID , email : email} , newFeedbackdata);
+        if (ratingDetails.modifiedCount === 1) {
+            const ratingData = await Rating.find({ productID: productID }, { star: true });
             let totalStar = 0;
             for (let i = 0; i < ratingData.length; i++) {
                 totalStar += ratingData[i].star
@@ -632,6 +670,7 @@ module.exports = {
     userLogout,
     productDetailspage,
     feedback,
+    feedbackedit,
     deleteFeedback,
     wishlistget,
     wishlistpost,

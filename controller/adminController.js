@@ -63,7 +63,7 @@ const adminHome = async (req, res) => {
         const UserdayArray = [0,0,0,0,0,0,0];
         for (let i = 0; i < user.length; i++) {
             let createddate = new Date(user[i].createdOn);
-            createddate = createddate.getDay();
+            createddate = createddate.getDay(); // [sun monday , tue]
             UserdayArray[createddate] += 1;
         };
         // line chart order counting each day
