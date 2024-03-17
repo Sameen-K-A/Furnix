@@ -109,8 +109,11 @@ router.post("/wallet" , isUser , isBlocked , userProfileController.walletpost);
 router.post("/successwallet" , isUser , isBlocked , userProfileController.successwallet);
 
 // invoice
-router.get("/invoice" ,isUser , isBlocked , userProfileController.invoice)
-router.post("/invoice" ,isUser , isBlocked , userProfileController.invoicepost)
+router.get("/invoice" ,isUser , isBlocked , userProfileController.invoice);
+router.post("/invoice" ,isUser , isBlocked , userProfileController.invoicepost);
+
+// contact and about page
+router.get("/contact" , userController.contact)
 
 
 

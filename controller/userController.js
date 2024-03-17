@@ -650,6 +650,17 @@ const search = async (req, res)=>{
         
     }
 }
+
+
+const contact = (req , res) => {
+    try {
+        const CartCount = req.session.CartCount
+        const wishCount = req.session.wishCount
+        res.render("user/contact" , {CartCount , wishCount})
+    } catch (error) {
+        console.log(error);
+    }
+}
 //========================================= Export all modules ==============================================
 
 module.exports = {
@@ -675,5 +686,6 @@ module.exports = {
     wishlistget,
     wishlistpost,
     deletewish,
-    search
+    search,
+    contact
 }
