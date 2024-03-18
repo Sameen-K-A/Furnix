@@ -75,20 +75,20 @@ const adminHome = async (req, res) => {
             orderdayArray[dateOfOrder] += 1
         };
         // Bar chart weekly revenew
-        const revenewDayaArray = [0,0,0,0,0,0,0];
+        const revenewDayaArray = [0,0,0,0,0,0,0,0,0,0,0,0];
         for (let i = 0; i < orderData.length; i++) {
             if(orderData[i].paymentMethod === "Cash on delivery"){
-                if(orderData[i].status === "Delivered" || orderData[i].status === "Return order processing" || orderData[i].status === "Return order cancel"){
-                    let dateOfOrder = new Date(orderData[i].date);
-                    dateOfOrder = dateOfOrder.getDay();
-                    revenewDayaArray[dateOfOrder] += orderData[i].total;
+                if(orderData[i].status === "Delivered" || orderData[i].status === "Return order cancel" || orderData[i].status === "Return order cancel"){
+                    let monthOfOrder = new Date(orderData[i].date);
+                    monthOfOrder = monthOfOrder.getMonth();
+                    revenewDayaArray[monthOfOrder] += orderData[i].total;
                 }
             }
             if(orderData[i].paymentMethod === "Razorpay"){
-                if(!orderData[i].status === "Cancelled" || !orderData[i].status === "Return order recieved"){
-                    let dateOfOrder = new Date(orderData[i].date);
-                    dateOfOrder = dateOfOrder.getDay();
-                    revenewDayaArray[dateOfOrder] += orderData[i].total;
+                if(orderData[i].status === "Ordered" || orderData[i].status === "Shipped" || orderData[i].status === "Delivered" || orderData[i].status === "Return order processing" || orderData[i].status === "Return order cancel"){
+                    let monthOfOrder = new Date(orderData[i].date);
+                    monthOfOrder = monthOfOrder.getMonth();
+                    revenewDayaArray[monthOfOrder] += orderData[i].total;
                 }
             }
         }

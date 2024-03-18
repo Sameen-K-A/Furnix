@@ -3,14 +3,16 @@ const Product = require("../model/productModel");
 const Order = require("../model/orderModel");
 const Rating = require('../model/ratingModel');
 const Wishlist = require("../model/wishlistModel");
+const Coupon = require("../model/coupenModel");
+const Category = require("../model/categoryModel");
+const Wallet = require("../model/walletModel");
 const GenerateOTP = require("../controller/OTP controller/GenerateOTP");
 const sendOTPmail = require("../controller/OTP controller/sendOTP");
 const dateGenerator = require("../config/dateGenerator");
 const randomID = require("../config/randomID");
 const bcrypt = require("bcrypt");
-const Coupon = require("../model/coupenModel");
-const Category = require("../model/categoryModel");
-const Wallet = require("../model/walletModel");
+
+
 
 //========================================= Render default page ==============================================
 
@@ -661,6 +663,20 @@ const contact = (req , res) => {
         console.log(error);
     }
 }
+
+const contactPost = async (req , res) => {
+    try {
+        const {name , email , message} = req.body;
+        const userData = await User.findOne({email : req.session.user});
+        if(userData){
+            res.json({status : "okay"})
+        } else{
+            res.json({status : "noUser"})
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
 //========================================= Export all modules ==============================================
 
 module.exports = {
@@ -687,5 +703,6 @@ module.exports = {
     wishlistpost,
     deletewish,
     search,
-    contact
+    contact,
+    contactPost
 }

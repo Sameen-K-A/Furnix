@@ -32,6 +32,25 @@
 		<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@100;200;300;400;500;600;700&amp;display=swap" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=EB+Garamond:100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic&amp;display=swap" rel="stylesheet">
 	</head>
+	<style>
+		.swal-custom {
+			background: linear-gradient(94deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.8240546218487395) 26%, rgba(0, 0, 0, 1) 53%, rgba(0, 0, 0, 0.8492647058823529) 79%, rgba(227, 227, 227, 0) 100%);
+			color: #ffffff;
+			width: 100%;
+		}
+		.swal-custom-ok-btn {
+			color: black !important;
+		}
+		.my-toast-container {
+			width: 500px !important;
+		}
+
+		.my-toast-popup {
+			background-color: black !important;
+			color: white;
+		}
+
+	</style>
 	
 	<body class="page">
 		<div id="page" class="hfeed page-wrapper">
@@ -247,19 +266,19 @@
 													<div class="sub-title">We’ll get back to you within two days.</div>
 												</div>
 												<div class="block-content">
-													<form action="#" method="post" class="contact-form" novalidate="novalidate">
+													<!-- <form action="#" method="post" class="contact-form" novalidate="novalidate"> -->
 														<div class="contact-us-form">
 															<div class="row">
 																<div class="col-sm-12 col-md-6">
 															        <label class="required">Name</label><br>
 															        <span class="form-control-wrap">
-															        	<input type="text" name="name" value="" size="40" class="form-control" aria-required="true">
+															        	<input type="text" id="name" value="" size="40" class="form-control" aria-required="true" onkeypress="clearp()">
 															        </span>
 															    </div>
 																<div class="col-sm-12 col-md-6">
 															        <label class="required">Email</label><br>
 															        <span class="form-control-wrap">
-														        		<input type="email" name="email" value="" size="40" class="form-control" aria-required="true">
+														        		<input type="email" id="email" value="" size="40" class="form-control" aria-required="true" onkeypress="clearp()">
 														        	</span>
 															    </div>
 															</div>
@@ -267,15 +286,16 @@
 																<div class="col-sm-12">
 																	<label class="required">Message</label><br>
 																	<span class="form-control-wrap">
-																		<textarea name="message" cols="40" rows="10" class="form-control" aria-required="true"></textarea>
+																		<textarea name="message" cols="40" rows="10" class="form-control" aria-required="true" id="message" onkeypress="clearp()"></textarea>
 																	</span>
 																</div>
 															</div>
+															<b><p style="text-align: center; font-size: 20px; color: red; margin-top: 20px;" id="errorp"></p></b>
 															<div class="form-button">
-												      			<input type="submit" value="Submit" class="button"></span>
+												      			<input type="button" value="Submit" class="button" onclick="contactSubmit()"></span>
 															</div>
 														</div>
-													</form>
+													<!-- </form> -->
 												</div>
 											</div>
 										</div>
@@ -705,8 +725,6 @@
 	    		<div></div>
 	    	</div>
 	    </div> -->
-
-		<!-- Dependency Scripts -->
 		<script src="libs/popper/js/popper.min.js"></script>
 		<script src="libs/jquery/js/jquery.min.js"></script>
 		<script src="libs/bootstrap/js/bootstrap.min.js"></script>
@@ -717,10 +735,94 @@
 		<script src="libs/slider/js/jquery.dependClass-0.1.js"></script>
 		<script src="libs/slider/js/draggable-0.1.js"></script>
 		<script src="libs/slider/js/jquery.slider.js"></script>
-		
-		<!-- Site Scripts -->
 		<script src="assets/js/app.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+			integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+			crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	</body>
+	<script>
+		function contactSubmit(){
+			const name = document.getElementById("name").value;
+			const email = document.getElementById("email").value;
+			const message = document.getElementById("message").value;
+			const nameRegex = /^[A-Za-z]+$/;
+			const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+			const messageRegex = /^[A-Za-z0-9.,?\s]+$/;
 
-<!-- Mirrored from caketheme.com/html/ruper/page-contact.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 26 Jan 2024 08:53:12 GMT -->
+			if(name.trim() === "" || email.trim() === "" || message.trim() === ""){
+				document.getElementById("errorp").textContent = "Please fill all fields";
+			} else if (!nameRegex.test(name)) {
+				document.getElementById("errorp").textContent = "Name must only contain alphabets";
+			} else if (name.length < 3) {
+				document.getElementById("errorp").textContent = "Name must be at least 3 characters long";
+			} else if (!emailRegex.test(email)) {
+				document.getElementById("errorp").textContent = "Invalid email. Plese enter valid email";
+			} else if (message.length < 10) {
+				document.getElementById("errorp").textContent = "Message must be at least 10 characters long";
+			} else if (!messageRegex.test(message)) {
+				document.getElementById("errorp").textContent = "Message can only contain alphabets, digits, dots, commas, and question marks";
+			} else {
+				$.ajax({
+					url: "/contact",
+					method: "post",
+					data: {
+						name,
+						email,
+						message
+					},
+					success: (response) => { 
+						if (response.status === "okay") {
+							const Toast = Swal.mixin({
+								toast: true,
+								position: "top",
+								showConfirmButton: false,
+								timer: 3000,
+								timerProgressBar: false,
+								didOpen: (toast) => {
+									toast.onmouseenter = Swal.stopTimer;
+									toast.onmouseleave = Swal.resumeTimer;
+								},
+								customClass: {
+									container: 'my-toast-container',
+									popup: 'my-toast-popup',
+									header: 'my-toast-header',
+									title: 'my-toast-title',
+									icon: 'my-toast-icon',
+									image: 'my-toast-image',
+									content: 'my-toast-content'
+								}
+							});
+
+							Toast.fire({
+								icon: "success",
+								title: "Thank you for contacting us. A reply will be sent to you soon."
+							});
+
+						} else if(response.status === "noUser"){
+							Swal.fire({
+								title: "Please login",
+								showCancelButton: true,
+								confirmButtonColor: "#39e75f",
+								cancelButtonColor: "#ffffff",
+								confirmButtonText: "Go to login page",
+								customClass: {
+									popup: 'swal-custom',
+									cancelButton: 'swal-custom-ok-btn'
+								}
+							}).then((result) => {
+								if (result.isConfirmed) {
+									window.location.href = "/userLogin"
+								}
+							});
+						}
+					}
+				})
+			}
+		}
+
+		function clearp(){
+			document.getElementById("errorp").textContent = ""
+		}
+	</script>
 </html>

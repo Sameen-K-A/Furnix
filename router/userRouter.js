@@ -113,7 +113,8 @@ router.get("/invoice" ,isUser , isBlocked , userProfileController.invoice);
 router.post("/invoice" ,isUser , isBlocked , userProfileController.invoicepost);
 
 // contact and about page
-router.get("/contact" , userController.contact)
+router.get("/contact" , userController.contact);
+router.post("/contact" , userController.contactPost);
 
 
 
