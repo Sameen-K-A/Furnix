@@ -6,6 +6,7 @@ const Wishlist = require("../model/wishlistModel");
 const Coupon = require("../model/coupenModel");
 const Category = require("../model/categoryModel");
 const Wallet = require("../model/walletModel");
+const Contact = require("../model/contactModel");
 const GenerateOTP = require("../controller/OTP controller/GenerateOTP");
 const sendOTPmail = require("../controller/OTP controller/sendOTP");
 const dateGenerator = require("../config/dateGenerator");
@@ -653,6 +654,7 @@ const search = async (req, res)=>{
     }
 }
 
+//========================================= Contact rendering ==============================================
 
 const contact = (req , res) => {
     try {
@@ -664,11 +666,20 @@ const contact = (req , res) => {
     }
 }
 
+//========================================= Contact details post ==============================================
+
 const contactPost = async (req , res) => {
     try {
         const {name , email , message} = req.body;
         const userData = await User.findOne({email : req.session.user});
         if(userData){
+            const contactData = {
+                name : name,    
+                email : email,
+                message : message,
+                date : dateGenerator()
+            };
+            await Contact.create(contactData);
             res.json({status : "okay"})
         } else{
             res.json({status : "noUser"})

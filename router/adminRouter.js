@@ -39,6 +39,7 @@ router.get("/listproduct" ,isAdmin, productController.listproduct);
 
 //Order side routes
 router.get("/order" ,isAdmin , adminController.orderget);
+router.get("/return" ,isAdmin , adminController.returnget);
 router.get("/orderInfo" , isAdmin , adminController.orderInfo);
 router.post("/changeStatus" , isAdmin , adminController.statusChanger);
 
@@ -52,5 +53,8 @@ router.post("/couponUnblock" , isAdmin , couponController.couponUnblock);
 // sales report side
 router.get("/salesreport" , isAdmin , adminController.salesreport);
 router.post("/excelDownload" , isAdmin , adminController.excelDownload);
+
+// user Contact reply
+router.post("/replayToUser" , isAdmin , adminController.replayToUser)
 
 module.exports = router;

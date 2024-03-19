@@ -1,4 +1,3 @@
-const User = require("../model/userModel");
 const Category = require("../model/categoryModel");
 const Product = require("../model/productModel");
 
@@ -104,12 +103,13 @@ const editproductPOST = async (req, res) => {
 const editproductImagePOST = async (req, res) => {
     try {
         const image = req.body.imagename;
+        console.log(image);
         const index = parseInt(req.body.index);
         const productID = req.body.productID;
         if(image){
             const productDetails = await Product.findOne({_id : productID});
             productDetails.images.splice(index , 1 , image);
-            productDetails.save()
+            // productDetails.save()
             res.json({status : "okay"})
         }else{
             res.json({status : "oops"})

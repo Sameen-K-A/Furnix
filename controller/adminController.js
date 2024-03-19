@@ -3,10 +3,12 @@ const Category = require("../model/categoryModel");
 const Order = require("../model/orderModel");
 const Product = require("../model/productModel");
 const Coupon = require("../model/coupenModel");
-const Wallet = require("../model/walletModel")
+const Wallet = require("../model/walletModel");
+const Contact = require("../model/contactModel")
 const date = require("../config/dateGenerator");
 const id = require("../config/randomID");
 const color = require("../config/colorGenerator");
+const replyContact = require("../config/replyContact");
 const exceljs = require("exceljs");
 
 //========================================= Render admin login page==============================================
@@ -51,10 +53,14 @@ const adminLoginPOST = async (req, res) => {
 
 const adminHome = async (req, res) => {
     try {
-        const user = await User.find({});
-        const category = await Category.find({})
-        const product = await Product.find({})
-        const order = await Order.find({status: { $nin: ["Ordered", "Shipped", "Cancelled"]}})
+        const [user, category, product, newContacts, replyContact, order] = await Promise.all([
+            User.find({}),
+            Category.find({}),
+            Product.find({}),
+            Contact.find({ reply: "No reply" }),
+            Contact.find({ reply: { $nin: ["No reply"] } }),
+            Order.find({ status: { $nin: ["Ordered", "Shipped", "Cancelled"] } })
+        ]);
         let revenue = 0;
         for(let i=0 ; i< order.length ; i++){
             revenue += order[i].total
@@ -118,7 +124,7 @@ const adminHome = async (req, res) => {
         }
 
         
-        res.render("admin/adminHome" , {user , category , product , order , revenue , UserdayArray , orderdayArray , revenewDayaArray , top5products , productcatList})
+        res.render("admin/adminHome" , {user , category , product , order , revenue , UserdayArray , orderdayArray , revenewDayaArray , top5products , productcatList , newContacts , replyContact})
     } catch (error) {
         console.log(error);
     }
@@ -149,8 +155,13 @@ const CatChart = async (req, res) => {
 
 const adminUserList = async (req, res) => {
     try {
-        const UserDatas = await User.find({});
-        res.render("admin/adminUserList", { UserDatas });
+        const page = parseInt(req.query.page) || 1;
+        const NoOfDetailsPage = 5;
+        const detailsSkip = (page-1) * NoOfDetailsPage;
+        const detailsCount = await User.countDocuments();
+        const noOfPages = Math.ceil(detailsCount/NoOfDetailsPage);
+        const UserDatas = await User.find({}).sort({ _id: -1 }).skip(detailsSkip).limit(NoOfDetailsPage); 
+        res.render("admin/adminUserList", { UserDatas , noOfPages , page})
     } catch (error) {
         console.log(error);
     }
@@ -479,8 +490,30 @@ const adminLogout = (req, res) => {
 
 const orderget = async (req, res) => {
     try {
-        const orderData = await Order.find({}).sort({_id : -1})
-        res.render("admin/orderPage", { orderData })
+        const page = parseInt(req.query.page) || 1;
+        const NoOfDetailsPage = 5;
+        const detailsSkip = (page-1) * NoOfDetailsPage;
+        const detailsCount = await Order.countDocuments({status: { $in: ["Ordered","Cancelled","Shipped","Delivered","Payment failed"]}});
+        const noOfPages = Math.ceil(detailsCount/NoOfDetailsPage);
+        const orderData = await Order.find({status: { $in: ["Ordered","Cancelled","Shipped","Delivered","Payment failed"]}}).sort({ _id: -1 }).skip(detailsSkip).limit(NoOfDetailsPage);
+        
+        res.render("admin/orderPage", { orderData , noOfPages , page})
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+//========================================= Admin logout side ==============================================
+
+const returnget = async (req, res) => {
+    try {
+        const page = parseInt(req.query.page) || 1;
+        const NoOfDetailsPage = 5;
+        const detailsSkip = (page-1) * NoOfDetailsPage;
+        const detailsCount = await Order.countDocuments({status: { $in: ["Return order processing", "Returned order recieved", "Return order cancel"]}});
+        const noOfPages = Math.ceil(detailsCount/NoOfDetailsPage);
+        const orderData = await Order.find({status: { $in: ["Return order processing", "Returned order recieved", "Return order cancel"]}}).sort({ _id: -1 }).skip(detailsSkip).limit(NoOfDetailsPage); 
+        res.render("admin/returnDetails", { orderData , noOfPages , page})
     } catch (error) {
         console.log(error);
     }
@@ -654,6 +687,22 @@ const excelDownload = async (req, res)=>{
         console.log(error);
     }
 }
+
+//========================================= User contact reply ==============================================
+
+const replayToUser = async (req , res) => {
+    try {
+        const contactID = req.body.id;
+        const replyMessage = req.body.replyMessage;
+        const contactData = await Contact.findOne({_id : contactID});
+        replyContact(contactData.email , replyMessage);
+        contactData.reply = replyMessage;
+        await contactData.save();
+        res.json({status : "okay"})
+    } catch (error) {
+        console.log(error);
+    }
+}
 //========================================= Export all modules ==============================================
 
 module.exports = {
@@ -676,10 +725,12 @@ module.exports = {
     catEditPOST,
     adminLogout,
     orderget,
+    returnget,
     orderInfo,
     statusChanger,
     salesreport,
     excelDownload,
+    replayToUser
 }
 
 

@@ -111,11 +111,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     <main class="main-wrap">
         <header class="main-header navbar">
             <div class="col-search">
-                <form class="searchform">
-                    <div class="input-group">
-                        <input list="search_terms" type="text" class="form-control" placeholder="Search term">
-                    </div>
-                </form>
             </div>
             <div class="col-nav">
                 <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside"> <i
@@ -166,8 +161,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
                     </div>
                     <p style="color: red; margin-top: 20px; text-align: center;" id="custmerror"></p>
                 </header>
-                
-                
                 <div class="card-body">
                     <% if (deliveredOrders.length !=0) { %>
                         <div class="table-responsive">
@@ -210,13 +203,9 @@ input[type="date"]::-webkit-calendar-picker-indicator {
                                 </tbody>
                             </table>
                         </div>
-                        
-                        
                     <% } else { %>
                         <h5>No orders found </h5>
                     <% } %>
-
-                    <!-- Total table-->
                     <div class="table-responsive col-lg-4" style="margin-top: 40px;">
                         <table class="table table-hover" style="border-collapse: collapse; width: 100%; border: 1px solid black;">
                             <thead class="text-center" style="background-color: black; color: white;">
@@ -252,7 +241,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
                             </tbody>
                         </table>
                     </div>
-                    
                 </div>
             </div>
         </section> 
@@ -266,7 +254,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     <script src="/admin-assets/js/main.js" type="text/javascript"></script>
     <script src="/admin-assets/js/custom-chart.js" type="text/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
-
 </body>
 <script>
     function select(){
@@ -355,7 +342,5 @@ input[type="date"]::-webkit-calendar-picker-indicator {
         }
     }
 }
-
-
 </script>
 </html>

@@ -15,7 +15,6 @@
 
     <link href="/admin-assets/css/main.css" rel="stylesheet" type="text/css" />
 </head>
-
 <style>
     button {
         margin: 0;
@@ -42,14 +41,14 @@
     }
 
     .orderbtn {
-        background-color: black;
-        color: white;
-    }
-
-    .returnbtn {
         background-color: rgb(255, 255, 255);
         color: rgb(0, 0, 0);
         border: 1px solid black;
+    }
+
+    .returnbtn {
+        background-color: rgb(0, 0, 0);
+        color: rgb(255, 255, 255);
     }
 
     .orderbtn:hover,
@@ -66,7 +65,6 @@
         text-align: center;
     }
 </style>
-
 <body>
     <div class="screen-overlay"></div>
     <aside class="navbar-aside" id="offcanvas_aside">
@@ -134,7 +132,7 @@
                                 src="/admin-assets/imgs/people/profile.jpg" alt="User"></a>
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
                             <a class="dropdown-item text-danger" href="/admin/adminLogout"><i
-                                    class="material-icons md-exit_to_app"></i>Logout</a>
+                                class="material-icons md-exit_to_app"></i>Logout</a>
                         </div>
                     </li>
                 </ul>
@@ -144,64 +142,66 @@
             <div class="content-header">
                 <h2 class="content-title fw-bold" style="margin: auto;">Orders</h2>
             </div>
+            
             <div class="button-container" style="margin-bottom: 30px;">
                 <a href="/admin/order"><button class="orderbtn" id="orderbtn">Order details</button></a>
                 <a href="/admin/return"><button class="returnbtn" id="returnbtn">Return details</button></a>
             </div>
-            <div class="card mb-4" id="orderdetails" style="display: block;">
+            <div class="card mb-4" id="returndetails">
                 <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-hover">
-                            <thead class="text-center " style="background-color: rgb(0, 0, 0); color: white;">
-                                <tr>
-                                    <th>OrderID</th>
-                                    <th scope="col">Email</th>
-                                    <th scope="col">Total</th>
-                                    <th scope="col">Status</th>
-                                    <th scope="col">Date</th>
-                                    <th scope="col">Time</th>
-                                    <th scope="col"> Action </th>
-                                </tr>
-                            </thead>
-                            <tbody class="text-center">
-                                <% for( let i=0; i < orderData.length; i++ ) { %>
+                    <% if (orderData.length === 0) { %>
+                        <h5>No order founded</h5>
+                    <% } else { %>
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead class="text-center " style="background-color: rgb(0, 0, 0); color: white;">
                                     <tr>
-                                        <td>
-                                            <%= orderData[i].orderID %>
-                                        </td>
-                                        <td>
-                                            <%= orderData[i].userEmail %>
-                                        </td>
-                                        <td>₹<%= orderData[i].total %>.00</td>
-                                        <td>
-                                            <% if(orderData[i].status==="Ordered") { %>
-                                                <span class="orderStatus">Ordered</span>
-                                            <% } else if (orderData[i].status==="Cancelled") { %>
-                                                <span class="orderStatus">Cancelled</span>
-                                            <% } else if (orderData[i].status==="Shipped") { %>
-                                                <span class="orderStatus">Shipped</span>
-                                            <% } else if (orderData[i].status==="Payment failed") { %>
-                                                <span class="orderStatus">Payment failed</span>
-                                            <% } else if (orderData[i].status==="Delivered" ) { %>
-                                                <span class="orderStatus">Delivered</span>
-                                            <% } %>
-                                        </td>
-                                        <td>
-                                            <%= orderData[i].date %>
-                                        </td>
-                                        <td>
-                                            <%= orderData[i].time %>
-                                        </td>
-                                        <td>
-                                            <a href="/admin/orderInfo?id=<%= orderData[i]._id %>"><button style="background-color: rgb(255, 255, 255); border: none;">
-                                                <svg xmlns="http://www.w3.org/2000/svg" height="12" width="10.5" viewBox="0 0 448 512"><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg>
-                                            </button></a>
-                                        </td>
+                                        <th>OrderID</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Total</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Date</th>
+                                        <th scope="col">Time</th>
+                                        <th scope="col"> Action </th>
                                     </tr>
-                                <% } %>
-                            </tbody>
-                        </table>
-                    </div>
+                                </thead>
+                                
+                                <tbody class="text-center">
+                                    <% for( let i=0; i < orderData.length; i++ ) { %>
+                                            <tr>
+                                                <td>
+                                                    <%= orderData[i].orderID %>
+                                                </td>
+                                                <td>
+                                                    <%= orderData[i].userEmail %>
+                                                </td>
+                                                <td>₹<%= orderData[i].total %>.00</td>
+                                                <td>
+                                                    <% if(orderData[i].status==="Return order cancel") { %>
+                                                        <span class="orderStatus">Return cancelled</span>
+                                                    <% } else if (orderData[i].status==="Return order processing") { %>
+                                                        <span class="orderStatus">Return processing</span>
+                                                    <% } else if (orderData[i].status==="Returned order recieved") { %>
+                                                        <span class="orderStatus">Return recieved</span>
+                                                    <% } %>
+                                                </td>
+                                                <td>
+                                                    <%= orderData[i].date %>
+                                                </td>
+                                                <td>
+                                                    <%= orderData[i].time %>
+                                                </td>
+                                                <td>
+                                                    <a href="/admin/orderInfo?id=<%= orderData[i]._id %>"><button style="background-color: rgb(255, 255, 255); border: none;">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" height="12" width="10.5" viewBox="0 0 448 512"><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg>
+                                                    </button></a>
+                                                </td>
+                                            </tr>
+                                    <% } %>
+                                </tbody>
+                            </table>
+                        </div>   
+                    <% } %>
                 </div>
             </div>
             <% if (noOfPages != 1) { %>

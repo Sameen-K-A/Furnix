@@ -266,36 +266,34 @@
 													<div class="sub-title">We’ll get back to you within two days.</div>
 												</div>
 												<div class="block-content">
-													<!-- <form action="#" method="post" class="contact-form" novalidate="novalidate"> -->
-														<div class="contact-us-form">
-															<div class="row">
-																<div class="col-sm-12 col-md-6">
-															        <label class="required">Name</label><br>
-															        <span class="form-control-wrap">
-															        	<input type="text" id="name" value="" size="40" class="form-control" aria-required="true" onkeypress="clearp()">
-															        </span>
-															    </div>
-																<div class="col-sm-12 col-md-6">
-															        <label class="required">Email</label><br>
-															        <span class="form-control-wrap">
-														        		<input type="email" id="email" value="" size="40" class="form-control" aria-required="true" onkeypress="clearp()">
-														        	</span>
-															    </div>
+													<div class="contact-us-form">
+														<div class="row">
+															<div class="col-sm-12 col-md-6">
+																<label class="required">Name</label><br>
+																<span class="form-control-wrap">
+																	<input type="text" id="name" value="" size="40" class="form-control" aria-required="true" onclick="clearp()">
+																</span>
 															</div>
-															<div class="row">
-																<div class="col-sm-12">
-																	<label class="required">Message</label><br>
-																	<span class="form-control-wrap">
-																		<textarea name="message" cols="40" rows="10" class="form-control" aria-required="true" id="message" onkeypress="clearp()"></textarea>
-																	</span>
-																</div>
-															</div>
-															<b><p style="text-align: center; font-size: 20px; color: red; margin-top: 20px;" id="errorp"></p></b>
-															<div class="form-button">
-												      			<input type="button" value="Submit" class="button" onclick="contactSubmit()"></span>
+															<div class="col-sm-12 col-md-6">
+																<label class="required">Email</label><br>
+																<span class="form-control-wrap">
+																	<input type="email" id="email" value="" size="40" class="form-control" aria-required="true" onclick="clearp()">
+																</span>
 															</div>
 														</div>
-													<!-- </form> -->
+														<div class="row">
+															<div class="col-sm-12">
+																<label class="required">Message</label><br>
+																<span class="form-control-wrap">
+																	<textarea name="message" cols="40" rows="10" class="form-control" aria-required="true" id="message" onclick="clearp()"></textarea>
+																</span>
+															</div>
+														</div>
+														<b><p style="text-align: center; font-size: 20px; color: red; margin-top: 20px;" id="errorp"></p></b>
+														<div class="form-button">
+															<input type="button" value="Submit" class="button" onclick="contactSubmit()"></span>
+														</div>
+													</div>
 												</div>
 											</div>
 										</div>
@@ -773,6 +771,9 @@
 					},
 					success: (response) => { 
 						if (response.status === "okay") {
+							document.getElementById("name").value = "";
+							document.getElementById("email").value = "";
+							document.getElementById("message").value = "";
 							const Toast = Swal.mixin({
 								toast: true,
 								position: "top",
@@ -798,7 +799,6 @@
 								icon: "success",
 								title: "Thank you for contacting us. A reply will be sent to you soon."
 							});
-
 						} else if(response.status === "noUser"){
 							Swal.fire({
 								title: "Please login",
