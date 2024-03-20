@@ -221,10 +221,20 @@ const editAddress = async (req, res) => {
 
 const orders = async (req, res) => {
     try {
-        const CartCount = req.session.CartCount
-        const wishCount = req.session.wishCount
-        const orderData = await Order.find({ userEmail: req.session.user }).sort({_id : -1})
-        res.render("userProfile/userOrders", { orderData , CartCount , wishCount})
+        const CartCount = req.session.CartCount;
+        const wishCount = req.session.wishCount;
+        let orderData = await Order.find({ userEmail: req.session.user }).sort({_id : -1});
+        
+        const page = parseInt(req.query.page) || 1;
+        const NoOfDetailsPage = 5;
+        const detailsCount = orderData.length;
+        const noOfPages = Math.ceil(detailsCount / NoOfDetailsPage);
+        const detailsSkip = (page - 1) * NoOfDetailsPage;
+        orderData = orderData.slice(detailsSkip, detailsSkip + NoOfDetailsPage);
+
+
+
+        res.render("userProfile/userOrders", { orderData , CartCount , wishCount , noOfPages , page})
     } catch (error) {
         console.log(error);
     }
@@ -380,10 +390,17 @@ const wallet = async (req , res) => {
         const userData = await User.findOne({email : req.session.user});
         const userWallet = await Wallet.findOne({userID : userData._id});
         let sortedTransactions;
+        let noOfPages;
+        let page;
         if (userWallet) {
-            sortedTransactions = userWallet.transactions.sort((a, b) => b._id.getTimestamp() - a._id.getTimestamp()).slice(0, 5);
+            page = parseInt(req.query.page) || 1;
+            const NoOfDetailsPage = 5;
+            const detailsSkip = (page-1) * NoOfDetailsPage;
+            const detailsCount = userWallet.transactions.length;
+            noOfPages = Math.ceil(detailsCount/NoOfDetailsPage);
+            sortedTransactions = userWallet.transactions.sort((a, b) => b._id.getTimestamp() - a._id.getTimestamp()).slice(detailsSkip, detailsSkip + NoOfDetailsPage);
         };
-        res.render("userProfile/Wallet" , {userWallet , sortedTransactions , CartCount , wishCount})
+        res.render("userProfile/Wallet" , {userWallet , sortedTransactions , CartCount , wishCount , noOfPages ,page})
     } catch (error) {
         console.log(error);
     }

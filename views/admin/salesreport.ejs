@@ -162,6 +162,47 @@ input[type="date"]::-webkit-calendar-picker-indicator {
                     <p style="color: red; margin-top: 20px; text-align: center;" id="custmerror"></p>
                 </header>
                 <div class="card-body">
+                    <% if (customValue) { %>
+                        <% if (customValue === "All") { %>
+                            <div style="margin: 20px; padding: 15px;">
+                                <h3 id="salesReport" style="text-align: center; font-weight: 500; color: black;">All Sales Report</h3>                           
+                            </div>
+                        <% } else if (customValue === "Month") { %>
+                            <div style="margin: 20px; padding: 15px;">
+                                <% const monthNames = ["January", "February", "March", "April", "May", "June","July", "August", "September", "October", "November", "December"];
+                                   const currentDate = new Date();
+                                   const currentMonth = monthNames[currentDate.getMonth()];
+                                   const currentYear = currentDate.getFullYear();
+                                %>
+                                <h3 id="salesReport" style="text-align: center; font-weight: 500; color: black;"><%= currentMonth %> <%= currentYear %> Sales Report</h3>                           
+                            </div>
+                        <% } else if (customValue === "Today") { %>
+                            <div style="margin: 20px; padding: 15px;">
+                                <% const currentDate = new Date();
+                                   const year = currentDate.getFullYear();
+                                   const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+                                   const day = String(currentDate.getDate()).padStart(2, '0');
+                                   const todayDate = `${year}-${month}-${day}`;
+                                %>
+                                <h3 id="salesReport" style="text-align: center; font-weight: 500; color: black;"><%= todayDate %> Sales Report</h3>                           
+                            </div>
+                        <% } else if (customValue === "Year") { %>
+                            <div style="margin: 20px; padding: 15px;">
+                                <% const currentDate = new Date();
+                                   const currentYear = currentDate.getFullYear();
+                                %>
+                                <h3 id="salesReport" style="text-align: center; font-weight: 500; color: black;"><%= currentYear %> Sales Report</h3>                           
+                            </div>
+                        <% } else { %>
+                            <div style="margin: 20px; padding: 15px;">
+                                <h3 id="salesReport" style="text-align: center; font-weight: 500; color: black;"><%= customValue %> Sales Report</h3>                           
+                            </div>
+                        <% } %>
+                    <% } else { %>
+                        <div style="margin: 20px; padding: 15px;">
+                            <h3 id="salesReport" style="text-align: center; font-weight: 500; color: black;">All Sales Report</h3>
+                        </div>
+                    <% } %>
                     <% if (deliveredOrders.length !=0) { %>
                         <div class="table-responsive">
                             <table class="table table-hover" id="sales-table" style="border-collapse: collapse; width: 100%; border: 1px solid black;">
@@ -287,7 +328,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     if (type === 'pdf') {
         html2pdf().from(downloadData).save();
     } else if (type === 'excel') {
-        
+        const reportHeading = document.getElementById("salesReport").textContent;
         const salesTable = document.getElementById("sales-table")
         const tableData = salesTable.querySelector("tbody");
         const salesDataArray = [];
@@ -318,7 +359,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ salesDataArray })
+                body: JSON.stringify({ salesDataArray , reportHeading})
             })
 
             .then(response => {

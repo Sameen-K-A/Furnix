@@ -38,25 +38,23 @@
         font-size: 14px;
         border-radius: 50px;
     }
+    .preview-image {
+        max-width: 120px;
+        max-height: 120px;
+        margin: 5px;
+    }
 </style>
-
 <body>
-
-
     <header class="main-header navbar">
         <div class="col-search">
         </div>
         <div class="col-nav">
-            <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside"> <i
-                    class="material-icons md-apps"></i> </button>
+            <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside"> <i class="material-icons md-apps"></i> </button>
             <ul class="nav">
                 <li class="dropdown nav-item">
-                    <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount"
-                        aria-expanded="false"> <img class="img-xs rounded-circle"
-                            src="/admin-assets/imgs/people/profile.jpg" alt="User"></a>
+                    <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount" aria-expanded="false"> <img class="img-xs rounded-circle" src="/admin-assets/imgs/people/profile.jpg" alt="User"></a>
                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
-                        <a class="dropdown-item text-danger" href="/admin/adminLogout"><i
-                                class="material-icons md-exit_to_app"></i>Logout</a>
+                        <a class="dropdown-item text-danger" href="/admin/adminLogout"><i class="material-icons md-exit_to_app"></i>Logout</a>
                     </div>
                 </li>
             </ul>
@@ -74,17 +72,14 @@
                             <h4>Details</h4>
                         </div>
                         <div class="card-body">
-
                             <div class="mb-4">
                                 <label for="product_name" class="form-label">Name</label>
-                                <input type="text" placeholder="Enter product name" class="form-control"
-                                    id="product_name" onkeyup="namValidation()" name="name">
+                                <input type="text" placeholder="Enter product name" class="form-control" id="product_name" onkeyup="namValidation()" name="name">
                             </div>
                             <p class="text-danger text-center mb-15 " id="minName"></p>
                             <div class="mb-4">
                                 <label class="form-label">Description</label>
-                                <textarea placeholder="Enter product description" class="form-control" rows="4"
-                                    id="product_description" onkeyup="desValidation()" name="description"></textarea>
+                                <textarea placeholder="Enter product description" class="form-control" rows="4" id="product_description" onkeyup="desValidation()" name="description"></textarea>
                             </div>
                             <p class="text-danger text-center mb-15 " id="descriptionError"></p>
                             <div class="row">
@@ -95,18 +90,14 @@
                                             <option>
                                                 <%= element.name %>
                                             </option>
-                                            <% }) %>
-
+                                        <% }) %>
                                     </select>
-
                                 </div>
-
                                 <div class="col-lg-6">
                                     <div class="mb-4">
                                         <label class="form-label">Regular price</label>
                                         <div class="row gx-2">
-                                            <input placeholder="₹" type="text" class="form-control" id="product_regular"
-                                                onkeyup="regValidation()" name="regularPrice">
+                                            <input placeholder="₹" type="text" class="form-control" id="product_regular" onkeyup="regValidation()" name="regularPrice">
                                         </div>
                                         <p class="text-danger text-center mb-15 " id="regularError"></p>
                                     </div>
@@ -115,45 +106,39 @@
                                     <div class="mb-4">
                                         <label class="form-label">Offer price</label>
                                         <div class="row gx-2">
-                                            <input placeholder="₹" type="text" class="form-control" id="product_offer"
-                                                onkeyup="offerValidation()" name="offerPrice">
+                                            <input placeholder="₹" type="text" class="form-control" id="product_offer" onkeyup="offerValidation()" name="offerPrice">
                                         </div>
                                         <p class="text-danger text-center mb-15 " id="offerError"></p>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <label class="form-label">Seating capacity</label>
-                                    <input type="text" placeholder="Enter seating capacity" class="form-control"
-                                        id="product_capacity" onkeyup="capValidation()" name="capacity">
+                                    <input type="text" placeholder="Enter seating capacity" class="form-control" id="product_capacity" onkeyup="capValidation()" name="capacity">
                                     <p class="text-danger text-center mb-15 " id="capacityError"></p>
                                 </div>
                                 <div class="col-lg-6 mb-30">
                                     <label class="form-label">Upholstery material</label>
-                                    <input type="text" placeholder="Enter Upholstery material" class="form-control"
-                                        id="product_material" onkeyup="matValidation()" name="material">
+                                    <input type="text" placeholder="Enter Upholstery material" class="form-control" id="product_material" onkeyup="matValidation()" name="material">
                                     <p class="text-danger text-center mb-15 " id="materialError"></p>
                                 </div>
                                 <div class="col-lg-6">
                                     <label class="form-label">Item stock</label>
-                                    <input type="text" placeholder="Enter Upholstery material" class="form-control"
-                                        id="product_stock" onkeyup="stockValidation()" name="stock">
+                                    <input type="text" placeholder="Enter Upholstery material" class="form-control" id="product_stock" onkeyup="stockValidation()" name="stock">
                                     <p class="text-danger text-center mb-15 " id="stockError"></p>
-
                                 </div>
                                 <div class="col-lg-6">
                                     <label class="form-label">Product color</label>
-                                    <input type="text" placeholder="Enter product color" class="form-control"
-                                        id="product_color" onkeyup="colorValidation()" name="color">
+                                    <input type="text" placeholder="Enter product color" class="form-control" id="product_color" onkeyup="colorValidation()" name="color">
                                     <p class="text-danger text-center mb-15 " id="colorError"></p>
                                 </div>
                                 <div class="col-lg-12 mt-15">
                                     <label class="form-label">Product Images</label>
-                                    <img alt="">
-                                    <input class="form-control" type="file" multiple accept=".png, .jpeg, .jpg"
-                                        onkeyup="imageValidation()" name="image" id="product_images">
-                                    <p class="text-danger text-center mb-15 mt-15 " id="imageError"></p>
+                                    <img>
+                                    <input class="form-control" type="file" multiple accept=".png, .jpeg, .jpg" onchange="previewImages(event)" name="image" id="product_images">
+                                    <p class="text-danger text-center mb-15 mt-15" id="imageError"></p>
                                 </div>
-
+                                
+                                <div id="imagePreviewContainer" class="mt-3"></div>
                             </div>
                         </div>
                     </div>
@@ -179,10 +164,8 @@
 </body>
 
 <script>
-
     document.addEventListener("DOMContentLoaded", function () {
         const form = document.querySelector('form');
-
         const nameError = document.getElementById("minName");
         const descriptionError = document.getElementById("descriptionError");
         const regularError = document.getElementById("regularError");
@@ -345,15 +328,14 @@
                     stockError.textContent = "Product needs minimum 1 stock";
                     return false;
                 } else {
-                    stockError.textContent = ""; // Clear the error message here
-                    return true; // Return true for valid input
+                    stockError.textContent = "";
+                    return true;
                 }
             } else {
                 stockError.textContent = "Stock amount can't contain characters other than numbers";
                 return false;
             }
         }
-
 
         // color validation
 
@@ -377,6 +359,7 @@
         }
 
         // image validation
+
         function imageValidation() {
             const selectImages = document.getElementById("product_images").files;
             const imageError = document.getElementById("imageError");
@@ -389,7 +372,6 @@
                 const fileName = selectImages[i].name;
                 const fileExtension = fileName.split('.').pop().toLowerCase();
 
-                // Check if file extension is not jpg, jpeg, or png
                 if (!['jpg', 'jpeg', 'png'].includes(fileExtension)) {
                     imageError.textContent = "Only JPG, JPEG, and PNG files are allowed.";
                     return false;
@@ -398,9 +380,6 @@
             imageError.textContent = "";
             return true;
         }
-
-
-
 
         function allValidation(event) {
             event.preventDefault()
@@ -422,6 +401,7 @@
         }
 
         form.addEventListener("submit", allValidation);
+
         form.addEventListener("keyup", function (event) {
             if (event.target.id === "product_name") {
                 namValidation();
@@ -445,9 +425,6 @@
         });
 
     });
-
-
-
 
     function cancel(event) {
         event.preventDefault()
@@ -476,6 +453,56 @@
             });
         }
     }
+
+    function previewImages(event) {
+        let previewContainer = document.getElementById('imagePreviewContainer');
+        
+        const files = event.target.files;
+        for (let i = 0; i < files.length; i++) {
+            let file = files[i];
+            let reader = new FileReader();
+            reader.onload = function (e) {
+                let div = document.createElement('div');
+                div.style.position = 'relative';
+                div.style.display = 'inline-block';
+
+                // Create the image
+                let img = document.createElement('img');
+                img.src = e.target.result;
+                img.className = 'preview-image';
+                div.appendChild(img);
+
+                // Create the button
+                let btn = document.createElement('button');
+                btn.innerHTML = '-';
+                btn.style.position = 'absolute';
+                btn.style.top = '0';
+                btn.style.right = '0';
+                btn.style.backgroundColor = 'black';
+                btn.style.color = 'white';
+                btn.style.borderRadius = '50px';
+                btn.style.border = 'none'; 
+                btn.style.cursor = 'pointer';
+                btn.style.width = '15px';
+                btn.style.height = '15px';
+                btn.style.display = 'flex';
+                btn.style.justifyContent = 'center';
+                btn.style.alignItems = 'center';
+
+                // Add an event listener to the button
+                btn.addEventListener('click', function(event) {
+                    event.preventDefault(); // Prevent form submission
+                    previewContainer.removeChild(div); // Remove the corresponding image
+                });
+
+                div.appendChild(btn);
+                previewContainer.appendChild(div);
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+
+        
 </script>
 
 </html>

@@ -375,6 +375,26 @@ th {
                                                     <% } else { %>
                                                         <p>No transactions found</p>
                                                     <% } %>
+
+                                                    <% if (noOfPages != 1) { %>
+                                                        <nav class="pagination" style="margin-top: -0px;">
+                                                            <ul class="page-numbers">
+                                                                <% if (page >1) { %>
+                                                                    <li><a class="prev page-numbers" href="/wallet?page=<%= page - 1 %>">Previous</a></li>
+                                                                <% } %>
+                                                                <% for( let i = 1; i <= noOfPages; i++ ) { %>
+                                                                    <% if (page === i) { %>
+                                                                        <li><a class="page-numbers" style="background-color: black; color: white;" href="/wallet?page=<%= i %>"><%= i %></a></li>
+                                                                    <% } else { %>
+                                                                        <li><a class="page-numbers" href="/wallet?page=<%= i %>"><%= i %></a></li>
+                                                                    <% } %>
+                                                                <% } %>
+                                                                <% if (page !== noOfPages) { %>
+                                                                    <li><a class="next page-numbers" href="/wallet?page=<%= page + 1 %>">Next</a></li>
+                                                                <% } %>
+                                                            </ul>
+                                                        </nav>
+                                                    <% } %>
                                                 </div>
                                             </div>
                                         </div>

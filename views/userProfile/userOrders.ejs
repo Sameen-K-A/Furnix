@@ -262,8 +262,7 @@
                                                                                 </tr>
                                                                             </thead>
                                                                             <tbody class="text-center">
-                                                                                <% for( let i=0; i < orderData.length;
-                                                                                    i++ ) { %>
+                                                                                <% for( let i=0; i < orderData.length;i++ ) { %>
                                                                                     <tr>
                                                                                         <td>
                                                                                             <%= orderData[i].orderID %>
@@ -272,47 +271,51 @@
                                                                                             <%= orderData[i].date %>
                                                                                         </td>
                                                                                         <td>
-                                                                                                <% if
-                                                                                                ( orderData[i].status==="Ordered") { %>
-                                                                                                    <span class="orderStatus">Ordered</span>
-                                                                                                <% } else if (orderData[i].status==="Cancelled") { %>
-                                                                                                    <span class="orderStatus">Cancelled</span>
-                                                                                                <% } else if (orderData[i].status==="Shipped") { %>
-                                                                                                        <span class="orderStatus">Shipped</span>
-                                                                                                <% } else if (orderData[i].status==="Return order processing") { %>
-                                                                                                        <span class="orderStatus">Return processing</span>
-                                                                                                <% } else if (orderData[i].status==="Returned order recieved") { %>
-                                                                                                    <span class="orderStatus">Return recieved</span>
-                                                                                                <% }else if (orderData[i].status==="Return order cancel") { %>
-                                                                                                    <span class="orderStatus">Return cancelled</span>
-                                                                                                <% } else if (orderData[i].status==="Delivered" ) { %>
-                                                                                                    <span class="orderStatus">Delivered</span>
-                                                                                                <% } else if (orderData[i].status==="Payment failed") { %>
-                                                                                                    <span class="orderStatus">Payment failed</span>
-                                                                                                <% } %>
-
+                                                                                            <% if ( orderData[i].status==="Ordered") { %>
+                                                                                                <span class="orderStatus">Ordered</span>
+                                                                                            <% } else if (orderData[i].status==="Cancelled") { %>
+                                                                                                <span class="orderStatus">Cancelled</span>
+                                                                                            <% } else if (orderData[i].status==="Shipped") { %>
+                                                                                                    <span class="orderStatus">Shipped</span>
+                                                                                            <% } else if (orderData[i].status==="Return order processing") { %>
+                                                                                                    <span class="orderStatus">Return processing</span>
+                                                                                            <% } else if (orderData[i].status==="Returned order recieved") { %>
+                                                                                                <span class="orderStatus">Return recieved</span>
+                                                                                            <% }else if (orderData[i].status==="Return order cancel") { %>
+                                                                                                <span class="orderStatus">Return cancelled</span>
+                                                                                            <% } else if (orderData[i].status==="Delivered" ) { %>
+                                                                                                <span class="orderStatus">Delivered</span>
+                                                                                            <% } else if (orderData[i].status==="Payment failed") { %>
+                                                                                                <span class="orderStatus">Payment failed</span>
+                                                                                            <% } %>
                                                                                         </td>
-                                                                                        <td>₹<%= orderData[i].total %>
-                                                                                                .00</td>
-                                                                                        <td>
-                                                                                            <%= orderData[i].itemsCount
-                                                                                                %> Products
-                                                                                        </td>
-                                                                                        <td><a href="/vieworderinfo?id=<%= orderData[i]._id %>"
-                                                                                                class="btn-small d-block"
-                                                                                                style="background-color: black; color: white;">View</a>
-                                                                                        </td>
+                                                                                        <td>₹<%= orderData[i].total %>.00</td>
+                                                                                        <td><%= orderData[i].itemsCount%> Products</td>
+                                                                                        <td><a href="/vieworderinfo?id=<%= orderData[i]._id %>" class="btn-small d-block" style="background-color: black; color: white;">View</a></td>
                                                                                     </tr>
+                                                                            <% } %>
+                                                                        </tbody>
+                                                                    </table>
+                                                                    <% if (noOfPages != 1) { %>
+                                                                        <nav class="pagination" style="margin-top: 50px;">
+                                                                            <ul class="page-numbers">
+                                                                                <% if (page >1) { %>
+                                                                                    <li><a class="prev page-numbers" href="/orders?page=<%= page - 1 %>">Previous</a></li>
+                                                                                <% } %>
+                                                                                <% for( let i = 1; i <= noOfPages; i++ ) { %>
+                                                                                    <% if (page === i) { %>
+                                                                                        <li><a class="page-numbers" style="background-color: black; color: white;" href="/orders?page=<%= i %>"><%= i %></a></li>
+                                                                                    <% } else { %>
+                                                                                        <li><a class="page-numbers" href="/orders?page=<%= i %>"><%= i %></a></li>
                                                                                     <% } %>
-
-
-                                                                                        <!-- <td><span class="ordered">Ordered</span></td>
-                                                                                <td><span class="cancelorder">Cancelled</span></td>
-                                                                            <td><span class="shippedorder">Shipped</span></td>
-                                                                            <td><span class="deliveredorder">Delivered</span></td> -->
-                                                                            </tbody>
-                                                                        </table>
-                                                                        <% } %>
+                                                                                <% } %>
+                                                                                <% if (page !== noOfPages) { %>
+                                                                                    <li><a class="next page-numbers" href="/orders?page=<%= page + 1 %>">Next</a></li>
+                                                                                <% } %>
+                                                                            </ul>
+                                                                        </nav>
+                                                                    <% } %>
+                                                                <% } %>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -320,7 +323,7 @@
                                                 </div>
                                             </div>
                                         </div>
-
+                                        
 
                                     </div>
                                 </div>
