@@ -27,8 +27,7 @@ const addProduct = async (req, res) => {
 
 const addProductPOST = async (req, res) => {
     try {
-        const { name, description, category, regularPrice, offerPrice , capacity, material, stock, color } = req.body;
-        const images = req.files.map(file => file.originalname);
+        const { name, description, category, regularPrice, offerPrice , capacity, material, stock, color , imageScriptArray} = req.body;
         const catID = await Category.findOne({name : category});
         const regPrice = parseInt(regularPrice);
         const offPrice = parseInt(offerPrice);
@@ -45,15 +44,15 @@ const addProductPOST = async (req, res) => {
             material : material,
             stock : stock,
             color : color,
-            images : images
+            images : JSON.parse(imageScriptArray)
         }
-        console.log(productData);
         await Product.create(productData);
         res.redirect("/admin/productPage")
     } catch (error) {
         console.log(error);
     }
 }
+
 
 //========================================= Edit product page rendering ==============================================
 
@@ -103,13 +102,12 @@ const editproductPOST = async (req, res) => {
 const editproductImagePOST = async (req, res) => {
     try {
         const image = req.body.imagename;
-        console.log(image);
         const index = parseInt(req.body.index);
         const productID = req.body.productID;
         if(image){
             const productDetails = await Product.findOne({_id : productID});
             productDetails.images.splice(index , 1 , image);
-            // productDetails.save()
+            productDetails.save()
             res.json({status : "okay"})
         }else{
             res.json({status : "oops"})

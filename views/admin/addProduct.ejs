@@ -133,11 +133,10 @@
                                 </div>
                                 <div class="col-lg-12 mt-15">
                                     <label class="form-label">Product Images</label>
-                                    <img>
+                                    <input type="hidden" name="imageScriptArray" id="imageScriptArray">
                                     <input class="form-control" type="file" multiple accept=".png, .jpeg, .jpg" onchange="previewImages(event)" name="image" id="product_images">
                                     <p class="text-danger text-center mb-15 mt-15" id="imageError"></p>
                                 </div>
-                                
                                 <div id="imagePreviewContainer" class="mt-3"></div>
                             </div>
                         </div>
@@ -164,6 +163,7 @@
 </body>
 
 <script>
+    const images = [];
     document.addEventListener("DOMContentLoaded", function () {
         const form = document.querySelector('form');
         const nameError = document.getElementById("minName");
@@ -361,21 +361,9 @@
         // image validation
 
         function imageValidation() {
-            const selectImages = document.getElementById("product_images").files;
-            const imageError = document.getElementById("imageError");
-
-            if (selectImages.length !== 5) {
+            if (images.length !== 5) {
                 imageError.textContent = "Images must need exactly 5 images";
                 return false;
-            }
-            for (let i = 0; i < selectImages.length; i++) {
-                const fileName = selectImages[i].name;
-                const fileExtension = fileName.split('.').pop().toLowerCase();
-
-                if (!['jpg', 'jpeg', 'png'].includes(fileExtension)) {
-                    imageError.textContent = "Only JPG, JPEG, and PNG files are allowed.";
-                    return false;
-                }
             }
             imageError.textContent = "";
             return true;
@@ -393,6 +381,7 @@
             const colorValid = colorValidation();
             const imgValid = imageValidation();
             if (nameValid && descriptionValid && regularValid && capacityValid && materialValid && stockValid && colorValid && imgValid && offerValid) {
+                document.getElementById('imageScriptArray').value = JSON.stringify(images);
                 form.submit();
                 return true;
             } else {
@@ -456,12 +445,24 @@
 
     function previewImages(event) {
         let previewContainer = document.getElementById('imagePreviewContainer');
-        
         const files = event.target.files;
         for (let i = 0; i < files.length; i++) {
             let file = files[i];
+
+            // Check the file extension
+            let fileType = file.name.split('.').pop().toLowerCase();
+            if (fileType !== 'jpg' && fileType !== 'jpeg' && fileType !== 'png') {
+                document.getElementById("imageError").textContent = "Only jpg, jpeg, and png files are supported."
+                document.getElementById("product_images").onclick = ()=>{
+                    document.getElementById("imageError").textContent = ""
+                } 
+                    
+                break;
+            }
+
             let reader = new FileReader();
             reader.onload = function (e) {
+                images.push(file.name);
                 let div = document.createElement('div');
                 div.style.position = 'relative';
                 div.style.display = 'inline-block';
@@ -493,6 +494,12 @@
                 btn.addEventListener('click', function(event) {
                     event.preventDefault(); // Prevent form submission
                     previewContainer.removeChild(div); // Remove the corresponding image
+
+                    // Remove the image name from the images array
+                    let index = images.indexOf(file.name);
+                    if (index !== -1) {
+                        images.splice(index, 1);
+                    }
                 });
 
                 div.appendChild(btn);
