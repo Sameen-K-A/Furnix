@@ -7,6 +7,7 @@ const timeGenerator = require("../config/timeGenerator");
 const Coupon = require("../model/coupenModel");
 const razorpay = require("razorpay");
 const crypto = require("crypto");
+const Wallet = require("../model/walletModel");
 
 // ========================================= instance of razorpay =========================================
 
@@ -434,6 +435,75 @@ const checkoutPost = async (req, res) => {
                     }
                 }
             }
+
+
+
+            // wallet
+            else if(payment === "wallet"){
+                if (nextpage) {
+                    // coupon ckecking
+                    let couponOffer = 0;
+                    let couponCode = false;
+                    if(usedCouponCode != undefined){
+                        const findCoupon = await Coupon.findOne({coupencode : usedCouponCode});
+                        if(findCoupon.isBlocked === false){
+                            couponCode = findCoupon.coupencode;
+                            let newTotal = Math.round(subTotal - (subTotal * (findCoupon.discountPercentage / 100)));
+                            couponOffer = Math.round(subTotal - newTotal);
+                            userData.total = newTotal + 100; // appliy delivery charge
+                        }
+                    }
+                    // create new order data
+                    const orderData = {
+                        product: orderProducts,
+                        address: address,
+                        orderID: idGenerator(),
+                        userEmail: req.session.user,
+                        date: dateGenerator(),
+                        time: timeGenerator(),
+                        total: userData.total,
+                        subTotal : subTotal,
+                        itemsCount: userData.cart.length,
+                        paymentMethod: payment,
+                        couponOffer : couponOffer,
+                        couponCode : couponCode,
+                    }
+                    const userWallet = await Wallet.findOne({userID : userData._id});
+                    if(userWallet){
+                        if(orderData.total <= userWallet.walletAmount){
+                            const newTransaction = {
+                                transactionID : "Furnix" + idGenerator(),
+                                amount : orderData.total,
+                                date : dateGenerator(),
+                                status : "New order"
+                            }
+                            userWallet.transactions.push(newTransaction);
+                            userWallet.walletAmount -= orderData.total;
+                            userWallet.save();
+                            userData.save();
+                            const orderProcess = await Order.create(orderData);
+                            if (orderProcess) {
+                                if(usedCouponCode != undefined){
+                                    // pull that userID from coupons available users and push that userID into redeemed user list into coupon
+                                    const removeID = userData._id.toString();
+                                    await Coupon.updateOne({ coupencode: usedCouponCode },{$pull: { availableUsers: removeID }, $push: { redeemedUsers: removeID }});
+                                }
+                                res.json({ status: "true"  })
+                            } else {
+                                res.json({ status: "network" })
+                            }
+                        } else{
+                            res.json({status : "NoWalletAmount"})
+                        }
+                    } else{
+                        res.json({status : "NoWalletAmount"})
+                    }
+                } else {
+                    res.json({ status: "stocklimit" });
+                }
+            }
+
+
         }
     } catch (error) {
         console.log(error);

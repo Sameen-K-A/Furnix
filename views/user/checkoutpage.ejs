@@ -464,6 +464,14 @@
 															cleared in our account.</p>
 													</div>
 												</li>
+												<li class="payment-method">
+													<input type="radio" class="input-radio" name="payment_method"
+														value="wallet">
+													<label>Wallet</label>
+													<div class="payment-box">
+														<p>Ensure that your wallet contains sufficient funds to purchase these products.</p>
+													</div>
+												</li>
 											</ul>
 											<div class="form-row place-order">
 												<div class="terms-and-conditions-wrapper">
@@ -773,6 +781,19 @@
 									Swal.fire({
 										title: "Amount reached",
 										text: "Online payment is only available for payments below 15000₹.",
+										showCancelButton: false,
+										confirmButtonColor: "#39e75f",
+										confirmButtonText: "Okay",
+										customClass: {
+											popup: 'swal-custom',
+											cancelButton: 'swal-custom-ok-btn'
+										}
+									});
+								}
+								else if (response.status === "NoWalletAmount") {
+									Swal.fire({
+										title: "Insufficient Balance",
+										text: "Your balance is insufficient to purchase this product. Please check your wallet.",
 										showCancelButton: false,
 										confirmButtonColor: "#39e75f",
 										confirmButtonText: "Okay",

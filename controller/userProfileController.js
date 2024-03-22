@@ -279,7 +279,7 @@ const cancelOrder = async (req, res) => {
                 }
             }
             // if payment methos is online payment the amount will give back into user wallet
-            if(cancelProducts.paymentMethod === "Razorpay"){
+            if(cancelProducts.paymentMethod === "Razorpay" || cancelProducts.paymentMethod === "wallet"){
                 const cancelUser = await User.findOne({email : req.session.user});
                 const userWallet = await Wallet.findOne({userID : cancelUser._id});
                 if(userWallet){
