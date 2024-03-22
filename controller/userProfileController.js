@@ -526,17 +526,6 @@ const payFailedpayment = async (req , res) => {
             const orginalProduct = await Product.findOne({_id : products._id });
             if(orginalProduct.isBlocked === false){
                 if(products.cartQty <= orginalProduct.stock){
-                    // if(details.couponCode !== "false"){
-                    //     const usedCoupon = await Coupon.findOne({couponCode : details.couponCode});
-                    //     if(usedCoupon.couponStatus === "Expired"){
-                    //         processing = false;
-                    //         res.json({status : "CouponExpaired"});
-                    //     } else{
-                    //         processing = true
-                    //     }
-                    // } else{
-                    //     processing = true;
-                    // }
                     processing = true;
                 } else{
                     processing = false;
@@ -580,7 +569,7 @@ const pendingpaymentSuccess = async (req , res) => {
         hmac=hmac.digest("hex")
         if(hmac == response.razorpay_signature){
             // change order status to ordered;
-            const updateProcess = await Order.updateOne({_id : orderDetails._id} , {status : "Ordered"});
+            const updateProcess = await Order.updateOne({_id : orderDetails._id} , {status : "Ordered" , date : dateGenerator() , time : timeGenerator()});
             if(updateProcess.modifiedCount === 1){
                 for (let i = 0; i < orderDetails.product.length; i++) {
                     const orderedProduct = await Product.findOne({_id : orderDetails.product[i]._id});

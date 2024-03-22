@@ -682,7 +682,6 @@ const excelDownload = async (req, res)=>{
 
         await workBook.xlsx.write(res);
 
-
     } catch (error) {
         console.log(error);
     }

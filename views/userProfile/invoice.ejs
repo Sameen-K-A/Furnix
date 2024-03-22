@@ -35,17 +35,52 @@
         padding-right: 15px;
         border-radius: 50px;
     }
+    .botao {
+        width: 125px;
+        height: 45px;
+        border-radius: 20px;
+        border: none;
+        padding: 5px 10px;
+        background: linear-gradient(160deg, rgb(0, 0, 0) 0%, rgb(35, 35, 35) 5%, rgb(32, 32, 32) 11%, rgb(43, 43, 43) 57%, rgb(0, 0, 0) 71%);
+        color: #fff;
+        font-family: Roboto, sans-serif;
+        font-weight: 505;
+        font-size: 16px;
+        line-height: 1;
+        cursor: pointer;
+        transition: .5s linear;
+    }
+
+    .botao .mysvg {
+        display: none;
+    }
+
+    .botao:hover {
+        border-radius: 10px;
+        transition: .5s linear;
+    }
+
+    .botao:hover .texto {
+        display: none;
+    }
+
+    .botao:hover .mysvg {
+        display: inline;
+    }
+
 </style>
 
 <body>
     <% if (orderData) { %>
         <div class="d-flex justify-content-between" style="margin: 50px;">
             <button style="display: flex; align-items: center;" class="backbtn" onclick="back()">Back</button>
-            <button style="display: flex; align-items: center;" class="downloadbtn" onclick="download()">Download 
-                <svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 512 512">
-                    <path fill="#ffffff" d="M256 464a208 208 0 1 1 0-416 208 208 0 1 1 0 416zM256 0a256 256 0 1 0 0 512A256 256 0 1 0 256 0zM376.9 294.6c4.5-4.2 7.1-10.1 7.1-16.3c0-12.3-10-22.3-22.3-22.3H304V160c0-17.7-14.3-32-32-32l-32 0c-17.7 0-32 14.3-32 32v96H150.3C138 256 128 266 128 278.3c0 6.2 2.6 12.1 7.1 16.3l107.1 99.9c3.8 3.5 8.7 5.5 13.8 5.5s10.1-2 13.8-5.5l107.1-99.9z"/>
+            <button class="botao" onclick="download()">
+                <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="mysvg">
+                     <path id="Vector" d="M6 21H18M12 3V17M12 17L17 12M12 17L7 12" stroke="#f1f1f1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                     </path>
                 </svg>
-            </button>
+                <span class="texto">Download</span>
+              </button>
         </div>
         
         
