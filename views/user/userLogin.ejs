@@ -1,18 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<!-- Mirrored from caketheme.com/html/ruper/page-login.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 26 Jan 2024 08:53:12 GMT -->
-
 <head>
 	<!-- Meta Data -->
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>FURNIX</title>
-
 	<!-- Favicon -->
 	<link rel="icon" type="image/png" sizes="32x32" href="media/favicon-16x16.png">
-
 	<!-- Dependency Styles -->
 	<link rel="stylesheet" href="libs/bootstrap/css/bootstrap.min.css" type="text/css">
 	<link rel="stylesheet" href="libs/feather-font/css/iconfont.css" type="text/css">
@@ -23,12 +18,9 @@
 	<link rel="stylesheet" href="libs/slick/css/slick.css" type="text/css">
 	<link rel="stylesheet" href="libs/slick/css/slick-theme.css" type="text/css">
 	<link rel="stylesheet" href="libs/mmenu/css/mmenu.min.css" type="text/css">
-	<link rel="stylesheet" href="libs/slider/css/jslider.css">
-
 	<!-- Site Stylesheet -->
 	<link rel="stylesheet" href="assets/css/app.css" type="text/css">
 	<link rel="stylesheet" href="assets/css/responsive.css" type="text/css">
-
 	<!-- Google Web Fonts -->
 	<link
 		href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@100;200;300;400;500;600;700&amp;display=swap"
@@ -37,18 +29,12 @@
 		href="https://fonts.googleapis.com/css?family=EB+Garamond:100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic&amp;display=swap"
 		rel="stylesheet">
 </head>
-<style>
-	.page-title {
-		background: url("public/media/site-header.jpg") !important;
-	}
-</style>
-
-<body class="page">
+<body class="home home-2 title-2">
 	<div id="page" class="hfeed page-wrapper">
-		<header id="site-header" class="site-header header-v1 absolute">
+		<header id="site-header" class="site-header header-v2">
 			<div class="header-mobile">
 				<div class="section-padding">
-					<div class="section-container">
+					<div class="section-container large">
 						<div class="row">
 							<div class="col-xl-4 col-lg-4 col-md-4 col-sm-3 col-3 header-left">
 								<div class="navbar-header">
@@ -57,48 +43,50 @@
 							</div>
 							<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 header-center">
 								<div class="site-logo">
-									<a href="index-2.html">
-										<img width="400" height="79" src="media/logo.png"
-											alt="Ruper – Furniture HTML Theme" />
+									<a href="/">
+										<img width="400" height="79" src="media/logo.png" />
 									</a>
-								</div>
-							</div>
-							<div class="col-xl-4 col-lg-4 col-md-4 col-sm-3 col-3 header-right">
-								<div class="ruper-topcart dropdown">
-									<div class="dropdown mini-cart top-cart">
-										<div class="remove-cart-shadow"></div>
-										<a class="dropdown-toggle cart-icon" href="#" role="button"
-											data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-											<div class="icons-cart"><i class="icon-large-paper-bag"></i><span
-													class="cart-count">2</span></div>
-										</a>
-
-									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-
-
+				<div class="header-mobile-fixed">
+					<!-- Shop -->
+					<div class="shop-page">
+						<a href="/"><i class="wpb-icon-shop"></i></a>
+					</div>
+					<!-- Login -->
+					<div class="my-account">
+						<div class="login-header">
+							<a href="/userProfilepage"><i class="wpb-icon-user"></i></a>
+						</div>
+					</div>
+					<!-- Search -->
+					<div class="search-box" style="color: black;">
+						<div class="search-toggle"><i class="wpb-icon-magnifying-glass"></i></div>
+					</div>
+					<!-- Wishlist -->
+					<div class="wishlist-box">
+						<a href="/wishlist"><i class="icon-heart"></i>
+							<span class="count-wishlist">0</span>
+						</a>
+					</div>
+					<!-- Cart -->
+					<div class="wishlist-box">
+						<a class="cart-icon" href="/cart"><i class="icon-large-paper-bag"></i>
+							<span class="cart-count">0</span>
+						</a>
+					</div>
+				</div>
 			</div>
-
-			<div class="header-desktop">
+			<div class="header-desktop" style="background: linear-gradient(94deg, rgba(226,226,226,1) 0%, rgba(255,255,255,1) 53%, rgba(227,227,227,1) 100%);">
 				<div class="header-wrapper">
 					<div class="section-padding">
-						<div class="section-container p-l-r">
+						<div class="section-container large p-l-r">
 							<div class="row">
-								<div class="col-xl-3 col-lg-2 col-md-12 col-sm-12 col-12 header-left">
-									<div class="site-logo">
-										<a href="index-2.html">
-											<img width="400" height="79" src="media/logo.png"
-												alt="Ruper – Furniture HTML Theme" />
-										</a>
-									</div>
-								</div>
-
-								<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 text-center header-center">
-									<div class="site-navigation ml-auto">
+								<div class="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-12 header-left">
+									<div class="site-navigation">
 										<nav id="main-navigation">
 											<ul id="menu-main-menu" class="menu">
 												<li class="level-0 menu-item">
@@ -108,76 +96,75 @@
 													<a href="/allproduct"><span class="menu-item-text">All</span></a>
 												</li>
 												<li class="level-0 menu-item">
-													<a href="/about"><span class="menu-item-text">about
-															us</span></a>
+													<a href="/contact"><span class="menu-item-text">Contact</span></a>
 												</li>
-												<li class="level-0 menu-item">
-													<a href="/contact"><span
-															class="menu-item-text">Contact</span></a>
-												</li>
-
 											</ul>
 										</nav>
 									</div>
 								</div>
-
-
+								<div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-12 text-center header-center">
+									<div class="site-logo">
+										<a href="index2.html">
+											<img width="400" height="79" src="media/logo.png" />
+										</a>
+									</div>
+								</div>
+								<div class="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-12 header-right">
+									<div class="header-page-link">
+										<!-- Search -->
+										<div class="search-box" style="margin-right: -8px;">
+											<div class="search-toggle"><i class="icon-search"></i></div>
+										</div>
+										<!-- Wishlist -->
+										<div class="wishlist-box">
+											<a href="/wishlist"><i class="icon-heart"></i></a>
+												<span class="count-wishlist">0</span>
+										</div>
+										<!-- Cart -->
+										<div class="mini-cart top-cart wishlist-box">
+											<a class="cart-icon" href="/cart">
+												<div class="icons-cart"><i class="icon-large-paper-bag"></i><span class="cart-count">0</span></div>
+											</a>
+										</div>
+										<!-- profile -->
+										<div class="wishlist-box" style="margin-left: -0px;">
+											<a href="/userprofilepage"><i class="wpb-icon-user"></i></a>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</header>
-
-		<div id="site-main" class="site-main">
+		<div id="site-main" class="site-main" style="margin-top: -200px; margin-bottom: 50px;">
 			<div id="main-content" class="main-content">
 				<div id="primary" class="content-area">
 					<div id="title" class="page-title">
-						<div class="section-container">
-							<div class="content-title-heading">
-								<h1 class="text-title-heading">
-									Login
-								</h1>
-							</div>
-
-						</div>
-
-						
-						<% if (locals.message) { %>
-							<h3 id="blockerror" style="color: red;">
-								<%= message %>
-							</h3>
-							<% } %>
-
 					</div>
-
 					<div id="content" class="site-content text-center" role="main">
 						<div class="section-padding">
 							<div class="section-container p-l-r">
-								<div class="page-login-register d-inline-block">
-									<div class="row">
-										<div class="col-lg-12 col-md-12 col-sm-12 sm-m-b-50">
+								<div class="page-login-register">
+									<div class="row d-flex justify-content-center align-items-center">
+										<div class="col-lg-6 col-md-6 col-sm-12 sm-m-b-50">
 											<div class="box-form-login">
 												<h2>Login</h2>
-
+												<% if (locals.message) { %>
+													<h5 id="blockerror" style="color: red; margin-top: 20px; margin-bottom: 20px;">
+														<%= message %>
+													</h5>
+												<% } %>
 												<div class="box-content">
-
 													<div class="form-login">
 														<div class="username text-left">
-
-															<div class="text-danger text-center" id="formAlert"
-																style="display: none;">
-																Please fill all the fields
-															</div>
-															<p class="text-danger text-center" id="blockuser"
-																style="display: none;">User blocked</p>
-
+															<div class="text-danger text-center" id="formAlert" style="display: none;">Please fill all the fields</div>
+															<p class="text-danger text-center" id="blockuser" style="display: none;">User blocked</p>
 															<label>email address</label>
-															<input type="text" class="input-text" name="userloginemail" 
-																id="userloginemail">
+															<input type="text" class="input-text" name="userloginemail" id="userloginemail">
 														</div>
-														<p class="text-danger text-center" id="emailwrong"
-															style="display: none;">Email not found</p>
+														<p class="text-danger text-center" id="emailwrong" style="display: none;">Email not found</p>
 															<div class="password text-left">
 																<label for="password">Password</label>
 																<div style="position: relative;">
@@ -185,23 +172,17 @@
 																	<i id="togglePassword" style="position: absolute; right: 10px; top: calc(50% - 6px); transform: translateY(-50%);" class="fa fa-eye"></i>
 																</div>
 															</div>
-														<p class="text-danger text-center" id="passwordwrong"
-															style="display: none;">Password is wrong</p>
-
+														<p class="text-danger text-center" id="passwordwrong" style="display: none;">Password is wrong</p>
 														<div class="rememberme-lost">
-
 															<div class="lost-password">
 																<a href="/userForgetPassword">Forget password?</a>
 															</div>
 														</div>
 														<div class="button-login">
-															<input type="submit" class="button" name="login"
-																value="Login" onclick="emailPassverify()">
+															<input type="submit" class="button" name="login" value="Login" onclick="emailPassverify()">
 														</div>
-
 														<div class="lost-password mt-3">
-															<p>Don't have an account? <a
-																	href="/userRegister">Register</a></p>
+															<p>Don't have an account? <a href="/userRegister">Register</a></p>
 														</div>
 													</div>
 												</div>
@@ -215,50 +196,51 @@
 				</div><!-- #primary -->
 			</div><!-- #main-content -->
 		</div>
-
 		<footer id="site-footer" class="site-footer background">
 			<div class="footer">
 				<div class="section-padding">
-					<div class="section-container">
+					<div class="section-container large">
 						<div class="block-widget-wrap">
 							<div class="row">
 								<div class="col-lg-3 col-md-6">
-									<div class="block block-menu m-b-20">
-										<h2 class="block-title">Contact Us</h2>
+									<div class="block block-menu">
+										<h2 class="block-title">About</h2>
 										<div class="block-content">
 											<ul>
 												<li>
-													<a href="page-contact.html">616.774.0561</a>
+													<a>Low Shipping charge</a>
 												</li>
 												<li>
-													<a href="page-contact.html">866.453.4748</a>
+													<a>Flexible Payment</a>
 												</li>
 												<li>
-													<a href="page-contact.html">HR Fax: 810.222.5439</a>
+													<a>Return policy</a>
 												</li>
 												<li>
-													<a href="page-contact.html">sales@ruperfurniture.com</a>
+													<a>Online support</a>
 												</li>
 											</ul>
 										</div>
 									</div>
-
-									<div class="block block-social">
-										<ul class="social-link">
-											<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-											<li><a href="#"><i class="fa fa-instagram"></i></a></li>
-											<li><a href="#"><i class="fa fa-dribbble"></i></a></li>
-											<li><a href="#"><i class="fa fa-behance"></i></a></li>
-										</ul>
-									</div>
 								</div>
 								<div class="col-lg-3 col-md-6">
 									<div class="block block-menu">
-										<h2 class="block-title">Showroom</h2>
+										<h2 class="block-title">Help</h2>
 										<div class="block-content">
-											<p>1000 84th Street SW , Byron Center, MI 49315</p>
-											<p>AmericasMart Bldg. #1</p>
-											<p>Suite 5C-1, Atlanta, GA 30303</p>
+											<ul>
+												<li>
+													<a>Contact & FAQ</a>
+												</li>
+												<li>
+													<a>Track Your Order</a>
+												</li>
+												<li>
+													<a>Returns & Refunds</a>
+												</li>
+												<li>
+													<a>Shipping & Delivery</a>
+												</li>
+											</ul>
 										</div>
 									</div>
 								</div>
@@ -268,44 +250,40 @@
 										<div class="block-content">
 											<ul>
 												<li>
-													<a href="page-about.html">Sale</a>
+													<a>Sale</a>
 												</li>
 												<li>
-													<a href="page-about.html">Quick Ship</a>
+													<a>Quick Ship</a>
 												</li>
 												<li>
-													<a href="page-about.html">New Designs</a>
+													<a>New Designs</a>
 												</li>
 												<li>
-													<a href="page-about.html">Accidental Fabric Protection</a>
+													<a>Accidental Fabric Protection</a>
 												</li>
 												<li>
-													<a href="page-about.html">Furniture Care</a>
+													<a>Furniture Care</a>
 												</li>
 												<li>
-													<a href="page-about.html">Gift Cards</a>
+													<a>Gift Cards</a>
 												</li>
 											</ul>
 										</div>
 									</div>
 								</div>
 								<div class="col-lg-3 col-md-6">
-									<div class="block block-newsletter">
-										<h2 class="block-title">Newsletter</h2>
+									<div class="block block-newsletter m-b-30">
+										<h2 class="block-title">Social media</h2>
 										<div class="block-content">
-											<div class="newsletter-text">Enter your email below to be the first to know
-												about new collections and product launches.</div>
-											<form action="#" method="post" class="newsletter-form">
-												<input type="email" class="bg-white" name="your-email" value=""
-													size="40" placeholder="Email address">
-												<span class="btn-submit">
-													<input type="submit" value="Subscribe">
-												</span>
-											</form>
+											<div class="newsletter-text">Follow us on social media to stay updated with the latest information.</div>
 										</div>
 									</div>
-									<div class="block block-image">
-										<img width="309" height="32" src="media/payments.png" alt="">
+									<div class="block block-social">
+										<ul class="social-link">
+											<li><a href="https://www.instagram.com/e_zed_/"><i class="fa fa-instagram"></i></a></li>
+											<li><a href="https://www.linkedin.com/in/sameen-ka/"><i class="fa fa-linkedin"></i></a></li>
+											<li><a href="https://github.com/Sameen-K-A"><i class="fa fa-github"></i></a></li>
+										</ul>
 									</div>
 								</div>
 							</div>
@@ -315,9 +293,15 @@
 			</div>
 			<div class="footer-bottom">
 				<div class="section-padding">
-					<div class="section-container">
+					<div class="section-container large">
 						<div class="block-widget-wrap">
-							<p class="copyright text-center">Copyright © 2022. All Right Reserved</p>
+							<div class="row">
+								<div class="col-md-12" style="text-align: center;">
+									<div class="footer-left">
+										<p class="copyright">Copyright © 2024. All Right Reserved</p>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -325,24 +309,31 @@
 		</footer>
 	</div>
 
+	<!-- Search -->
+	<div class="search-overlay">
+		<div class="wrapper-search">
+			<div class="search-from">
+				<div class="search-box">
+					<div class="d-flex">
+						<button id="searchsubmit" class="btn" onclick="search()">
+							<i class="icon-search"></i>
+						</button>
+						<input id="myInput" type="text" autocomplete="off" value="" name="s" class="input-search s"
+							placeholder="Search...">
+						<div class="close-search" onclick="cancelsearch()">Cancel</div>
+					</div>
+					<h4 id="noproduct" style="display: none;">No products founded</h4>
+					<div id="prodatas">
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 	<!-- Back Top button -->
 	<div class="back-top button-show">
 		<i class="arrow_carrot-up"></i>
 	</div>
-
-
-
-
-
-
-	<!-- Page Loader -->
-	<!-- <div class="page-preloader">
-		<div class="loader">
-			<div></div>
-			<div></div>
-		</div>
-	</div> -->
-
 	<!-- Dependency Scripts -->
 	<script src="libs/popper/js/popper.min.js"></script>
 	<script src="libs/jquery/js/jquery.min.js"></script>
@@ -350,27 +341,82 @@
 	<script src="libs/slick/js/slick.min.js"></script>
 	<script src="libs/countdown/js/jquery.countdown.min.js"></script>
 	<script src="libs/mmenu/js/jquery.mmenu.all.min.js"></script>
-	<script src="libs/slider/js/tmpl.js"></script>
-	<script src="libs/slider/js/jquery.dependClass-0.1.js"></script>
-	<script src="libs/slider/js/draggable-0.1.js"></script>
-	<script src="libs/slider/js/jquery.slider.js"></script>
+	<script src="assets/js/app.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
 		integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
 		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<!-- Site Scripts -->
-	<script src="assets/js/app.js"></script>
 </body>
 <script>
-
-const togglePassword = document.querySelector('#togglePassword');
+	const searchValue = document.getElementById("myInput")
+    let clearTimer;
+    searchValue.addEventListener("keyup", () => {
+        document.getElementById("prodatas").innerHTML= "";
+        document.getElementById("noproduct").style.display = "none"
+        clearTimeout(clearTimer);
+        clearTimer = setTimeout(() => {
+            search();
+        }, 1000)
+    });
+    function search(){
+        const searchValue = document.getElementById("myInput").value
+        $.ajax({
+			url: "/search",
+			method: "post",
+			data: {
+				searchValue
+			},
+			success: (response) => {
+				if (response.status === "okay") {
+					document.getElementById("prodatas").innerHTML= ""
+                    displaySearch(response.products)
+				} else {
+					document.getElementById("noproduct").style.display = "block"
+				}
+			}
+		})
+    }
+    function displaySearch(data) {
+		const prodatasDiv = document.getElementById("prodatas");
+		prodatasDiv.innerHTML = "";
+		data.forEach(product => {
+			const productDiv = document.createElement("div");
+			productDiv.classList.add("d-flex", "align-items-center");
+			const imageDiv = document.createElement("div");
+			imageDiv.style.width = "80px";
+			imageDiv.style.height = "80px";
+			imageDiv.style.backgroundColor = "rgb(255, 255, 255)";
+			imageDiv.style.marginRight = "30px";
+			imageDiv.innerHTML = `<img src="/uploads/${product.images[0]}" alt="product image">`;
+			imageDiv.onclick = function() {
+				window.location.href = `/productDetailspage?id=${product._id}`;
+			};
+			const infoDiv = document.createElement("div");
+			infoDiv.style.display = "flex";
+			infoDiv.style.flexDirection = "column";
+			infoDiv.style.justifyContent = "center";
+			infoDiv.innerHTML = `
+				<h5 style="margin: 0;">${product.name}</h5>
+				<p style="margin: 0;">₹${product.regularPrice}.00</p>
+			`;
+			productDiv.appendChild(imageDiv);
+			productDiv.appendChild(infoDiv);
+			prodatasDiv.appendChild(productDiv);
+			const hr = document.createElement("hr");
+			prodatasDiv.appendChild(hr);
+		});
+	}
+	function cancelsearch(){
+		document.getElementById("noproduct").style.display = "none"
+		const prodatasDiv = document.getElementById("prodatas").innerHTML = "";
+		const searchValue = document.getElementById("myInput").value =""
+	}
+	const togglePassword = document.querySelector('#togglePassword');
     const password = document.querySelector('#userloginpassword');
     togglePassword.addEventListener('click', function (e) {
         const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
         password.setAttribute('type', type);
         this.classList.toggle('fa-eye-slash');
     });
-
 	function emailPassverify() {
 		const email = document.getElementById("userloginemail").value;
 		const password = document.getElementById("userloginpassword").value;

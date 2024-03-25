@@ -1,18 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<!-- Mirrored from caketheme.com/html/ruper/index2.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 26 Jan 2024 08:52:33 GMT -->
-
 <head>
 	<!-- Meta Data -->
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>FURNIX</title>
-
 	<!-- Favicon -->
 	<link rel="icon" type="image/png" sizes="32x32" href="media/favicon-16x16.png">
-
 	<!-- Dependency Styles -->
 	<link rel="stylesheet" href="libs/bootstrap/css/bootstrap.min.css" type="text/css">
 	<link rel="stylesheet" href="libs/feather-font/css/iconfont.css" type="text/css">
@@ -23,7 +18,6 @@
 	<link rel="stylesheet" href="libs/slick/css/slick.css" type="text/css">
 	<link rel="stylesheet" href="libs/slick/css/slick-theme.css" type="text/css">
 	<link rel="stylesheet" href="libs/mmenu/css/mmenu.min.css" type="text/css">
-
 	<!-- Site Stylesheet -->
 	<link rel="stylesheet" href="assets/css/app.css" type="text/css">
 	<link rel="stylesheet" href="assets/css/responsive.css" type="text/css">
@@ -35,7 +29,7 @@
 	<link
 		href="https://fonts.googleapis.com/css?family=EB+Garamond:100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic&amp;display=swap"
 		rel="stylesheet">
-</head>
+</head>	
 <style>
 	.outofstock {
 		position: absolute;
@@ -71,8 +65,7 @@
 							<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 header-center">
 								<div class="site-logo">
 									<a href="/">
-										<img width="400" height="79" src="media/logo.png"
-											alt="Ruper  Furniture HTML Theme" />
+										<img width="400" height="79" src="media/logo.png" />
 									</a>
 								</div>
 							</div>
@@ -89,19 +82,37 @@
 					<!-- Login -->
 					<div class="my-account">
 						<div class="login-header">
-							<a href="/userProfile"><i class="wpb-icon-user"></i></a>
+							<a href="/userProfilepage"><i class="wpb-icon-user"></i></a>
 						</div>
 					</div>
 
 					<!-- Search -->
-					<div class="search-box">
+					<div class="search-box" style="color: black;">
 						<div class="search-toggle"><i class="wpb-icon-magnifying-glass"></i></div>
 					</div>
 
 					<!-- Wishlist -->
 					<div class="wishlist-box">
-						<a href="/wishlist"><i class="wpb-icon-heart"></i></a>
+						<a href="/wishlist"><i class="icon-heart"></i>
+						<% if (wishCount != undefined) { %>
+							<span class="count-wishlist"><%= wishCount %></span>
+						<% } else { %>
+							<span class="count-wishlist">0</span>
+						<% } %>
+						</a>
 					</div>
+					
+					<!-- Cart -->
+					<div class="wishlist-box">
+						<a class="cart-icon" href="/cart"><i class="icon-large-paper-bag"></i>
+						<% if (CartCount != undefined) { %>
+							<span class="cart-count"><%= CartCount %></span>
+						<% } else { %>
+							<span class="cart-count">0</span>
+						<% } %>
+						</a>
+					</div>
+
 				</div>
 			</div>
 
@@ -122,24 +133,16 @@
 													<a href="/allproduct"><span class="menu-item-text">All</span></a>
 												</li>
 												<li class="level-0 menu-item">
-													<a href="/about"><span class="menu-item-text">about us
-														</span></a>
+													<a href="/contact"><span class="menu-item-text">Contact</span></a>
 												</li>
-												<li class="level-0 menu-item">
-													<a href="/contact"><span
-															class="menu-item-text">Contact</span></a>
-												</li>
-
 											</ul>
 										</nav>
 									</div>
 								</div>
-
 								<div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-12 text-center header-center">
 									<div class="site-logo">
 										<a href="index2.html">
-											<img width="400" height="79" src="media/logo.png"
-												alt="Ruper – Furniture HTML Theme" />
+											<img width="400" height="79" src="media/logo.png" />
 										</a>
 									</div>
 								</div>
@@ -160,29 +163,23 @@
 											<% } else { %>
 												<span class="count-wishlist">0</span>
 											<% } %>
-											 
 										</div>
-										
 										
 										<!-- Cart -->
 										<div class="mini-cart top-cart wishlist-box">
 											<a class="cart-icon" href="/cart">
-												<% if (CartCount != undefined) { %>
-													<div class="icons-cart"><i class="icon-large-paper-bag"></i><span class="cart-count"><%= CartCount %></span></div>
-												<% } else { %>
-													<div class="icons-cart"><i class="icon-large-paper-bag"></i><span class="cart-count">0</span></div>
-												<% } %>
-												
+											<% if (CartCount != undefined) { %>
+												<div class="icons-cart"><i class="icon-large-paper-bag"></i><span class="cart-count"><%= CartCount %></span></div>
+											<% } else { %>
+												<div class="icons-cart"><i class="icon-large-paper-bag"></i><span class="cart-count">0</span></div>
+											<% } %>
 											</a>
 										</div>
 										<!-- profile -->
-									<div class="wishlist-box" style="margin-left: -0px;">
-										<a href="/userprofilepage"><i class="wpb-icon-user"></i></a>
+										<div class="wishlist-box" style="margin-left: -0px;">
+											<a href="/userprofilepage"><i class="wpb-icon-user"></i></a>
+										</div>
 									</div>
-
-									</div>
-
-									
 								</div>
 							</div>
 						</div>
@@ -678,7 +675,7 @@
 													</div>
 													<div class="box-title-wrap">
 														<h3 class="box-title">
-															Free Shipping
+															Low shipping charge
 														</h3>
 														<p class="box-description">
 															You will love at great low prices
@@ -758,7 +755,7 @@
 													</div>
 													<div class="box-title-wrap">
 														<h3 class="box-title">
-															14 Day Returns
+															Return policy
 														</h3>
 														<p class="box-description">
 															Within 30 days for an exchange.
@@ -789,7 +786,7 @@
 															Online Support
 														</h3>
 														<p class="box-description">
-															24 hours a day, 7 days a week
+															24 hours a day, 6 days a week
 														</p>
 													</div>
 												</div>
@@ -816,22 +813,16 @@
 										<div class="block-content">
 											<ul>
 												<li>
-													<a href="page-about.html">Our Story</a>
+													<a>Low Shipping charge</a>
 												</li>
 												<li>
-													<a href="page-about.html">Visit Melbourne Studio</a>
+													<a>Flexible Payment</a>
 												</li>
 												<li>
-													<a href="page-about.html">Visit Sydney Studio</a>
+													<a>Return policy</a>
 												</li>
 												<li>
-													<a href="page-about.html">Visit Brisbane Studio [Closed]</a>
-												</li>
-												<li>
-													<a href="page-about.html">Design</a>
-												</li>
-												<li>
-													<a href="page-about.html">How Ruper Works</a>
+													<a>Online support</a>
 												</li>
 											</ul>
 										</div>
@@ -843,19 +834,16 @@
 										<div class="block-content">
 											<ul>
 												<li>
-													<a href="page-faq.html">Contact & FAQ</a>
+													<a>Contact & FAQ</a>
 												</li>
 												<li>
-													<a href="page-faq.html">Track Your Order</a>
+													<a>Track Your Order</a>
 												</li>
 												<li>
-													<a href="page-faq.html">Returns & Refunds</a>
+													<a>Returns & Refunds</a>
 												</li>
 												<li>
-													<a href="page-faq.html">Shipping & Delivery</a>
-												</li>
-												<li>
-													<a href="page-faq.html">Lead Times</a>
+													<a>Shipping & Delivery</a>
 												</li>
 											</ul>
 										</div>
@@ -867,22 +855,22 @@
 										<div class="block-content">
 											<ul>
 												<li>
-													<a href="page-about.html">Sale</a>
+													<a>Sale</a>
 												</li>
 												<li>
-													<a href="page-about.html">Quick Ship</a>
+													<a>Quick Ship</a>
 												</li>
 												<li>
-													<a href="page-about.html">New Designs</a>
+													<a>New Designs</a>
 												</li>
 												<li>
-													<a href="page-about.html">Accidental Fabric Protection</a>
+													<a>Accidental Fabric Protection</a>
 												</li>
 												<li>
-													<a href="page-about.html">Furniture Care</a>
+													<a>Furniture Care</a>
 												</li>
 												<li>
-													<a href="page-about.html">Gift Cards</a>
+													<a>Gift Cards</a>
 												</li>
 											</ul>
 										</div>
@@ -890,26 +878,17 @@
 								</div>
 								<div class="col-lg-3 col-md-6">
 									<div class="block block-newsletter m-b-30">
-										<h2 class="block-title">Newsletter</h2>
+										<h2 class="block-title">Social media</h2>
 										<div class="block-content">
-											<div class="newsletter-text">Enter your email below to be the first to know
-												about new collections and product launches.</div>
-											<form action="#" method="post" class="newsletter-form">
-												<input type="email" class="bg-white" name="your-email" value=""
-													size="40" placeholder="Email address">
-												<span class="btn-submit">
-													<input type="submit" value="Subscribe">
-												</span>
-											</form>
+											<div class="newsletter-text">Follow us on social media to stay updated with the latest information.</div>
 										</div>
 									</div>
 
 									<div class="block block-social">
 										<ul class="social-link">
-											<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-											<li><a href="#"><i class="fa fa-instagram"></i></a></li>
-											<li><a href="#"><i class="fa fa-dribbble"></i></a></li>
-											<li><a href="#"><i class="fa fa-behance"></i></a></li>
+											<li><a href="https://www.instagram.com/e_zed_/"><i class="fa fa-instagram"></i></a></li>
+											<li><a href="https://www.linkedin.com/in/sameen-ka/"><i class="fa fa-linkedin"></i></a></li>
+											<li><a href="https://github.com/Sameen-K-A"><i class="fa fa-github"></i></a></li>
 										</ul>
 									</div>
 								</div>
@@ -918,28 +897,28 @@
 					</div>
 				</div>
 			</div>
-			<!-- <div class="footer-bottom">
+			<div class="footer-bottom">
 				<div class="section-padding">
 					<div class="section-container large">
 						<div class="block-widget-wrap">
 							<div class="row">
-								<div class="col-md-6">
+								<div class="col-md-12" style="text-align: center;">
 									<div class="footer-left">
-										<p class="copyright">Copyright © 2022. All Right Reserved</p>
+										<p class="copyright">Copyright © 2024. All Right Reserved</p>
 									</div>
 								</div>
-								<div class="col-md-6">
+								<!-- <div class="col-md-6">
 									<div class="footer-right">
 										<div class="block block-image">
 											<img width="309" height="32" src="media/payments.png" alt="">
 										</div>
 									</div>
-								</div>
+								</div> -->
 							</div>
 						</div>
 					</div>
 				</div>
-			</div> -->
+			</div>
 		</footer>
 	</div>
 
@@ -972,12 +951,12 @@
 
 	
 	<!-- Page Loader -->
-	<!-- <div class="page-preloader">
+	<div class="page-preloader">
 		<div class="loader">
 			<div></div>
 			<div></div>
 		</div>
-	</div> -->
+	</div>
 
 	<!-- Dependency Scripts -->
 	<script src="libs/popper/js/popper.min.js"></script>
