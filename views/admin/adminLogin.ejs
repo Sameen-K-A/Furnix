@@ -185,7 +185,7 @@
                 },
                 success: (response) => {
                     if (response.status === true) {
-                        window.location.href = "http://localhost:5000/admin/adminHome";
+                        window.location.href = "/admin/adminHome";
                     } else if (response.status === "passwordwrong") {
                         document.getElementById("passwordwrong").style.display = "block";
                         setTimeout(() => {

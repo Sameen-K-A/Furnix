@@ -174,14 +174,14 @@
 
 															<label>email address</label>
 															<input type="text" class="input-text" name="userloginemail" 
-																id="userloginemail" value="sameensameen60@gmail.com">
+																id="userloginemail">
 														</div>
 														<p class="text-danger text-center" id="emailwrong"
 															style="display: none;">Email not found</p>
 															<div class="password text-left">
 																<label for="password">Password</label>
 																<div style="position: relative;">
-																	<input class="input-text" type="password" name="userloginpassword" id="userloginpassword" value="Sameen77">
+																	<input class="input-text" type="password" name="userloginpassword" id="userloginpassword">
 																	<i id="togglePassword" style="position: absolute; right: 10px; top: calc(50% - 6px); transform: translateY(-50%);" class="fa fa-eye"></i>
 																</div>
 															</div>
@@ -365,20 +365,13 @@
 
 const togglePassword = document.querySelector('#togglePassword');
     const password = document.querySelector('#userloginpassword');
-
     togglePassword.addEventListener('click', function (e) {
-        // toggle the type attribute
         const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
         password.setAttribute('type', type);
-        // toggle the eye slash icon
         this.classList.toggle('fa-eye-slash');
     });
 
-
-
-
 	function emailPassverify() {
-
 		const email = document.getElementById("userloginemail").value;
 		const password = document.getElementById("userloginpassword").value;
 		if (email.trim() === "" || password.trim() === "") {
@@ -398,7 +391,7 @@ const togglePassword = document.querySelector('#togglePassword');
 				},
 				success: (response) => {
 					if (response.status === true) {
-						window.location.href = "http://localhost:5000"
+						window.location.href = "/"
 					} else if (response.status === "passwordwrong") {
 						document.getElementById("passwordwrong").style.display = "block";
 						setTimeout(() => {
@@ -419,9 +412,5 @@ const togglePassword = document.querySelector('#togglePassword');
 			})
 		}
 	}
-
 </script>
-
-<!-- Mirrored from caketheme.com/html/ruper/page-login.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 26 Jan 2024 08:53:12 GMT -->
-
 </html>
