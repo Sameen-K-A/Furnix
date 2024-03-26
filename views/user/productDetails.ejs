@@ -77,6 +77,10 @@
 	.swal2-container {
 		z-index: 99999 !important;
 	}
+	.swal-margin-bottom {
+		margin-bottom: 50px !important;
+	}
+
 </style>
 <body class="shop">
 	<div id="page" class="hfeed page-wrapper">
@@ -172,7 +176,7 @@
 										<div class="wishlist-box">
 											<a href="/wishlist"><i class="icon-heart"></i></a>
 											<% if (wishCount != undefined) { %>
-												<span class="count-wishlist"><%= wishCount %></span>
+												<span class="count-wishlist" id="wishCount"><%= wishCount %></span>
 											<% } else { %>
 												<span class="count-wishlist">0</span>
 											<% } %>
@@ -904,20 +908,24 @@ function wish(id){
 		},
 		success: (response) => {
 			if (response.status === "okay") {
-				Swal.fire({
-					text : "Product added into your wishlist",
-					showConfirmButton: false,
-					position : "bottom",
-					timer: 1000
-				});
+				
 				let wishCount = document.getElementById("wishCount").textContent;
 				wishCount = parseInt(wishCount);
 				const newCount = wishCount+1;
 				document.getElementById("wishCount").textContent = newCount;
-
+				
 				document.getElementById("serverwish").style.display = "none";
 				document.getElementById("removewish").style.display = "block";
 				document.getElementById("addwish").style.display = "none";
+				Swal.fire({
+					text: "Product removed from wishlist",
+					showConfirmButton: false,
+					position: "bottom",
+					timer: 1000,
+					customClass: {
+						popup: 'swal-margin-bottom'
+					}
+				});
 			} else if (response.status === "notlogin") {
 				Swal.fire({
 					title: "Please login",
@@ -968,9 +976,13 @@ function removewishlist(id){
 					Swal.fire({
 						text: "Product removed from wishlist",
 						showConfirmButton: false,
-						position : "bottom",
-						timer: 1000
+						position: "bottom",
+						timer: 1000,
+						customClass: {
+							popup: 'swal-margin-bottom' // Apply custom class to the modal
+						}
 					});
+
 					let wishCount = document.getElementById("wishCount").textContent;
 					wishCount = parseInt(wishCount);
 					const newCount = wishCount-1;

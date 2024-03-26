@@ -1,19 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<!-- Mirrored from caketheme.com/html/ruper/shop-cart.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 26 Jan 2024 08:52:33 GMT -->
-
 <head>
     <!-- Meta Data -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>FURNIX</title>
-
     <!-- Favicon -->
     <link rel="icon" type="image/png" sizes="32x32" href="media/favicon-16x16.png">
-
-
     <!-- Dependency Styles -->
     <link rel="stylesheet" href="libs/bootstrap/css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="libs/feather-font/css/iconfont.css" type="text/css">
@@ -25,11 +19,9 @@
     <link rel="stylesheet" href="libs/slick/css/slick-theme.css" type="text/css">
     <link rel="stylesheet" href="libs/mmenu/css/mmenu.min.css" type="text/css">
     <link rel="stylesheet" href="libs/slider/css/jslider.css">
-
     <!-- Site Stylesheet -->
     <link rel="stylesheet" href="assets/css/app.css" type="text/css">
     <link rel="stylesheet" href="assets/css/responsive.css" type="text/css">
-
     <!-- Google Web Fonts -->
     <link
         href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@100;200;300;400;500;600;700&amp;display=swap"
@@ -40,12 +32,11 @@
 </head>
 <style>
     .invoice-button {
-    background-color: black;
-    color: white;
-    width: 100px;
-    height: 30px;
-}
-
+        background-color: black;
+        color: white;
+        width: 100px;
+        height: 30px;
+    }
     .custom-button1 {
         width: 100px;
         height: 40px;
@@ -56,7 +47,6 @@
         font-size: 14px;
         border-radius: 50px;
     }
-
     .custom-button2 {
         width: 100px;
         height: 40px;
@@ -71,11 +61,9 @@
         color: #ffffff;
         width: 100%;
     }
-
     .swal-custom-ok-btn {
         color: black !important;
     }
-
     .cancelorder {
         background-color: red;
         font-size: 13px;
@@ -86,29 +74,6 @@
         border-radius: 30px;
         color: rgb(255, 255, 255);
     }
-
-    .ordered {
-        background-color: rgb(255, 234, 0);
-        font-size: 13px;
-        padding-left: 15px;
-        padding-right: 15px;
-        padding-top: 5px;
-        padding-bottom: 5px;
-        border-radius: 30px;
-        color: rgb(0, 0, 0);
-    }
-
-    .shippedorder {
-        background-color: rgb(136, 255, 0);
-        font-size: 13px;
-        padding-left: 15px;
-        padding-right: 15px;
-        padding-top: 5px;
-        padding-bottom: 5px;
-        border-radius: 30px;
-        color: rgb(0, 0, 0);
-    }
-
     .bttn {
         background-color: rgb(0, 0, 0);
         font-size: 13px;
@@ -126,7 +91,6 @@
         height: 40px;
         font-size: 15px;
     }
-
     .cancelbtn {
         background-color: rgb(255, 255, 255);
         color: rgb(0, 0, 0);
@@ -143,14 +107,12 @@
         font-size: 15px;
         border-radius: 50px;
     }
-
     .review-order-title {
         display: flex;
         flex-direction: column;
         align-items: center;
         text-align: center;
     }
-
     .editDeletebtn {
         background-color: white;
         text-align: center;
@@ -160,10 +122,9 @@
         font-size: small;
     }
 </style>
-
 <body class="shop">
     <div id="page" class="hfeed page-wrapper">
-        <header id="site-header" class="site-header header-v2">
+		<header id="site-header" class="site-header header-v2">
 			<div class="header-mobile">
 				<div class="section-padding">
 					<div class="section-container large">
@@ -175,42 +136,45 @@
 							</div>
 							<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 header-center">
 								<div class="site-logo">
-									<a href="index2.html">
-										<img width="400" height="79" src="media/logo.png"
-											alt="Ruper – Furniture HTML Theme" />
+									<a href="/">
+										<img width="400" height="79" src="media/logo.png" />
 									</a>
 								</div>
+							</div>
+							<!-- Search -->
+							<div class="search-box" style="position: absolute; top: 25px; right: 30px;">
+								<div class="search-toggle"><i class="wpb-icon-magnifying-glass" style="font-size: 20px; color: black;"></i></div>
 							</div>
 						</div>
 					</div>
 				</div>
-
+			
 				<div class="header-mobile-fixed">
 					<!-- Shop -->
 					<div class="shop-page">
-						<a href="shop-grid-left.html"><i class="wpb-icon-shop"></i></a>
+						<a href="/"><i class="wpb-icon-shop"></i></a>
+					</div>
+			
+					<!-- Wishlist -->
+					<div class="wishlist-box">
+						<a href="/wishlist"><i class="icon-heart"></i></a>
+					</div>
+					
+					<!-- Cart -->
+					<div class="wishlist-box">
+						<a class="cart-icon" href="/cart"><i class="icon-large-paper-bag"></i></a>
 					</div>
 
 					<!-- Login -->
 					<div class="my-account">
 						<div class="login-header">
-							<a href="page-my-account.html"><i class="wpb-icon-user"></i></a>
+							<a href="/userProfilepage"><i class="wpb-icon-user"></i></a>
 						</div>
-					</div>
-
-					<!-- Search -->
-					<div class="search-box">
-						<div class="search-toggle"><i class="wpb-icon-magnifying-glass"></i></div>
-					</div>
-
-					<!-- Wishlist -->
-					<div class="wishlist-box">
-						<a href="/wishlist"><i class="wpb-icon-heart"></i></a>
 					</div>
 				</div>
 			</div>
-
-			<div class="header-desktop" style="background: linear-gradient(94deg, rgba(226,226,226,1) 0%, rgba(255,255,255,1) 53%, rgba(227,227,227,1) 100%);">
+			<div class="header-desktop"
+				style="background: linear-gradient(94deg, rgba(226,226,226,1) 0%, rgba(255,255,255,1) 53%, rgba(227,227,227,1) 100%);">
 				<div class="header-wrapper">
 					<div class="section-padding">
 						<div class="section-container large p-l-r">
@@ -226,24 +190,16 @@
 													<a href="/allproduct"><span class="menu-item-text">All</span></a>
 												</li>
 												<li class="level-0 menu-item">
-													<a href="/about"><span class="menu-item-text">about us
-														</span></a>
+													<a href="/contact"><span class="menu-item-text">Contact</span></a>
 												</li>
-												<li class="level-0 menu-item">
-													<a href="/contact"><span
-															class="menu-item-text">Contact</span></a>
-												</li>
-
 											</ul>
 										</nav>
 									</div>
 								</div>
-
 								<div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-12 text-center header-center">
 									<div class="site-logo">
 										<a href="index2.html">
-											<img width="400" height="79" src="media/logo.png"
-												alt="Ruper – Furniture HTML Theme" />
+											<img width="400" height="79" src="media/logo.png" />
 										</a>
 									</div>
 								</div>
@@ -252,10 +208,11 @@
 									<div class="header-page-link">
 
 										<!-- Search -->
-										<div class="search-box">
+										<div class="search-box" style="margin-right: -8px;">
 											<div class="search-toggle"><i class="icon-search"></i></div>
 										</div>
-                                        <!-- Wishlist -->
+
+										<!-- Wishlist -->
 										<div class="wishlist-box">
 											<a href="/wishlist"><i class="icon-heart"></i></a>
 											<% if (wishCount != undefined) { %>
@@ -263,22 +220,18 @@
 											<% } else { %>
 												<span class="count-wishlist">0</span>
 											<% } %>
-											 
 										</div>
-										
 										
 										<!-- Cart -->
 										<div class="mini-cart top-cart wishlist-box">
 											<a class="cart-icon" href="/cart">
-												<% if (CartCount != undefined) { %>
-													<div class="icons-cart"><i class="icon-large-paper-bag"></i><span class="cart-count"><%= CartCount %></span></div>
-												<% } else { %>
-													<div class="icons-cart"><i class="icon-large-paper-bag"></i><span class="cart-count">0</span></div>
-												<% } %>
-												
+											<% if (CartCount != undefined) { %>
+												<div class="icons-cart"><i class="icon-large-paper-bag"></i><span class="cart-count"><%= CartCount %></span></div>
+											<% } else { %>
+												<div class="icons-cart"><i class="icon-large-paper-bag"></i><span class="cart-count">0</span></div>
+											<% } %>
 											</a>
 										</div>
-
 									</div>
 								</div>
 							</div>
@@ -296,112 +249,73 @@
                             <div class="section-container p-l-r">
                                 <div class="shop-cart">
                                     <div class="row justify-content-center  ">
-                                        <div class="col-xl-12 col-lg-12 col-md-12 col-12">
+                                        <div class="col-xl-10 col-lg-10 col-md-12 col-12">
                                             <div class="table-responsive">
                                                 <table class="cart-items table" cellspacing="0">
                                                     <thead style="background-color: rgb(219, 219, 219);">
                                                         <tr>
-                                                            <th class="product-thumbnail text-dark">Product
-                                                            </th>
-                                                            <th class="product-price text-dark text-center">
-                                                                Date</th>
-                                                            <th class="product-price text-dark text-center">
-                                                                Time</th>
-                                                            <th class="product-price text-dark text-center">
-                                                                Address</th>
-                                                            <th class="product-price text-dark text-center">
-                                                                Payment</th>
-                                                            <th class="product-price text-dark text-center">
-                                                                Price</th>
-                                                            <th class="product-quantity text-dark text-center">
-                                                                Quantity</th>
-                                                            <th class="product-subtotal text-dark text-center">
-                                                                Subtotal</th>
+                                                            <th class="product-thumbnail text-dark">Product</th>
+                                                            <th class="product-price text-dark text-center">Date</th>
+                                                            <th class="product-price text-dark text-center">Time</th>
+                                                            <th class="product-price text-dark text-center">Address</th>
+                                                            <th class="product-price text-dark text-center">Payment</th>
+                                                            <th class="product-price text-dark text-center">Price</th>
+                                                            <th class="product-quantity text-dark text-center">Quantity</th>
+                                                            <th class="product-subtotal text-dark text-center">Subtotal</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <% for (let i=0; i < orderInfodata.product.length; i++) { %>
                                                             <tr class="cart-item align-right">
                                                                 <td class="product-thumbnail text-center">
-                                                                    <a><img width="600" height="600"
-                                                                            src="/uploads/<%= orderInfodata.product[i].images[0] %>"
-                                                                            class="product-image"
-                                                                            alt="product image"></a>
+                                                                    <a><img width="600" height="600" src="/uploads/<%= orderInfodata.product[i].images[0] %>"class="product-image" alt="product image"></a>
                                                                     <div class="product-name">
-                                                                        <a>
-                                                                            <%= orderInfodata.product[i].name %>
-                                                                        </a>
+                                                                        <a><%= orderInfodata.product[i].name %></a>
                                                                     </div>
                                                                 </td>
                                                                 <td class="product-price text-center">
                                                                     <div class="product-name">
-                                                                        <a>
-                                                                            <%= orderInfodata.date %>
-                                                                        </a>
+                                                                        <a><%= orderInfodata.date %></a>
                                                                     </div>
                                                                 </td>
                                                                 <td class="product-price text-center">
                                                                     <div class="product-name">
-                                                                        <a>
-                                                                            <%= orderInfodata.time %>
-                                                                        </a>
+                                                                        <a><%= orderInfodata.time %></a>
                                                                     </div>
                                                                 </td>
                                                                 <td class="product-price text-center">
                                                                     <div class="product-name">
-                                                                        <a>
-                                                                            <%= orderInfodata.address.name %>
-                                                                        </a><br>
-                                                                        <a>
-                                                                            <%= orderInfodata.address.address %>
-                                                                        </a><br>
-                                                                        <a>
-                                                                            <%= orderInfodata.address.district %>
-                                                                        </a>, <a>
-                                                                            <%= orderInfodata.address.state %>
-                                                                        </a>, <a>
-                                                                            <%= orderInfodata.address.pin %>
-                                                                        </a>
+                                                                        <a><%= orderInfodata.address.name %></a><br>
+                                                                        <a><%= orderInfodata.address.address %></a><br>
+                                                                        <a><%= orderInfodata.address.district %></a>, <a><%= orderInfodata.address.state %></a>, <a><%= orderInfodata.address.pin %></a>
                                                                     </div>
                                                                 </td>
                                                                 <td class="product-price text-center">
                                                                     <div class="product-name">
-                                                                        <a>
-                                                                            <%= orderInfodata.paymentMethod %>
-                                                                        </a>
+                                                                        <a><%= orderInfodata.paymentMethod %></a>
                                                                     </div>
                                                                 </td>
                                                                 <td class="product-price text-center">
                                                                     <div class="product-name">
-                                                                        <a>₹<%= orderInfodata.product[i].offerPrice %>
-                                                                                .00</a>
+                                                                        <a>₹<%= orderInfodata.product[i].offerPrice %>.00</a>
                                                                     </div>
                                                                 </td>
                                                                 <td class="product-price text-center">
                                                                     <div class="product-name">
-                                                                        <a>
-                                                                            <%= orderInfodata.product[i].cartQty %>
-                                                                        </a>
+                                                                        <a><%= orderInfodata.product[i].cartQty %></a>
                                                                     </div>
                                                                 </td>
                                                                 <td class="product-price text-center">
                                                                     <div class="product-name">
-                                                                        <a>
-                                                                            <%= orderInfodata.product[i].offerPrice *
-                                                                                orderInfodata.product[i].cartQty %>.00
-                                                                        </a>
+                                                                        <a><%= orderInfodata.product[i].offerPrice * orderInfodata.product[i].cartQty %>.00</a>
                                                                     </div>
                                                                 </td>
                                                             </tr>
-                                                            <% } %>
+                                                        <% } %>
                                                     </tbody>
                                                 </table>
-
                                             </div>
                                         </div>
-                                        
-
-
                                     </div>
                                     <div class="d-flex justify-content-end">
                                         <div class="col-xl-3 col-lg-3 col-md-5 col-5" style="margin-top: 30px;">
@@ -472,7 +386,7 @@
                                         <div class="d-flex justify-content-around align-items-center">
                                             <h5>More action</h5>
                                             <div class="d-flex align-items-center">
-                                                <svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 384 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#5e5e5e" d="M64 0C28.7 0 0 28.7 0 64V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V160H256c-17.7 0-32-14.3-32-32V0H64zM256 0V128H384L256 0zM112 256H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16z"/></svg>
+                                                <svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 384 512"><path fill="#5e5e5e" d="M64 0C28.7 0 0 28.7 0 64V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V160H256c-17.7 0-32-14.3-32-32V0H64zM256 0V128H384L256 0zM112 256H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16z"/></svg>
                                                 download invoice
                                             </div>
                                             <button class="invoice-button" onclick="invoice('<%= JSON.stringify(orderInfodata._id) %>')">
@@ -490,34 +404,26 @@
                                                 <h6><b>⦿ Do you want to return this order </b> ( click here )</h6>
                                             </button>
                                             <div id="questions" style="color: black; margin: 50px; display: none;">
-                                                    <p class="text-center">⦿&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ○&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;○</p>
-                                                    <label>
-                                                        <input type="radio" name="reason" value="damaged">
-                                                        Product is damaged
-                                                    </label><br>
-                                                    <label>
-                                                        <input type="radio" name="reason" value="different">
-                                                        Product is different from what was ordered
-                                                    </label><br>
-                                                    <label>
-                                                        <input type="radio" name="reason" value="missing">
-                                                        Product is missing parts or accessories
-                                                    </label><br>
-                                                    <label>
-                                                        <input type="radio" name="reason" value="not_functioning">
-                                                        Product is not functioning properly
-                                                    </label><br>
-                                                    <label>
-                                                        <input type="radio" name="reason" value="other">
-                                                        Other problem
-                                                    </label><br>
-                                                    
-                                                    <div style="margin-top: 25px; display: block;" >
-                                                        <p class="text-danger" id="errormessage"></p>
-                                                        <button class="bttn"  onclick="qscheck()">
-                                                            Continue
-                                                        </button>
-                                                    </div>
+                                                <p class="text-center">⦿&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ○&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;○</p>
+                                                <label>
+                                                    <input type="radio" name="reason" value="damaged">Product is damaged
+                                                </label><br>
+                                                <label>
+                                                    <input type="radio" name="reason" value="different">Product is different from what was ordered
+                                                </label><br>
+                                                <label>
+                                                    <input type="radio" name="reason" value="missing">Product is missing parts or accessories
+                                                </label><br>
+                                                <label>
+                                                    <input type="radio" name="reason" value="not_functioning">Product is not functioning properly
+                                                </label><br>
+                                                <label>
+                                                    <input type="radio" name="reason" value="other">Other problem
+                                                </label><br>
+                                                <div style="margin-top: 25px; display: block;" >
+                                                    <p class="text-danger" id="errormessage"></p>
+                                                    <button class="bttn"  onclick="qscheck()">Continue</button>
+                                                </div>
                                             </div>
                                             <div>
                                                 <div class="shop-cart" id="productview" style="display: none; margin-top: 50px;">
@@ -529,54 +435,38 @@
                                                                 <table class="cart-items table" cellspacing="0">
                                                                     <thead style="background-color: rgb(219, 219, 219);">
                                                                         <tr>
-                                                                            <th class="product-thumbnail text-dark">
-                                                                                Product</th>
-                                                                            <th class="product-thumbnail text-dark text-center">
-                                                                                Price</th>
-                                                                            <th class="product-quantity text-dark text-center">
-                                                                                Quantity</th>
-                                                                            <th class="product-subtotal text-dark text-center">
-                                                                                Subtotal</th>
+                                                                            <th class="product-thumbnail text-dark">Product</th>
+                                                                            <th class="product-thumbnail text-dark text-center">Price</th>
+                                                                            <th class="product-quantity text-dark text-center">Quantity</th>
+                                                                            <th class="product-subtotal text-dark text-center">Subtotal</th>
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>
                                                                         <% for (let i=0; i < orderInfodata.product.length; i++) { %>
                                                                             <tr class="cart-item align-center">
                                                                                 <td class="product-thumbnail text-center">
-                                                                                    <a><img width="600" height="600"
-                                                                                            src="/uploads/<%= orderInfodata.product[i].images[0] %>"
-                                                                                            class="product-image"
-                                                                                            alt="product image"></a>
+                                                                                    <a><img width="600" height="600" src="/uploads/<%= orderInfodata.product[i].images[0] %>" class="product-image" alt="product image"></a>
                                                                                     <div class="product-name">
-                                                                                        <a>
-                                                                                            <%= orderInfodata.product[i].name %>
-                                                                                        </a>
-                                                                                    </div>
-                                                                                </td>
-                                                                                
-                                                                                <td class="product-price text-center">
-                                                                                    <div class="product-name">
-                                                                                        <a>₹<%= orderInfodata.product[i].offerPrice %>
-                                                                                                .00</a>
+                                                                                        <a><%= orderInfodata.product[i].name %></a>
                                                                                     </div>
                                                                                 </td>
                                                                                 <td class="product-price text-center">
                                                                                     <div class="product-name">
-                                                                                        <a>
-                                                                                            <%= orderInfodata.product[i].cartQty %>
-                                                                                        </a>
+                                                                                        <a>₹<%= orderInfodata.product[i].offerPrice %>.00</a>
                                                                                     </div>
                                                                                 </td>
                                                                                 <td class="product-price text-center">
                                                                                     <div class="product-name">
-                                                                                        <a>
-                                                                                            <%= orderInfodata.product[i].offerPrice *
-                                                                                                orderInfodata.product[i].cartQty %>.00
-                                                                                        </a>
+                                                                                        <a><%= orderInfodata.product[i].cartQty %></a>
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td class="product-price text-center">
+                                                                                    <div class="product-name">
+                                                                                        <a><%= orderInfodata.product[i].offerPrice * orderInfodata.product[i].cartQty %>.00</a>
                                                                                     </div>
                                                                                 </td>
                                                                             </tr>
-                                                                            <% } %>
+                                                                        <% } %>
                                                                     </tbody>
                                                                 </table>
                                                             </div>
@@ -591,22 +481,17 @@
                                         <% } %>
                                     </div>
                                 </div>
-                                
                             </div>
-                            
                         </div>
                     </div><!-- #content -->
                 </div><!-- #primary -->
             </div><!-- #main-content -->
         </div>
-        
         <div class="row" style="margin-top: 50px; display: none;" id="success">
             <div class="col-xl-12 col-lg-12 col-md-12 col-12">
                 <p class="text-center text-dark">○&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ○&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>⦿</b></p>
-                <div
-                    class="checkout-review-order-table justify-content-center align-items-center text-center">
-                    <div class="review-order-title"
-                        style="font-size: 25px; color: black; margin: 0 auto;">
+                <div class="checkout-review-order-table justify-content-center align-items-center text-center">
+                    <div class="review-order-title" style="font-size: 25px; color: black; margin: 0 auto;">
                         <div style="width: 70px; height: 70px;">
                             <img src="/media/Screenshot (105).png" alt="Success">
                         </div>
@@ -618,118 +503,120 @@
                             <a href="/orders"><button class="cancelbtn4">Okay</button></a>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
-
         <footer id="site-footer" class="site-footer background">
-            <div class="footer">
-                <div class="section-padding">
-                    <div class="section-container">
-                        <div class="block-widget-wrap">
-                            <div class="row">
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="block block-menu m-b-20">
-                                        <h2 class="block-title">Contact Us</h2>
-                                        <div class="block-content">
-                                            <ul>
-                                                <li>
-                                                    <a href="page-contact.html">616.774.0561</a>
-                                                </li>
-                                                <li>
-                                                    <a href="page-contact.html">866.453.4748</a>
-                                                </li>
-                                                <li>
-                                                    <a href="page-contact.html">HR Fax: 810.222.5439</a>
-                                                </li>
-                                                <li>
-                                                    <a href="page-contact.html">sales@ruperfurniture.com</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-
-                                    <div class="block block-social">
-                                        <ul class="social-link">
-                                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                            <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-                                            <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
-                                            <li><a href="#"><i class="fa fa-behance"></i></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="block block-menu">
-                                        <h2 class="block-title">Showroom</h2>
-                                        <div class="block-content">
-                                            <p>1000 84th Street SW , Byron Center, MI 49315</p>
-                                            <p>AmericasMart Bldg. #1</p>
-                                            <p>Suite 5C-1, Atlanta, GA 30303</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="block block-menu">
-                                        <h2 class="block-title">Services</h2>
-                                        <div class="block-content">
-                                            <ul>
-                                                <li>
-                                                    <a href="page-about.html">Sale</a>
-                                                </li>
-                                                <li>
-                                                    <a href="page-about.html">Quick Ship</a>
-                                                </li>
-                                                <li>
-                                                    <a href="page-about.html">New Designs</a>
-                                                </li>
-                                                <li>
-                                                    <a href="page-about.html">Accidental Fabric Protection</a>
-                                                </li>
-                                                <li>
-                                                    <a href="page-about.html">Furniture Care</a>
-                                                </li>
-                                                <li>
-                                                    <a href="page-about.html">Gift Cards</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="block block-newsletter">
-                                        <h2 class="block-title">Newsletter</h2>
-                                        <div class="block-content">
-                                            <div class="newsletter-text">Enter your email below to be the first to know
-                                                about new collections and product launches.</div>
-                                            <form action="#" method="post" class="newsletter-form">
-                                                <input type="email" class="bg-white" name="your-email" value=""
-                                                    size="40" placeholder="Email address">
-                                                <span class="btn-submit">
-                                                    <input type="submit" value="Subscribe">
-                                                </span>
-                                            </form>
-                                        </div>
-                                    </div>
-                                    <div class="block block-image">
-                                        <img width="309" height="32" src="media/payments.png" alt="">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <div class="section-padding">
-                    <div class="section-container">
-                        <div class="block-widget-wrap">
-                            <p class="copyright text-center">Copyright © 2022. All Right Reserved</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </footer>
+			<div class="footer">
+				<div class="section-padding">
+					<div class="section-container large">
+						<div class="block-widget-wrap">
+							<div class="row">
+								<div class="col-lg-3 col-md-6">
+									<div class="block block-menu">
+										<h2 class="block-title">About</h2>
+										<div class="block-content">
+											<ul>
+												<li>
+													<a>Low Shipping charge</a>
+												</li>
+												<li>
+													<a>Flexible Payment</a>
+												</li>
+												<li>
+													<a>Return policy</a>
+												</li>
+												<li>
+													<a>Online support</a>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-3 col-md-6">
+									<div class="block block-menu">
+										<h2 class="block-title">Help</h2>
+										<div class="block-content">
+											<ul>
+												<li>
+													<a>Contact & FAQ</a>
+												</li>
+												<li>
+													<a>Track Your Order</a>
+												</li>
+												<li>
+													<a>Returns & Refunds</a>
+												</li>
+												<li>
+													<a>Shipping & Delivery</a>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-3 col-md-6">
+									<div class="block block-menu">
+										<h2 class="block-title">Services</h2>
+										<div class="block-content">
+											<ul>
+												<li>
+													<a>Sale</a>
+												</li>
+												<li>
+													<a>Quick Ship</a>
+												</li>
+												<li>
+													<a>New Designs</a>
+												</li>
+												<li>
+													<a>Accidental Fabric Protection</a>
+												</li>
+												<li>
+													<a>Furniture Care</a>
+												</li>
+												<li>
+													<a>Gift Cards</a>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-3 col-md-6">
+									<div class="block block-newsletter m-b-30">
+										<h2 class="block-title">Social media</h2>
+										<div class="block-content">
+											<div class="newsletter-text">Follow us on social media to stay updated with the latest information.</div>
+										</div>
+									</div>
+									<div class="block block-social">
+										<ul class="social-link">
+											<li><a href="https://www.instagram.com/e_zed_/"><i class="fa fa-instagram"></i></a></li>
+											<li><a href="https://www.linkedin.com/in/sameen-ka/"><i class="fa fa-linkedin"></i></a></li>
+											<li><a href="https://github.com/Sameen-K-A"><i class="fa fa-github"></i></a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="footer-bottom">
+				<div class="section-padding">
+					<div class="section-container large">
+						<div class="block-widget-wrap">
+							<div class="row">
+								<div class="col-md-12" style="text-align: center;">
+									<div class="footer-left">
+										<p class="copyright">Copyright © 2024. All Right Reserved</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</footer>
     </div>
 
     <!-- Back Top button -->
@@ -759,14 +646,6 @@
 		</div>
 	</div>
 
-    <!-- Page Loader 
-	<div class="page-preloader">
-		<div class="loader">
-			<div></div>
-			<div></div>
-		</div>
-	</div>   -->
-
     <!-- Dependency Scripts -->
     <script src="libs/popper/js/popper.min.js"></script>
     <script src="libs/jquery/js/jquery.min.js"></script>
@@ -777,6 +656,7 @@
     <script src="libs/slider/js/tmpl.js"></script>
     <script src="libs/slider/js/jquery.dependClass-0.1.js"></script>
     <script src="libs/slider/js/draggable-0.1.js"></script>
+    <script src="assets/js/app.js"></script>
     <script src="libs/slider/js/jquery.slider.js"></script>
     <script src="libs/elevatezoom/js/jquery.elevatezoom.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
@@ -784,9 +664,6 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-
-    <!-- Site Scripts -->
-    <script src="assets/js/app.js"></script>
 </body>
 
 <script>

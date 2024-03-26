@@ -1,18 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<!-- Mirrored from caketheme.com/html/ruper/page-my-account.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 26 Jan 2024 08:52:33 GMT -->
-
 <head>
     <!-- Meta Data -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>FURNIX</title>
-
 	<!-- Favicon -->
 	<link rel="icon" type="image/png" sizes="32x32" href="media/favicon-16x16.png">
-
     <!-- Dependency Styles -->
     <link rel="stylesheet" href="libs/bootstrap/css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="libs/feather-font/css/iconfont.css" type="text/css">
@@ -24,11 +19,9 @@
     <link rel="stylesheet" href="libs/slick/css/slick-theme.css" type="text/css">
     <link rel="stylesheet" href="libs/mmenu/css/mmenu.min.css" type="text/css">
     <link rel="stylesheet" href="libs/slider/css/jslider.css">
-
     <!-- Site Stylesheet -->
     <link rel="stylesheet" href="assets/css/app.css" type="text/css">
     <link rel="stylesheet" href="assets/css/responsive.css" type="text/css">
-
     <!-- Google Web Fonts -->
     <link
         href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@100;200;300;400;500;600;700&amp;display=swap"
@@ -73,7 +66,6 @@
     .event-info p {
         text-align: center; /* Center the columns */
     }
-   
    .copybtn{
 		background-color: #CCBEA5;
 		height: 100%;
@@ -84,24 +76,20 @@
         display: flex;
         flex-wrap: wrap;
     }
-
     .container {
         width: calc(33.33% - 20px);
         margin: 10px; 
     }
-
     @media (max-width: 768px) {
         .container {
             width: calc(50% - 20px);
         }
     }
-
     @media (max-width: 576px) {
         .container {
             width: calc(100% - 20px);
         }
     }
-
     .outofstock {
 		position: absolute;
 		top: 40%;
@@ -111,7 +99,6 @@
 		background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.824) 18%, rgb(0, 0, 0) 53%, rgba(0, 0, 0, 0.877) 82%, rgba(255, 255, 255, 0) 100%);
 		z-index: 9998;
 	}
-
 	.outofstockbackground {
 		position: absolute;
 		width: 100%;
@@ -125,16 +112,13 @@
         color: #ffffff;
         width: 100%;
     }
-
     .swal-custom-ok-btn {
         color: black !important;
     }
-
 </style>
-
 <body class="blog">
     <div id="page" class="hfeed page-wrapper">
-        <header id="site-header" class="site-header header-v2">
+		<header id="site-header" class="site-header header-v2">
 			<div class="header-mobile">
 				<div class="section-padding">
 					<div class="section-container large">
@@ -146,42 +130,45 @@
 							</div>
 							<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 header-center">
 								<div class="site-logo">
-									<a href="index2.html">
-										<img width="400" height="79" src="media/logo.png"
-											alt="Ruper – Furniture HTML Theme" />
+									<a href="/">
+										<img width="400" height="79" src="media/logo.png" />
 									</a>
 								</div>
+							</div>
+							<!-- Search -->
+							<div class="search-box" style="position: absolute; top: 25px; right: 30px;">
+								<div class="search-toggle"><i class="wpb-icon-magnifying-glass" style="font-size: 20px; color: black;"></i></div>
 							</div>
 						</div>
 					</div>
 				</div>
-
+			
 				<div class="header-mobile-fixed">
 					<!-- Shop -->
 					<div class="shop-page">
-						<a href="shop-grid-left.html"><i class="wpb-icon-shop"></i></a>
+						<a href="/"><i class="wpb-icon-shop"></i></a>
+					</div>
+			
+					<!-- Wishlist -->
+					<div class="wishlist-box">
+						<a href="/wishlist"><i class="icon-heart"></i></a>
+					</div>
+					
+					<!-- Cart -->
+					<div class="wishlist-box">
+						<a class="cart-icon" href="/cart"><i class="icon-large-paper-bag"></i></a>
 					</div>
 
 					<!-- Login -->
 					<div class="my-account">
 						<div class="login-header">
-							<a href="page-my-account.html"><i class="wpb-icon-user"></i></a>
+							<a href="/userProfilepage"><i class="wpb-icon-user"></i></a>
 						</div>
-					</div>
-
-					<!-- Search -->
-					<div class="search-box">
-						<div class="search-toggle"><i class="wpb-icon-magnifying-glass"></i></div>
-					</div>
-
-					<!-- Wishlist -->
-					<div class="wishlist-box">
-						<a href="/wishlist"><i class="wpb-icon-heart"></i></a>
 					</div>
 				</div>
 			</div>
-
-			<div class="header-desktop" style="background: linear-gradient(94deg, rgba(226,226,226,1) 0%, rgba(255,255,255,1) 53%, rgba(227,227,227,1) 100%);">
+			<div class="header-desktop"
+				style="background: linear-gradient(94deg, rgba(226,226,226,1) 0%, rgba(255,255,255,1) 53%, rgba(227,227,227,1) 100%);">
 				<div class="header-wrapper">
 					<div class="section-padding">
 						<div class="section-container large p-l-r">
@@ -197,24 +184,16 @@
 													<a href="/allproduct"><span class="menu-item-text">All</span></a>
 												</li>
 												<li class="level-0 menu-item">
-													<a href="/about"><span class="menu-item-text">about us
-														</span></a>
+													<a href="/contact"><span class="menu-item-text">Contact</span></a>
 												</li>
-												<li class="level-0 menu-item">
-													<a href="/contact"><span
-															class="menu-item-text">Contact</span></a>
-												</li>
-
 											</ul>
 										</nav>
 									</div>
 								</div>
-
 								<div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-12 text-center header-center">
 									<div class="site-logo">
 										<a href="index2.html">
-											<img width="400" height="79" src="media/logo.png"
-												alt="Ruper – Furniture HTML Theme" />
+											<img width="400" height="79" src="media/logo.png" />
 										</a>
 									</div>
 								</div>
@@ -223,10 +202,11 @@
 									<div class="header-page-link">
 
 										<!-- Search -->
-										<div class="search-box">
+										<div class="search-box" style="margin-right: -8px;">
 											<div class="search-toggle"><i class="icon-search"></i></div>
 										</div>
-                                        <!-- Wishlist -->
+
+										<!-- Wishlist -->
 										<div class="wishlist-box">
 											<a href="/wishlist"><i class="icon-heart"></i></a>
 											<% if (wishCount != undefined) { %>
@@ -234,22 +214,18 @@
 											<% } else { %>
 												<span class="count-wishlist">0</span>
 											<% } %>
-											 
 										</div>
-										
 										
 										<!-- Cart -->
 										<div class="mini-cart top-cart wishlist-box">
 											<a class="cart-icon" href="/cart">
-												<% if (CartCount != undefined) { %>
-													<div class="icons-cart"><i class="icon-large-paper-bag"></i><span class="cart-count"><%= CartCount %></span></div>
-												<% } else { %>
-													<div class="icons-cart"><i class="icon-large-paper-bag"></i><span class="cart-count">0</span></div>
-												<% } %>
-												
+											<% if (CartCount != undefined) { %>
+												<div class="icons-cart"><i class="icon-large-paper-bag"></i><span class="cart-count"><%= CartCount %></span></div>
+											<% } else { %>
+												<div class="icons-cart"><i class="icon-large-paper-bag"></i><span class="cart-count">0</span></div>
+											<% } %>
 											</a>
 										</div>
-
 									</div>
 								</div>
 							</div>
@@ -258,7 +234,6 @@
 				</div>
 			</div>
 		</header>
-
         <div id="site-main" class="site-main">
             <div id="main-content" class="main-content">
                 <div id="primary" class="content-area">
@@ -302,55 +277,55 @@
                                                 <% } else { %>
                                                     <div class="wrapper d-flex">
                                                         <% for( let i = 0; i < userCoupons.length; i++ ) { %>
-                                                        <% if (userCoupons[i].isBlocked === false && (userCoupons[i].couponStatus === "Expired" || userCoupons[i].couponStatus === "Active")) { %>
-                                                            <div class="container d-flex">
-                                                                <div class="admincpn d-flex align-items-center justify-content-center">
-                                                                    <% if (userCoupons[i].couponStatus === "Expired") { %>
-                                                                        <div class="outofstockbackground">
-                                                                            <div
-                                                                                class="outofstock text-light d-flex justify-content-center align-items-center">
-                                                                                <b class="text-danger">Expired</b>
+                                                            <% if (userCoupons[i].isBlocked === false && (userCoupons[i].couponStatus === "Expired" || userCoupons[i].couponStatus === "Active")) { %>
+                                                                <div class="container d-flex">
+                                                                    <div class="admincpn d-flex align-items-center justify-content-center">
+                                                                        <% if (userCoupons[i].couponStatus === "Expired") { %>
+                                                                            <div class="outofstockbackground">
+                                                                                <div
+                                                                                    class="outofstock text-light d-flex justify-content-center align-items-center">
+                                                                                    <b class="text-danger">Expired</b>
+                                                                                </div>
                                                                             </div>
+                                                                        <% } %>
+                                                                        <div class="text-center">
+                                                                            <h3 style="color: white"><b><%= userCoupons[i].name %></b></h3><br>
+                                                                                <div class="table-responsive" style="margin-top: -10px;">
+                                                                                <table class="table" cellspacing="0">
+                                                                                    <tbody>
+                                                                                        <tr class=" align-right">
+                                                                                            <td style="margin: auto;">
+                                                                                                <div class="product-name">
+                                                                                                    <a style="font-size: 13px; color: white">Valid until </a><br>
+                                                                                                    <a style="font-size: 13px; color: white">Purchase amount </a>
+                                                                                                    <a style="font-size: 13px; color: white">Limited offer amount </a>
+                                                                                                </div>
+                                                                                            </td>
+                                                                                            <td style="margin: auto;">
+                                                                                                <div class="product-name">
+                                                                                                    <a> <b><span style="color: white"><%= userCoupons[i].endDate %></span></b></a><br>
+                                                                                                    <a> <b><span style="color: white">₹<%= userCoupons[i].minBuyRate %>.00</span></b></a>
+                                                                                                    <a> <b><span style="color: white">₹<%= userCoupons[i].maxBuyRate %>.00</span></b></a>
+                                                                                                </div>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+                                                                            <br>
+                                                                            <div style="width: 100%; height: 35px; border: 1px solid white; margin-top: -30px;" class="d-flex justify-content-between align-items-center">
+                                                                                <p id="myText<%= i %>" style="margin: 0 ; padding-left: 20px; color: white"><%= userCoupons[i].coupencode %></p>
+                                                                                <button onclick="copyContent('<%= i %>')" style="background-color: white" class="copybtn">
+                                                                                    <svg xmlns="http://www.w3.org/2000/svg" height="20px" width="20px" viewBox="0 0 448 512">
+                                                                                        <path fill="#090606" d="M208 0H332.1c12.7 0 24.9 5.1 33.9 14.1l67.9 67.9c9 9 14.1 21.2 14.1 33.9V336c0 26.5-21.5 48-48 48H208c-26.5 0-48-21.5-48-48V48c0-26.5 21.5-48 48-48zM48 128h80v64H64V448H256V416h64v48c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V176c0-26.5 21.5-48 48-48z"/>
+                                                                                    </svg>
+                                                                                </button>
+                                                                            </div><br>
+                                                                            <h1 style="font-weight: 800; color: white;"> <%= userCoupons[i].discountPercentage %>% &nbsp;<span style="color: rgb(94, 94, 94);">OFF</span> </h1>
                                                                         </div>
-                                                                    <% } %>
-                                                                    <div class="text-center">
-                                                                        <h3 style="color: white"><b><%= userCoupons[i].name %></b></h3><br>
-                                                                            <div class="table-responsive" style="margin-top: -10px;">
-                                                                            <table class="table" cellspacing="0">
-                                                                                <tbody>
-                                                                                    <tr class=" align-right">
-                                                                                        <td style="margin: auto;">
-                                                                                            <div class="product-name">
-                                                                                                <a style="font-size: 13px; color: white">Valid until </a><br>
-                                                                                                <a style="font-size: 13px; color: white">Purchase amount </a>
-                                                                                                <a style="font-size: 13px; color: white">Limited offer amount </a>
-                                                                                            </div>
-                                                                                        </td>
-                                                                                        <td style="margin: auto;">
-                                                                                            <div class="product-name">
-                                                                                                <a> <b><span style="color: white"><%= userCoupons[i].endDate %></span></b></a><br>
-                                                                                                <a> <b><span style="color: white">₹<%= userCoupons[i].minBuyRate %>.00</span></b></a>
-                                                                                                <a> <b><span style="color: white">₹<%= userCoupons[i].maxBuyRate %>.00</span></b></a>
-                                                                                            </div>
-                                                                                        </td>
-                                                                                    </tr>
-                                                                                </tbody>
-                                                                            </table>
-                                                                        </div>
-                                                                        <br>
-                                                                        <div style="width: 100%; height: 35px; border: 1px solid white; margin-top: -30px;" class="d-flex justify-content-between align-items-center">
-                                                                            <p id="myText<%= i %>" style="margin: 0 ; padding-left: 20px; color: white"><%= userCoupons[i].coupencode %></p>
-                                                                            <button onclick="copyContent('<%= i %>')" style="background-color: white" class="copybtn">
-                                                                                <svg xmlns="http://www.w3.org/2000/svg" height="20px" width="20px" viewBox="0 0 448 512">
-                                                                                    <path fill="#090606" d="M208 0H332.1c12.7 0 24.9 5.1 33.9 14.1l67.9 67.9c9 9 14.1 21.2 14.1 33.9V336c0 26.5-21.5 48-48 48H208c-26.5 0-48-21.5-48-48V48c0-26.5 21.5-48 48-48zM48 128h80v64H64V448H256V416h64v48c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V176c0-26.5 21.5-48 48-48z"/>
-                                                                                </svg>
-                                                                            </button>
-                                                                        </div><br>
-                                                                        <h1 style="font-weight: 800; color: white;"> <%= userCoupons[i].discountPercentage %>% &nbsp;<span style="color: rgb(94, 94, 94);">OFF</span> </h1>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                        <% } %>
+                                                            <% } %>
                                                         <% } %>
                                                     </div>
                                                 <% } %>
@@ -422,112 +397,116 @@
         </div>
 
         <footer id="site-footer" class="site-footer background">
-            <div class="footer">
-                <div class="section-padding">
-                    <div class="section-container">
-                        <div class="block-widget-wrap">
-                            <div class="row">
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="block block-menu m-b-20">
-                                        <h2 class="block-title">Contact Us</h2>
-                                        <div class="block-content">
-                                            <ul>
-                                                <li>
-                                                    <a href="page-contact.html">616.774.0561</a>
-                                                </li>
-                                                <li>
-                                                    <a href="page-contact.html">866.453.4748</a>
-                                                </li>
-                                                <li>
-                                                    <a href="page-contact.html">HR Fax: 810.222.5439</a>
-                                                </li>
-                                                <li>
-                                                    <a href="page-contact.html">sales@ruperfurniture.com</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-
-                                    <div class="block block-social">
-                                        <ul class="social-link">
-                                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                            <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-                                            <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
-                                            <li><a href="#"><i class="fa fa-behance"></i></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="block block-menu">
-                                        <h2 class="block-title">Showroom</h2>
-                                        <div class="block-content">
-                                            <p>1000 84th Street SW , Byron Center, MI 49315</p>
-                                            <p>AmericasMart Bldg. #1</p>
-                                            <p>Suite 5C-1, Atlanta, GA 30303</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="block block-menu">
-                                        <h2 class="block-title">Services</h2>
-                                        <div class="block-content">
-                                            <ul>
-                                                <li>
-                                                    <a href="page-about.html">Sale</a>
-                                                </li>
-                                                <li>
-                                                    <a href="page-about.html">Quick Ship</a>
-                                                </li>
-                                                <li>
-                                                    <a href="page-about.html">New Designs</a>
-                                                </li>
-                                                <li>
-                                                    <a href="page-about.html">Accidental Fabric Protection</a>
-                                                </li>
-                                                <li>
-                                                    <a href="page-about.html">Furniture Care</a>
-                                                </li>
-                                                <li>
-                                                    <a href="page-about.html">Gift Cards</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="block block-newsletter">
-                                        <h2 class="block-title">Newsletter</h2>
-                                        <div class="block-content">
-                                            <div class="newsletter-text">Enter your email below to be the first to know
-                                                about new collections and product launches.</div>
-                                            <form action="#" method="post" class="newsletter-form">
-                                                <input type="email" class="bg-white" name="your-email" value=""
-                                                    size="40" placeholder="Email address">
-                                                <span class="btn-submit">
-                                                    <input type="submit" value="Subscribe">
-                                                </span>
-                                            </form>
-                                        </div>
-                                    </div>
-                                    <div class="block block-image">
-                                        <img width="309" height="32" src="media/payments.png" alt="">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <div class="section-padding">
-                    <div class="section-container">
-                        <div class="block-widget-wrap">
-                            <p class="copyright text-center">Copyright © 2022. All Right Reserved</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </footer>
+			<div class="footer">
+				<div class="section-padding">
+					<div class="section-container large">
+						<div class="block-widget-wrap">
+							<div class="row">
+								<div class="col-lg-3 col-md-6">
+									<div class="block block-menu">
+										<h2 class="block-title">About</h2>
+										<div class="block-content">
+											<ul>
+												<li>
+													<a>Low Shipping charge</a>
+												</li>
+												<li>
+													<a>Flexible Payment</a>
+												</li>
+												<li>
+													<a>Return policy</a>
+												</li>
+												<li>
+													<a>Online support</a>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-3 col-md-6">
+									<div class="block block-menu">
+										<h2 class="block-title">Help</h2>
+										<div class="block-content">
+											<ul>
+												<li>
+													<a>Contact & FAQ</a>
+												</li>
+												<li>
+													<a>Track Your Order</a>
+												</li>
+												<li>
+													<a>Returns & Refunds</a>
+												</li>
+												<li>
+													<a>Shipping & Delivery</a>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-3 col-md-6">
+									<div class="block block-menu">
+										<h2 class="block-title">Services</h2>
+										<div class="block-content">
+											<ul>
+												<li>
+													<a>Sale</a>
+												</li>
+												<li>
+													<a>Quick Ship</a>
+												</li>
+												<li>
+													<a>New Designs</a>
+												</li>
+												<li>
+													<a>Accidental Fabric Protection</a>
+												</li>
+												<li>
+													<a>Furniture Care</a>
+												</li>
+												<li>
+													<a>Gift Cards</a>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-3 col-md-6">
+									<div class="block block-newsletter m-b-30">
+										<h2 class="block-title">Social media</h2>
+										<div class="block-content">
+											<div class="newsletter-text">Follow us on social media to stay updated with the latest information.</div>
+										</div>
+									</div>
+									<div class="block block-social">
+										<ul class="social-link">
+											<li><a href="https://www.instagram.com/e_zed_/"><i class="fa fa-instagram"></i></a></li>
+											<li><a href="https://www.linkedin.com/in/sameen-ka/"><i class="fa fa-linkedin"></i></a></li>
+											<li><a href="https://github.com/Sameen-K-A"><i class="fa fa-github"></i></a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="footer-bottom">
+				<div class="section-padding">
+					<div class="section-container large">
+						<div class="block-widget-wrap">
+							<div class="row">
+								<div class="col-md-12" style="text-align: center;">
+									<div class="footer-left">
+										<p class="copyright">Copyright © 2024. All Right Reserved</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</footer>
     </div>
 
     <!-- Back Top button -->
@@ -557,16 +536,6 @@
     </div>
 </div>
 
-
-
-    <!-- Page Loader -->
-    <!-- <div class="page-preloader">
-	    	<div class="loader">
-	    		<div></div>
-	    		<div></div>
-	    	</div>
-	    </div> -->
-
     <!-- Dependency Scripts -->
     <script src="libs/popper/js/popper.min.js"></script>
     <script src="libs/jquery/js/jquery.min.js"></script>
@@ -577,8 +546,8 @@
     <script src="libs/slider/js/tmpl.js"></script>
     <script src="libs/slider/js/jquery.dependClass-0.1.js"></script>
     <script src="libs/slider/js/draggable-0.1.js"></script>
-    <script src="libs/slider/js/jquery.slider.js"></script>
     <script src="assets/js/app.js"></script>
+    <script src="libs/slider/js/jquery.slider.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
         integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="

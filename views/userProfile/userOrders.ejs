@@ -1,18 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<!-- Mirrored from caketheme.com/html/ruper/page-my-account.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 26 Jan 2024 08:52:33 GMT -->
-
 <head>
     <!-- Meta Data -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>FURNIX</title>
-
     <!-- Favicon -->
     <link rel="icon" type="image/png" sizes="32x32" href="media/favicon-16x16.png">
-
     <!-- Dependency Styles -->
     <link rel="stylesheet" href="libs/bootstrap/css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="libs/feather-font/css/iconfont.css" type="text/css">
@@ -24,11 +19,9 @@
     <link rel="stylesheet" href="libs/slick/css/slick-theme.css" type="text/css">
     <link rel="stylesheet" href="libs/mmenu/css/mmenu.min.css" type="text/css">
     <link rel="stylesheet" href="libs/slider/css/jslider.css">
-
     <!-- Site Stylesheet -->
     <link rel="stylesheet" href="assets/css/app.css" type="text/css">
     <link rel="stylesheet" href="assets/css/responsive.css" type="text/css">
-
     <!-- Google Web Fonts -->
     <link
         href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@100;200;300;400;500;600;700&amp;display=swap"
@@ -49,14 +42,11 @@
         border-radius: 30px;
         color: rgb(0, 0, 0);
     }
-
-    
     .swal-custom {
         background: linear-gradient(94deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.8240546218487395) 26%, rgba(0, 0, 0, 1) 53%, rgba(0, 0, 0, 0.8492647058823529) 79%, rgba(227, 227, 227, 0) 100%);
         color: #ffffff;
         width: 100%;
     }
-
     .swal-custom-ok-btn {
         color: black !important;
     }
@@ -64,7 +54,7 @@
 
 <body class="blog">
     <div id="page" class="hfeed page-wrapper">
-        <header id="site-header" class="site-header header-v2">
+		<header id="site-header" class="site-header header-v2">
 			<div class="header-mobile">
 				<div class="section-padding">
 					<div class="section-container large">
@@ -76,42 +66,45 @@
 							</div>
 							<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 header-center">
 								<div class="site-logo">
-									<a href="index2.html">
-										<img width="400" height="79" src="media/logo.png"
-											alt="Ruper – Furniture HTML Theme" />
+									<a href="/">
+										<img width="400" height="79" src="media/logo.png" />
 									</a>
 								</div>
+							</div>
+							<!-- Search -->
+							<div class="search-box" style="position: absolute; top: 25px; right: 30px;">
+								<div class="search-toggle"><i class="wpb-icon-magnifying-glass" style="font-size: 20px; color: black;"></i></div>
 							</div>
 						</div>
 					</div>
 				</div>
-
+			
 				<div class="header-mobile-fixed">
 					<!-- Shop -->
 					<div class="shop-page">
-						<a href="shop-grid-left.html"><i class="wpb-icon-shop"></i></a>
+						<a href="/"><i class="wpb-icon-shop"></i></a>
+					</div>
+			
+					<!-- Wishlist -->
+					<div class="wishlist-box">
+						<a href="/wishlist"><i class="icon-heart"></i></a>
+					</div>
+					
+					<!-- Cart -->
+					<div class="wishlist-box">
+						<a class="cart-icon" href="/cart"><i class="icon-large-paper-bag"></i></a>
 					</div>
 
 					<!-- Login -->
 					<div class="my-account">
 						<div class="login-header">
-							<a href="page-my-account.html"><i class="wpb-icon-user"></i></a>
+							<a href="/userProfilepage"><i class="wpb-icon-user"></i></a>
 						</div>
-					</div>
-
-					<!-- Search -->
-					<div class="search-box">
-						<div class="search-toggle"><i class="wpb-icon-magnifying-glass"></i></div>
-					</div>
-
-					<!-- Wishlist -->
-					<div class="wishlist-box">
-						<a href="/wishlist"><i class="wpb-icon-heart"></i></a>
 					</div>
 				</div>
 			</div>
-
-			<div class="header-desktop" style="background: linear-gradient(94deg, rgba(226,226,226,1) 0%, rgba(255,255,255,1) 53%, rgba(227,227,227,1) 100%);">
+			<div class="header-desktop"
+				style="background: linear-gradient(94deg, rgba(226,226,226,1) 0%, rgba(255,255,255,1) 53%, rgba(227,227,227,1) 100%);">
 				<div class="header-wrapper">
 					<div class="section-padding">
 						<div class="section-container large p-l-r">
@@ -127,36 +120,28 @@
 													<a href="/allproduct"><span class="menu-item-text">All</span></a>
 												</li>
 												<li class="level-0 menu-item">
-													<a href="/about"><span class="menu-item-text">about us
-														</span></a>
+													<a href="/contact"><span class="menu-item-text">Contact</span></a>
 												</li>
-												<li class="level-0 menu-item">
-													<a href="/contact"><span
-															class="menu-item-text">Contact</span></a>
-												</li>
-
 											</ul>
 										</nav>
 									</div>
 								</div>
-
 								<div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-12 text-center header-center">
 									<div class="site-logo">
 										<a href="index2.html">
-											<img width="400" height="79" src="media/logo.png"
-												alt="Ruper – Furniture HTML Theme" />
+											<img width="400" height="79" src="media/logo.png" />
 										</a>
 									</div>
 								</div>
-
 								<div class="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-12 header-right">
 									<div class="header-page-link">
 
 										<!-- Search -->
-										<div class="search-box">
+										<div class="search-box" style="margin-right: -8px;">
 											<div class="search-toggle"><i class="icon-search"></i></div>
 										</div>
-                                        <!-- Wishlist -->
+
+										<!-- Wishlist -->
 										<div class="wishlist-box">
 											<a href="/wishlist"><i class="icon-heart"></i></a>
 											<% if (wishCount != undefined) { %>
@@ -164,22 +149,18 @@
 											<% } else { %>
 												<span class="count-wishlist">0</span>
 											<% } %>
-											 
 										</div>
-										
 										
 										<!-- Cart -->
 										<div class="mini-cart top-cart wishlist-box">
 											<a class="cart-icon" href="/cart">
-												<% if (CartCount != undefined) { %>
-													<div class="icons-cart"><i class="icon-large-paper-bag"></i><span class="cart-count"><%= CartCount %></span></div>
-												<% } else { %>
-													<div class="icons-cart"><i class="icon-large-paper-bag"></i><span class="cart-count">0</span></div>
-												<% } %>
-												
+											<% if (CartCount != undefined) { %>
+												<div class="icons-cart"><i class="icon-large-paper-bag"></i><span class="cart-count"><%= CartCount %></span></div>
+											<% } else { %>
+												<div class="icons-cart"><i class="icon-large-paper-bag"></i><span class="cart-count">0</span></div>
+											<% } %>
 											</a>
 										</div>
-
 									</div>
 								</div>
 							</div>
@@ -243,11 +224,11 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="justify-content-center d-flex align-center"
-												style="margin-bottom: 100px;">
-												<a href="/allproduct"><button class="btn text-light"
-														style="background-color: black; width: 200px; height: 40px; padding: 5px;">Go
-														to product page</button></a>
-											</div>
+                                                                    style="margin-bottom: 100px;">
+                                                                    <a href="/allproduct"><button class="btn text-light"
+                                                                            style="background-color: black; width: 200px; height: 40px; padding: 5px;">Go
+                                                                            to product page</button></a>
+                                                                </div>
                                                                     <% } else { %>
                                                                         <table class="table">
                                                                             <thead class="text-center"
@@ -335,112 +316,116 @@
         </div>
 
         <footer id="site-footer" class="site-footer background">
-            <div class="footer">
-                <div class="section-padding">
-                    <div class="section-container">
-                        <div class="block-widget-wrap">
-                            <div class="row">
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="block block-menu m-b-20">
-                                        <h2 class="block-title">Contact Us</h2>
-                                        <div class="block-content">
-                                            <ul>
-                                                <li>
-                                                    <a href="page-contact.html">616.774.0561</a>
-                                                </li>
-                                                <li>
-                                                    <a href="page-contact.html">866.453.4748</a>
-                                                </li>
-                                                <li>
-                                                    <a href="page-contact.html">HR Fax: 810.222.5439</a>
-                                                </li>
-                                                <li>
-                                                    <a href="page-contact.html">sales@ruperfurniture.com</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-
-                                    <div class="block block-social">
-                                        <ul class="social-link">
-                                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                            <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-                                            <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
-                                            <li><a href="#"><i class="fa fa-behance"></i></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="block block-menu">
-                                        <h2 class="block-title">Showroom</h2>
-                                        <div class="block-content">
-                                            <p>1000 84th Street SW , Byron Center, MI 49315</p>
-                                            <p>AmericasMart Bldg. #1</p>
-                                            <p>Suite 5C-1, Atlanta, GA 30303</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="block block-menu">
-                                        <h2 class="block-title">Services</h2>
-                                        <div class="block-content">
-                                            <ul>
-                                                <li>
-                                                    <a href="page-about.html">Sale</a>
-                                                </li>
-                                                <li>
-                                                    <a href="page-about.html">Quick Ship</a>
-                                                </li>
-                                                <li>
-                                                    <a href="page-about.html">New Designs</a>
-                                                </li>
-                                                <li>
-                                                    <a href="page-about.html">Accidental Fabric Protection</a>
-                                                </li>
-                                                <li>
-                                                    <a href="page-about.html">Furniture Care</a>
-                                                </li>
-                                                <li>
-                                                    <a href="page-about.html">Gift Cards</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="block block-newsletter">
-                                        <h2 class="block-title">Newsletter</h2>
-                                        <div class="block-content">
-                                            <div class="newsletter-text">Enter your email below to be the first to know
-                                                about new collections and product launches.</div>
-                                            <form action="#" method="post" class="newsletter-form">
-                                                <input type="email" class="bg-white" name="your-email" value=""
-                                                    size="40" placeholder="Email address">
-                                                <span class="btn-submit">
-                                                    <input type="submit" value="Subscribe">
-                                                </span>
-                                            </form>
-                                        </div>
-                                    </div>
-                                    <div class="block block-image">
-                                        <img width="309" height="32" src="media/payments.png" alt="">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <div class="section-padding">
-                    <div class="section-container">
-                        <div class="block-widget-wrap">
-                            <p class="copyright text-center">Copyright © 2022. All Right Reserved</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </footer>
+			<div class="footer">
+				<div class="section-padding">
+					<div class="section-container large">
+						<div class="block-widget-wrap">
+							<div class="row">
+								<div class="col-lg-3 col-md-6">
+									<div class="block block-menu">
+										<h2 class="block-title">About</h2>
+										<div class="block-content">
+											<ul>
+												<li>
+													<a>Low Shipping charge</a>
+												</li>
+												<li>
+													<a>Flexible Payment</a>
+												</li>
+												<li>
+													<a>Return policy</a>
+												</li>
+												<li>
+													<a>Online support</a>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-3 col-md-6">
+									<div class="block block-menu">
+										<h2 class="block-title">Help</h2>
+										<div class="block-content">
+											<ul>
+												<li>
+													<a>Contact & FAQ</a>
+												</li>
+												<li>
+													<a>Track Your Order</a>
+												</li>
+												<li>
+													<a>Returns & Refunds</a>
+												</li>
+												<li>
+													<a>Shipping & Delivery</a>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-3 col-md-6">
+									<div class="block block-menu">
+										<h2 class="block-title">Services</h2>
+										<div class="block-content">
+											<ul>
+												<li>
+													<a>Sale</a>
+												</li>
+												<li>
+													<a>Quick Ship</a>
+												</li>
+												<li>
+													<a>New Designs</a>
+												</li>
+												<li>
+													<a>Accidental Fabric Protection</a>
+												</li>
+												<li>
+													<a>Furniture Care</a>
+												</li>
+												<li>
+													<a>Gift Cards</a>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-3 col-md-6">
+									<div class="block block-newsletter m-b-30">
+										<h2 class="block-title">Social media</h2>
+										<div class="block-content">
+											<div class="newsletter-text">Follow us on social media to stay updated with the latest information.</div>
+										</div>
+									</div>
+									<div class="block block-social">
+										<ul class="social-link">
+											<li><a href="https://www.instagram.com/e_zed_/"><i class="fa fa-instagram"></i></a></li>
+											<li><a href="https://www.linkedin.com/in/sameen-ka/"><i class="fa fa-linkedin"></i></a></li>
+											<li><a href="https://github.com/Sameen-K-A"><i class="fa fa-github"></i></a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="footer-bottom">
+				<div class="section-padding">
+					<div class="section-container large">
+						<div class="block-widget-wrap">
+							<div class="row">
+								<div class="col-md-12" style="text-align: center;">
+									<div class="footer-left">
+										<p class="copyright">Copyright © 2024. All Right Reserved</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</footer>
     </div>
 
     <!-- Back Top button -->
@@ -469,16 +454,6 @@
             </div>
 		</div>
 	</div>
-
-
-
-    <!-- Page Loader -->
-    <!-- <div class="page-preloader">
-	    	<div class="loader">
-	    		<div></div>
-	    		<div></div>
-	    	</div>
-	    </div> -->
 
     <!-- Dependency Scripts -->
     <script src="libs/popper/js/popper.min.js"></script>
