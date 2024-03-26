@@ -69,14 +69,28 @@
 									</a>
 								</div>
 							</div>
+							<!-- Search -->
+							<div class="search-box" style="position: absolute; top: 25px; right: 30px;">
+								<div class="search-toggle"><i class="wpb-icon-magnifying-glass" style="font-size: 20px; color: black;"></i></div>
+							</div>
 						</div>
 					</div>
 				</div>
-
+			
 				<div class="header-mobile-fixed">
 					<!-- Shop -->
 					<div class="shop-page">
 						<a href="/"><i class="wpb-icon-shop"></i></a>
+					</div>
+			
+					<!-- Wishlist -->
+					<div class="wishlist-box">
+						<a href="/wishlist"><i class="icon-heart"></i></a>
+					</div>
+					
+					<!-- Cart -->
+					<div class="wishlist-box">
+						<a class="cart-icon" href="/cart"><i class="icon-large-paper-bag"></i></a>
 					</div>
 
 					<!-- Login -->
@@ -85,37 +99,8 @@
 							<a href="/userProfilepage"><i class="wpb-icon-user"></i></a>
 						</div>
 					</div>
-
-					<!-- Search -->
-					<div class="search-box" style="color: black;">
-						<div class="search-toggle"><i class="wpb-icon-magnifying-glass"></i></div>
-					</div>
-
-					<!-- Wishlist -->
-					<div class="wishlist-box">
-						<a href="/wishlist"><i class="icon-heart"></i>
-						<% if (wishCount != undefined) { %>
-							<span class="count-wishlist"><%= wishCount %></span>
-						<% } else { %>
-							<span class="count-wishlist">0</span>
-						<% } %>
-						</a>
-					</div>
-					
-					<!-- Cart -->
-					<div class="wishlist-box">
-						<a class="cart-icon" href="/cart"><i class="icon-large-paper-bag"></i>
-						<% if (CartCount != undefined) { %>
-							<span class="cart-count"><%= CartCount %></span>
-						<% } else { %>
-							<span class="cart-count">0</span>
-						<% } %>
-						</a>
-					</div>
-
 				</div>
 			</div>
-
 			<div class="header-desktop"
 				style="background: linear-gradient(94deg, rgba(226,226,226,1) 0%, rgba(255,255,255,1) 53%, rgba(227,227,227,1) 100%);">
 				<div class="header-wrapper">
@@ -187,8 +172,6 @@
 				</div>
 			</div>
 		</header>
-
-
 		<div id="site-main" class="site-main">
 			<div id="main-content" class="main-content">
 				<div id="primary" class="content-area">
@@ -285,7 +268,7 @@
 													<div class="bg-banner">
 														<div class="banner-wrapper banners">
 															<div class="banner-image">
-																<a href="shop-grid-left.html">
+																<a href="/allProduct">
 																	<img width="568" height="607"
 																		src="media/banner/banner-3.jpg"
 																		alt="Banner Image">
@@ -295,11 +278,11 @@
 																<div class="info">
 																	<div class="content">
 																		<a class="link-title"
-																			href="shop-grid-left.html">
+																			href="/allProduct">
 																			<h3 class="title-banner">new arivals.</h3>
 																		</a>
 																		<a class="button btn-underline"
-																			href="shop-grid-left.html">shop now</a>
+																			href="/allProduct">shop now</a>
 																	</div>
 																</div>
 															</div>
@@ -312,7 +295,7 @@
 													<div class="bg-banner">
 														<div class="banner-wrapper banners">
 															<div class="banner-image">
-																<a href="shop-grid-left.html">
+																<a href="/allProduct">
 																	<img width="568" height="607"
 																		src="media/banner/banner-4.jpg"
 																		alt="Banner Image">
@@ -322,11 +305,11 @@
 																<div class="info">
 																	<div class="content">
 																		<a class="link-title"
-																			href="shop-grid-left.html">
+																			href="/allProduct">
 																			<h3 class="title-banner">trending.</h3>
 																		</a>
 																		<a class="button btn-underline center"
-																			href="shop-grid-left.html">shop now</a>
+																			href="/allProduct">shop now</a>
 																	</div>
 																</div>
 															</div>
@@ -339,7 +322,7 @@
 													<div class="bg-banner">
 														<div class="banner-wrapper banners">
 															<div class="banner-image">
-																<a href="shop-grid-left.html">
+																<a href="/allProduct">
 																	<img width="568" height="607"
 																		src="media/banner/banner-5.jpg"
 																		alt="Banner Image">
@@ -349,11 +332,11 @@
 																<div class="info">
 																	<div class="content">
 																		<a class="link-title"
-																			href="shop-grid-left.html">
+																			href="/allProduct">
 																			<h3 class="title-banner">staffpick.</h3>
 																		</a>
 																		<a class="button btn-underline"
-																			href="shop-grid-left.html">shop now</a>
+																			href="/allProduct">shop now</a>
 																	</div>
 																</div>
 															</div>
@@ -883,7 +866,6 @@
 											<div class="newsletter-text">Follow us on social media to stay updated with the latest information.</div>
 										</div>
 									</div>
-
 									<div class="block block-social">
 										<ul class="social-link">
 											<li><a href="https://www.instagram.com/e_zed_/"><i class="fa fa-instagram"></i></a></li>
@@ -907,13 +889,6 @@
 										<p class="copyright">Copyright © 2024. All Right Reserved</p>
 									</div>
 								</div>
-								<!-- <div class="col-md-6">
-									<div class="footer-right">
-										<div class="block block-image">
-											<img width="309" height="32" src="media/payments.png" alt="">
-										</div>
-									</div>
-								</div> -->
 							</div>
 						</div>
 					</div>

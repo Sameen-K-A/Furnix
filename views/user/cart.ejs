@@ -1,19 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<!-- Mirrored from caketheme.com/html/ruper/shop-cart.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 26 Jan 2024 08:52:33 GMT -->
-
 <head>
 	<!-- Meta Data -->
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>FURNIX</title>
-
 	<!-- Favicon -->
 	<link rel="icon" type="image/png" sizes="32x32" href="media/favicon-16x16.png">
-
-
 	<!-- Dependency Styles -->
 	<link rel="stylesheet" href="libs/bootstrap/css/bootstrap.min.css" type="text/css">
 	<link rel="stylesheet" href="libs/feather-font/css/iconfont.css" type="text/css">
@@ -25,11 +19,9 @@
 	<link rel="stylesheet" href="libs/slick/css/slick-theme.css" type="text/css">
 	<link rel="stylesheet" href="libs/mmenu/css/mmenu.min.css" type="text/css">
 	<link rel="stylesheet" href="libs/slider/css/jslider.css">
-
 	<!-- Site Stylesheet -->
 	<link rel="stylesheet" href="assets/css/app.css" type="text/css">
 	<link rel="stylesheet" href="assets/css/responsive.css" type="text/css">
-
 	<!-- Google Web Fonts -->
 	<link
 		href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@100;200;300;400;500;600;700&amp;display=swap"
@@ -44,12 +36,10 @@
 		color: #ffffff;
 		width: 100%;
 	}
-
 	.swal-custom-ok-btn {
 		color: black !important;
 	}
 </style>
-
 <body class="shop">
 	<div id="page" class="hfeed page-wrapper">
 		<header id="site-header" class="site-header header-v2">
@@ -65,40 +55,42 @@
 							<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 header-center">
 								<div class="site-logo">
 									<a href="/">
-										<img width="400" height="79" src="media/logo.png"
-											alt="Ruper  Furniture HTML Theme" />
+										<img width="400" height="79" src="media/logo.png" />
 									</a>
 								</div>
+							</div>
+							<!-- Search -->
+							<div class="search-box" style="position: absolute; top: 25px; right: 30px;">
+								<div class="search-toggle"><i class="wpb-icon-magnifying-glass" style="font-size: 20px; color: black;"></i></div>
 							</div>
 						</div>
 					</div>
 				</div>
-
+			
 				<div class="header-mobile-fixed">
 					<!-- Shop -->
 					<div class="shop-page">
 						<a href="/"><i class="wpb-icon-shop"></i></a>
 					</div>
+			
+					<!-- Wishlist -->
+					<div class="wishlist-box">
+						<a href="/wishlist"><i class="icon-heart"></i></a>
+					</div>
+					
+					<!-- Cart -->
+					<div class="wishlist-box">
+						<a class="cart-icon" href="/cart"><i class="icon-large-paper-bag"></i></a>
+					</div>
 
 					<!-- Login -->
 					<div class="my-account">
 						<div class="login-header">
-							<a href="/userProfile"><i class="wpb-icon-user"></i></a>
+							<a href="/userProfilepage"><i class="wpb-icon-user"></i></a>
 						</div>
-					</div>
-
-					<!-- Search -->
-					<div class="search-box">
-						<div class="search-toggle"><i class="wpb-icon-magnifying-glass"></i></div>
-					</div>
-
-					<!-- Wishlist -->
-					<div class="wishlist-box">
-						<a href="/wishlist"><i class="wpb-icon-heart"></i></a>
 					</div>
 				</div>
 			</div>
-
 			<div class="header-desktop"
 				style="background: linear-gradient(94deg, rgba(226,226,226,1) 0%, rgba(255,255,255,1) 53%, rgba(227,227,227,1) 100%);">
 				<div class="header-wrapper">
@@ -116,24 +108,16 @@
 													<a href="/allproduct"><span class="menu-item-text">All</span></a>
 												</li>
 												<li class="level-0 menu-item">
-													<a href="/about"><span class="menu-item-text">about us
-														</span></a>
+													<a href="/contact"><span class="menu-item-text">Contact</span></a>
 												</li>
-												<li class="level-0 menu-item">
-													<a href="/contact"><span
-														class="menu-item-text">Contact</span></a>
-												</li>
-
 											</ul>
 										</nav>
 									</div>
 								</div>
-
 								<div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-12 text-center header-center">
 									<div class="site-logo">
 										<a href="index2.html">
-											<img width="400" height="79" src="media/logo.png"
-												alt="Ruper – Furniture HTML Theme" />
+											<img width="400" height="79" src="media/logo.png" />
 										</a>
 									</div>
 								</div>
@@ -154,29 +138,23 @@
 											<% } else { %>
 												<span class="count-wishlist">0</span>
 											<% } %>
-											 
 										</div>
-										
 										
 										<!-- Cart -->
 										<div class="mini-cart top-cart wishlist-box">
 											<a class="cart-icon" href="/cart">
-												<% if (CartCount != undefined) { %>
-													<div class="icons-cart"><i class="icon-large-paper-bag"></i><span class="cart-count"><%= CartCount %></span></div>
-												<% } else { %>
-													<div class="icons-cart"><i class="icon-large-paper-bag"></i><span class="cart-count">0</span></div>
-												<% } %>
-												
+											<% if (CartCount != undefined) { %>
+												<div class="icons-cart"><i class="icon-large-paper-bag"></i><span class="cart-count"><%= CartCount %></span></div>
+											<% } else { %>
+												<div class="icons-cart"><i class="icon-large-paper-bag"></i><span class="cart-count">0</span></div>
+											<% } %>
 											</a>
 										</div>
 										<!-- profile -->
-									<div class="wishlist-box" style="margin-left: -0px;">
-										<a href="/userprofilepage"><i class="wpb-icon-user"></i></a>
+										<div class="wishlist-box" style="margin-left: -0px;">
+											<a href="/userprofilepage"><i class="wpb-icon-user"></i></a>
+										</div>
 									</div>
-
-									</div>
-
-									
 								</div>
 							</div>
 						</div>
@@ -194,285 +172,192 @@
 								<% if (!userData) { %>
 									<div class="justify-content-center d-flex align-center"
 										style="margin-bottom: 20px;">
-										<div class="col-lg-8" style="width: 100%; height: 100px; background-color:
-															rgb(255, 255, 255); display: flex; justify-content: center;
-															align-items: center; border: 1px solid black;">
+										<div class="col-lg-8" style="width: 100%; height: 100px; background-color:rgb(255, 255, 255); display: flex; justify-content: center;align-items: center; border: 1px solid black;">
 											<p style="color: black; margin-top: 10px;">Please login</p>
 										</div>
 									</div>
 									<div class="justify-content-center d-flex align-center"
 										style="margin-bottom: 100px;">
-										<a href="/userLogin"><button class="btn text-light"
-												style="background-color: black; width: 200px; height: 40px; padding: 5px;">Go
-												to login page</button></a>
+										<a href="/userLogin"><button class="btn text-light" style="background-color: black; width: 200px; height: 40px; padding: 5px;">Go to login page</button></a>
 									</div>
-
-
 									<% } else { %>
 										<% if (userData.cart.length===0) { %>
 											<div class="justify-content-center d-flex align-center"
 												style="margin-bottom: 20px;">
-												<div class="col-lg-8" style="width: 100%; height: 100px; background-color:
-																	rgb(255, 255, 255); display: flex; justify-content: center;
-																	align-items: center; border: 1px solid black;">
-													<p style="color: black; margin-top: 10px;">Your cart is empty. No
-														items found</p>
+												<div class="col-lg-8" style="width: 100%; height: 100px; background-color:rgb(255, 255, 255); display: flex; justify-content: center;align-items: center; border: 1px solid black;">
+													<p style="color: black; margin-top: 10px;">Your cart is empty. No items found</p>
 												</div>
 											</div>
 											<div class="justify-content-center d-flex align-center"
 												style="margin-bottom: 100px;">
-												<a href="/allproduct"><button class="btn text-light"
-														style="background-color: black; width: 200px; height: 40px; padding: 5px;">Go
-														to product page</button></a>
+												<a href="/allproduct"><button class="btn text-light" style="background-color: black; width: 200px; height: 40px; padding: 5px;">Go to product page</button></a>
 											</div>
-
-											<% } else { %>
-												<div class="shop-cart">
-													<div class="row">
-														<div class="col-xl-8 col-lg-12 col-md-12 col-12">
-															<div class="table-responsive">
-																<table class="cart-items table" cellspacing="0">
-																	<thead>
-																		<tr>
-																			<th class="product-thumbnail">Product
-																			</th>
-																			<th class="product-price text-center">
-																				Price</th>
-																			<th class="product-quantity text-center">
-																				Quantity</th>
-																			<th class="product-subtotal text-center">
-																				Subtotal</th>
-																			<th class="product-subtotal text-center">
-																				Remove</th>
+										<% } else { %>
+											<div class="shop-cart">
+												<div class="row">
+													<div class="col-xl-8 col-lg-12 col-md-12 col-12">
+														<div class="table-responsive">
+															<table class="cart-items table" cellspacing="0">
+																<thead>
+																	<tr>
+																		<th class="product-thumbnail">Product</th>
+																		<th class="product-price text-center">Price</th>
+																		<th class="product-quantity text-center">Quantity</th>
+																		<th class="product-subtotal text-center">Subtotal</th>
+																		<th class="product-subtotal text-center">Remove</th>
+																	</tr>
+																</thead>
+																<tbody>
+																	<% for( let i=0; i < userCartproducts.length;i++ ) { %>
+																		<tr class="cart-item align-right">
+																			<td class="product-thumbnail text-center">
+																				<a href="/productDetailspage?id=<%= userCartproducts[i]._id %>"><img width="600" height="600" src="/uploads/<%= userCartproducts[i].images[0] %>" class="product-image" alt=""></a>
+																				<div class="product-name">
+																					<% if (userCartproducts[i].stock === 0) { %>
+																						<a href="/productDetailspage?id=<%= userCartproducts[i]._id %>">
+																							<%= userCartproducts[i].name %>
+																						</a>
+																						<p class="text-danger align-start">Out of stock</p>
+																					<% } else if (userCartproducts[i].stock < userData.cart[i].qty) { %>
+																						<a href="/productDetailspage?id=<%= userCartproducts[i]._id %>">
+																							<%= userCartproducts[i].name %>
+																						</a>
+																						<p id="stockwarning<%= i %>" class="text-warning align-start">
+																							Only <%= userCartproducts[i].stock %> stock is available
+																						</p>
+																					<% } else if (userCartproducts[i].isBlocked === true) { %>
+																						<a href="/productDetailspage?id=<%= userCartproducts[i]._id %>" class="text-start">
+																							<%= userCartproducts[i].name %>
+																						</a>
+																						<p class="text-danger align-start">Product has been temporaily discontinued</p>
+																					<% } else { %>
+																						<a href="/productDetailspage?id=<%= userCartproducts[i]._id %>">
+																							<%= userCartproducts[i].name %>
+																						</a>
+																					<% } %>
+																				</div>
+																			</td>
+																			<td class="product-price text-center">
+																				<% if(userCartproducts[i].stock===0){ %>
+																					<span class="price">- - - -</span>
+																					<span class="price" style="display: none;">₹<%= userCartproducts[i].offerPrice%></span>
+																				<% } else { %>
+																					<span class="price">₹<%=userCartproducts[i].offerPrice%>.00</span>
+																				<% } %>
+																			</td>
+																			<td class="product-quantity">
+																				<div class="center d-flex justify-content-center align-items-center">
+																					<% if(userCartproducts[i].stock===0){ %>
+																						<span class="price">- - - -</span>
+																						<button style="background-color: black; color: white; display: none;" id="minusbtn" onclick="decrement('<%= userCartproducts[i]._id %>', '<%= i %>', '<%= userCartproducts[i].offerPrice %>')">-</button>
+																						<input type="text" readonly class="text-center" style="font-size: 15px; color: rgb(52, 52, 52); margin-bottom: -2px; width: 50px; display: none;" id="qtynumber<%= i %>" value="<%= userData.cart[i].qty %>">
+																						<button style="background-color: black; color: white; display: none;" id="plusbtn" onclick="increment('<%= userCartproducts[i]._id %>', '<%= i %>', '<%= userCartproducts[i].offerPrice %>')">+</button>
+																					<% } else { %>
+																						<button style="background-color: black; color: white;" id="minusbtn" onclick="decrement('<%= userCartproducts[i]._id %>', '<%= i %>', '<%= userCartproducts[i].offerPrice %>' , '<%= userCartproducts[i].stock %>')">-</button>
+																						<input type="text" readonly class="text-center" style="font-size: 15px; color: rgb(52, 52, 52); margin-bottom: -2px; width: 50px;" id="qtynumber<%= i %>" value="<%= userData.cart[i].qty %>">
+																						<button style="background-color: black; color: white;" id="plusbtn" onclick="increment('<%= userCartproducts[i]._id %>', '<%= i %>', '<%= userCartproducts[i].offerPrice %>')">+</button>
+																					<% } %>
+																				</div>
+																			</td>
+																			<td class="product-price text-center">
+																				<% if(userCartproducts[i].stock===0){ %>
+																					<span class="price">- - - -</span>
+																				<% } else { %>
+																					<p class="price text-dark" id="subtotal<%= i %>">₹<%= userCartproducts[i].offerPrice * userData.cart[i].qty%>.00</p>
+																				<% } %>
+																			</td>
+																			<td style="margin: auto;" class="text-center">
+																				<button onclick="deleteItem('<%= userCartproducts[i]._id %>' , '<%= i %>' , '<%= userCartproducts[i].offerPrice %>')" style="background: none; border: none;">
+																					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+																						<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
+																						<path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
+																					</svg>
+																				</button>
+																			</td>
 																		</tr>
-																	</thead>
-																	<tbody>
-																		<% for( let i=0; i < userCartproducts.length;
-																			i++ ) { %>
-																			<tr class="cart-item align-right">
-																				<td
-																					class="product-thumbnail text-center">
-																					<a
-																						href="/productDetailspage?id=<%= userCartproducts[i]._id %>"><img
-																							width="600" height="600"
-																							src="/uploads/<%= userCartproducts[i].images[0] %>"
-																							class="product-image"
-																							alt=""></a>
-																					<div class="product-name">
-																						<% if (userCartproducts[i].stock === 0) { %>
-																							<a href="/productDetailspage?id=<%= userCartproducts[i]._id %>">
-																								<%= userCartproducts[i].name %>
-																							</a>
-																							<p class="text-danger align-start">Out of stock</p>
-																						<% } else if (userCartproducts[i].stock < userData.cart[i].qty) { %>
-																							<a href="/productDetailspage?id=<%= userCartproducts[i]._id %>">
-																								<%= userCartproducts[i].name %>
-																							</a>
-																							<p id="stockwarning<%= i %>" class="text-warning align-start">
-																								Only <%= userCartproducts[i].stock %> stock is available
-																							</p>
-																						<% } else if (userCartproducts[i].isBlocked === true) { %>
-																							<a href="/productDetailspage?id=<%= userCartproducts[i]._id %>" class="text-start">
-																								<%= userCartproducts[i].name %>
-																							</a>
-																							<p class="text-danger align-start">Product has been temporaily discontinued</p>
-																						<% } else { %>
-																							<a href="/productDetailspage?id=<%= userCartproducts[i]._id %>">
-																								<%= userCartproducts[i].name %>
-																							</a>
-																						<% } %>
-
-																					</div>
-																				</td>
-																				<td class="product-price text-center">
-																					<% if
-																						(userCartproducts[i].stock===0)
-																						{ %>
-																						<span class="price">- - -
-																							-</span>
-																						<span class="price"
-																							style="display: none;">₹<%=
-																								userCartproducts[i].offerPrice
-																								%></span>
-																						<% } else { %>
-																							<span class="price">₹<%=
-																									userCartproducts[i].offerPrice
-																									%>.00</span>
-																							<% } %>
-
-																				</td>
-
-																				<td class="product-quantity">
-																					<div
-																						class="center d-flex justify-content-center align-items-center">
-																						<% if
-																							(userCartproducts[i].stock===0)
-																							{ %>
-																							<span class="price">- - -
-																								-</span>
-																							<button
-																								style="background-color: black; color: white; display: none;"
-																								id="minusbtn"
-																								onclick="decrement('<%= userCartproducts[i]._id %>', '<%= i %>', '<%= userCartproducts[i].offerPrice %>')">-</button>
-																							<input type="text" readonly
-																								class="text-center"
-																								style="font-size: 15px; color: rgb(52, 52, 52); margin-bottom: -2px; width: 50px; display: none;"
-																								id="qtynumber<%= i %>"
-																								value="<%= userData.cart[i].qty %>">
-																							<button
-																								style="background-color: black; color: white; display: none;"
-																								id="plusbtn"
-																								onclick="increment('<%= userCartproducts[i]._id %>', '<%= i %>', '<%= userCartproducts[i].offerPrice %>')">+</button>
-																							<% } else { %>
-																								<button
-																									style="background-color: black; color: white;"
-																									id="minusbtn"
-																									onclick="decrement('<%= userCartproducts[i]._id %>', '<%= i %>', '<%= userCartproducts[i].offerPrice %>' , '<%= userCartproducts[i].stock %>')">-</button>
-																								<input type="text"
-																									readonly
-																									class="text-center"
-																									style="font-size: 15px; color: rgb(52, 52, 52); margin-bottom: -2px; width: 50px;"
-																									id="qtynumber<%= i %>"
-																									value="<%= userData.cart[i].qty %>">
-																								<button
-																									style="background-color: black; color: white;"
-																									id="plusbtn"
-																									onclick="increment('<%= userCartproducts[i]._id %>', '<%= i %>', '<%= userCartproducts[i].offerPrice %>')">+</button>
-																								<% } %>
-																					</div>
-																				</td>
-
-																				<td class="product-price text-center">
-																					<% if
-																						(userCartproducts[i].stock===0)
-																						{ %>
-																						<span class="price">- - -
-																							-</span>
-																						<% } else { %>
-																							<p class="price text-dark"
-																								id="subtotal<%= i %>">₹<%= userCartproducts[i].offerPrice
-																									*
-																									userData.cart[i].qty
-																									%>.00
-																							</p>
-																							<% } %>
-
-																				</td>
-																				<td style="margin: auto;"
-																					class="text-center">
-																					<button
-																						onclick="deleteItem('<%= userCartproducts[i]._id %>' , '<%= i %>' , '<%= userCartproducts[i].offerPrice %>')"
-																						style="background: none; border: none;">
-																						<svg xmlns="http://www.w3.org/2000/svg"
-																							width="16" height="16"
-																							fill="currentColor"
-																							class="bi bi-trash"
-																							viewBox="0 0 16 16">
-																							<path
-																								d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
-																							<path
-																								d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
-																						</svg>
-																					</button>
-
-																				</td>
-																			</tr>
-
-																			<% } %>
-																	</tbody>
-																</table>
-
-															</div>
+																	<% } %>
+																</tbody>
+															</table>
 														</div>
-
-														<div class="col-xl-4 col-lg-12 col-md-12 col-12">
-
-															<div class="cart-totals"
-																style="background-color: rgb(255, 255, 255);">
-																<h2 class="text-center text-dark"
-																	style="padding: 12px;">Total <%=
-																		userData.cart.length %> products in your cart
-																</h2>
+													</div>
+													<div class="col-xl-4 col-lg-12 col-md-12 col-12">
+														<div class="cart-totals" style="background-color: rgb(255, 255, 255);">
+															<h2 class="text-center text-dark" style="padding: 12px;">Total <%= userData.cart.length %> products in your cart
+															</h2>
+														</div>
+														<div class="cart-totals">
+															<h2>Cart totals</h2>
+															<div>
+																<div class="shipping-totals">
+																	<div class="title">Shipping</div>
+																	<div class="text-dark">Free shipping</div>
+																</div>
+																<div class="order-total">
+																	<div class="title">Total</div>
+																	<p style="font-size: 18px; font-weight: 500; color: black;" id="totalprice">₹<%= userData.total %>.00
+																	</p>
+																</div>
 															</div>
-
-
-															<div class="cart-totals">
-																<h2>Cart totals</h2>
-																<div>
-																	<div class="shipping-totals">
-																		<div class="title">Shipping</div>
-																		<div class="text-dark">Free shipping</div>
-																	</div>
-
-																	<div class="order-total">
-																		<div class="title">Total</div>
-																		<p style="font-size: 18px; font-weight: 500; color: black;"
-																			id="totalprice">₹<%= userData.total %>.00
-																		</p>
-																	</div>
-																</div>
-																<div class="proceed-to-checkout">
-																	<a onclick="checkingCheckout()"
-																		class="checkout-button button">Proceed to
-																		checkout</a>
-																</div>
+															<div class="proceed-to-checkout">
+																<a onclick="checkingCheckout()" class="checkout-button button">Proceed to checkout</a>
 															</div>
 														</div>
 													</div>
 												</div>
-
-												<% } %>
-													<% } %>
+											</div>
+										<% } %>
+									<% } %>
 							</div>
 						</div>
 					</div><!-- #content -->
 				</div><!-- #primary -->
 			</div><!-- #main-content -->
 		</div>
-
 		<footer id="site-footer" class="site-footer background">
 			<div class="footer">
 				<div class="section-padding">
-					<div class="section-container">
+					<div class="section-container large">
 						<div class="block-widget-wrap">
 							<div class="row">
 								<div class="col-lg-3 col-md-6">
-									<div class="block block-menu m-b-20">
-										<h2 class="block-title">Contact Us</h2>
+									<div class="block block-menu">
+										<h2 class="block-title">About</h2>
 										<div class="block-content">
 											<ul>
 												<li>
-													<a href="page-contact.html">616.774.0561</a>
+													<a>Low Shipping charge</a>
 												</li>
 												<li>
-													<a href="page-contact.html">866.453.4748</a>
+													<a>Flexible Payment</a>
 												</li>
 												<li>
-													<a href="page-contact.html">HR Fax: 810.222.5439</a>
+													<a>Return policy</a>
 												</li>
 												<li>
-													<a href="page-contact.html">sales@ruperfurniture.com</a>
+													<a>Online support</a>
 												</li>
 											</ul>
 										</div>
 									</div>
-
-									<div class="block block-social">
-										<ul class="social-link">
-											<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-											<li><a href="#"><i class="fa fa-instagram"></i></a></li>
-											<li><a href="#"><i class="fa fa-dribbble"></i></a></li>
-											<li><a href="#"><i class="fa fa-behance"></i></a></li>
-										</ul>
-									</div>
 								</div>
 								<div class="col-lg-3 col-md-6">
 									<div class="block block-menu">
-										<h2 class="block-title">Showroom</h2>
+										<h2 class="block-title">Help</h2>
 										<div class="block-content">
-											<p>1000 84th Street SW , Byron Center, MI 49315</p>
-											<p>AmericasMart Bldg. #1</p>
-											<p>Suite 5C-1, Atlanta, GA 30303</p>
+											<ul>
+												<li>
+													<a>Contact & FAQ</a>
+												</li>
+												<li>
+													<a>Track Your Order</a>
+												</li>
+												<li>
+													<a>Returns & Refunds</a>
+												</li>
+												<li>
+													<a>Shipping & Delivery</a>
+												</li>
+											</ul>
 										</div>
 									</div>
 								</div>
@@ -482,44 +367,40 @@
 										<div class="block-content">
 											<ul>
 												<li>
-													<a href="page-about.html">Sale</a>
+													<a>Sale</a>
 												</li>
 												<li>
-													<a href="page-about.html">Quick Ship</a>
+													<a>Quick Ship</a>
 												</li>
 												<li>
-													<a href="page-about.html">New Designs</a>
+													<a>New Designs</a>
 												</li>
 												<li>
-													<a href="page-about.html">Accidental Fabric Protection</a>
+													<a>Accidental Fabric Protection</a>
 												</li>
 												<li>
-													<a href="page-about.html">Furniture Care</a>
+													<a>Furniture Care</a>
 												</li>
 												<li>
-													<a href="page-about.html">Gift Cards</a>
+													<a>Gift Cards</a>
 												</li>
 											</ul>
 										</div>
 									</div>
 								</div>
 								<div class="col-lg-3 col-md-6">
-									<div class="block block-newsletter">
-										<h2 class="block-title">Newsletter</h2>
+									<div class="block block-newsletter m-b-30">
+										<h2 class="block-title">Social media</h2>
 										<div class="block-content">
-											<div class="newsletter-text">Enter your email below to be the first to know
-												about new collections and product launches.</div>
-											<form action="#" method="post" class="newsletter-form">
-												<input type="email" class="bg-white" name="your-email" value=""
-													size="40" placeholder="Email address">
-												<span class="btn-submit">
-													<input type="submit" value="Subscribe">
-												</span>
-											</form>
+											<div class="newsletter-text">Follow us on social media to stay updated with the latest information.</div>
 										</div>
 									</div>
-									<div class="block block-image">
-										<img width="309" height="32" src="media/payments.png" alt="">
+									<div class="block block-social">
+										<ul class="social-link">
+											<li><a href="https://www.instagram.com/e_zed_/"><i class="fa fa-instagram"></i></a></li>
+											<li><a href="https://www.linkedin.com/in/sameen-ka/"><i class="fa fa-linkedin"></i></a></li>
+											<li><a href="https://github.com/Sameen-K-A"><i class="fa fa-github"></i></a></li>
+										</ul>
 									</div>
 								</div>
 							</div>
@@ -529,9 +410,15 @@
 			</div>
 			<div class="footer-bottom">
 				<div class="section-padding">
-					<div class="section-container">
+					<div class="section-container large">
 						<div class="block-widget-wrap">
-							<p class="copyright text-center">Copyright © 2022. All Right Reserved</p>
+							<div class="row">
+								<div class="col-md-12" style="text-align: center;">
+									<div class="footer-left">
+										<p class="copyright">Copyright © 2024. All Right Reserved</p>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>

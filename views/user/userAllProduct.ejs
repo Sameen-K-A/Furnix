@@ -1,18 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<!-- Mirrored from caketheme.com/html/ruper/index2.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 26 Jan 2024 08:52:33 GMT -->
-
 <head>
     <!-- Meta Data -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>FURNIX</title>
-
 	<!-- Favicon -->
 	<link rel="icon" type="image/png" sizes="32x32" href="media/favicon-16x16.png">
-
     <!-- Dependency Styles -->
     <link rel="stylesheet" href="libs/bootstrap/css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="libs/feather-font/css/iconfont.css" type="text/css">
@@ -23,11 +18,9 @@
     <link rel="stylesheet" href="libs/slick/css/slick.css" type="text/css">
     <link rel="stylesheet" href="libs/slick/css/slick-theme.css" type="text/css">
     <link rel="stylesheet" href="libs/mmenu/css/mmenu.min.css" type="text/css">
-
     <!-- Site Stylesheet -->
     <link rel="stylesheet" href="assets/css/app.css" type="text/css">
     <link rel="stylesheet" href="assets/css/responsive.css" type="text/css">
-
     <!-- Google Web Fonts -->
     <link
         href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@100;200;300;400;500;600;700&amp;display=swap"
@@ -46,7 +39,6 @@
         background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 239, 239, 0.824) 18%, rgb(255, 236, 236) 53%, rgba(255, 239, 239, 0.877) 82%, rgba(255, 255, 255, 0) 100%);
         z-index: 9998;
     }
-
     .outofstockbackground {
         position: absolute;
         width: 100%;
@@ -56,10 +48,9 @@
         margin-top: -25px;
     }
 </style>
-
 <body class="home home-2 title-2">
     <div id="page" class="hfeed page-wrapper">
-        <header id="site-header" class="site-header header-v2">
+		<header id="site-header" class="site-header header-v2">
 			<div class="header-mobile">
 				<div class="section-padding">
 					<div class="section-container large">
@@ -72,40 +63,38 @@
 							<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 header-center">
 								<div class="site-logo">
 									<a href="/">
-										<img width="400" height="79" src="media/logo.png"
-											alt="Ruper  Furniture HTML Theme" />
+										<img width="400" height="79" src="media/logo.png" />
 									</a>
 								</div>
+							</div>
+							<!-- Search -->
+							<div class="search-box" style="position: absolute; top: 25px; right: 30px;">
+								<div class="search-toggle"><i class="wpb-icon-magnifying-glass" style="font-size: 20px; color: black;"></i></div>
 							</div>
 						</div>
 					</div>
 				</div>
-
 				<div class="header-mobile-fixed">
 					<!-- Shop -->
 					<div class="shop-page">
 						<a href="/"><i class="wpb-icon-shop"></i></a>
 					</div>
-
+					<!-- Wishlist -->
+					<div class="wishlist-box">
+						<a href="/wishlist"><i class="icon-heart"></i></a>
+					</div>
+					<!-- Cart -->
+					<div class="wishlist-box">
+						<a class="cart-icon" href="/cart"><i class="icon-large-paper-bag"></i></a>
+					</div>
 					<!-- Login -->
 					<div class="my-account">
 						<div class="login-header">
-							<a href="/userProfile"><i class="wpb-icon-user"></i></a>
+							<a href="/userProfilepage"><i class="wpb-icon-user"></i></a>
 						</div>
-					</div>
-
-					<!-- Search -->
-					<div class="search-box">
-						<div class="search-toggle"><i class="wpb-icon-magnifying-glass"></i></div>
-					</div>
-
-					<!-- Wishlist -->
-					<div class="wishlist-box">
-						<a href="/wishlist"><i class="wpb-icon-heart"></i></a>
 					</div>
 				</div>
 			</div>
-
 			<div class="header-desktop"
 				style="background: linear-gradient(94deg, rgba(226,226,226,1) 0%, rgba(255,255,255,1) 53%, rgba(227,227,227,1) 100%);">
 				<div class="header-wrapper">
@@ -123,36 +112,25 @@
 													<a href="/allproduct"><span class="menu-item-text">All</span></a>
 												</li>
 												<li class="level-0 menu-item">
-													<a href="/about"><span class="menu-item-text">about us
-														</span></a>
+													<a href="/contact"><span class="menu-item-text">Contact</span></a>
 												</li>
-												<li class="level-0 menu-item">
-													<a href="/contact"><span
-															class="menu-item-text">Contact</span></a>
-												</li>
-
 											</ul>
 										</nav>
 									</div>
 								</div>
-
 								<div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-12 text-center header-center">
 									<div class="site-logo">
 										<a href="index2.html">
-											<img width="400" height="79" src="media/logo.png"
-												alt="Ruper – Furniture HTML Theme" />
+											<img width="400" height="79" src="media/logo.png" />
 										</a>
 									</div>
 								</div>
-
 								<div class="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-12 header-right">
 									<div class="header-page-link">
-
 										<!-- Search -->
 										<div class="search-box" style="margin-right: -8px;">
 											<div class="search-toggle"><i class="icon-search"></i></div>
 										</div>
-
 										<!-- Wishlist -->
 										<div class="wishlist-box">
 											<a href="/wishlist"><i class="icon-heart"></i></a>
@@ -161,29 +139,22 @@
 											<% } else { %>
 												<span class="count-wishlist">0</span>
 											<% } %>
-											 
 										</div>
-										
-										
 										<!-- Cart -->
 										<div class="mini-cart top-cart wishlist-box">
 											<a class="cart-icon" href="/cart">
-												<% if (CartCount != undefined) { %>
-													<div class="icons-cart"><i class="icon-large-paper-bag"></i><span class="cart-count"><%= CartCount %></span></div>
-												<% } else { %>
-													<div class="icons-cart"><i class="icon-large-paper-bag"></i><span class="cart-count">0</span></div>
-												<% } %>
-												
+											<% if (CartCount != undefined) { %>
+												<div class="icons-cart"><i class="icon-large-paper-bag"></i><span class="cart-count"><%= CartCount %></span></div>
+											<% } else { %>
+												<div class="icons-cart"><i class="icon-large-paper-bag"></i><span class="cart-count">0</span></div>
+											<% } %>
 											</a>
 										</div>
 										<!-- profile -->
-									<div class="wishlist-box" style="margin-left: -0px;">
-										<a href="/userprofilepage"><i class="wpb-icon-user"></i></a>
+										<div class="wishlist-box" style="margin-left: -0px;">
+											<a href="/userprofilepage"><i class="wpb-icon-user"></i></a>
+										</div>
 									</div>
-
-									</div>
-
-									
 								</div>
 							</div>
 						</div>
@@ -191,7 +162,6 @@
 				</div>
 			</div>
 		</header>
-
         <div id="site-main" class="site-main">
             <div id="main-content" class="main-content">
                 <div id="primary" class="content-area">
@@ -206,8 +176,7 @@
 											<div class="item slick-slide">
 												<div class="item-content">	
 													<div class="content-image">
-														<img width="1920" height="1080" src="media/slider/28.jpg"
-															alt="Image Slider">
+														<img width="1920" height="1080" src="media/slider/28.jpg" alt="Image Slider">
 													</div>
 													<div class="item-info horizontal-center vertical-middle">
 														<div class="content">
@@ -219,9 +188,6 @@
 																<div class="subtitle-slider">Its time to change</div>
 																<h2 class="title-slider">Living room furniture</h2>
 															<% } %>
-															
-															<!-- <a class="button-slider button-white"
-																href="shop-grid-left.html">SHOP NOW</a> -->
 														</div>
 													</div>
 												</div>
@@ -229,8 +195,7 @@
 											<div class="item slick-slide">
 												<div class="item-content">
 													<div class="content-image">
-														<img width="1920" height="1080" src="media/slider/22.jpg"
-															alt="Image Slider">
+														<img width="1920" height="1080" src="media/slider/22.jpg" alt="Image Slider">
 													</div>
 													<div class="item-info horizontal-start vertical-middle">
 														<div class="content">
@@ -242,8 +207,6 @@
 																<div class="subtitle-slider">Make your kitchen is unique</div>
 																<h2 class="title-slider">Kitchen and Dining</h2>
 															<% } %>
-															<!-- <a class="button-slider button-white"
-																href="shop-grid-left.html">SHOP NOW</a> -->
 														</div>
 													</div>
 												</div>
@@ -251,8 +214,7 @@
 											<div class="item slick-slide">
 												<div class="item-content">
 													<div class="content-image">
-														<img width="1920" height="1080" src="media/slider/20.jpg"
-															alt="Image Slider">
+														<img width="1920" height="1080" src="media/slider/20.jpg" alt="Image Slider">
 													</div>
 													<div class="item-info horizontal-center vertical-middle">
 														<div class="content">
@@ -264,8 +226,6 @@
 																<div class="subtitle-slider">Wake up with calmness</div>
 																<h2 class="title-slider">Bedroom furniture</h2>
 															<% } %>
-															<!-- <a class="button-slider button-white"
-																href="shop-grid-left.html">SHOP NOW</a> -->
 														</div>
 													</div>
 												</div>
@@ -275,8 +235,6 @@
 								</div>
                             </div>
                         </section>
-
-
                         <div class="col-lg-12">
                             <div class="row">
                                 <div class="col-xl-2 col-lg-2 col-md-12 col-12 sidebar left-sidebar md-b-50 px-5 mt-5">
@@ -345,11 +303,8 @@
                                         </div>
                                     </div>
                                     <% if (productDetails.length === 0) { %>
-                                        <div class="justify-content-center d-flex align-center"
-												style="margin-bottom: 20px; margin-top: 100px;">
-												<div class="col-lg-8" style="width: 100%; height: 100px; background-color:
-																	rgb(255, 255, 255); display: flex; justify-content: center;
-																	align-items: center; border: 1px solid black;">
+                                        <div class="justify-content-center d-flex align-center" style="margin-bottom: 20px; margin-top: 100px;">
+												<div class="col-lg-8" style="width: 100%; height: 100px; background-color:rgb(255, 255, 255); display: flex; justify-content: center; align-items: center; border: 1px solid black;">
 													<p style="color: black; margin-top: 10px;">Sorry no products found</p>
 												</div>
 											</div>
@@ -373,21 +328,13 @@
                                                                                                 </div>
                                                                                             </div>
                                                                                         </a>
-                                                                                        <% } %>
-                                                                                            <div class="product-thumb-hover">
-                                                                                                <a href="/productDetailspage?id=<%= productDetails[i]._id %>">
-                                                                                                    <img width="600"
-                                                                                                        height="600"
-                                                                                                        src="/uploads/<%= productDetails[i].images[0]%>"
-                                                                                                        class="post-image"
-                                                                                                        alt="">
-                                                                                                    <img width="600"
-                                                                                                        height="600"
-                                                                                                        src="/uploads/<%= productDetails[i].images[3]%>"
-                                                                                                        class="hover-image back"
-                                                                                                        alt="">
-                                                                                                </a>
-                                                                                            </div>
+                                                                                    <% } %>
+                                                                                    <div class="product-thumb-hover">
+                                                                                        <a href="/productDetailspage?id=<%= productDetails[i]._id %>">
+                                                                                            <img width="600" height="600" src="/uploads/<%= productDetails[i].images[0]%>" class="post-image" alt="">
+                                                                                            <img width="600" height="600" src="/uploads/<%= productDetails[i].images[3]%>" class="hover-image back" alt="">
+                                                                                        </a>
+                                                                                    </div>
                                                                                 </div>
                                                                                 <div class="products-content">
                                                                                     <div class="contents text-center">
@@ -422,8 +369,8 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <% } %>
-                                                                </div>
+                                                                <% } %>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -433,14 +380,11 @@
                                 </section>
                             </div>
                         </div>
-                        </section>
                     </div>
                 </div><!-- #content -->
             </div><!-- #primary -->
         </div><!-- #main-content -->
     </div>
-    
-
     <footer id="site-footer" class="site-footer background">
         <div class="footer">
             <div class="section-padding">
@@ -453,22 +397,16 @@
                                     <div class="block-content">
                                         <ul>
                                             <li>
-                                                <a href="page-about.html">Our Story</a>
+                                                <a>Low Shipping charge</a>
                                             </li>
                                             <li>
-                                                <a href="page-about.html">Visit Melbourne Studio</a>
+                                                <a>Flexible Payment</a>
                                             </li>
                                             <li>
-                                                <a href="page-about.html">Visit Sydney Studio</a>
+                                                <a>Return policy</a>
                                             </li>
                                             <li>
-                                                <a href="page-about.html">Visit Brisbane Studio [Closed]</a>
-                                            </li>
-                                            <li>
-                                                <a href="page-about.html">Design</a>
-                                            </li>
-                                            <li>
-                                                <a href="page-about.html">How Ruper Works</a>
+                                                <a>Online support</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -480,19 +418,16 @@
                                     <div class="block-content">
                                         <ul>
                                             <li>
-                                                <a href="page-faq.html">Contact & FAQ</a>
+                                                <a>Contact & FAQ</a>
                                             </li>
                                             <li>
-                                                <a href="page-faq.html">Track Your Order</a>
+                                                <a>Track Your Order</a>
                                             </li>
                                             <li>
-                                                <a href="page-faq.html">Returns & Refunds</a>
+                                                <a>Returns & Refunds</a>
                                             </li>
                                             <li>
-                                                <a href="page-faq.html">Shipping & Delivery</a>
-                                            </li>
-                                            <li>
-                                                <a href="page-faq.html">Lead Times</a>
+                                                <a>Shipping & Delivery</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -504,22 +439,22 @@
                                     <div class="block-content">
                                         <ul>
                                             <li>
-                                                <a href="page-about.html">Sale</a>
+                                                <a>Sale</a>
                                             </li>
                                             <li>
-                                                <a href="page-about.html">Quick Ship</a>
+                                                <a>Quick Ship</a>
                                             </li>
                                             <li>
-                                                <a href="page-about.html">New Designs</a>
+                                                <a>New Designs</a>
                                             </li>
                                             <li>
-                                                <a href="page-about.html">Accidental Fabric Protection</a>
+                                                <a>Accidental Fabric Protection</a>
                                             </li>
                                             <li>
-                                                <a href="page-about.html">Furniture Care</a>
+                                                <a>Furniture Care</a>
                                             </li>
                                             <li>
-                                                <a href="page-about.html">Gift Cards</a>
+                                                <a>Gift Cards</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -527,26 +462,16 @@
                             </div>
                             <div class="col-lg-3 col-md-6">
                                 <div class="block block-newsletter m-b-30">
-                                    <h2 class="block-title">Newsletter</h2>
+                                    <h2 class="block-title">Social media</h2>
                                     <div class="block-content">
-                                        <div class="newsletter-text">Enter your email below to be the first to know
-                                            about new collections and product launches.</div>
-                                        <form action="#" method="post" class="newsletter-form">
-                                            <input type="email" class="bg-white" name="your-email" value="" size="40"
-                                                placeholder="Email address">
-                                            <span class="btn-submit">
-                                                <input type="submit" value="Subscribe">
-                                            </span>
-                                        </form>
+                                        <div class="newsletter-text">Follow us on social media to stay updated with the latest information.</div>
                                     </div>
                                 </div>
-
                                 <div class="block block-social">
                                     <ul class="social-link">
-                                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-behance"></i></a></li>
+                                        <li><a href="https://www.instagram.com/e_zed_/"><i class="fa fa-instagram"></i></a></li>
+                                        <li><a href="https://www.linkedin.com/in/sameen-ka/"><i class="fa fa-linkedin"></i></a></li>
+                                        <li><a href="https://github.com/Sameen-K-A"><i class="fa fa-github"></i></a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -560,16 +485,9 @@
                 <div class="section-container large">
                     <div class="block-widget-wrap">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-12" style="text-align: center;">
                                 <div class="footer-left">
-                                    <p class="copyright">Copyright © 2022. All Right Reserved</p>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="footer-right">
-                                    <div class="block block-image">
-                                        <img width="309" height="32" src="media/payments.png" alt="">
-                                    </div>
+                                    <p class="copyright">Copyright © 2024. All Right Reserved</p>
                                 </div>
                             </div>
                         </div>
@@ -608,12 +526,12 @@
 	</div>
 
     <!-- Page Loader -->
-   <!-- <div class="page-preloader">
+   <div class="page-preloader">
         <div class="loader">
             <div></div>
             <div></div>
         </div>
-    </div> -->
+    </div>
 
     <script src="libs/popper/js/popper.min.js"></script>
     <script src="libs/jquery/js/jquery.min.js"></script>
