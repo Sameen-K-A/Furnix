@@ -43,6 +43,7 @@ const addCoupen = async (req, res) => {
 
 const addCoupenPost = async (req, res) => {
     try {
+        console.log("hello");
         let offer_StartingDate = req.body.startingDate;
             offer_StartingDate = offer_StartingDate.replace(/-/g, '/');
         let offer_EndingDate = req.body.endingDate;
