@@ -37,63 +37,58 @@
     .sendMail{
         border: none;
     }
+
 </style>
 <body>
-    <div class="screen-overlay"></div>
-    <aside class="navbar-aside" id="offcanvas_aside">
-        <div class="aside-top">
-            <a href="index.html" class="brand-wrap">
-                <img src="/admin-assets/imgs/theme/logo.png" class="logo" alt="Evara Dashboard">
+    <div id="bottom-bar" style="z-index: 9999;" class="col-lg-6 col-md-10 col-sm-12 col-12">
+        <div class="bottom-bar-element" style="color: white;">
+            <a href="/admin/adminHome">
+                <i class="icon material-icons md-home"></i><br>
+                <span>Home</span>
             </a>
-            <div>
-                <button class="btn btn-icon btn-aside-minimize"> <i class="text-muted material-icons md-menu_open"></i> </button>
-            </div>
         </div>
-        <nav>
-            <ul class="menu-aside">
-                <li class="menu-item">
-                    <a class="menu-link btn-dark text-light"> <i class="icon material-icons md-home"></i>
-                        <span class="text">Dashboard</span>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a class="menu-link" href="/admin/adminUserList"> <i class="icon material-icons md-person"></i>
-                        <span class="text">Users</span>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a class="menu-link" href="/admin/category"> <i class="icon material-icons md-shopping_bag"></i>
-                        <span class="text">Category</span>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a class="menu-link" href="/admin/productPage"> <i class="icon material-icons md-stars"></i>
-                        <span class="text">Product</span> </a>
-                </li>
-                <li class="menu-item ">
-                    <a class="menu-link" href="/admin/order"> <i class="icon material-icons md-shopping_cart"></i>
-                        <span class="text">Orders</span>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a class="menu-link" href="/admin/coupon"> <i class="icon material-icons md-local_offer"></i>
-                        <span class="text">Coupons</span>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a class="menu-link" href="/admin/salesreport"> <i class="icon material-icons md-monetization_on"></i>
-                        <span class="text">Sales report</span>
-                    </a>
-                </li>
-            </ul>
-            </nav>
-    </aside>
-    <main class="main-wrap">
+        <div class="bottom-bar-element">
+            <a href="/admin/adminUserList">
+                <i class="icon material-icons md-person"></i><br>
+                <span>Users</span>
+            </a>
+        </div>
+        <div class="bottom-bar-element">
+            <a href="/admin/category">
+                <i class="icon material-icons md-shopping_bag"></i><br>
+                <span>Category</span>
+            </a>
+        </div>
+        <div class="bottom-bar-element">
+            <a href="/admin/productPage">
+                <i class="icon material-icons md-stars"></i><br>
+                <span>Product</span>
+            </a>
+        </div>
+        <div class="bottom-bar-element">
+            <a href="/admin/order">
+                <i class="icon material-icons md-shopping_cart"></i><br>
+                <span>Orders</span>
+            </a>
+        </div>
+        <div class="bottom-bar-element">
+            <a href="/admin/coupon">
+                <i class="icon material-icons md-local_offer"></i><br>
+                <span>Coupons</span>
+            </a>
+        </div>
+        <div class="bottom-bar-element">
+            <a href="/admin/salesreport">
+                <i class="icon material-icons md-monetization_on"></i><br>
+                <span>Sales report</span>
+            </a>
+        </div>
+    </div>
         <header class="main-header navbar">
             <div class="col-search"> 
+                <img src="/admin-assets/imgs/theme/logo.png" class="logo" alt="Furnix Dashboard" width="100" height="auto">
             </div>
             <div class="col-nav">
-                <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside"> <i class="material-icons md-apps"></i> </button>
                 <ul class="nav">
                     <li class="nav-item"  data-toggle="modal" data-target="#contactmessage">
                         <a class="nav-link btn-icon">
@@ -102,7 +97,7 @@
                         </a>
                     </li>
                     <li class="dropdown nav-item">
-                        <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount" aria-expanded="false"> <img class="img-xs rounded-circle" src="/admin-assets/imgs/people/profile.jpg" alt="User"></a>
+                        <a class="dropdown-toggle" data-bs-toggle="dropdown" id="dropdownAccount" aria-expanded="false"> <img class="img-xs rounded-circle" src="/admin-assets/imgs/people/profile.jpg" alt="User"></a>
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
                             <a class="dropdown-item text-danger" href="/admin/adminLogout"><i class="material-icons md-exit_to_app"></i>Logout</a>
                         </div>
@@ -110,253 +105,252 @@
                 </ul>
             </div>
         </header>
-        <section class="content-main">
-        <!-- Modal -->
-        <div class="modal fade" id="contactmessage" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">Contact emails</h5>
+    <section class="content-main" style="margin-bottom: 50px;">
+    <!-- Modal -->
+    <div class="modal fade" id="contactmessage" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Contact emails</h5>
+                </div>
+                <div class="modal-body">
+                    <div style="width: 100%; height: 50px; margin-bottom: 20px;" class="d-flex">
+                        <button onclick="orderdata()" class="orderbtn" id="orderbtn">New emails</button>
+                        <button onclick="returndata()" class="returnbtn" id="returnbtn">Replied</button>
                     </div>
-                    <div class="modal-body">
-                        <div style="width: 100%; height: 50px; margin-bottom: 20px;" class="d-flex">
-                            <button onclick="orderdata()" class="orderbtn" id="orderbtn">New emails</button>
-                            <button onclick="returndata()" class="returnbtn" id="returnbtn">Replied</button>
-                        </div>
-                        <div class="mb-4" id="orderdetails" style="display: block;">
-                            <% if (newContacts.length == 0) { %>
-                                <div class="card" style="padding: 10px; text-align: center; background-color: #f0f0f0;">
-                                    <h6>No emails found</h6>
-                                </div>
-                            <% } else { %>
-                                <% for( let i = 0; i < newContacts.length; i++ ) { %>
-                                    <div style="background-color: rgb(238, 238, 238); width: 100%; height: auto; padding: 20px; border-radius: 10px; margin-bottom: 10px;">
-                                        <div class="d-flex mt-1">
-                                            <h6>Name : </h6> &nbsp;&nbsp; <%= newContacts[i].name %>
-                                        </div>
-                                        <div class="d-flex mt-1">
-                                            <h6>Email : </h6> &nbsp;&nbsp; <%= newContacts[i].email %>
-                                        </div>
-                                        <div class="d-flex mt-1">
-                                            <h6>Date : </h6> &nbsp;&nbsp; <%= newContacts[i].date %>
-                                        </div>
-                                        <div class="d-flex mt-1">
-                                            <h6>Message : </h6> &nbsp;&nbsp; <%= newContacts[i].message %>
-                                        </div>
-                                        <div class="d-flex mt-2" style="gap: 10px;">
-                                            <input type="text" style="width: 100%; height: 40px; border: none;" placeholder="Enter your reply" id="input<%= i %>">
-                                            <button class="sendMail" id="sendMail<%= i %>" onclick="replyEmail('<%= newContacts[i]._id %>' , '<%= i %>')"><svg xmlns="http://www.w3.org/2000/svg" height="14" width="14" viewBox="0 0 512 512"><path fill="#000000" d="M498.1 5.6c10.1 7 15.4 19.1 13.5 31.2l-64 416c-1.5 9.7-7.4 18.2-16 23s-18.9 5.4-28 1.6L284 427.7l-68.5 74.1c-8.9 9.7-22.9 12.9-35.2 8.1S160 493.2 160 480V396.4c0-4 1.5-7.8 4.2-10.7L331.8 202.8c5.8-6.3 5.6-16-.4-22s-15.7-6.4-22-.7L106 360.8 17.7 316.6C7.1 311.3 .3 300.7 0 288.9s5.9-22.8 16.1-28.7l448-256c10.7-6.1 23.9-5.5 34 1.4z"/></svg></button>
-                                        </div>
-                                        <p style="text-align: center; color: red; margin-top: 5px; display: none;" id="error<%= i %>">Enter reply message</p>
+                    <div class="mb-4" id="orderdetails" style="display: block;">
+                        <% if (newContacts.length == 0) { %>
+                            <div class="card" style="padding: 10px; text-align: center; background-color: #f0f0f0;">
+                                <h6>No emails found</h6>
+                            </div>
+                        <% } else { %>
+                            <% for( let i = 0; i < newContacts.length; i++ ) { %>
+                                <div style="background-color: rgb(238, 238, 238); width: 100%; height: auto; padding: 20px; border-radius: 10px; margin-bottom: 10px;">
+                                    <div class="d-flex mt-1">
+                                        <h6>Name : </h6> &nbsp;&nbsp; <%= newContacts[i].name %>
                                     </div>
-                                <% } %>
-                            <% } %>
-                        </div>
-                        
-                        <div class="mb-4" id="returndetails" style="display: none;">
-                            <% if (replyContact.length === 0) { %>
-                                <div class="card" style="padding: 10px; text-align: center; background-color: #f0f0f0;">
-                                    <h6>No emails found</h6>
-                                </div>
-                            <% } else { %>
-                                <% for( let i = 0; i < replyContact.length; i++ ) { %>
-                                    <div style="background-color: rgb(233, 233, 233); width: 100%; height: auto; padding: 20px; border-radius: 10px; margin-bottom: 10px;">
-                                        <div class="d-flex mt-1">
-                                            <h6>Name : </h6> &nbsp;&nbsp; <%= replyContact[i].name %>
-                                        </div>
-                                        <div class="d-flex mt-1">
-                                            <h6>Email : </h6> &nbsp;&nbsp; <%= replyContact[i].email %>
-                                        </div>
-                                        <div class="d-flex mt-1">
-                                            <h6>Date : </h6> &nbsp;&nbsp; <%= replyContact[i].date %>
-                                        </div>
-                                        <div class="d-flex mt-1">
-                                            <h6>Message : </h6> &nbsp;&nbsp; <%= replyContact[i].message %>
-                                        </div>
-                                        <div class="d-flex mt-1">
-                                            <h6>Reply : </h6> &nbsp;&nbsp; <%= replyContact[i].reply %>
-                                        </div>
+                                    <div class="d-flex mt-1">
+                                        <h6>Email : </h6> &nbsp;&nbsp; <%= newContacts[i].email %>
                                     </div>
-                                <% } %>
+                                    <div class="d-flex mt-1">
+                                        <h6>Date : </h6> &nbsp;&nbsp; <%= newContacts[i].date %>
+                                    </div>
+                                    <div class="d-flex mt-1">
+                                        <h6>Message : </h6> &nbsp;&nbsp; <%= newContacts[i].message %>
+                                    </div>
+                                    <div class="d-flex mt-2" style="gap: 10px;">
+                                        <input type="text" style="width: 100%; height: 40px; border: none;" placeholder="Enter your reply" id="input<%= i %>">
+                                        <button class="sendMail" id="sendMail<%= i %>" onclick="replyEmail('<%= newContacts[i]._id %>' , '<%= i %>')"><svg xmlns="http://www.w3.org/2000/svg" height="14" width="14" viewBox="0 0 512 512"><path fill="#000000" d="M498.1 5.6c10.1 7 15.4 19.1 13.5 31.2l-64 416c-1.5 9.7-7.4 18.2-16 23s-18.9 5.4-28 1.6L284 427.7l-68.5 74.1c-8.9 9.7-22.9 12.9-35.2 8.1S160 493.2 160 480V396.4c0-4 1.5-7.8 4.2-10.7L331.8 202.8c5.8-6.3 5.6-16-.4-22s-15.7-6.4-22-.7L106 360.8 17.7 316.6C7.1 311.3 .3 300.7 0 288.9s5.9-22.8 16.1-28.7l448-256c10.7-6.1 23.9-5.5 34 1.4z"/></svg></button>
+                                    </div>
+                                    <p style="text-align: center; color: red; margin-top: 5px; display: none;" id="error<%= i %>">Enter reply message</p>
+                                </div>
                             <% } %>
-                        </div>
+                        <% } %>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn" style="background-color: black; color: white;" data-dismiss="modal">Close</button>
+                    
+                    <div class="mb-4" id="returndetails" style="display: none;">
+                        <% if (replyContact.length === 0) { %>
+                            <div class="card" style="padding: 10px; text-align: center; background-color: #f0f0f0;">
+                                <h6>No emails found</h6>
+                            </div>
+                        <% } else { %>
+                            <% for( let i = 0; i < replyContact.length; i++ ) { %>
+                                <div style="background-color: rgb(233, 233, 233); width: 100%; height: auto; padding: 20px; border-radius: 10px; margin-bottom: 10px;">
+                                    <div class="d-flex mt-1">
+                                        <h6>Name : </h6> &nbsp;&nbsp; <%= replyContact[i].name %>
+                                    </div>
+                                    <div class="d-flex mt-1">
+                                        <h6>Email : </h6> &nbsp;&nbsp; <%= replyContact[i].email %>
+                                    </div>
+                                    <div class="d-flex mt-1">
+                                        <h6>Date : </h6> &nbsp;&nbsp; <%= replyContact[i].date %>
+                                    </div>
+                                    <div class="d-flex mt-1">
+                                        <h6>Message : </h6> &nbsp;&nbsp; <%= replyContact[i].message %>
+                                    </div>
+                                    <div class="d-flex mt-1">
+                                        <h6>Reply : </h6> &nbsp;&nbsp; <%= replyContact[i].reply %>
+                                    </div>
+                                </div>
+                            <% } %>
+                        <% } %>
                     </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn" style="background-color: black; color: white;" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
-        
+    </div>
+    
 
-            <div class="content-header">
-                <div style="margin: auto;" class="text-center">
-                    <h2 class="content-title card-title">Dashboard </h2>
-                    <p>Whole data about Furnix</p>
+        <div class="content-header">
+            <div style="margin: auto;" class="text-center">
+                <h2 class="content-title card-title">Dashboard </h2>
+                <p>Whole data about Furnix</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="card card-body mb-4">
+                    <article class="icontext">
+                        <span class="icon icon-sm rounded-circle" style="background-color: rgb(212, 212, 212);"><svg xmlns="http://www.w3.org/2000/svg" height="14" width="8.75" viewBox="0 0 320 512"><path fill="#000000" d="M0 64C0 46.3 14.3 32 32 32H96h16H288c17.7 0 32 14.3 32 32s-14.3 32-32 32H231.8c9.6 14.4 16.7 30.6 20.7 48H288c17.7 0 32 14.3 32 32s-14.3 32-32 32H252.4c-13.2 58.3-61.9 103.2-122.2 110.9L274.6 422c14.4 10.3 17.7 30.3 7.4 44.6s-30.3 17.7-44.6 7.4L13.4 314C2.1 306-2.7 291.5 1.5 278.2S18.1 256 32 256h80c32.8 0 61-19.7 73.3-48H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H185.3C173 115.7 144.8 96 112 96H96 32C14.3 96 0 81.7 0 64z"/></svg></span>
+                        <div class="text">
+                            <h6 class="mb-1 card-title">Revenue</h6>
+                            <span>₹<%= revenue %></span>
+                            <span class="text-sm">
+                                Shipping fees are not included
+                            </span>
+                        </div>
+                    </article>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-3">
-                    <div class="card card-body mb-4">
-                        <article class="icontext">
-                            <span class="icon icon-sm rounded-circle" style="background-color: rgb(212, 212, 212);"><svg xmlns="http://www.w3.org/2000/svg" height="14" width="8.75" viewBox="0 0 320 512"><path fill="#000000" d="M0 64C0 46.3 14.3 32 32 32H96h16H288c17.7 0 32 14.3 32 32s-14.3 32-32 32H231.8c9.6 14.4 16.7 30.6 20.7 48H288c17.7 0 32 14.3 32 32s-14.3 32-32 32H252.4c-13.2 58.3-61.9 103.2-122.2 110.9L274.6 422c14.4 10.3 17.7 30.3 7.4 44.6s-30.3 17.7-44.6 7.4L13.4 314C2.1 306-2.7 291.5 1.5 278.2S18.1 256 32 256h80c32.8 0 61-19.7 73.3-48H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H185.3C173 115.7 144.8 96 112 96H96 32C14.3 96 0 81.7 0 64z"/></svg></span>
-                            <div class="text">
-                                <h6 class="mb-1 card-title">Revenue</h6>
-                                <span>₹<%= revenue %></span>
-                                <span class="text-sm">
-                                    Shipping fees are not included
-                                </span>
-                            </div>
-                        </article>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="card card-body mb-4">
-                        <article class="icontext">
-                            <span class="icon icon-sm rounded-circle" style="background-color: rgb(212, 212, 212);"><i class="text-dark material-icons md-local_shipping"></i></span>
-                            <div class="text">
-                                <h6 class="mb-1 card-title">Orders</h6> <span><%= order.length %></span>
-                                <span class="text-sm">
-                                    Delivered products only
-                                </span>
-                            </div>
-                        </article>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="card card-body mb-4">
-                        <article class="icontext">
-                            <span class="icon icon-sm rounded-circle" style="background-color: rgb(212, 212, 212);"><svg xmlns="http://www.w3.org/2000/svg" height="14" width="17.5" viewBox="0 0 640 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#000000" d="M64 160C64 89.3 121.3 32 192 32H448c70.7 0 128 57.3 128 128v33.6c-36.5 7.4-64 39.7-64 78.4v48H128V272c0-38.7-27.5-71-64-78.4V160zM544 272c0-20.9 13.4-38.7 32-45.3c5-1.8 10.4-2.7 16-2.7c26.5 0 48 21.5 48 48V448c0 17.7-14.3 32-32 32H576c-17.7 0-32-14.3-32-32H96c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32V272c0-26.5 21.5-48 48-48c5.6 0 11 1 16 2.7c18.6 6.6 32 24.4 32 45.3v48 32h32H512h32V320 272z"/></svg></span>
-                            <div class="text">
-                                <h6 class="mb-1 card-title">Products</h6> <span><%= product.length %></span>
-                                <span class="text-sm">
-                                    In <%= category.length %> Categories
-                                </span>
-                            </div>
-                        </article>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="card card-body mb-4">
-                        <article class="icontext">
-                            <span class="icon icon-sm rounded-circle" style="background-color: rgb(212, 212, 212);"><svg xmlns="http://www.w3.org/2000/svg" height="14" width="17.5" viewBox="0 0 640 512"><path fill="#000000" d="M144 0a80 80 0 1 1 0 160A80 80 0 1 1 144 0zM512 0a80 80 0 1 1 0 160A80 80 0 1 1 512 0zM0 298.7C0 239.8 47.8 192 106.7 192h42.7c15.9 0 31 3.5 44.6 9.7c-1.3 7.2-1.9 14.7-1.9 22.3c0 38.2 16.8 72.5 43.3 96c-.2 0-.4 0-.7 0H21.3C9.6 320 0 310.4 0 298.7zM405.3 320c-.2 0-.4 0-.7 0c26.6-23.5 43.3-57.8 43.3-96c0-7.6-.7-15-1.9-22.3c13.6-6.3 28.7-9.7 44.6-9.7h42.7C592.2 192 640 239.8 640 298.7c0 11.8-9.6 21.3-21.3 21.3H405.3zM224 224a96 96 0 1 1 192 0 96 96 0 1 1 -192 0zM128 485.3C128 411.7 187.7 352 261.3 352H378.7C452.3 352 512 411.7 512 485.3c0 14.7-11.9 26.7-26.7 26.7H154.7c-14.7 0-26.7-11.9-26.7-26.7z"/></svg></span>
-                            <div class="text">
-                                <h6 class="mb-1 card-title">Users</h6> <span><%= user.length %></span>
-                                <span class="text-sm">
-                                    Total furnix users
-                                </span>
-                            </div>
-                        </article>
-                    </div>
+            <div class="col-lg-3">
+                <div class="card card-body mb-4">
+                    <article class="icontext">
+                        <span class="icon icon-sm rounded-circle" style="background-color: rgb(212, 212, 212);"><i class="text-dark material-icons md-local_shipping"></i></span>
+                        <div class="text">
+                            <h6 class="mb-1 card-title">Orders</h6> <span><%= order.length %></span>
+                            <span class="text-sm">
+                                Delivered products only
+                            </span>
+                        </div>
+                    </article>
                 </div>
             </div>
-            <div class="row align-items-center justify-content-center">
-                <div class="col-xl-12 col-lg-12">
-                    <div class="card mb-4">
-                        <article class="card-body">
-                            <div class="d-flex justify-content-between">
-                                <h5 class="card-title" style="text-align: center;">Product and user statistics</h5>
-                                <div class="d-flex" style="gap: 50px;">
-                                    <li style="color: rgb(255, 103, 128);">User</li>
-                                    <li style="color: black(23, 108, 65);">Order</li>
+            <div class="col-lg-3">
+                <div class="card card-body mb-4">
+                    <article class="icontext">
+                        <span class="icon icon-sm rounded-circle" style="background-color: rgb(212, 212, 212);"><svg xmlns="http://www.w3.org/2000/svg" height="14" width="17.5" viewBox="0 0 640 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#000000" d="M64 160C64 89.3 121.3 32 192 32H448c70.7 0 128 57.3 128 128v33.6c-36.5 7.4-64 39.7-64 78.4v48H128V272c0-38.7-27.5-71-64-78.4V160zM544 272c0-20.9 13.4-38.7 32-45.3c5-1.8 10.4-2.7 16-2.7c26.5 0 48 21.5 48 48V448c0 17.7-14.3 32-32 32H576c-17.7 0-32-14.3-32-32H96c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32V272c0-26.5 21.5-48 48-48c5.6 0 11 1 16 2.7c18.6 6.6 32 24.4 32 45.3v48 32h32H512h32V320 272z"/></svg></span>
+                        <div class="text">
+                            <h6 class="mb-1 card-title">Products</h6> <span><%= product.length %></span>
+                            <span class="text-sm">
+                                In <%= category.length %> Categories
+                            </span>
+                        </div>
+                    </article>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="card card-body mb-4">
+                    <article class="icontext">
+                        <span class="icon icon-sm rounded-circle" style="background-color: rgb(212, 212, 212);"><svg xmlns="http://www.w3.org/2000/svg" height="14" width="17.5" viewBox="0 0 640 512"><path fill="#000000" d="M144 0a80 80 0 1 1 0 160A80 80 0 1 1 144 0zM512 0a80 80 0 1 1 0 160A80 80 0 1 1 512 0zM0 298.7C0 239.8 47.8 192 106.7 192h42.7c15.9 0 31 3.5 44.6 9.7c-1.3 7.2-1.9 14.7-1.9 22.3c0 38.2 16.8 72.5 43.3 96c-.2 0-.4 0-.7 0H21.3C9.6 320 0 310.4 0 298.7zM405.3 320c-.2 0-.4 0-.7 0c26.6-23.5 43.3-57.8 43.3-96c0-7.6-.7-15-1.9-22.3c13.6-6.3 28.7-9.7 44.6-9.7h42.7C592.2 192 640 239.8 640 298.7c0 11.8-9.6 21.3-21.3 21.3H405.3zM224 224a96 96 0 1 1 192 0 96 96 0 1 1 -192 0zM128 485.3C128 411.7 187.7 352 261.3 352H378.7C452.3 352 512 411.7 512 485.3c0 14.7-11.9 26.7-26.7 26.7H154.7c-14.7 0-26.7-11.9-26.7-26.7z"/></svg></span>
+                        <div class="text">
+                            <h6 class="mb-1 card-title">Users</h6> <span><%= user.length %></span>
+                            <span class="text-sm">
+                                Total furnix users
+                            </span>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+        <div class="row align-items-center justify-content-center">
+            <div class="col-xl-12 col-lg-12">
+                <div class="card mb-4">
+                    <article class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <h5 class="card-title" style="text-align: center;">Product and user statistics</h5>
+                            <div class="d-flex" style="gap: 50px;">
+                                <li style="color: rgb(255, 103, 128);">User</li>
+                                <li style="color: black(23, 108, 65);">Order</li>
+                            </div>
+                        </div>
+                        <canvas id="linechart" height="120px"></canvas>
+                    </article>
+                </div>
+            </div>
+        </div>
+        <div class="row align-items-center justify-content-center">
+            <div class="col-lg-5">
+                <div class="card mb-4">
+                    <article class="card-body">
+                        <h5 class="card-title" style="text-align: center;">Product counts based on category sales</h5>
+                        <canvas id="samplechart" style="width:100%; max-width:700px; height: 300px;"></canvas>
+                    </article>
+                </div>
+            </div>
+            <div class="col-lg-7">
+                <div class="card mb-4">
+                    <article class="card-body">
+                        <h5 class="card-title" style="text-align: center;">Monthly Revenue Statistics</h5>
+                        <canvas id="sample2chart" style="width:100%; max-width:700px; height: 300px;"></canvas>
+                    </article>
+                </div>
+            </div>
+        </div>
+        <div class="content-header" style="margin-top: 50px;">
+            <div style="margin: auto;" class="text-center">
+                <h2 class="content-title card-title">Top 5 selling products</h2>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row gx-3 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 row-cols-xxl-5">
+                <% if (top5products) { %>
+                    <% for( let i = 0; i < top5products.length; i++ ) { %>
+                        <div class="col">
+                            <div class="card card-product-grid">
+                                <a href="/admin/productinfo?id=<%= top5products[i]._id %>" class="img-wrap"> <img src="/uploads/<%= top5products[i].images[0] %>" alt="Product"> </a>
+                                <div class="info-wrap">
+                                    <a href="/admin/productinfo?id=<%= top5products[i]._id %>" class="title text-truncate"><%= top5products[i].name %></a>
+                                    <div class="price mt-1 d-flex">
+                                        ₹<%= top5products[i].regularPrice %>.00
+                                            &nbsp;&nbsp;&nbsp;&nbsp; <span style="color: rgb(255, 0, 0); font-size: 13px; text-decoration: line-through;">₹<%= top5products[i].offerPrice %>.00</span>
+                                    </div>
                                 </div>
                             </div>
-                            <canvas id="linechart" height="120px"></canvas>
-                        </article>
-                    </div>
-                </div>
+                        </div>
+                    <% } %>
+                <% } %>
             </div>
-            <div class="row align-items-center justify-content-center">
-                <div class="col-lg-5">
-                    <div class="card mb-4">
-                        <article class="card-body">
-                            <h5 class="card-title" style="text-align: center;">Product counts based on category sales</h5>
-                            <canvas id="samplechart" style="width:100%; max-width:700px; height: 300px;"></canvas>
-                        </article>
-                    </div>
-                </div>
-                <div class="col-lg-7">
-                    <div class="card mb-4">
-                        <article class="card-body">
-                            <h5 class="card-title" style="text-align: center;">Monthly Revenue Statistics</h5>
-                            <canvas id="sample2chart" style="width:100%; max-width:700px; height: 300px;"></canvas>
-                        </article>
-                    </div>
-                </div>
-            </div>
+        </div>
+        <% if (productcatList) { %>
             <div class="content-header" style="margin-top: 50px;">
                 <div style="margin: auto;" class="text-center">
-                    <h2 class="content-title card-title">Top 5 selling products</h2>
+                    <h2 class="content-title card-title">Top 5 Category</h2>
                 </div>
             </div>
             <div class="card-body">
                 <div class="row gx-3 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 row-cols-xxl-5">
-                    <% if (top5products) { %>
-                        <% for( let i = 0; i < top5products.length; i++ ) { %>
-                            <div class="col">
-                                <div class="card card-product-grid">
-                                    <a href="/admin/productinfo?id=<%= top5products[i]._id %>" class="img-wrap"> <img src="/uploads/<%= top5products[i].images[0] %>" alt="Product"> </a>
-                                    <div class="info-wrap">
-                                        <a href="/admin/productinfo?id=<%= top5products[i]._id %>" class="title text-truncate"><%= top5products[i].name %></a>
-                                        <div class="price mt-1 d-flex">
-                                            ₹<%= top5products[i].regularPrice %>.00
-                                             &nbsp;&nbsp;&nbsp;&nbsp; <span style="color: rgb(255, 0, 0); font-size: 13px; text-decoration: line-through;">₹<%= top5products[i].offerPrice %>.00</span>
-                                        </div>
-                                    </div>
-                                </div>
+                    <div class="col">
+                        <div class="card card-product-grid"  style="background-color: rgb(0, 0, 0)">
+                            <div class="info-wrap">
+                                <p style="font-weight: bolder; color: rgb(255, 255, 255); text-align: center;"><%= productcatList[0] %></p>
                             </div>
-                        <% } %>
-                    <% } %>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card card-product-grid"  style="background-color: rgb(30, 30, 30)">
+                            <div class="info-wrap">
+                                <p style="font-weight: bolder; color: rgb(255, 255, 255); text-align: center;"><%= productcatList[1] %></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card card-product-grid"  style="background-color: rgb(47, 47, 47)">
+                            <div class="info-wrap">
+                                <p style="font-weight: bolder; color: rgb(255, 255, 255); text-align: center;"><%= productcatList[2] %></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card card-product-grid"  style="background-color: rgb(69, 69, 69)">
+                            <div class="info-wrap">
+                                <p style="font-weight: bolder; color: rgb(255, 255, 255); text-align: center;"><%= productcatList[3] %></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card card-product-grid"  style="background-color: #646464">
+                            <div class="info-wrap">
+                                <p style="font-weight: bolder; color: rgb(255, 255, 255); text-align: center;"><%= productcatList[4] %></p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <% if (productcatList) { %>
-                <div class="content-header" style="margin-top: 50px;">
-                    <div style="margin: auto;" class="text-center">
-                        <h2 class="content-title card-title">Top 5 Category</h2>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="row gx-3 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 row-cols-xxl-5">
-                        <div class="col">
-                            <div class="card card-product-grid"  style="background-color: rgb(0, 0, 0)">
-                                <div class="info-wrap">
-                                    <p style="font-weight: bolder; color: rgb(255, 255, 255); text-align: center;"><%= productcatList[0] %></p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="card card-product-grid"  style="background-color: rgb(30, 30, 30)">
-                                <div class="info-wrap">
-                                    <p style="font-weight: bolder; color: rgb(255, 255, 255); text-align: center;"><%= productcatList[1] %></p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="card card-product-grid"  style="background-color: rgb(47, 47, 47)">
-                                <div class="info-wrap">
-                                    <p style="font-weight: bolder; color: rgb(255, 255, 255); text-align: center;"><%= productcatList[2] %></p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="card card-product-grid"  style="background-color: rgb(69, 69, 69)">
-                                <div class="info-wrap">
-                                    <p style="font-weight: bolder; color: rgb(255, 255, 255); text-align: center;"><%= productcatList[3] %></p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="card card-product-grid"  style="background-color: #646464">
-                                <div class="info-wrap">
-                                    <p style="font-weight: bolder; color: rgb(255, 255, 255); text-align: center;"><%= productcatList[4] %></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            <% } %>
-        </section>
-    </main>
+        <% } %>
+    </section>
     <script src="/admin-assets/js/vendors/jquery-3.6.0.min.js"></script>
     <script src="/admin-assets/js/vendors/bootstrap.bundle.min.js"></script>
     <script src="/admin-assets/js/vendors/select2.min.js"></script>

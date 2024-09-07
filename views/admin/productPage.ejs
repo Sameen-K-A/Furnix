@@ -48,66 +48,59 @@
     }
 </style>
 <body>
-    <div class="screen-overlay"></div>
-    <aside class="navbar-aside" id="offcanvas_aside">
-        <div class="aside-top">
-            <a href="index.html" class="brand-wrap">
-                <img src="/admin-assets/imgs/theme/logo.png" class="logo" alt="Evara Dashboard">
+    <div id="bottom-bar" style="z-index: 9999;" class="col-lg-6 col-md-10 col-sm-12 col-12">
+        <div class="bottom-bar-element">
+            <a href="/admin/adminHome">
+                <i class="icon material-icons md-home"></i><br>
+                <span>Home</span>
             </a>
-            <div>
-                <button class="btn btn-icon btn-aside-minimize"> <i class="text-muted material-icons md-menu_open"></i>
-                </button>
-            </div>
         </div>
-        <nav>
-            <ul class="menu-aside">
-                <li class="menu-item">
-                    <a class="menu-link" href="/admin/adminHome"> <i class="icon material-icons md-home"></i>
-                        <span class="text">Dashboard</span>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a class="menu-link" href="/admin/adminUserList"> <i class="icon material-icons md-person"></i>
-                        <span class="text">Users</span>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a class="menu-link" href="/admin/category"> <i class="icon material-icons md-shopping_bag"></i>
-                        <span class="text">Category</span>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a class="menu-link btn-dark text-light"> <i class="icon material-icons md-stars"></i>
-                        <span class="text">Product</span> </a>
-                </li>
-                <li class="menu-item ">
-                    <a class="menu-link" href="/admin/order"> <i class="icon material-icons md-shopping_cart"></i>
-                        <span class="text">Orders</span>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a class="menu-link" href="/admin/coupon"> <i class="icon material-icons md-local_offer"></i>
-                        <span class="text">Coupons</span>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a class="menu-link" href="/admin/salesreport"> <i class="icon material-icons md-monetization_on"></i>
-                        <span class="text">Sales report</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-    </aside>
-    <main class="main-wrap">
+        <div class="bottom-bar-element">
+            <a href="/admin/adminUserList">
+                <i class="icon material-icons md-person"></i><br>
+                <span>Users</span>
+            </a>
+        </div>
+        <div class="bottom-bar-element">
+            <a href="/admin/category">
+                <i class="icon material-icons md-shopping_bag"></i><br>
+                <span>Category</span>
+            </a>
+        </div>
+        <div class="bottom-bar-element"  style="color: white;">
+            <a href="/admin/productPage">
+                <i class="icon material-icons md-stars"></i><br>
+                <span>Product</span>
+            </a>
+        </div>
+        <div class="bottom-bar-element">
+            <a href="/admin/order">
+                <i class="icon material-icons md-shopping_cart"></i><br>
+                <span>Orders</span>
+            </a>
+        </div>
+        <div class="bottom-bar-element">
+            <a href="/admin/coupon">
+                <i class="icon material-icons md-local_offer"></i><br>
+                <span>Coupons</span>
+            </a>
+        </div>
+        <div class="bottom-bar-element">
+            <a href="/admin/salesreport">
+                <i class="icon material-icons md-monetization_on"></i><br>
+                <span>Sales report</span>
+            </a>
+        </div>
+    </div>
+    <!-- <main class="main-wrap"> -->
         <header class="main-header navbar">
-            <div class="col-search">
+            <div class="col-search"> 
+                <img src="/admin-assets/imgs/theme/logo.png" class="logo" alt="Furnix Dashboard" width="100" height="auto">
             </div>
             <div class="col-nav">
-                <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside"> <i
-                        class="material-icons md-apps"></i> </button>
                 <ul class="nav">
                     <li class="dropdown nav-item">
-                        <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount"
+                        <a class="dropdown-toggle" data-bs-toggle="dropdown"id="dropdownAccount"
                             aria-expanded="false"> <img class="img-xs rounded-circle"
                                 src="/admin-assets/imgs/people/profile.jpg" alt="User"></a>
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
@@ -126,7 +119,7 @@
                     <a href="/admin/addProduct"><button class="custom-button">Create New</button></a>
                 </div>
             </div>
-            <div class="row" style="margin-top: 50px;">
+            <div class="row" style="margin-top: 50px; margin-bottom: 50px;">
                 <% if (product) { %>
                     <% for( let i = 0; i < product.length; i++ ) { %>
                         <div class="col-xl-3 col-lg-4 col-md-6">
@@ -158,7 +151,7 @@
                 <% } %>
             </div>
         </section>
-    </main>
+    <!-- </main> -->
     <script src="/admin-assets/js/vendors/jquery-3.6.0.min.js"></script>
     <script src="/admin-assets/js/vendors/bootstrap.bundle.min.js"></script>
     <script src="/admin-assets/js/vendors/select2.min.js"></script>
